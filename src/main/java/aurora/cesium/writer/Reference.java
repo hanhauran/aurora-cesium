@@ -1,0 +1,191 @@
+package aurora.cesium.writer;
+
+
+import aurora.cesium.agi.foundation.compatibility.*;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+
+/**
+ * Represents a link to another property.  References can be used to specify that
+ two properties on different objects are in fact, the same property.  This also
+ has the added benefit of cutting down on CZML file size.
+ 
+ The formatted reference string contains the identifier of the target object followed
+ by a hashtag (#) and one or more property names, each separated by a period (.).
+ Any hash symbols or periods that exist in the reference identifier or property must
+ be properly escaped with a backslash (\\) in order for the reference to be valid.
+ */
+@SuppressWarnings( {
+        "unused",
+        "deprecation",
+        "serial"
+})
+public class Reference implements IEquatable<Reference> {
+    /**
+    * Creates a new instance from an escaped reference string.
+    * @param value The reference string.
+    */
+    public Reference(String value) {
+        m_value = value;
+        final String[] out$m_identifier$0 = {
+            null
+        };
+        final ArrayList<String>[] out$m_properties$1 = new ArrayList[] {
+            null
+        };
+        parse(value, out$m_identifier$0, out$m_properties$1);
+        m_properties = out$m_properties$1[0];
+        m_identifier = out$m_identifier$0[0];
+    }
+
+    /**
+    * Creates a new instance from an identifier and property.
+    * @param identifier The identifier of the object which contains the referenced property.
+    * @param propertyName The property on the referenced object.
+    */
+    public Reference(String identifier, String propertyName) {
+        m_identifier = identifier;
+        final ArrayList<String> tempCollection$0 = new ArrayList<String>();
+        tempCollection$0.add(propertyName);
+        m_properties = tempCollection$0;
+        m_value = formatReference(m_identifier, m_properties);
+    }
+
+    /**
+    * Creates a new instance from an identifier and a list of properties.
+    * @param identifier The identifier of the object which contains the referenced property.
+    * @param propertyNames A list of property names with each property being a sub-property of the previous one.
+    */
+    public Reference(String identifier, Iterable<String> propertyNames) {
+        m_identifier = identifier;
+        m_properties = ListHelper.create(propertyNames);
+        m_value = formatReference(m_identifier, m_properties);
+    }
+
+    /**
+    * Gets the identifier of the object which contains the referenced property.
+    */
+    public final String getIdentifier() {
+        return m_identifier;
+    }
+
+    /**
+    * Gets the list of properties to be indexed on the referenced object.
+    */
+    public final Iterable<String> getPropertyNames() {
+        return m_properties;
+    }
+
+    /**
+    * Gets the escaped CZML value of the reference.
+    */
+    public final String getValue() {
+        return m_value;
+    }
+
+    /**
+    * Gets the escaped CZML value of the reference.
+    * @return The escaped CZML value of the reference.
+    */
+    @Override
+    public String toString() {
+        return m_value;
+    }
+
+    /**
+    * Indicates whether another object is exactly equal to this instance.
+    * @param obj The object to compare to this instance.
+    * @return {@code true} if {@code obj} is an instance of this type and represents the same value as this instance; otherwise, {@code false}.
+    */
+    @Override
+    public boolean equals(Object obj) {
+        Reference reference = (obj instanceof Reference) ? (Reference) obj : null;
+        return reference != null && equalsType(reference);
+    }
+
+    /**
+    * Indicates whether another object is exactly equal to this instance.
+    * @param other The object to compare to this instance.
+    * @return {@code true} if {@code other} is an instance of this type and represents the same value as this instance; otherwise, {@code false}.
+    */
+    public final boolean equalsType(Reference other) {
+        return ObjectHelper.equals(m_value, other.m_value);
+    }
+
+    /**
+    * Returns a hash code for this instance, which is suitable for use in hashing algorithms and data structures like a hash table.
+    * @return A hash code for the current object.
+    */
+    @Override
+    public int hashCode() {
+        return m_value.hashCode();
+    }
+
+    private static String formatReference(String identifier, ArrayList<String> propertyNames) {
+        StringBuilder builder = new StringBuilder();
+        appendAndEscape(builder, identifier);
+        builder.append('#');
+        for (int i = 0; i < propertyNames.size(); i++) {
+            String propertyName = propertyNames.get(i);
+            appendAndEscape(builder, propertyName);
+            if (i != propertyNames.size() - 1) {
+                builder.append('.');
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
+    * Escape \ # . characters with a \
+    */
+    private static void appendAndEscape(StringBuilder builder, String str) {
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c == '\\' || c == '#' || c == '.') {
+                builder.append('\\');
+            }
+            builder.append(c);
+        }
+    }
+
+    private static void parse(String value, @Nonnull String[] identifier, @Nonnull ArrayList<String>[] values) {
+        identifier[0] = StringHelper.empty;
+        values[0] = new ArrayList<String>();
+        boolean inIdentifier = true;
+        boolean isEscaped = false;
+        String token = StringHelper.empty;
+        for (int i = 0; i < value.length(); i++) {
+            char c = value.charAt(i);
+            if (isEscaped) {
+                token += c;
+                isEscaped = false;
+            } else if (c == '\\') {
+                isEscaped = true;
+            } else if (inIdentifier && c == '#') {
+                identifier[0] = token;
+                inIdentifier = false;
+                token = StringHelper.empty;
+            } else if (!inIdentifier && c == '.') {
+                if (StringHelper.isNullOrEmpty(token)) {
+                    throw new ArgumentException(CesiumLocalization.getInvalidReferenceString());
+                }
+                values[0].add(token);
+                token = StringHelper.empty;
+            } else {
+                token += c;
+            }
+        }
+        values[0].add(token);
+        if (StringHelper.isNullOrEmpty(token)) {
+            throw new ArgumentException(CesiumLocalization.getInvalidReferenceString());
+        }
+        if (inIdentifier) {
+            throw new ArgumentException(CesiumLocalization.getInvalidReferenceString());
+        }
+    }
+
+    private String m_value;
+    private String m_identifier;
+    private ArrayList<String> m_properties;
+}
