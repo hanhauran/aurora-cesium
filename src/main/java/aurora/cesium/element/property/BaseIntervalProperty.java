@@ -1,6 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.writer.TimeInterval;
+import aurora.cesium.language.writer.TimeInterval;
 
 public abstract class BaseIntervalProperty implements HasInterval {
 

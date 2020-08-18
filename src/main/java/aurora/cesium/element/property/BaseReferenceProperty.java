@@ -1,6 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.writer.Reference;
+import aurora.cesium.language.writer.Reference;
 
 public abstract class BaseReferenceProperty implements HasReference {
 

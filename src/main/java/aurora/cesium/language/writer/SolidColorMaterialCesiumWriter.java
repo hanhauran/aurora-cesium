@@ -1,0 +1,270 @@
+package aurora.cesium.language.writer;
+
+
+import aurora.agi.foundation.compatibility.DisposeHelper;
+import aurora.agi.foundation.compatibility.Func1;
+import aurora.agi.foundation.compatibility.Lazy;
+import aurora.cesium.language.writer.advanced.CesiumElementWriter;
+import aurora.cesium.language.writer.advanced.CesiumPropertyWriter;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
+import java.util.List;
+
+/**
+ * Writes a {@code SolidColorMaterial} to a {@link CesiumOutputStream}. A {@code SolidColorMaterial} is a material that fills the surface with a solid color.
+ */
+@SuppressWarnings( {
+        "unused",
+        "deprecation",
+        "serial"
+})
+public class SolidColorMaterialCesiumWriter extends CesiumPropertyWriter<SolidColorMaterialCesiumWriter> {
+    /**
+    * The name of the {@code color} property.
+    */
+    public static final String ColorPropertyName = "color";
+    private Lazy<ColorCesiumWriter> m_color = new Lazy<ColorCesiumWriter>(new Func1<ColorCesiumWriter>() {
+        public ColorCesiumWriter invoke() {
+            return new ColorCesiumWriter(ColorPropertyName);
+        }
+    }, false);
+
+    /**
+    * Initializes a new instance.
+    * @param propertyName The name of the property.
+    */
+    public SolidColorMaterialCesiumWriter(@Nonnull String propertyName) {
+        super(propertyName);
+    }
+
+    /**
+    * Initializes a new instance as a copy of an existing instance.
+    * @param existingInstance The existing instance to copy.
+    */
+    protected SolidColorMaterialCesiumWriter(@Nonnull SolidColorMaterialCesiumWriter existingInstance) {
+        super(existingInstance);
+    }
+
+    /**
+    * Copies this instance and returns the copy.
+    * @return The copy.
+    */
+    @Override
+    public SolidColorMaterialCesiumWriter clone() {
+        return new SolidColorMaterialCesiumWriter(this);
+    }
+
+    /**
+    * Gets the writer for the {@code color} property. The returned instance must be opened by calling the {@link CesiumElementWriter#open} method before it can be used for writing. The {@code color} property defines the color of the surface. If not specified, the default value is white.
+    */
+    @Nonnull
+    public final ColorCesiumWriter getColorWriter() {
+        return m_color.getValue();
+    }
+
+    /**
+    * Opens and returns the writer for the {@code color} property. The {@code color} property defines the color of the surface. If not specified, the default value is white.
+    */
+    @Nonnull
+    public final ColorCesiumWriter openColorProperty() {
+        openIntervalIfNecessary();
+        return this.<ColorCesiumWriter> openAndReturn(getColorWriter());
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code rgba} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param color The color.
+    */
+    public final void writeColorProperty(@Nonnull Color color) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeRgba(color);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code rgba} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param red The red component in the range 0 to 255.
+    * @param green The green component in the range 0 to 255.
+    * @param blue The blue component in the range 0 to 255.
+    * @param alpha The alpha component in the range 0 to 255.
+    */
+    public final void writeColorProperty(int red, int green, int blue, int alpha) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeRgba(red, green, blue, alpha);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code rgba} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param dates The dates at which the value is specified.
+    * @param values The values corresponding to each date.
+    */
+    public final void writeColorProperty(List<JulianDate> dates, List<Color> values) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeRgba(dates, values);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code rgba} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param dates The dates at which the value is specified.
+    * @param colors The color corresponding to each date.
+    * @param startIndex The index of the first element to write.
+    * @param length The number of elements to write.
+    */
+    public final void writeColorProperty(List<JulianDate> dates, List<Color> colors, int startIndex, int length) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeRgba(dates, colors, startIndex, length);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code rgbaf} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param color The color.
+    */
+    public final void writeColorPropertyRgbaf(@Nonnull Color color) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeRgbaf(color);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code rgbaf} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param red The red component in the range 0 to 1.0.
+    * @param green The green component in the range 0 to 1.0.
+    * @param blue The blue component in the range 0 to 1.0.
+    * @param alpha The alpha component in the range 0 to 1.0.
+    */
+    public final void writeColorPropertyRgbaf(float red, float green, float blue, float alpha) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeRgbaf(red, green, blue, alpha);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code rgbaf} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param dates The dates at which the value is specified.
+    * @param values The values corresponding to each date.
+    */
+    public final void writeColorPropertyRgbaf(List<JulianDate> dates, List<Color> values) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeRgbaf(dates, values);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code rgbaf} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param dates The dates at which the value is specified.
+    * @param colors The color corresponding to each date.
+    * @param startIndex The index of the first element to write.
+    * @param length The number of elements to write.
+    */
+    public final void writeColorPropertyRgbaf(List<JulianDate> dates, List<Color> colors, int startIndex, int length) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeRgbaf(dates, colors, startIndex, length);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code reference} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param value The reference.
+    */
+    public final void writeColorPropertyReference(Reference value) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeReference(value);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code reference} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param value The reference.
+    */
+    public final void writeColorPropertyReference(String value) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeReference(value);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code reference} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param identifier The identifier of the object which contains the referenced property.
+    * @param propertyName The property on the referenced object.
+    */
+    public final void writeColorPropertyReference(String identifier, String propertyName) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeReference(identifier, propertyName);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+
+    /**
+    * Writes a value for the {@code color} property as a {@code reference} value. The {@code color} property specifies the color of the surface. If not specified, the default value is white.
+    * @param identifier The identifier of the object which contains the referenced property.
+    * @param propertyNames The hierarchy of properties to be indexed on the referenced object.
+    */
+    public final void writeColorPropertyReference(String identifier, String[] propertyNames) {
+        {
+            ColorCesiumWriter writer = openColorProperty();
+            try {
+                writer.writeReference(identifier, propertyNames);
+            } finally {
+                DisposeHelper.dispose(writer);
+            }
+        }
+    }
+}
