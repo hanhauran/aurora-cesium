@@ -6,12 +6,16 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-abstract class BaseIntervalProperty extends BaseProperty implements IntervalProperty {
+public class BaseInterpolatableIntervalProperty extends BaseInterpolatableProperty implements IntervalProperty, InterpolatableProperty {
 
     protected TimeInterval interval;
 
-    public BaseIntervalProperty() {
+    public BaseInterpolatableIntervalProperty() {
         super();
+    }
+
+    public BaseInterpolatableIntervalProperty(TimeInterval interval) {
+        this.interval = interval;
     }
 
     @Override
