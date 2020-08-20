@@ -475,7 +475,7 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter implements Billboa
     public void setWidthRef(Reference widthRef) {
         this.widthRef = widthRef;
     }
-    
+
     public static final class Builder {
         protected BooleanProperty show;
         protected Reference showRef;
@@ -770,5 +770,4 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter implements Billboa
             return billboardGraphicsAdapter;
         }
     }
-}
 }
