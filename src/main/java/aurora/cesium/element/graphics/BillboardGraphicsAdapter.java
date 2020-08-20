@@ -521,7 +521,7 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter implements Billboa
         private Builder() {
         }
 
-        public static Builder aBillboardGraphicsAdapter() {
+        public static Builder newBuilder() {
             return new Builder();
         }
 
