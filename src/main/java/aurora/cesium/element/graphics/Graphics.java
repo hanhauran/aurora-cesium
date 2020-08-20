@@ -1,6 +1,7 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.BooleanProperty;
+import aurora.cesium.language.writer.Reference;
 
 /**
  * @author hanhaoran
@@ -9,4 +10,6 @@ import aurora.cesium.element.property.BooleanProperty;
 interface Graphics {
 
     BooleanProperty getShow();
+
+    Reference getShowRef();
 }
