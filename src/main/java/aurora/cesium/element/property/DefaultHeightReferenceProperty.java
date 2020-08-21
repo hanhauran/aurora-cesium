@@ -2,13 +2,14 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.CesiumHeightReference;
 import aurora.cesium.language.writer.HeightReferenceCesiumWriter;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultHeightReferenceProperty extends BaseSingleIntervalProperty<CesiumHeightReference> implements HeightReferenceProperty, IntervalProperty, Property {
+public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<CesiumHeightReference> implements HeightReferenceProperty {
 
     public DefaultHeightReferenceProperty() {
         super();
@@ -22,11 +23,15 @@ public class DefaultHeightReferenceProperty extends BaseSingleIntervalProperty<C
         super(instance, interval);
     }
 
+    public DefaultHeightReferenceProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchHeightReference(HeightReferenceCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
             dispatchConsumer(writer::writeHeightReference);
+            dispatchInterval(writer);
         }
     }
 
@@ -36,5 +41,23 @@ public class DefaultHeightReferenceProperty extends BaseSingleIntervalProperty<C
 
     public void setHeightReference(CesiumHeightReference heightReference) {
         this.instance = heightReference;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

@@ -2,13 +2,14 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.CesiumHorizontalOrigin;
 import aurora.cesium.language.writer.HorizontalOriginCesiumWriter;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultHorizontalOriginProperty extends BaseSingleIntervalProperty<CesiumHorizontalOrigin> implements HorizontalOriginProperty, IntervalProperty, Property {
+public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<CesiumHorizontalOrigin> implements HorizontalOriginProperty {
 
     public DefaultHorizontalOriginProperty() {
         super();
@@ -22,11 +23,15 @@ public class DefaultHorizontalOriginProperty extends BaseSingleIntervalProperty<
         super(instance, interval);
     }
 
+    public DefaultHorizontalOriginProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchHorizontalOrigin(HorizontalOriginCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
             dispatchConsumer(writer::writeHorizontalOrigin);
+            dispatchInterval(writer);
         }
     }
 
@@ -36,5 +41,23 @@ public class DefaultHorizontalOriginProperty extends BaseSingleIntervalProperty<
 
     public void setHorizontalOrigin(CesiumHorizontalOrigin horizontalOrigin) {
         this.instance = horizontalOrigin;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

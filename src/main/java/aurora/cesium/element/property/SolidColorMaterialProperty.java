@@ -1,5 +1,8 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.SolidColorMaterialCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
+
 /**
  * @author hanhaoran
  * @date 2020/8/20
@@ -7,4 +10,9 @@ package aurora.cesium.element.property;
 public interface SolidColorMaterialProperty extends IntervalProperty {
 
     ColorProperty getColor();
+
+    @Override
+    TimeInterval getInterval();
+
+    void dispatchSolidColorMaterial(SolidColorMaterialCesiumWriter writer);
 }

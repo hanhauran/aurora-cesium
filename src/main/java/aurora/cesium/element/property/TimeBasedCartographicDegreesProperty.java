@@ -2,6 +2,7 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.Cartographic;
 import aurora.cesium.language.writer.JulianDate;
+import aurora.cesium.language.writer.PositionCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
@@ -30,6 +31,11 @@ public class TimeBasedCartographicDegreesProperty extends SingleTimeBasedPropert
 
     public TimeBasedCartographicDegreesProperty(List<JulianDate> dates, List<Cartographic> instance, Integer startIndex, Integer length, TimeInterval interval) {
         super(dates, instance, startIndex, length, interval);
+    }
+
+    @Override
+    public void dispatchPosition(PositionCesiumWriter writer) {
+        dispatchConsumer(writer::writeCartographicDegrees, writer::writeCartographicDegrees);
     }
 
     public List<Cartographic> getCartographics() {

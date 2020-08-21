@@ -2,6 +2,7 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.ColorCesiumWriter;
 import aurora.cesium.language.writer.JulianDate;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.awt.*;
@@ -11,7 +12,8 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedRgbafColorProperty extends BaseSingleInterpolatableTimeBasedIntervalProperty<Color> implements ColorProperty {
+public class TimeBasedRgbafColorProperty extends SingleTimeBasedPropertyAdapter<Color> implements ColorProperty {
+
     public TimeBasedRgbafColorProperty() {
         super();
     }
@@ -35,9 +37,10 @@ public class TimeBasedRgbafColorProperty extends BaseSingleInterpolatableTimeBas
     @Override
     public void dispatchColor(ColorCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
             dispatchConsumer(writer::writeRgbaf, writer::writeRgbaf);
             dispatchInterpolations(writer);
+            dispatchInterval(writer);
+            dispatchReference(writer);
         }
     }
 
@@ -47,5 +50,32 @@ public class TimeBasedRgbafColorProperty extends BaseSingleInterpolatableTimeBas
 
     public void setColors(List<Color> colors) {
         this.instance = colors;
+    }
+
+    @Override
+    public Interpolations getInterpolations() {
+        return interpolations;
+    }
+
+    public void setInterpolations(Interpolations interpolations) {
+        this.interpolations = interpolations;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

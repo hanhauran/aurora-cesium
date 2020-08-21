@@ -1,41 +1,74 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Cartesian;
 import aurora.cesium.language.writer.EyeOffsetCesiumWriter;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
+
+import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultEyeOffsetProperty extends BaseSingleInterpolatableIntervalProperty<Cartesian> implements EyeOffsetProperty, InterpolatableProperty, IntervalProperty, Property {
+public class DefaultEyeOffsetProperty extends PropertyAdapter implements EyeOffsetProperty {
+
+    private CartesianProperty cartesian;
 
     public DefaultEyeOffsetProperty() {
         super();
     }
 
-    public DefaultEyeOffsetProperty(Cartesian instance) {
-        super(instance);
+    public DefaultEyeOffsetProperty(CartesianProperty cartesian) {
+        this.cartesian = cartesian;
     }
 
-    public DefaultEyeOffsetProperty(Cartesian instance, TimeInterval interval) {
-        super(instance, interval);
+    public DefaultEyeOffsetProperty(Reference reference) {
+        super(reference);
     }
 
     @Override
     public void dispatchEyeOffset(EyeOffsetCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
-            dispatchConsumer(writer::writeCartesian);
+            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchEyeOffset(writer));
             dispatchInterpolations(writer);
+            dispatchInterval(writer);
+            dispatchReference(writer);
         }
     }
 
-    public Cartesian getCartesian() {
-        return instance;
+    @Override
+    public CartesianProperty getCartesian() {
+        return cartesian;
     }
 
-    public void setCartesian(Cartesian cartesian) {
-        this.instance = cartesian;
+    public void setCartesian(CartesianProperty cartesian) {
+        this.cartesian = cartesian;
+    }
+
+    @Override
+    public Interpolations getInterpolations() {
+        return interpolations;
+    }
+
+    public void setInterpolations(Interpolations interpolations) {
+        this.interpolations = interpolations;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

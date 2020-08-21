@@ -1,33 +1,21 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CesiumExtrapolationType;
-import aurora.cesium.language.writer.CesiumInterpolationAlgorithm;
-import aurora.cesium.language.writer.DoubleCesiumWriter;
-import aurora.cesium.language.writer.Duration;
+import aurora.cesium.language.writer.*;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface DoubleProperty extends IntervalProperty, InterpolatableProperty {
+public interface DoubleProperty extends InterpolatableProperty, IntervalProperty, ReferenceProperty {
 
     @Override
-    Duration getBackwardExtrapolationDuration();
+    Interpolations getInterpolations();
 
     @Override
-    CesiumExtrapolationType getBackwardExtrapolationType();
+    TimeInterval getInterval();
 
     @Override
-    Duration getForwardExtrapolationDuration();
-
-    @Override
-    CesiumExtrapolationType getForwardExtrapolationType();
-
-    @Override
-    CesiumInterpolationAlgorithm getInterpolationAlgorithm();
-
-    @Override
-    Integer getInterpolationDegree();
+    Reference getReference();
 
     void dispatchDouble(DoubleCesiumWriter writer);
 }

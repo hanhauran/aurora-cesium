@@ -1,6 +1,7 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.ColorCesiumWriter;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.awt.*;
@@ -9,7 +10,8 @@ import java.awt.*;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultRgbaColorProperty extends BaseSingleInterpolatableIntervalProperty<Color> implements ColorProperty {
+public class DefaultRgbaColorProperty extends SinglePropertyAdapter<Color> implements ColorProperty {
+
     public DefaultRgbaColorProperty() {
         super();
     }
@@ -25,9 +27,10 @@ public class DefaultRgbaColorProperty extends BaseSingleInterpolatableIntervalPr
     @Override
     public void dispatchColor(ColorCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
             dispatchConsumer(writer::writeRgba);
             dispatchInterpolations(writer);
+            dispatchInterval(writer);
+            dispatchReference(writer);
         }
     }
 
@@ -37,5 +40,32 @@ public class DefaultRgbaColorProperty extends BaseSingleInterpolatableIntervalPr
 
     public void setColor(Color color) {
         this.instance = color;
+    }
+
+    @Override
+    public Interpolations getInterpolations() {
+        return interpolations;
+    }
+
+    public void setInterpolations(Interpolations interpolations) {
+        this.interpolations = interpolations;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

@@ -2,6 +2,7 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.DoubleCesiumWriter;
 import aurora.cesium.language.writer.JulianDate;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedDoubleProperty extends BaseSingleInterpolatableTimeBasedIntervalProperty<Double> implements DoubleProperty, InterpolatableProperty, IntervalProperty {
+public class TimeBasedDoubleProperty extends SingleTimeBasedPropertyAdapter<Double> implements DoubleProperty {
+
     public TimeBasedDoubleProperty() {
         super();
     }
@@ -34,9 +36,10 @@ public class TimeBasedDoubleProperty extends BaseSingleInterpolatableTimeBasedIn
     @Override
     public void dispatchDouble(DoubleCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
             dispatchConsumer(writer::writeNumber, writer::writeNumber);
             dispatchInterpolations(writer);
+            dispatchInterval(writer);
+            dispatchReference(writer);
         }
     }
 
@@ -46,5 +49,32 @@ public class TimeBasedDoubleProperty extends BaseSingleInterpolatableTimeBasedIn
 
     public void setDoubles(List<Double> doubles) {
         this.instance = doubles;
+    }
+
+    @Override
+    public Interpolations getInterpolations() {
+        return interpolations;
+    }
+
+    public void setInterpolations(Interpolations interpolations) {
+        this.interpolations = interpolations;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

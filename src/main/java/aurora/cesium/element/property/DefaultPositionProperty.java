@@ -1,59 +1,106 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CesiumInterpolationAlgorithm;
+import aurora.cesium.language.writer.PositionCesiumWriter;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
+
+import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultPositionProperty extends BaseIntervalProperty implements PositionProperty {
+public class DefaultPositionProperty extends PropertyAdapter implements PositionProperty {
 
-    private CesiumInterpolationAlgorithm interpolationAlgorithm;
+    private CartesianProperty cartesian;
 
-    private Integer interpolationDegree;
+    private CartographicDegreesProperty cartographicDegrees;
 
-    private CoordinateProperty coordinate;
+    private CartographicRadiansProperty cartographicRadians;
 
     public DefaultPositionProperty() {
         super();
     }
 
-    public DefaultPositionProperty(CesiumInterpolationAlgorithm interpolationAlgorithm, Integer interpolationDegree, CoordinateProperty coordinate) {
-        this(interpolationAlgorithm, interpolationDegree, coordinate, null);
+    public DefaultPositionProperty(CartesianProperty cartesian) {
+        this.cartesian = cartesian;
     }
 
-    public DefaultPositionProperty(CesiumInterpolationAlgorithm interpolationAlgorithm, Integer interpolationDegree, CoordinateProperty coordinate, TimeInterval interval) {
-        this.interpolationAlgorithm = interpolationAlgorithm;
-        this.interpolationDegree = interpolationDegree;
-        this.coordinate = coordinate;
+    public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees) {
+        this.cartographicDegrees = cartographicDegrees;
+    }
+
+    public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians) {
+        this.cartographicRadians = cartographicRadians;
+    }
+
+    public DefaultPositionProperty(Reference reference) {
+        super(reference);
+    }
+
+    @Override
+    public void dispatchPosition(PositionCesiumWriter writer) {
+        try (writer) {
+            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchPosition(writer));
+            Optional.ofNullable(getCartographicDegrees()).ifPresent(cartographicDegreesProperty -> cartographicDegreesProperty.dispatchPosition(writer));
+            Optional.ofNullable(getCartographicRadians()).ifPresent(cartographicRadiansProperty -> cartographicRadiansProperty.dispatchPosition(writer));
+            dispatchInterpolations(writer);
+            dispatchInterval(writer);
+            dispatchReference(writer);
+        }
+    }
+
+    @Override
+    public CartesianProperty getCartesian() {
+        return cartesian;
+    }
+
+    public void setCartesian(CartesianProperty cartesian) {
+        this.cartesian = cartesian;
+    }
+
+    @Override
+    public CartographicDegreesProperty getCartographicDegrees() {
+        return cartographicDegrees;
+    }
+
+    public void setCartographicDegrees(CartographicDegreesProperty cartographicDegrees) {
+        this.cartographicDegrees = cartographicDegrees;
+    }
+
+    @Override
+    public CartographicRadiansProperty getCartographicRadians() {
+        return cartographicRadians;
+    }
+
+    public void setCartographicRadians(CartographicRadiansProperty cartographicRadians) {
+        this.cartographicRadians = cartographicRadians;
+    }
+
+    @Override
+    public Interpolations getInterpolations() {
+        return interpolations;
+    }
+
+    public void setInterpolations(Interpolations interpolations) {
+        this.interpolations = interpolations;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
         this.interval = interval;
     }
 
     @Override
-    public CesiumInterpolationAlgorithm getInterpolationAlgorithm() {
-        return interpolationAlgorithm;
+    public Reference getReference() {
+        return reference;
     }
 
-    public void setInterpolationAlgorithm(CesiumInterpolationAlgorithm interpolationAlgorithm) {
-        this.interpolationAlgorithm = interpolationAlgorithm;
-    }
-
-    @Override
-    public Integer getInterpolationDegree() {
-        return interpolationDegree;
-    }
-
-    public void setInterpolationDegree(Integer interpolationDegree) {
-        this.interpolationDegree = interpolationDegree;
-    }
-
-    @Override
-    public CoordinateProperty getCoordinate() {
-        return coordinate;
-    }
-
-    public void setCoordinate(CoordinateProperty coordinate) {
-        this.coordinate = coordinate;
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

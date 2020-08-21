@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultClockProperty extends BaseIntervalProperty implements ClockProperty {
+public class DefaultClockProperty extends PropertyAdapter implements ClockProperty {
 
     private JulianDate currentTime;
 
@@ -69,5 +69,14 @@ public class DefaultClockProperty extends BaseIntervalProperty implements ClockP
 
     public void setStep(ClockStep step) {
         this.step = step;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
     }
 }

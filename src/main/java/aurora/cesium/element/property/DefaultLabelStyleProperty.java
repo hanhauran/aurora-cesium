@@ -2,13 +2,14 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.CesiumLabelStyle;
 import aurora.cesium.language.writer.LabelStyleCesiumWriter;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultLabelStyleProperty extends BaseSingleIntervalProperty<CesiumLabelStyle> implements LabelStyleProperty, IntervalProperty, Property {
+public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabelStyle> implements LabelStyleProperty {
 
     public DefaultLabelStyleProperty() {
         super();
@@ -22,11 +23,16 @@ public class DefaultLabelStyleProperty extends BaseSingleIntervalProperty<Cesium
         super(instance, interval);
     }
 
+    public DefaultLabelStyleProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchLabelStyle(LabelStyleCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
             dispatchConsumer(writer::writeLabelStyle);
+            dispatchInterval(writer);
+            dispatchReference(writer);
         }
     }
 
@@ -36,5 +42,31 @@ public class DefaultLabelStyleProperty extends BaseSingleIntervalProperty<Cesium
 
     public void setLabelStyle(CesiumLabelStyle labelStyle) {
         this.instance = labelStyle;
+    }
+
+    public Interpolations getInterpolations() {
+        return interpolations;
+    }
+
+    public void setInterpolations(Interpolations interpolations) {
+        this.interpolations = interpolations;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

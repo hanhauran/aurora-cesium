@@ -1,6 +1,7 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.Cartographic;
+import aurora.cesium.language.writer.PositionCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 /**
@@ -19,6 +20,11 @@ public class DefaultCartographicRadiansProperty extends SinglePropertyAdapter<Ca
 
     public DefaultCartographicRadiansProperty(Cartographic instance, TimeInterval interval) {
         super(instance, interval);
+    }
+
+    @Override
+    public void dispatchPosition(PositionCesiumWriter writer) {
+        dispatchConsumer(writer::writeCartographicRadians);
     }
 
     public Cartographic getCartographic() {
