@@ -22,16 +22,36 @@ public class TimeBasedRgbaColorProperty extends SingleTimeBasedPropertyAdapter<C
         super(dates, instance);
     }
 
+    public TimeBasedRgbaColorProperty(List<JulianDate> dates, List<Color> instance, Interpolations interpolations) {
+        super(dates, instance, interpolations);
+    }
+
     public TimeBasedRgbaColorProperty(List<JulianDate> dates, List<Color> instance, TimeInterval interval) {
         super(dates, instance, interval);
+    }
+
+    public TimeBasedRgbaColorProperty(List<JulianDate> dates, List<Color> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
     }
 
     public TimeBasedRgbaColorProperty(List<JulianDate> dates, List<Color> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
 
+    public TimeBasedRgbaColorProperty(List<JulianDate> dates, List<Color> instance, Integer startIndex, Integer length, Interpolations interpolations) {
+        super(dates, instance, startIndex, length, interpolations);
+    }
+
     public TimeBasedRgbaColorProperty(List<JulianDate> dates, List<Color> instance, Integer startIndex, Integer length, TimeInterval interval) {
         super(dates, instance, startIndex, length, interval);
+    }
+
+    public TimeBasedRgbaColorProperty(List<JulianDate> dates, List<Color> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedRgbaColorProperty(Reference reference) {
+        super(reference);
     }
 
     @Override

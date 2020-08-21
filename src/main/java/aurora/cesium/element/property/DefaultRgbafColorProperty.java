@@ -24,6 +24,18 @@ public class DefaultRgbafColorProperty extends SinglePropertyAdapter<Color> impl
         super(instance, interval);
     }
 
+    public DefaultRgbafColorProperty(Color instance, Interpolations interpolations) {
+        super(instance, interpolations);
+    }
+
+    public DefaultRgbafColorProperty(Color instance, Interpolations interpolations, TimeInterval interval) {
+        super(instance, interpolations, interval);
+    }
+
+    public DefaultRgbafColorProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchColor(ColorCesiumWriter writer) {
         try (writer) {

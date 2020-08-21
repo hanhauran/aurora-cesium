@@ -23,6 +23,18 @@ public class DefaultBoundingRectangleProperty extends SinglePropertyAdapter<Boun
         super(instance, interval);
     }
 
+    public DefaultBoundingRectangleProperty(BoundingRectangle instance, Interpolations interpolations) {
+        super(instance, interpolations);
+    }
+
+    public DefaultBoundingRectangleProperty(BoundingRectangle instance, Interpolations interpolations, TimeInterval interval) {
+        super(instance, interpolations, interval);
+    }
+
+    public DefaultBoundingRectangleProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchBoundingRectangle(BoundingRectangleCesiumWriter writer) {
         try (writer) {

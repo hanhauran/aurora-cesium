@@ -22,6 +22,18 @@ public class DefaultDoubleProperty extends SinglePropertyAdapter<Double> impleme
         super(instance, interval);
     }
 
+    public DefaultDoubleProperty(Double instance, Interpolations interpolations) {
+        super(instance, interpolations);
+    }
+
+    public DefaultDoubleProperty(Double instance, Interpolations interpolations, TimeInterval interval) {
+        super(instance, interpolations, interval);
+    }
+
+    public DefaultDoubleProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchDouble(DoubleCesiumWriter writer) {
         try (writer) {

@@ -18,16 +18,36 @@ public class TimeBasedDistanceDisplayConditionProperty extends SingleTimeBasedPr
         super(dates, instance);
     }
 
+    public TimeBasedDistanceDisplayConditionProperty(List<JulianDate> dates, List<Bounds> instance, Interpolations interpolations) {
+        super(dates, instance, interpolations);
+    }
+
     public TimeBasedDistanceDisplayConditionProperty(List<JulianDate> dates, List<Bounds> instance, TimeInterval interval) {
         super(dates, instance, interval);
+    }
+
+    public TimeBasedDistanceDisplayConditionProperty(List<JulianDate> dates, List<Bounds> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
     }
 
     public TimeBasedDistanceDisplayConditionProperty(List<JulianDate> dates, List<Bounds> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
 
+    public TimeBasedDistanceDisplayConditionProperty(List<JulianDate> dates, List<Bounds> instance, Integer startIndex, Integer length, Interpolations interpolations) {
+        super(dates, instance, startIndex, length, interpolations);
+    }
+
     public TimeBasedDistanceDisplayConditionProperty(List<JulianDate> dates, List<Bounds> instance, Integer startIndex, Integer length, TimeInterval interval) {
         super(dates, instance, startIndex, length, interval);
+    }
+
+    public TimeBasedDistanceDisplayConditionProperty(List<JulianDate> dates, List<Bounds> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedDistanceDisplayConditionProperty(Reference reference) {
+        super(reference);
     }
 
     @Override

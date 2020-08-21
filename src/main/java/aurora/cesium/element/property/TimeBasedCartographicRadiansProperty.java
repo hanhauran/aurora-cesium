@@ -21,16 +21,8 @@ public class TimeBasedCartographicRadiansProperty extends SingleTimeBasedPropert
         super(dates, instance);
     }
 
-    public TimeBasedCartographicRadiansProperty(List<JulianDate> dates, List<Cartographic> instance, TimeInterval interval) {
-        super(dates, instance, interval);
-    }
-
     public TimeBasedCartographicRadiansProperty(List<JulianDate> dates, List<Cartographic> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
-    }
-
-    public TimeBasedCartographicRadiansProperty(List<JulianDate> dates, List<Cartographic> instance, Integer startIndex, Integer length, TimeInterval interval) {
-        super(dates, instance, startIndex, length, interval);
     }
 
     @Override

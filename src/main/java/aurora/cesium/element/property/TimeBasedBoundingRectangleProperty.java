@@ -18,16 +18,36 @@ public class TimeBasedBoundingRectangleProperty extends SingleTimeBasedPropertyA
         super(dates, instance);
     }
 
+    public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance, Interpolations interpolations) {
+        super(dates, instance, interpolations);
+    }
+
     public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance, TimeInterval interval) {
         super(dates, instance, interval);
+    }
+
+    public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
     }
 
     public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
 
+    public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance, Integer startIndex, Integer length, Interpolations interpolations) {
+        super(dates, instance, startIndex, length, interpolations);
+    }
+
     public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance, Integer startIndex, Integer length, TimeInterval interval) {
         super(dates, instance, startIndex, length, interval);
+    }
+
+    public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedBoundingRectangleProperty(Reference reference) {
+        super(reference);
     }
 
     @Override

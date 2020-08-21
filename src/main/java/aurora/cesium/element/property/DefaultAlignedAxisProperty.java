@@ -14,6 +14,42 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter implements Align
 
     private UnitSphericalProperty unitSpherical;
 
+    public DefaultAlignedAxisProperty() {
+        super();
+    }
+
+    public DefaultAlignedAxisProperty(UnitCartesianProperty unitCartesian, Interpolations interpolations) {
+        this(unitCartesian, interpolations, null);
+    }
+
+    public DefaultAlignedAxisProperty(UnitCartesianProperty unitCartesian, TimeInterval interval) {
+        this(unitCartesian, null, interval);
+    }
+
+    public DefaultAlignedAxisProperty(UnitCartesianProperty unitCartesian, Interpolations interpolations, TimeInterval interval) {
+        this.unitCartesian = unitCartesian;
+        this.interpolations = interpolations;
+        this.interval = interval;
+    }
+
+    public DefaultAlignedAxisProperty(UnitSphericalProperty unitSpherical, TimeInterval interval) {
+        this(unitSpherical, null, interval);
+    }
+
+    public DefaultAlignedAxisProperty(UnitSphericalProperty unitSpherical, Interpolations interpolations) {
+        this(unitSpherical, interpolations, null);
+    }
+
+    public DefaultAlignedAxisProperty(UnitSphericalProperty unitSpherical, Interpolations interpolations, TimeInterval interval) {
+        this.unitSpherical = unitSpherical;
+        this.interpolations = interpolations;
+        this.interval = interval;
+    }
+
+    public DefaultAlignedAxisProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchAlignedAxis(AlignedAxisCesiumWriter writer) {
         try (writer) {

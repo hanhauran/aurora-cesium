@@ -23,15 +23,57 @@ public class DefaultPositionProperty extends PropertyAdapter implements Position
     }
 
     public DefaultPositionProperty(CartesianProperty cartesian) {
+        this(cartesian, null, null);
+    }
+
+    public DefaultPositionProperty(CartesianProperty cartesian, TimeInterval interval) {
+        this(cartesian, null, interval);
+    }
+
+    public DefaultPositionProperty(CartesianProperty cartesian, Interpolations interpolations) {
+        this(cartesian, interpolations, null);
+    }
+
+    public DefaultPositionProperty(CartesianProperty cartesian, Interpolations interpolations, TimeInterval interval) {
         this.cartesian = cartesian;
+        this.interpolations = interpolations;
+        this.interval = interval;
     }
 
     public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees) {
+        this(cartographicDegrees, null, null);
+    }
+
+    public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees, Interpolations interpolations) {
+        this(cartographicDegrees, interpolations, null);
+    }
+
+    public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees, TimeInterval interval) {
+        this(cartographicDegrees, null, interval);
+    }
+
+    public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees, Interpolations interpolations, TimeInterval interval) {
         this.cartographicDegrees = cartographicDegrees;
+        this.interpolations = interpolations;
+        this.interval = interval;
     }
 
     public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians) {
+        this(cartographicRadians, null, null);
+    }
+
+    public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians, Interpolations interpolations) {
+        this(cartographicRadians, interpolations, null);
+    }
+
+    public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians, TimeInterval interval) {
+        this(cartographicRadians, null, interval);
+    }
+
+    public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians, Interpolations interpolations, TimeInterval interval) {
         this.cartographicRadians = cartographicRadians;
+        this.interpolations = interpolations;
+        this.interval = interval;
     }
 
     public DefaultPositionProperty(Reference reference) {

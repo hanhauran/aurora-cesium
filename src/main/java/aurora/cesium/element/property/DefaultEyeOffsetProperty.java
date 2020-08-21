@@ -18,8 +18,18 @@ public class DefaultEyeOffsetProperty extends PropertyAdapter implements EyeOffs
         super();
     }
 
-    public DefaultEyeOffsetProperty(CartesianProperty cartesian) {
+    public DefaultEyeOffsetProperty(CartesianProperty cartesian, Interpolations interpolations) {
+        this(cartesian, interpolations, null);
+    }
+
+    public DefaultEyeOffsetProperty(CartesianProperty cartesian, TimeInterval interval) {
+        this(cartesian, null, interval);
+    }
+
+    public DefaultEyeOffsetProperty(CartesianProperty cartesian, Interpolations interpolations, TimeInterval interval) {
         this.cartesian = cartesian;
+        this.interpolations = interpolations;
+        this.interval = interval;
     }
 
     public DefaultEyeOffsetProperty(Reference reference) {

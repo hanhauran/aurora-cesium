@@ -24,6 +24,18 @@ public class DefaultRgbaColorProperty extends SinglePropertyAdapter<Color> imple
         super(instance, interval);
     }
 
+    public DefaultRgbaColorProperty(Color instance, Interpolations interpolations) {
+        super(instance, interpolations);
+    }
+
+    public DefaultRgbaColorProperty(Color instance, Interpolations interpolations, TimeInterval interval) {
+        super(instance, interpolations, interval);
+    }
+
+    public DefaultRgbaColorProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchColor(ColorCesiumWriter writer) {
         try (writer) {

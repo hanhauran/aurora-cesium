@@ -19,7 +19,12 @@ public class DefaultPolylineMaterialProperty extends PropertyAdapter implements 
     }
 
     public DefaultPolylineMaterialProperty(SolidColorMaterialProperty solidColor) {
+        this(solidColor, null);
+    }
+
+    public DefaultPolylineMaterialProperty(SolidColorMaterialProperty solidColor, TimeInterval interval) {
         this.solidColor = solidColor;
+        this.interval = interval;
     }
 
     public DefaultPolylineMaterialProperty(Reference reference) {

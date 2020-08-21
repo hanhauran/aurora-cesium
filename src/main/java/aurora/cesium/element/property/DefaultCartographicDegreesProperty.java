@@ -18,10 +18,6 @@ public class DefaultCartographicDegreesProperty extends SinglePropertyAdapter<Ca
         super(instance);
     }
 
-    public DefaultCartographicDegreesProperty(Cartographic instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
     @Override
     public void dispatchPosition(PositionCesiumWriter writer) {
         dispatchConsumer(writer::writeCartographicDegrees);

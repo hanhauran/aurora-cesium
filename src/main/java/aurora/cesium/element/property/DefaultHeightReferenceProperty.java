@@ -32,6 +32,7 @@ public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<Cesium
         try (writer) {
             dispatchConsumer(writer::writeHeightReference);
             dispatchInterval(writer);
+            dispatchReference(writer);
         }
     }
 

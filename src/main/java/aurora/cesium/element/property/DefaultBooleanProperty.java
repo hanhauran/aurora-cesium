@@ -22,6 +22,10 @@ public class DefaultBooleanProperty extends SinglePropertyAdapter<Boolean> imple
         super(instance, interval);
     }
 
+    public DefaultBooleanProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchBoolean(BooleanCesiumWriter writer) {
         try (writer) {

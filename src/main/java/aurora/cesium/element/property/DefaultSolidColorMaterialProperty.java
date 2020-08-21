@@ -19,7 +19,12 @@ public class DefaultSolidColorMaterialProperty extends PropertyAdapter implement
     }
 
     public DefaultSolidColorMaterialProperty(ColorProperty color) {
+        this(color, null);
+    }
+
+    public DefaultSolidColorMaterialProperty(ColorProperty color, TimeInterval interval) {
         this.color = color;
+        this.interval = interval;
     }
 
     public DefaultSolidColorMaterialProperty(Reference reference) {

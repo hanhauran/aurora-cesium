@@ -1,7 +1,6 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.AlignedAxisCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.UnitSpherical;
 
 /**

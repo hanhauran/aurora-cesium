@@ -6,7 +6,6 @@ import aurora.cesium.language.writer.JulianDate;
 import aurora.cesium.language.writer.PositionCesiumWriter;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author hanhaoran

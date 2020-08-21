@@ -26,6 +26,10 @@ public class TimeBasedNearFarScalarProperty extends SingleTimeBasedPropertyAdapt
         super(dates, instance, interval);
     }
 
+    public TimeBasedNearFarScalarProperty(List<JulianDate> dates, List<NearFarScalar> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
+    }
+
     public TimeBasedNearFarScalarProperty(List<JulianDate> dates, List<NearFarScalar> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
@@ -40,6 +44,10 @@ public class TimeBasedNearFarScalarProperty extends SingleTimeBasedPropertyAdapt
 
     public TimeBasedNearFarScalarProperty(List<JulianDate> dates, List<NearFarScalar> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
         super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedNearFarScalarProperty(Reference reference) {
+        super(reference);
     }
 
     @Override

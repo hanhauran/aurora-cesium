@@ -23,6 +23,18 @@ public class DefaultDistanceDisplayConditionProperty extends SinglePropertyAdapt
         super(instance, interval);
     }
 
+    public DefaultDistanceDisplayConditionProperty(Bounds instance, Interpolations interpolations) {
+        super(instance, interpolations);
+    }
+
+    public DefaultDistanceDisplayConditionProperty(Bounds instance, Interpolations interpolations, TimeInterval interval) {
+        super(instance, interpolations, interval);
+    }
+
+    public DefaultDistanceDisplayConditionProperty(Reference reference) {
+        super(reference);
+    }
+
     @Override
     public void dispatchDistanceDisplayCondition(DistanceDisplayConditionCesiumWriter writer) {
         try (writer) {

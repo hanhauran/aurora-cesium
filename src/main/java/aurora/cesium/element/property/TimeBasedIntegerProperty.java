@@ -29,6 +29,10 @@ public class TimeBasedIntegerProperty extends SingleTimeBasedPropertyAdapter<Int
         super(dates, instance, interval);
     }
 
+    public TimeBasedIntegerProperty(List<JulianDate> dates, List<Integer> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
+    }
+
     public TimeBasedIntegerProperty(List<JulianDate> dates, List<Integer> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
@@ -43,6 +47,10 @@ public class TimeBasedIntegerProperty extends SingleTimeBasedPropertyAdapter<Int
 
     public TimeBasedIntegerProperty(List<JulianDate> dates, List<Integer> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
         super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedIntegerProperty(Reference reference) {
+        super(reference);
     }
 
     @Override

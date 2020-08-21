@@ -21,16 +21,36 @@ public class TimeBasedDoubleProperty extends SingleTimeBasedPropertyAdapter<Doub
         super(dates, instance);
     }
 
+    public TimeBasedDoubleProperty(List<JulianDate> dates, List<Double> instance, Interpolations interpolations) {
+        super(dates, instance, interpolations);
+    }
+
     public TimeBasedDoubleProperty(List<JulianDate> dates, List<Double> instance, TimeInterval interval) {
         super(dates, instance, interval);
+    }
+
+    public TimeBasedDoubleProperty(List<JulianDate> dates, List<Double> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
     }
 
     public TimeBasedDoubleProperty(List<JulianDate> dates, List<Double> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
 
+    public TimeBasedDoubleProperty(List<JulianDate> dates, List<Double> instance, Integer startIndex, Integer length, Interpolations interpolations) {
+        super(dates, instance, startIndex, length, interpolations);
+    }
+
     public TimeBasedDoubleProperty(List<JulianDate> dates, List<Double> instance, Integer startIndex, Integer length, TimeInterval interval) {
         super(dates, instance, startIndex, length, interval);
+    }
+
+    public TimeBasedDoubleProperty(List<JulianDate> dates, List<Double> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedDoubleProperty(Reference reference) {
+        super(reference);
     }
 
     @Override

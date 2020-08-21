@@ -18,10 +18,6 @@ public class DefaultCartographicRadiansProperty extends SinglePropertyAdapter<Ca
         super(instance);
     }
 
-    public DefaultCartographicRadiansProperty(Cartographic instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
     @Override
     public void dispatchPosition(PositionCesiumWriter writer) {
         dispatchConsumer(writer::writeCartographicRadians);

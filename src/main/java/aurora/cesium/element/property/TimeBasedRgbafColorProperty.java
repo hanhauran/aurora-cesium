@@ -22,16 +22,36 @@ public class TimeBasedRgbafColorProperty extends SingleTimeBasedPropertyAdapter<
         super(dates, instance);
     }
 
+    public TimeBasedRgbafColorProperty(List<JulianDate> dates, List<Color> instance, Interpolations interpolations) {
+        super(dates, instance, interpolations);
+    }
+
     public TimeBasedRgbafColorProperty(List<JulianDate> dates, List<Color> instance, TimeInterval interval) {
         super(dates, instance, interval);
+    }
+
+    public TimeBasedRgbafColorProperty(List<JulianDate> dates, List<Color> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
     }
 
     public TimeBasedRgbafColorProperty(List<JulianDate> dates, List<Color> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
 
+    public TimeBasedRgbafColorProperty(List<JulianDate> dates, List<Color> instance, Integer startIndex, Integer length, Interpolations interpolations) {
+        super(dates, instance, startIndex, length, interpolations);
+    }
+
     public TimeBasedRgbafColorProperty(List<JulianDate> dates, List<Color> instance, Integer startIndex, Integer length, TimeInterval interval) {
         super(dates, instance, startIndex, length, interval);
+    }
+
+    public TimeBasedRgbafColorProperty(List<JulianDate> dates, List<Color> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedRgbafColorProperty(Reference reference) {
+        super(reference);
     }
 
     @Override

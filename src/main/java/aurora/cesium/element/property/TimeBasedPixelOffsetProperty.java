@@ -26,6 +26,10 @@ public class TimeBasedPixelOffsetProperty extends SingleTimeBasedPropertyAdapter
         super(dates, instance, interval);
     }
 
+    public TimeBasedPixelOffsetProperty(List<JulianDate> dates, List<Rectangular> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
+    }
+
     public TimeBasedPixelOffsetProperty(List<JulianDate> dates, List<Rectangular> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
@@ -40,6 +44,10 @@ public class TimeBasedPixelOffsetProperty extends SingleTimeBasedPropertyAdapter
 
     public TimeBasedPixelOffsetProperty(List<JulianDate> dates, List<Rectangular> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
         super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedPixelOffsetProperty(Reference reference) {
+        super(reference);
     }
 
     @Override

@@ -32,6 +32,10 @@ abstract class SingleTimeBasedPropertyAdapter<T> extends SinglePropertyAdapter<L
         this(dates, instance, null, null, null, interval);
     }
 
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, Interpolations interpolations, TimeInterval interval) {
+        this(dates, instance, null, null, interpolations, interval);
+    }
+
     public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, Integer startIndex, Integer length) {
         this(dates, instance, startIndex, length, null, null);
     }
@@ -51,6 +55,10 @@ abstract class SingleTimeBasedPropertyAdapter<T> extends SinglePropertyAdapter<L
         this.length = length;
         this.interpolations = interpolations;
         this.interval = interval;
+    }
+
+    public SingleTimeBasedPropertyAdapter(Reference reference) {
+        super(reference);
     }
 
     void dispatchConsumer(BiConsumer<List<JulianDate>, List<T>> biConsumer, QuadrupleConsumer<List<JulianDate>, List<T>, Integer, Integer> quadrupleConsumer) {

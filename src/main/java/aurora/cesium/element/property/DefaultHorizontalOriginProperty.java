@@ -32,6 +32,7 @@ public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<Cesiu
         try (writer) {
             dispatchConsumer(writer::writeHorizontalOrigin);
             dispatchInterval(writer);
+            dispatchReference(writer);
         }
     }
 

@@ -44,14 +44,6 @@ public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabel
         this.instance = labelStyle;
     }
 
-    public Interpolations getInterpolations() {
-        return interpolations;
-    }
-
-    public void setInterpolations(Interpolations interpolations) {
-        this.interpolations = interpolations;
-    }
-
     @Override
     public TimeInterval getInterval() {
         return interval;

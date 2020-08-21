@@ -9,6 +9,7 @@ import java.util.List;
  * @date 2020/8/20
  */
 public class TimeBasedOrientationProperty extends SingleTimeBasedPropertyAdapter<UnitQuaternion> implements OrientationProperty, InterpolatableProperty, IntervalProperty, Property {
+
     public TimeBasedOrientationProperty() {
         super();
     }
@@ -25,6 +26,10 @@ public class TimeBasedOrientationProperty extends SingleTimeBasedPropertyAdapter
         super(dates, instance, interval);
     }
 
+    public TimeBasedOrientationProperty(List<JulianDate> dates, List<UnitQuaternion> instance, Interpolations interpolations, TimeInterval interval) {
+        super(dates, instance, interpolations, interval);
+    }
+
     public TimeBasedOrientationProperty(List<JulianDate> dates, List<UnitQuaternion> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
     }
@@ -39,6 +44,10 @@ public class TimeBasedOrientationProperty extends SingleTimeBasedPropertyAdapter
 
     public TimeBasedOrientationProperty(List<JulianDate> dates, List<UnitQuaternion> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
         super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedOrientationProperty(Reference reference) {
+        super(reference);
     }
 
     @Override
