@@ -46,15 +46,11 @@ public interface Entity extends Element {
 
     PathGraphics getPath();
 
-    PlaneGraphics getPlane();
-
     PointGraphics getPoint();
 
     PolygonGraphics getPolygon();
 
     PolylineGraphics getPolyline();
-
-    PolylineVolumeGraphics getPolylineVolume();
 
     RectangleGraphics getRectangle();
 

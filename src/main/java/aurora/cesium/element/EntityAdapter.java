@@ -40,15 +40,11 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     private PathGraphics path;
 
-    private PlaneGraphics plane;
-
     private PointGraphics point;
 
     private PolygonGraphics polygon;
 
     private PolylineGraphics polyline;
-
-    private PolylineVolumeGraphics polylineVolume;
 
     private RectangleGraphics rectangle;
 
@@ -197,15 +193,6 @@ public class EntityAdapter extends ElementAdapter implements Entity {
     }
 
     @Override
-    public PlaneGraphics getPlane() {
-        return plane;
-    }
-
-    public void setPlane(PlaneGraphics plane) {
-        this.plane = plane;
-    }
-
-    @Override
     public PointGraphics getPoint() {
         return point;
     }
@@ -230,15 +217,6 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     public void setPolyline(PolylineGraphics polyline) {
         this.polyline = polyline;
-    }
-
-    @Override
-    public PolylineVolumeGraphics getPolylineVolume() {
-        return polylineVolume;
-    }
-
-    public void setPolylineVolume(PolylineVolumeGraphics polylineVolume) {
-        this.polylineVolume = polylineVolume;
     }
 
     @Override

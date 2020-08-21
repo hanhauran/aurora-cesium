@@ -7,7 +7,7 @@ import aurora.cesium.language.writer.BillboardCesiumWriter;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface BillboardGraphics extends Graphics {
+public interface BillboardGraphics extends Graphics<BillboardCesiumWriter> {
 
     static BillboardGraphicsAdapter.Builder newBuilder() {
         return BillboardGraphicsAdapter.Builder.newBuilder();
@@ -54,5 +54,6 @@ public interface BillboardGraphics extends Graphics {
 
     DoubleProperty getWidth();
 
-    void dispatchBillboard(BillboardCesiumWriter writer);
+    @Override
+    void dispatch(BillboardCesiumWriter writer);
 }

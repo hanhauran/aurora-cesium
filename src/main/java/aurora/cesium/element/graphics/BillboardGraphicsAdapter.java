@@ -9,7 +9,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class BillboardGraphicsAdapter extends GraphicsAdapter implements BillboardGraphics {
+public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWriter> implements BillboardGraphics {
 
     private AlignedAxisProperty alignedAxis;
 
@@ -50,7 +50,7 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter implements Billboa
     private DoubleProperty width;
 
     @Override
-    public void dispatchBillboard(BillboardCesiumWriter writer) {
+    public void dispatch(BillboardCesiumWriter writer) {
         try (writer) {
             Optional.ofNullable(getAlignedAxis()).ifPresent(alignedAxisProperty -> alignedAxisProperty.dispatch(writer.openAlignedAxisProperty()));
             Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
