@@ -27,7 +27,7 @@ public class DefaultOrientationProperty extends BaseSingleInterpolatableInterval
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeUnitQuaternion);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

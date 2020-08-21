@@ -25,7 +25,7 @@ public class DefaultDoubleProperty extends BaseSingleInterpolatableIntervalPrope
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeNumber);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

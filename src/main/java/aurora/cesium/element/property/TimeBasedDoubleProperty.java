@@ -36,7 +36,7 @@ public class TimeBasedDoubleProperty extends BaseSingleInterpolatableTimeBasedIn
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeNumber, writer::writeNumber);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

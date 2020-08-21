@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.UnitSpherical;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultUnitSphericalProperty extends BaseSingleIntervalProperty<UnitSpherical> implements UnitSphericalProperty, IntervalProperty, Property {
+public class DefaultUnitSphericalProperty extends SinglePropertyAdapter<UnitSpherical> implements UnitSphericalProperty {
 
     public DefaultUnitSphericalProperty() {
         super();
@@ -18,19 +18,9 @@ public class DefaultUnitSphericalProperty extends BaseSingleIntervalProperty<Uni
         super(instance);
     }
 
-    public DefaultUnitSphericalProperty(UnitSpherical instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
     @Override
-    public void dispatchAlignedAxis(AlignedAxisCesiumWriter writer, boolean close) {
-        try {
-            dispatchConsumer(writer::writeUnitSpherical);
-        } finally {
-            if (close) {
-                writer.close();
-            }
-        }
+    public void dispatchAlignedAxis(AlignedAxisCesiumWriter writer) {
+        dispatchConsumer(writer::writeUnitSpherical);
     }
 
     public UnitSpherical getUnitSpherical() {

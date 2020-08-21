@@ -39,7 +39,6 @@ abstract class BaseSingleInterpolatableTimeBasedIntervalProperty<T> extends Base
         return interval;
     }
 
-    @Override
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
     }

@@ -38,7 +38,7 @@ public class TimeBasedPixelOffsetProperty extends BaseSingleInterpolatableTimeBa
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeCartesian2, writer::writeCartesian2);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

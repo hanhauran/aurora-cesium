@@ -38,7 +38,7 @@ public class TimeBasedDistanceDisplayConditionProperty extends BaseSingleInterpo
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeDistanceDisplayCondition, writer::writeDistanceDisplayCondition);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 }

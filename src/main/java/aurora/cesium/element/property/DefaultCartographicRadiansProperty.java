@@ -7,7 +7,8 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultCartographicRadiansProperty extends BaseSingleIntervalProperty<Cartographic> implements CartographicRadiansProperty {
+public class DefaultCartographicRadiansProperty extends SinglePropertyAdapter<Cartographic> implements CartographicRadiansProperty {
+
     public DefaultCartographicRadiansProperty() {
         super();
     }

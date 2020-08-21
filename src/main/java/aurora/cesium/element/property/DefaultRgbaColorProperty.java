@@ -27,7 +27,7 @@ public class DefaultRgbaColorProperty extends BaseSingleInterpolatableIntervalPr
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeRgba);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

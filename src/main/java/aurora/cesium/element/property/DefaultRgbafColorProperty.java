@@ -27,7 +27,7 @@ public class DefaultRgbafColorProperty extends BaseSingleInterpolatableIntervalP
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeRgbaf);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

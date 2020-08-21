@@ -26,7 +26,7 @@ public class DefaultIntegerProperty extends BaseSingleInterpolatableIntervalProp
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeNumber);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

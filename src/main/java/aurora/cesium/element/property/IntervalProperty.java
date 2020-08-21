@@ -7,12 +7,7 @@ import java.util.Optional;
 
 interface IntervalProperty extends Property {
 
-    default TimeInterval getInterval() {
-        return null;
-    }
-
-    default void setInterval(TimeInterval interval) {
-    }
+    TimeInterval getInterval();
 
     default <T extends CesiumPropertyWriter<T>> void dispatchInterval(T writer) {
         Optional.ofNullable(getInterval()).ifPresent(writer::writeInterval);

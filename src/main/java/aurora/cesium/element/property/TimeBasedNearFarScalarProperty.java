@@ -38,7 +38,7 @@ public class TimeBasedNearFarScalarProperty extends BaseSingleInterpolatableTime
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeNearFarScalar, writer::writeNearFarScalar);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

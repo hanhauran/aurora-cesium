@@ -37,7 +37,7 @@ public class TimeBasedRgbafColorProperty extends BaseSingleInterpolatableTimeBas
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeRgbaf, writer::writeRgbaf);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

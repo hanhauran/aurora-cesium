@@ -1,9 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.BoundingRectangle;
-import aurora.cesium.language.writer.BoundingRectangleCesiumWriter;
-import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.TimeInterval;
+import aurora.cesium.language.writer.*;
 
 import java.util.List;
 
@@ -11,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedBoundingRectangleProperty extends BaseSingleInterpolatableTimeBasedIntervalProperty<BoundingRectangle> implements BoundingRectangleProperty {
+public class TimeBasedBoundingRectangleProperty extends SingleTimeBasedPropertyAdapter<BoundingRectangle> implements BoundingRectangleProperty {
 
     public TimeBasedBoundingRectangleProperty() {
         super();
@@ -36,9 +33,10 @@ public class TimeBasedBoundingRectangleProperty extends BaseSingleInterpolatable
     @Override
     public void dispatchBoundingRectangle(BoundingRectangleCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
             dispatchConsumer(writer::writeBoundingRectangle, writer::writeBoundingRectangle);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterval(writer);
+            dispatchInterpolations(writer);
+            dispatchReference(writer);
         }
     }
 
@@ -48,5 +46,32 @@ public class TimeBasedBoundingRectangleProperty extends BaseSingleInterpolatable
 
     public void setBoundingRectangles(List<BoundingRectangle> boundingRectangles) {
         this.instance = boundingRectangles;
+    }
+
+    @Override
+    public Interpolations getInterpolations() {
+        return interpolations;
+    }
+
+    public void setInterpolations(Interpolations interpolations) {
+        this.interpolations = interpolations;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

@@ -27,7 +27,7 @@ public class DefaultPixelOffsetProperty extends BaseSingleInterpolatableInterval
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeCartesian2);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

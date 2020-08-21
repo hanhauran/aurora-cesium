@@ -27,7 +27,7 @@ public class DefaultDistanceDisplayConditionProperty extends BaseSingleInterpola
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeDistanceDisplayCondition);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

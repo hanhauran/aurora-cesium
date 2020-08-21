@@ -27,7 +27,7 @@ public class DefaultNearFarScalarProperty extends BaseSingleInterpolatableInterv
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeNearFarScalar);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

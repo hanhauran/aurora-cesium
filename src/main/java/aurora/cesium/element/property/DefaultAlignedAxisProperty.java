@@ -1,7 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.AlignedAxisCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import aurora.cesium.language.writer.*;
 
 import java.util.Optional;
 
@@ -9,27 +8,20 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultAlignedAxisProperty extends BaseInterpolatableIntervalProperty implements AlignedAxisProperty, InterpolatableProperty, IntervalProperty, Property {
+public class DefaultAlignedAxisProperty extends PropertyAdapter implements AlignedAxisProperty {
 
     private UnitCartesianProperty unitCartesian;
 
     private UnitSphericalProperty unitSpherical;
 
-    public DefaultAlignedAxisProperty() {
-        super();
-    }
-
-    public DefaultAlignedAxisProperty(TimeInterval interval) {
-        super(interval);
-    }
-
     @Override
     public void dispatchAlignedAxis(AlignedAxisCesiumWriter writer) {
         try (writer) {
+            Optional.ofNullable(getUnitCartesian()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchAlignedAxis(writer));
+            Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchAlignedAxis(writer));
+            dispatchInterpolations(writer);
             dispatchInterval(writer);
-            Optional.ofNullable(getUnitCartesian()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchAlignedAxis(writer, false));
-            Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchAlignedAxis(writer, false));
-            dispatchInterpolatableProperty(writer);
+            dispatchReference(writer);
         }
     }
 
@@ -49,5 +41,32 @@ public class DefaultAlignedAxisProperty extends BaseInterpolatableIntervalProper
 
     public void setUnitSpherical(UnitSphericalProperty unitSpherical) {
         this.unitSpherical = unitSpherical;
+    }
+
+    @Override
+    public Interpolations getInterpolations() {
+        return interpolations;
+    }
+
+    public void setInterpolations(Interpolations interpolations) {
+        this.interpolations = interpolations;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

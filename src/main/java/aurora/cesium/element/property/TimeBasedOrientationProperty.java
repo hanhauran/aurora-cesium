@@ -38,7 +38,7 @@ public class TimeBasedOrientationProperty extends BaseSingleInterpolatableTimeBa
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeUnitQuaternion, writer::writeUnitQuaternion);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

@@ -1,13 +1,14 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.BooleanCesiumWriter;
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultBooleanProperty extends BaseSingleIntervalProperty<Boolean> implements BooleanProperty {
+public class DefaultBooleanProperty extends SinglePropertyAdapter<Boolean> implements BooleanProperty {
 
     public DefaultBooleanProperty() {
         super();
@@ -24,8 +25,9 @@ public class DefaultBooleanProperty extends BaseSingleIntervalProperty<Boolean> 
     @Override
     public void dispatchBoolean(BooleanCesiumWriter writer) {
         try (writer) {
-            dispatchInterval(writer);
             dispatchConsumer(writer::writeBoolean);
+            dispatchInterval(writer);
+            dispatchReference(writer);
         }
     }
 
@@ -35,5 +37,23 @@ public class DefaultBooleanProperty extends BaseSingleIntervalProperty<Boolean> 
 
     public void setBoolean(Boolean bool) {
         this.instance = bool;
+    }
+
+    @Override
+    public TimeInterval getInterval() {
+        return interval;
+    }
+
+    public void setInterval(TimeInterval interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
     }
 }

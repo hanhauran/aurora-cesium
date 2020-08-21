@@ -10,7 +10,8 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedCartographicRadiansProperty extends BaseSingleTimeBasedIntervalProperty<Cartographic> implements CartographicRadiansProperty {
+public class TimeBasedCartographicRadiansProperty extends SingleTimeBasedPropertyAdapter<Cartographic> implements CartographicRadiansProperty {
+
     public TimeBasedCartographicRadiansProperty() {
         super();
     }

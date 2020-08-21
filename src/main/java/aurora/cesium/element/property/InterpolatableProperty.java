@@ -1,8 +1,5 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CesiumExtrapolationType;
-import aurora.cesium.language.writer.CesiumInterpolationAlgorithm;
-import aurora.cesium.language.writer.Duration;
 import aurora.cesium.language.writer.advanced.ICesiumInterpolatablePropertyWriter;
 
 import java.util.Optional;
@@ -13,24 +10,16 @@ import java.util.Optional;
  */
 public interface InterpolatableProperty extends Property {
 
-    Duration getBackwardExtrapolationDuration();
+    Interpolations getInterpolations();
 
-    CesiumExtrapolationType getBackwardExtrapolationType();
-
-    Duration getForwardExtrapolationDuration();
-
-    CesiumExtrapolationType getForwardExtrapolationType();
-
-    CesiumInterpolationAlgorithm getInterpolationAlgorithm();
-
-    Integer getInterpolationDegree();
-
-    default void dispatchInterpolatableProperty(ICesiumInterpolatablePropertyWriter writer) {
-        Optional.ofNullable(getBackwardExtrapolationDuration()).ifPresent(writer::writeBackwardExtrapolationDuration);
-        Optional.ofNullable(getBackwardExtrapolationType()).ifPresent(writer::writeBackwardExtrapolationType);
-        Optional.ofNullable(getForwardExtrapolationDuration()).ifPresent(writer::writeForwardExtrapolationDuration);
-        Optional.ofNullable(getForwardExtrapolationType()).ifPresent(writer::writeForwardExtrapolationType);
-        Optional.ofNullable(getInterpolationAlgorithm()).ifPresent(writer::writeInterpolationAlgorithm);
-        Optional.ofNullable(getInterpolationDegree()).ifPresent(writer::writeInterpolationDegree);
+    default void dispatchInterpolations(ICesiumInterpolatablePropertyWriter writer) {
+        Optional.ofNullable(getInterpolations()).ifPresent(interpolations -> {
+            Optional.ofNullable(interpolations.getBackwardExtrapolationDuration()).ifPresent(writer::writeBackwardExtrapolationDuration);
+            Optional.ofNullable(interpolations.getBackwardExtrapolationType()).ifPresent(writer::writeBackwardExtrapolationType);
+            Optional.ofNullable(interpolations.getForwardExtrapolationDuration()).ifPresent(writer::writeForwardExtrapolationDuration);
+            Optional.ofNullable(interpolations.getForwardExtrapolationType()).ifPresent(writer::writeForwardExtrapolationType);
+            Optional.ofNullable(interpolations.getInterpolationAlgorithm()).ifPresent(writer::writeInterpolationAlgorithm);
+            Optional.ofNullable(interpolations.getInterpolationDegree()).ifPresent(writer::writeInterpolationDegree);
+        });
     }
 }

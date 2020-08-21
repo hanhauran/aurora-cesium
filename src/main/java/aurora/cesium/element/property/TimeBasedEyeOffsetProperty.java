@@ -38,7 +38,7 @@ public class TimeBasedEyeOffsetProperty extends BaseSingleInterpolatableTimeBase
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeCartesian, writer::writeCartesian);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

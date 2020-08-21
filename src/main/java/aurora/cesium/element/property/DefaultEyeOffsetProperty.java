@@ -27,7 +27,7 @@ public class DefaultEyeOffsetProperty extends BaseSingleInterpolatableIntervalPr
         try (writer) {
             dispatchInterval(writer);
             dispatchConsumer(writer::writeCartesian);
-            dispatchInterpolatableProperty(writer);
+            dispatchInterpolations(writer);
         }
     }
 

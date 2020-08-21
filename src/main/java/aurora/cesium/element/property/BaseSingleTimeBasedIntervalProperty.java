@@ -40,7 +40,6 @@ abstract class BaseSingleTimeBasedIntervalProperty<T> extends BaseSingleTimeBase
         return interval;
     }
 
-    @Override
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
     }
