@@ -36,7 +36,7 @@ public class DefaultNearFarScalarProperty extends SinglePropertyAdapter<NearFarS
     }
 
     @Override
-    public void dispatchNearFarScalar(NearFarScalarCesiumWriter writer) {
+    public void dispatch(NearFarScalarCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeNearFarScalar);
             dispatchInterpolations(writer);

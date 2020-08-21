@@ -14,5 +14,5 @@ public interface SolidColorMaterialProperty extends IntervalProperty {
     @Override
     TimeInterval getInterval();
 
-    void dispatchSolidColorMaterial(SolidColorMaterialCesiumWriter writer);
+    void dispatch(SolidColorMaterialCesiumWriter writer);
 }

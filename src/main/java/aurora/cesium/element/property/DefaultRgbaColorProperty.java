@@ -37,7 +37,7 @@ public class DefaultRgbaColorProperty extends SinglePropertyAdapter<Color> imple
     }
 
     @Override
-    public void dispatchColor(ColorCesiumWriter writer) {
+    public void dispatch(ColorCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeRgba);
             dispatchInterpolations(writer);

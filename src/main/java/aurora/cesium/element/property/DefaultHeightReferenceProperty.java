@@ -28,7 +28,7 @@ public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<Cesium
     }
 
     @Override
-    public void dispatchHeightReference(HeightReferenceCesiumWriter writer) {
+    public void dispatch(HeightReferenceCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeHeightReference);
             dispatchInterval(writer);

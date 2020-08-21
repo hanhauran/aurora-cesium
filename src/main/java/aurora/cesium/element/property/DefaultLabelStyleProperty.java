@@ -28,7 +28,7 @@ public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabel
     }
 
     @Override
-    public void dispatchLabelStyle(LabelStyleCesiumWriter writer) {
+    public void dispatch(LabelStyleCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeLabelStyle);
             dispatchInterval(writer);

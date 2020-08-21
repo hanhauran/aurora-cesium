@@ -14,5 +14,5 @@ public interface PolylineMaterialProperty extends IntervalProperty {
     @Override
     TimeInterval getInterval();
 
-    void dispatchPolylineMaterial(PolylineMaterialCesiumWriter writer);
+    void dispatch(PolylineMaterialCesiumWriter writer);
 }

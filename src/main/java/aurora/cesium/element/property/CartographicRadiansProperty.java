@@ -8,5 +8,5 @@ import aurora.cesium.language.writer.PositionCesiumWriter;
  */
 public interface CartographicRadiansProperty extends Property {
 
-    void dispatchPosition(PositionCesiumWriter writer);
+    void dispatchCartographicRadians(PositionCesiumWriter writer);
 }

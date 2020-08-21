@@ -51,7 +51,7 @@ public class TimeBasedNearFarScalarProperty extends SingleTimeBasedPropertyAdapt
     }
 
     @Override
-    public void dispatchNearFarScalar(NearFarScalarCesiumWriter writer) {
+    public void dispatch(NearFarScalarCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeNearFarScalar, writer::writeNearFarScalar);
             dispatchInterpolations(writer);

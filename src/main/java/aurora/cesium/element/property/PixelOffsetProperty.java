@@ -17,5 +17,5 @@ public interface PixelOffsetProperty extends InterpolatableProperty, IntervalPro
     @Override
     Reference getReference();
 
-    void dispatchPixelOffset(PixelOffsetCesiumWriter writer);
+    void dispatch(PixelOffsetCesiumWriter writer);
 }

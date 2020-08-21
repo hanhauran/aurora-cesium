@@ -35,7 +35,7 @@ public class DefaultIntegerProperty extends SinglePropertyAdapter<Integer> imple
     }
 
     @Override
-    public void dispatchInteger(IntegerCesiumWriter writer) {
+    public void dispatch(IntegerCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeNumber);
             dispatchInterpolations(writer);

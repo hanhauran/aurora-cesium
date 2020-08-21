@@ -21,5 +21,5 @@ public interface AlignedAxisProperty extends InterpolatableProperty, IntervalPro
     @Override
     Reference getReference();
 
-    void dispatchAlignedAxis(AlignedAxisCesiumWriter writer);
+    void dispatch(AlignedAxisCesiumWriter writer);
 }

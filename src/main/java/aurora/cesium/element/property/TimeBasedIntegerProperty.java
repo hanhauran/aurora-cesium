@@ -54,7 +54,7 @@ public class TimeBasedIntegerProperty extends SingleTimeBasedPropertyAdapter<Int
     }
 
     @Override
-    public void dispatchInteger(IntegerCesiumWriter writer) {
+    public void dispatch(IntegerCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeNumber, writer::writeNumber);
             dispatchInterpolations(writer);

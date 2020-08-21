@@ -32,9 +32,9 @@ public class DefaultSolidColorMaterialProperty extends PropertyAdapter implement
     }
 
     @Override
-    public void dispatchSolidColorMaterial(SolidColorMaterialCesiumWriter writer) {
+    public void dispatch(SolidColorMaterialCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatchColor(writer.openColorProperty()));
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
             dispatchInterval(writer);
         }
     }

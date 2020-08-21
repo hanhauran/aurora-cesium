@@ -51,7 +51,7 @@ public class TimeBasedBoundingRectangleProperty extends SingleTimeBasedPropertyA
     }
 
     @Override
-    public void dispatchBoundingRectangle(BoundingRectangleCesiumWriter writer) {
+    public void dispatch(BoundingRectangleCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeBoundingRectangle, writer::writeBoundingRectangle);
             dispatchInterval(writer);

@@ -10,6 +10,4 @@ import aurora.cesium.language.writer.Reference;
 interface Graphics {
 
     BooleanProperty getShow();
-
-    Reference getShowRef();
 }

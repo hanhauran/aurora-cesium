@@ -28,7 +28,7 @@ public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<Cesiu
     }
 
     @Override
-    public void dispatchHorizontalOrigin(HorizontalOriginCesiumWriter writer) {
+    public void dispatch(HorizontalOriginCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeHorizontalOrigin);
             dispatchInterval(writer);

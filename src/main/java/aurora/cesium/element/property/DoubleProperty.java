@@ -17,5 +17,5 @@ public interface DoubleProperty extends InterpolatableProperty, IntervalProperty
     @Override
     Reference getReference();
 
-    void dispatchDouble(DoubleCesiumWriter writer);
+    void dispatch(DoubleCesiumWriter writer);
 }

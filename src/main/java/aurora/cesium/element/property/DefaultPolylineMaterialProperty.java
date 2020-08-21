@@ -32,9 +32,9 @@ public class DefaultPolylineMaterialProperty extends PropertyAdapter implements 
     }
 
     @Override
-    public void dispatchPolylineMaterial(PolylineMaterialCesiumWriter writer) {
+    public void dispatch(PolylineMaterialCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getSolidColor()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatchSolidColorMaterial(writer.openSolidColorProperty()));
+            Optional.ofNullable(getSolidColor()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer.openSolidColorProperty()));
             dispatchInterval(writer);
         }
     }

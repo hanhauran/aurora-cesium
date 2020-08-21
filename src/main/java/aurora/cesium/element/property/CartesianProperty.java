@@ -2,6 +2,7 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.EyeOffsetCesiumWriter;
 import aurora.cesium.language.writer.PositionCesiumWriter;
+import aurora.cesium.language.writer.ViewFromCesiumWriter;
 
 /**
  * @author hanhaoran
@@ -9,7 +10,9 @@ import aurora.cesium.language.writer.PositionCesiumWriter;
  */
 public interface CartesianProperty extends Property {
 
-    void dispatchEyeOffset(EyeOffsetCesiumWriter writer);
+    void dispatchCartesian(EyeOffsetCesiumWriter writer);
 
-    void dispatchPosition(PositionCesiumWriter writer);
+    void dispatchCartesian(PositionCesiumWriter writer);
+
+    void dispatchCartesian(ViewFromCesiumWriter writer);
 }

@@ -81,11 +81,11 @@ public class DefaultPositionProperty extends PropertyAdapter implements Position
     }
 
     @Override
-    public void dispatchPosition(PositionCesiumWriter writer) {
+    public void dispatch(PositionCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchPosition(writer));
-            Optional.ofNullable(getCartographicDegrees()).ifPresent(cartographicDegreesProperty -> cartographicDegreesProperty.dispatchPosition(writer));
-            Optional.ofNullable(getCartographicRadians()).ifPresent(cartographicRadiansProperty -> cartographicRadiansProperty.dispatchPosition(writer));
+            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchCartesian(writer));
+            Optional.ofNullable(getCartographicDegrees()).ifPresent(cartographicDegreesProperty -> cartographicDegreesProperty.dispatchCartographicDegrees(writer));
+            Optional.ofNullable(getCartographicRadians()).ifPresent(cartographicRadiansProperty -> cartographicRadiansProperty.dispatchCartographicRadians(writer));
             dispatchInterpolations(writer);
             dispatchInterval(writer);
             dispatchReference(writer);

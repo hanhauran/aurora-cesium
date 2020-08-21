@@ -51,7 +51,7 @@ public class TimeBasedOrientationProperty extends SingleTimeBasedPropertyAdapter
     }
 
     @Override
-    public void dispatchOrientation(OrientationCesiumWriter writer) {
+    public void dispatch(OrientationCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeUnitQuaternion, writer::writeUnitQuaternion);
             dispatchInterpolations(writer);

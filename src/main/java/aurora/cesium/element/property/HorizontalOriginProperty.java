@@ -8,5 +8,5 @@ import aurora.cesium.language.writer.HorizontalOriginCesiumWriter;
  */
 public interface HorizontalOriginProperty extends IntervalProperty, ReferenceProperty {
 
-    void dispatchHorizontalOrigin(HorizontalOriginCesiumWriter writer);
+    void dispatch(HorizontalOriginCesiumWriter writer);
 }

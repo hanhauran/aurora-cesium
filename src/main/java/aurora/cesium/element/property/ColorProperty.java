@@ -19,5 +19,5 @@ public interface ColorProperty extends InterpolatableProperty, IntervalProperty,
     @Override
     Reference getReference();
 
-    void dispatchColor(ColorCesiumWriter writer);
+    void dispatch(ColorCesiumWriter writer);
 }

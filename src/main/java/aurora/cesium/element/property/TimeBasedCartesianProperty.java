@@ -1,9 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Cartesian;
-import aurora.cesium.language.writer.EyeOffsetCesiumWriter;
-import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.PositionCesiumWriter;
+import aurora.cesium.language.writer.*;
 
 import java.util.List;
 
@@ -26,12 +23,17 @@ public class TimeBasedCartesianProperty extends SingleTimeBasedPropertyAdapter<C
     }
 
     @Override
-    public void dispatchEyeOffset(EyeOffsetCesiumWriter writer) {
+    public void dispatchCartesian(EyeOffsetCesiumWriter writer) {
         dispatchConsumer(writer::writeCartesian, writer::writeCartesian);
     }
 
     @Override
-    public void dispatchPosition(PositionCesiumWriter writer) {
+    public void dispatchCartesian(PositionCesiumWriter writer) {
+        dispatchConsumer(writer::writeCartesian, writer::writeCartesian);
+    }
+
+    @Override
+    public void dispatchCartesian(ViewFromCesiumWriter writer) {
         dispatchConsumer(writer::writeCartesian, writer::writeCartesian);
     }
 

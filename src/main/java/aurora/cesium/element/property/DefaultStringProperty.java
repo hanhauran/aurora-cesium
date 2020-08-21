@@ -27,7 +27,7 @@ public class DefaultStringProperty extends SinglePropertyAdapter<String> impleme
     }
 
     @Override
-    public void dispatchString(StringCesiumWriter writer) {
+    public void dispatch(StringCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeString);
             dispatchInterval(writer);

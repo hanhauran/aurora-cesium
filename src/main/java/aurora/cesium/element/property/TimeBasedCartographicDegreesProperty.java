@@ -26,7 +26,7 @@ public class TimeBasedCartographicDegreesProperty extends SingleTimeBasedPropert
     }
 
     @Override
-    public void dispatchPosition(PositionCesiumWriter writer) {
+    public void dispatchCartographicDegrees(PositionCesiumWriter writer) {
         dispatchConsumer(writer::writeCartographicDegrees, writer::writeCartographicDegrees);
     }
 

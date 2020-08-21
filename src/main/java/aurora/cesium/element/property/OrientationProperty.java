@@ -17,5 +17,5 @@ public interface OrientationProperty extends InterpolatableProperty, IntervalPro
     @Override
     Reference getReference();
 
-    void dispatchOrientation(OrientationCesiumWriter writer);
+    void dispatch(OrientationCesiumWriter writer);
 }

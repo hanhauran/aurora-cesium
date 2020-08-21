@@ -19,7 +19,7 @@ public class DefaultCartographicRadiansProperty extends SinglePropertyAdapter<Ca
     }
 
     @Override
-    public void dispatchPosition(PositionCesiumWriter writer) {
+    public void dispatchCartographicRadians(PositionCesiumWriter writer) {
         dispatchConsumer(writer::writeCartographicRadians);
     }
 

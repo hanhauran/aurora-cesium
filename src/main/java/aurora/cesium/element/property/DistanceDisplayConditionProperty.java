@@ -17,5 +17,5 @@ public interface DistanceDisplayConditionProperty extends InterpolatableProperty
     @Override
     Reference getReference();
 
-    void dispatchDistanceDisplayCondition(DistanceDisplayConditionCesiumWriter writer);
+    void dispatch(DistanceDisplayConditionCesiumWriter writer);
 }

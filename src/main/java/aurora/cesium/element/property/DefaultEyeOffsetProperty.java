@@ -37,9 +37,9 @@ public class DefaultEyeOffsetProperty extends PropertyAdapter implements EyeOffs
     }
 
     @Override
-    public void dispatchEyeOffset(EyeOffsetCesiumWriter writer) {
+    public void dispatch(EyeOffsetCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchEyeOffset(writer));
+            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchCartesian(writer));
             dispatchInterpolations(writer);
             dispatchInterval(writer);
             dispatchReference(writer);

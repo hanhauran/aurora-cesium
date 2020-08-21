@@ -17,5 +17,5 @@ public interface NearFarScalarProperty extends InterpolatableProperty, IntervalP
     @Override
     Reference getReference();
 
-    void dispatchNearFarScalar(NearFarScalarCesiumWriter writer);
+    void dispatch(NearFarScalarCesiumWriter writer);
 }

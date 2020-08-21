@@ -28,7 +28,7 @@ public class DefaultVerticalOriginProperty extends SinglePropertyAdapter<CesiumV
     }
 
     @Override
-    public void dispatchVerticalOrigin(VerticalOriginCesiumWriter writer) {
+    public void dispatch(VerticalOriginCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeVerticalOrigin);
             dispatchInterval(writer);

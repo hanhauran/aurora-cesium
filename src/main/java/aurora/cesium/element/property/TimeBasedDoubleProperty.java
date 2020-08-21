@@ -54,7 +54,7 @@ public class TimeBasedDoubleProperty extends SingleTimeBasedPropertyAdapter<Doub
     }
 
     @Override
-    public void dispatchDouble(DoubleCesiumWriter writer) {
+    public void dispatch(DoubleCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeNumber, writer::writeNumber);
             dispatchInterpolations(writer);

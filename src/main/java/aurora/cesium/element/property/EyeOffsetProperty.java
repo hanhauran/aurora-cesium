@@ -19,5 +19,5 @@ public interface EyeOffsetProperty extends InterpolatableProperty, IntervalPrope
     @Override
     Reference getReference();
 
-    void dispatchEyeOffset(EyeOffsetCesiumWriter writer);
+    void dispatch(EyeOffsetCesiumWriter writer);
 }

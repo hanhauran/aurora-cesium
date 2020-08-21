@@ -16,5 +16,5 @@ public interface BooleanProperty extends IntervalProperty, ReferenceProperty {
     @Override
     Reference getReference();
 
-    void dispatchBoolean(BooleanCesiumWriter writer);
+    void dispatch(BooleanCesiumWriter writer);
 }

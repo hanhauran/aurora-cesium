@@ -25,7 +25,7 @@ public class TimeBasedUnitSphericalProperty extends SingleTimeBasedPropertyAdapt
     }
 
     @Override
-    public void dispatchAlignedAxis(AlignedAxisCesiumWriter writer) {
+    public void dispatchUnitSpherical(AlignedAxisCesiumWriter writer) {
         dispatchConsumer(writer::writeUnitSpherical, writer::writeUnitSpherical);
     }
     public List<UnitSpherical> getUnitSphericals() {

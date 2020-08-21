@@ -36,7 +36,7 @@ public class DefaultPixelOffsetProperty extends SinglePropertyAdapter<Rectangula
     }
 
     @Override
-    public void dispatchPixelOffset(PixelOffsetCesiumWriter writer) {
+    public void dispatch(PixelOffsetCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeCartesian2);
             dispatchInterpolations(writer);

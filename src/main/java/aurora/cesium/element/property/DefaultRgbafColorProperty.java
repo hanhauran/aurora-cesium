@@ -37,7 +37,7 @@ public class DefaultRgbafColorProperty extends SinglePropertyAdapter<Color> impl
     }
 
     @Override
-    public void dispatchColor(ColorCesiumWriter writer) {
+    public void dispatch(ColorCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeRgbaf);
             dispatchInterpolations(writer);

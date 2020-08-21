@@ -23,7 +23,7 @@ public class TimeBasedUnitCartesian extends SingleTimeBasedPropertyAdapter<UnitC
     }
 
     @Override
-    public void dispatchAlignedAxis(AlignedAxisCesiumWriter writer) {
+    public void dispatchUnitCartesian(AlignedAxisCesiumWriter writer) {
         dispatchConsumer(writer::writeUnitCartesian, writer::writeUnitCartesian);
     }
 

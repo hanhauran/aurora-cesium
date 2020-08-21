@@ -55,7 +55,7 @@ public class TimeBasedRgbaColorProperty extends SingleTimeBasedPropertyAdapter<C
     }
 
     @Override
-    public void dispatchColor(ColorCesiumWriter writer) {
+    public void dispatch(ColorCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeRgba, writer::writeRgba);
             dispatchInterpolations(writer);

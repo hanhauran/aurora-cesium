@@ -8,5 +8,5 @@ import aurora.cesium.language.writer.AlignedAxisCesiumWriter;
  */
 public interface UnitCartesianProperty extends Property {
 
-    void dispatchAlignedAxis(AlignedAxisCesiumWriter writer);
+    void dispatchUnitCartesian(AlignedAxisCesiumWriter writer);
 }

@@ -27,7 +27,7 @@ public class DefaultBooleanProperty extends SinglePropertyAdapter<Boolean> imple
     }
 
     @Override
-    public void dispatchBoolean(BooleanCesiumWriter writer) {
+    public void dispatch(BooleanCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeBoolean);
             dispatchInterval(writer);

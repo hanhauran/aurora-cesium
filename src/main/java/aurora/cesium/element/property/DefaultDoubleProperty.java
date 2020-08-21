@@ -35,7 +35,7 @@ public class DefaultDoubleProperty extends SinglePropertyAdapter<Double> impleme
     }
 
     @Override
-    public void dispatchDouble(DoubleCesiumWriter writer) {
+    public void dispatch(DoubleCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeNumber);
             dispatchInterpolations(writer);

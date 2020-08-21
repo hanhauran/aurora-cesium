@@ -8,5 +8,5 @@ import aurora.cesium.language.writer.HeightReferenceCesiumWriter;
  */
 public interface HeightReferenceProperty extends IntervalProperty, ReferenceProperty {
 
-    void dispatchHeightReference(HeightReferenceCesiumWriter writer);
+    void dispatch(HeightReferenceCesiumWriter writer);
 }

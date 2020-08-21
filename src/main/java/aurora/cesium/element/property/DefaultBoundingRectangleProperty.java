@@ -36,7 +36,7 @@ public class DefaultBoundingRectangleProperty extends SinglePropertyAdapter<Boun
     }
 
     @Override
-    public void dispatchBoundingRectangle(BoundingRectangleCesiumWriter writer) {
+    public void dispatch(BoundingRectangleCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeBoundingRectangle);
             dispatchInterpolations(writer);

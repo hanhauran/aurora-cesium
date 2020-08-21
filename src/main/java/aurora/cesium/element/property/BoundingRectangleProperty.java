@@ -19,5 +19,5 @@ public interface BoundingRectangleProperty extends IntervalProperty, Interpolata
     @Override
     Reference getReference();
 
-    void dispatchBoundingRectangle(BoundingRectangleCesiumWriter writer);
+    void dispatch(BoundingRectangleCesiumWriter writer);
 }

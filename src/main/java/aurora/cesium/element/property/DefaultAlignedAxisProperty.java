@@ -51,10 +51,10 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter implements Align
     }
 
     @Override
-    public void dispatchAlignedAxis(AlignedAxisCesiumWriter writer) {
+    public void dispatch(AlignedAxisCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getUnitCartesian()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchAlignedAxis(writer));
-            Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchAlignedAxis(writer));
+            Optional.ofNullable(getUnitCartesian()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchUnitCartesian(writer));
+            Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchUnitSpherical(writer));
             dispatchInterpolations(writer);
             dispatchInterval(writer);
             dispatchReference(writer);

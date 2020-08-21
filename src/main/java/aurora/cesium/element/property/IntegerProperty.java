@@ -17,5 +17,5 @@ public interface IntegerProperty extends InterpolatableProperty, IntervalPropert
     @Override
     Reference getReference();
 
-    void dispatchInteger(IntegerCesiumWriter writer);
+    void dispatch(IntegerCesiumWriter writer);
 }

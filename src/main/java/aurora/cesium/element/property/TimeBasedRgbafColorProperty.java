@@ -55,7 +55,7 @@ public class TimeBasedRgbafColorProperty extends SingleTimeBasedPropertyAdapter<
     }
 
     @Override
-    public void dispatchColor(ColorCesiumWriter writer) {
+    public void dispatch(ColorCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeRgbaf, writer::writeRgbaf);
             dispatchInterpolations(writer);

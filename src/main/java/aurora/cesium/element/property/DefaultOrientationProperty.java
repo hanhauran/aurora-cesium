@@ -35,7 +35,7 @@ public class DefaultOrientationProperty extends SinglePropertyAdapter<UnitQuater
     }
 
     @Override
-    public void dispatchOrientation(OrientationCesiumWriter writer) {
+    public void dispatch(OrientationCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeUnitQuaternion);
             dispatchInterpolations(writer);

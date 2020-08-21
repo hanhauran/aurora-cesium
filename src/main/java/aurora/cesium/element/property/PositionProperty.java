@@ -25,5 +25,5 @@ public interface PositionProperty extends InterpolatableProperty, IntervalProper
     @Override
     Reference getReference();
 
-    void dispatchPosition(PositionCesiumWriter writer);
+    void dispatch(PositionCesiumWriter writer);
 }

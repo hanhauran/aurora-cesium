@@ -16,5 +16,5 @@ public interface VerticalOriginProperty extends IntervalProperty, ReferencePrope
     @Override
     Reference getReference();
 
-    void dispatchVerticalOrigin(VerticalOriginCesiumWriter writer);
+    void dispatch(VerticalOriginCesiumWriter writer);
 }

@@ -36,7 +36,7 @@ public class DefaultDistanceDisplayConditionProperty extends SinglePropertyAdapt
     }
 
     @Override
-    public void dispatchDistanceDisplayCondition(DistanceDisplayConditionCesiumWriter writer) {
+    public void dispatch(DistanceDisplayConditionCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeDistanceDisplayCondition);
             dispatchInterpolations(writer);

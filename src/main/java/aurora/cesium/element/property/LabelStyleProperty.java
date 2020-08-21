@@ -16,5 +16,5 @@ public interface LabelStyleProperty extends IntervalProperty, ReferenceProperty 
     @Override
     Reference getReference();
 
-    void dispatchLabelStyle(LabelStyleCesiumWriter writer);
+    void dispatch(LabelStyleCesiumWriter writer);
 }

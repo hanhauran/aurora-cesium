@@ -16,5 +16,5 @@ public interface StringProperty extends IntervalProperty, ReferenceProperty {
     @Override
     Reference getReference();
 
-    void dispatchString(StringCesiumWriter writer);
+    void dispatch(StringCesiumWriter writer);
 }

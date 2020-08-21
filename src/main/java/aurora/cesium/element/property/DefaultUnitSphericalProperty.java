@@ -18,7 +18,7 @@ public class DefaultUnitSphericalProperty extends SinglePropertyAdapter<UnitSphe
     }
 
     @Override
-    public void dispatchAlignedAxis(AlignedAxisCesiumWriter writer) {
+    public void dispatchUnitSpherical(AlignedAxisCesiumWriter writer) {
         dispatchConsumer(writer::writeUnitSpherical);
     }
 
