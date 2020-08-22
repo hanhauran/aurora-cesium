@@ -10,6 +10,10 @@ import aurora.cesium.language.writer.PacketCesiumWriter;
  */
 public interface Entity extends Element {
 
+    static EntityAdapter.Builder newBuilder() {
+        return EntityAdapter.Builder.newBuilder();
+    }
+
     @Override
     String getId();
 
@@ -58,5 +62,5 @@ public interface Entity extends Element {
 
     WallGraphics getWall();
 
-    void dispatchEntity(PacketCesiumWriter writer);
+    void dispatch(PacketCesiumWriter writer);
 }

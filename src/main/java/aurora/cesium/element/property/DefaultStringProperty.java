@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.FontCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.StringCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
@@ -30,6 +31,15 @@ public class DefaultStringProperty extends SinglePropertyAdapter<String> impleme
     public void dispatch(StringCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeString);
+            dispatchInterval(writer);
+            dispatchReference(writer);
+        }
+    }
+
+    @Override
+    public void dispatch(FontCesiumWriter writer) {
+        try (writer) {
+            dispatchConsumer(writer::writeFont);
             dispatchInterval(writer);
             dispatchReference(writer);
         }

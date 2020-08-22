@@ -1,5 +1,6 @@
 package aurora.cesium.element;
 
+import aurora.cesium.element.property.ClockProperty;
 import aurora.cesium.language.writer.PacketCesiumWriter;
 
 /**
@@ -16,5 +17,7 @@ public interface StartElement extends Element {
 
     String getVersion();
 
-    void dispatchStartElement(PacketCesiumWriter writer);
+    ClockProperty getClock();
+
+    void dispatch(PacketCesiumWriter writer);
 }

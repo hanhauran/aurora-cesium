@@ -1,6 +1,9 @@
 package aurora.cesium.element;
 
+import aurora.cesium.element.property.ClockProperty;
 import aurora.cesium.language.writer.PacketCesiumWriter;
+
+import java.util.Optional;
 
 /**
  * @author hanhaoran
@@ -8,11 +11,16 @@ import aurora.cesium.language.writer.PacketCesiumWriter;
  */
 public class StartElementAdapter extends ElementAdapter implements StartElement {
 
-    protected String version;
+    private String version;
+
+    private ClockProperty clock;
 
     @Override
-    public void dispatchStartElement(PacketCesiumWriter writer) {
-
+    public void dispatch(PacketCesiumWriter writer) {
+        Optional.ofNullable(getId()).ifPresent(writer::writeId);
+        Optional.ofNullable(getName()).ifPresent(writer::writeName);
+        Optional.ofNullable(getVersion()).ifPresent(writer::writeVersion);
+        Optional.ofNullable(getClock()).ifPresent(clockProperty -> clockProperty.dispatch(writer.openClockProperty()));
     }
 
     @Override
@@ -22,5 +30,14 @@ public class StartElementAdapter extends ElementAdapter implements StartElement 
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    @Override
+    public ClockProperty getClock() {
+        return clock;
+    }
+
+    public void setClock(ClockProperty clock) {
+        this.clock = clock;
     }
 }

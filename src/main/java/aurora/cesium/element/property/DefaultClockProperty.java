@@ -1,9 +1,8 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.ClockRange;
-import aurora.cesium.language.writer.ClockStep;
-import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.TimeInterval;
+import aurora.cesium.language.writer.*;
+
+import java.util.Optional;
 
 /**
  * @author hanhaoran
@@ -33,6 +32,17 @@ public class DefaultClockProperty extends PropertyAdapter implements ClockProper
         this.range = range;
         this.step = step;
         this.interval = interval;
+    }
+
+    @Override
+    public void dispatch(ClockCesiumWriter writer) {
+        try (writer) {
+            Optional.ofNullable(getCurrentTime()).ifPresent(writer::writeCurrentTime);
+            Optional.ofNullable(getMultiplier()).ifPresent(writer::writeMultiplier);
+            Optional.ofNullable(getRange()).ifPresent(writer::writeRange);
+            Optional.ofNullable(getStep()).ifPresent(writer::writeStep);
+            Optional.ofNullable(getInterval()).ifPresent(writer::writeInterval);
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.FontCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.StringCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
@@ -17,4 +18,6 @@ public interface StringProperty extends IntervalProperty, ReferenceProperty {
     Reference getReference();
 
     void dispatch(StringCesiumWriter writer);
+
+    void dispatch(FontCesiumWriter writer);
 }

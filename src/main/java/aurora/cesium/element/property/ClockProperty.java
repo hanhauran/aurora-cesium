@@ -1,9 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.ClockRange;
-import aurora.cesium.language.writer.ClockStep;
-import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.TimeInterval;
+import aurora.cesium.language.writer.*;
 
 /**
  * @author hanhaoran
@@ -21,4 +18,6 @@ public interface ClockProperty extends IntervalProperty {
 
     @Override
     TimeInterval getInterval();
+
+    void dispatch(ClockCesiumWriter writer);
 }
