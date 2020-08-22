@@ -41,21 +41,23 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
 
     @Override
     public void dispatch(ModelCesiumWriter writer) {
-        Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-        Optional.ofNullable(getColorBlendMode()).ifPresent(colorBlendModeProperty -> colorBlendModeProperty.dispatch(writer.openColorBlendModeProperty()));
-        Optional.ofNullable(getColorBlendAmount()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openColorBlendAmountProperty()));
-        Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-        Optional.ofNullable(getGltf()).ifPresent(uriProperty -> uriProperty.dispatchUri(writer.openGltfProperty()));
-        Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
-        Optional.ofNullable(getIncrementallyLoadTextures()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openIncrementallyLoadTexturesProperty()));
-        Optional.ofNullable(getMaximumScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumScaleProperty()));
-        Optional.ofNullable(getMinimumPixelSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMinimumPixelSizeProperty()));
-        Optional.ofNullable(getRunAnimations()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openRunAnimationsProperty()));
-        Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
-        Optional.ofNullable(getSilhouetteColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openSilhouetteColorProperty()));
-        Optional.ofNullable(getSilhouetteSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openSilhouetteSizeProperty()));
-        Optional.ofNullable(getShadowMode()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
-        Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
+        try (writer) {
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
+            Optional.ofNullable(getColorBlendMode()).ifPresent(colorBlendModeProperty -> colorBlendModeProperty.dispatch(writer.openColorBlendModeProperty()));
+            Optional.ofNullable(getColorBlendAmount()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openColorBlendAmountProperty()));
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
+            Optional.ofNullable(getGltf()).ifPresent(uriProperty -> uriProperty.dispatchUri(writer.openGltfProperty()));
+            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
+            Optional.ofNullable(getIncrementallyLoadTextures()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openIncrementallyLoadTexturesProperty()));
+            Optional.ofNullable(getMaximumScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumScaleProperty()));
+            Optional.ofNullable(getMinimumPixelSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMinimumPixelSizeProperty()));
+            Optional.ofNullable(getRunAnimations()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openRunAnimationsProperty()));
+            Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
+            Optional.ofNullable(getSilhouetteColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openSilhouetteColorProperty()));
+            Optional.ofNullable(getSilhouetteSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openSilhouetteSizeProperty()));
+            Optional.ofNullable(getShadowMode()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
+        }
     }
 
     @Override

@@ -19,5 +19,9 @@ public interface StringProperty extends IntervalProperty, ReferenceProperty {
 
     void dispatch(StringCesiumWriter writer);
 
+    /**
+     * actually this is a StringCesiumWriter, so close it.
+     * @param writer writer
+     */
     void dispatch(FontCesiumWriter writer);
 }
