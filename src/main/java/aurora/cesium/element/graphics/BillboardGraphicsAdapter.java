@@ -27,7 +27,7 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
 
     private HorizontalOriginProperty horizontalOrigin;
 
-    private ResourceProperty image;
+    private UriProperty image;
 
     private BoundingRectangleProperty imageSubRegion;
 
@@ -148,11 +148,11 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
     }
 
     @Override
-    public ResourceProperty getImage() {
+    public UriProperty getImage() {
         return image;
     }
 
-    public void setImage(ResourceProperty image) {
+    public void setImage(UriProperty image) {
         this.image = image;
     }
 
@@ -256,7 +256,7 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
         private DoubleProperty height;
         private HeightReferenceProperty heightReference;
         private HorizontalOriginProperty horizontalOrigin;
-        private ResourceProperty image;
+        private UriProperty image;
         private BoundingRectangleProperty imageSubRegion;
         private PixelOffsetProperty pixelOffset;
         private NearFarScalarProperty pixelOffsetScaleByDistance;
@@ -315,7 +315,7 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
             return this;
         }
 
-        public Builder withImage(ResourceProperty image) {
+        public Builder withImage(UriProperty image) {
             this.image = image;
             return this;
         }

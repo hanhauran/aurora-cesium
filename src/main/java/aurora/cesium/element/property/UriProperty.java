@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.UriCesiumWriter;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface ResourceProperty extends IntervalProperty, ReferenceProperty {
+public interface UriProperty extends IntervalProperty, ReferenceProperty {
 
     @Override
     TimeInterval getInterval();

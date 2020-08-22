@@ -29,7 +29,7 @@ public interface BillboardGraphics extends Graphics<BillboardCesiumWriter> {
 
     HorizontalOriginProperty getHorizontalOrigin();
 
-    ResourceProperty getImage();
+    UriProperty getImage();
 
     BoundingRectangleProperty getImageSubRegion();
 
