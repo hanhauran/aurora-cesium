@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.Reference;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class DefaultColorBlendModeProperty extends SinglePropertyAdapter<CesiumColorBlendMode> implements ColorBlendModeProperty {
+public class DefaultColorBlendModeProperty extends SinglePropertyAdapter<CesiumColorBlendMode, ColorBlendModeProperty> implements ColorBlendModeProperty {
 
     public DefaultColorBlendModeProperty() {
         super();

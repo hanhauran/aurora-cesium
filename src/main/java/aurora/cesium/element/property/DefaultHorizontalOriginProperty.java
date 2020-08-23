@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<CesiumHorizontalOrigin> implements HorizontalOriginProperty {
+public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<CesiumHorizontalOrigin, HorizontalOriginProperty> implements HorizontalOriginProperty {
 
     public DefaultHorizontalOriginProperty() {
         super();

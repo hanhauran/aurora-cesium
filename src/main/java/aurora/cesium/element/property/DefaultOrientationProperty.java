@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.UnitQuaternion;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultOrientationProperty extends SinglePropertyAdapter<UnitQuaternion> implements OrientationProperty {
+public class DefaultOrientationProperty extends SinglePropertyAdapter<UnitQuaternion, OrientationProperty> implements OrientationProperty {
     public DefaultOrientationProperty() {
         super();
     }

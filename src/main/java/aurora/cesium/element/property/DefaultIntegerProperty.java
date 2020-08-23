@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultIntegerProperty extends SinglePropertyAdapter<Integer> implements IntegerProperty {
+public class DefaultIntegerProperty extends SinglePropertyAdapter<Integer, IntervalProperty> implements IntegerProperty {
 
     public DefaultIntegerProperty() {
         super();

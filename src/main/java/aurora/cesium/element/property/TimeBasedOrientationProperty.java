@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedOrientationProperty extends SingleTimeBasedPropertyAdapter<UnitQuaternion> implements OrientationProperty, InterpolatableProperty, IntervalProperty, Property {
+public class TimeBasedOrientationProperty extends SingleTimeBasedPropertyAdapter<UnitQuaternion, OrientationProperty> implements OrientationProperty {
 
     public TimeBasedOrientationProperty() {
         super();

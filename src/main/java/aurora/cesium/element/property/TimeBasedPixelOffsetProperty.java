@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedPixelOffsetProperty extends SingleTimeBasedPropertyAdapter<Rectangular> implements PixelOffsetProperty {
+public class TimeBasedPixelOffsetProperty extends SingleTimeBasedPropertyAdapter<Rectangular, PixelOffsetProperty> implements PixelOffsetProperty {
 
     public TimeBasedPixelOffsetProperty() {
         super();

@@ -2,6 +2,7 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -9,7 +10,7 @@ import java.util.function.Consumer;
  * @author hanhaoran
  * @date 2020/8/21
  */
-abstract class SinglePropertyAdapter<T> extends PropertyAdapter {
+abstract class SinglePropertyAdapter<T, P extends Property> extends PropertyAdapter<P> {
 
     protected T instance;
 
@@ -35,6 +36,10 @@ abstract class SinglePropertyAdapter<T> extends PropertyAdapter {
 
     public SinglePropertyAdapter(Reference reference) {
         super(reference);
+    }
+
+    public SinglePropertyAdapter(List<P> intervals) {
+        this.intervals = intervals;
     }
 
     void dispatchConsumer(Consumer<? super T> action) {

@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedNearFarScalarProperty extends SingleTimeBasedPropertyAdapter<NearFarScalar> implements NearFarScalarProperty {
+public class TimeBasedNearFarScalarProperty extends SingleTimeBasedPropertyAdapter<NearFarScalar, NearFarScalarProperty> implements NearFarScalarProperty {
 
     public TimeBasedNearFarScalarProperty() {
         super();

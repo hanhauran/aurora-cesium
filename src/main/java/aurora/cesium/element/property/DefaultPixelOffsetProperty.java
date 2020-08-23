@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultPixelOffsetProperty extends SinglePropertyAdapter<Rectangular> implements PixelOffsetProperty {
+public class DefaultPixelOffsetProperty extends SinglePropertyAdapter<Rectangular, PixelOffsetProperty> implements PixelOffsetProperty {
 
     public DefaultPixelOffsetProperty() {
         super();

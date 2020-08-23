@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedBoundingRectangleProperty extends SingleTimeBasedPropertyAdapter<BoundingRectangle> implements BoundingRectangleProperty {
+public class TimeBasedBoundingRectangleProperty extends SingleTimeBasedPropertyAdapter<BoundingRectangle, BoundingRectangleProperty> implements BoundingRectangleProperty {
 
     public TimeBasedBoundingRectangleProperty() {
         super();

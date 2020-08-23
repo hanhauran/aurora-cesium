@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class MultiIntervalAvailabilityProperty extends PropertyAdapter implements AvailabilityProperty {
+public class MultiIntervalAvailabilityProperty extends PropertyAdapter<AvailabilityProperty> implements AvailabilityProperty {
 
     private List<TimeInterval> intervals;
 

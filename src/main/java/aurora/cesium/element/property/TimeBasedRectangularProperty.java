@@ -3,6 +3,7 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.BackgroundPaddingCesiumWriter;
 import aurora.cesium.language.writer.JulianDate;
 import aurora.cesium.language.writer.Rectangular;
+import aurora.cesium.language.writer.RepeatCesiumWriter;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class TimeBasedRectangularProperty extends SingleTimeBasedPropertyAdapter<Rectangular> implements RectangularProperty {
+public class TimeBasedRectangularProperty extends SingleTimeBasedPropertyAdapter<Rectangular, RectangularProperty> implements RectangularProperty {
 
     public TimeBasedRectangularProperty() {
         super();
@@ -26,6 +27,11 @@ public class TimeBasedRectangularProperty extends SingleTimeBasedPropertyAdapter
 
     @Override
     public void dispatchRectangular(BackgroundPaddingCesiumWriter writer) {
+        dispatchConsumer(writer::writeCartesian2, writer::writeCartesian2);
+    }
+
+    @Override
+    public void dispatchRectangular(RepeatCesiumWriter writer) {
         dispatchConsumer(writer::writeCartesian2, writer::writeCartesian2);
     }
 

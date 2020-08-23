@@ -11,6 +11,10 @@ import java.util.List;
  */
 public interface Czml {
 
+    static CzmlAdapter.Builder newBuilder() {
+        return CzmlAdapter.Builder.newBuilder();
+    }
+
     StartElement getStartElement();
 
     List<Entity> getEntities();

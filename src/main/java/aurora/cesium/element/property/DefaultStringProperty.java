@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultStringProperty extends SinglePropertyAdapter<String> implements StringProperty {
+public class DefaultStringProperty extends SinglePropertyAdapter<String, StringProperty> implements StringProperty {
 
     public DefaultStringProperty() {
         super();

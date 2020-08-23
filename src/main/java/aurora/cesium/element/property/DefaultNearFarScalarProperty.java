@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultNearFarScalarProperty extends SinglePropertyAdapter<NearFarScalar> implements NearFarScalarProperty {
+public class DefaultNearFarScalarProperty extends SinglePropertyAdapter<NearFarScalar, NearFarScalarProperty> implements NearFarScalarProperty {
 
     public DefaultNearFarScalarProperty() {
         super();

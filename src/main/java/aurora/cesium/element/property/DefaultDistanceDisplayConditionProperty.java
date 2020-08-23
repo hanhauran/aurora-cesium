@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultDistanceDisplayConditionProperty extends SinglePropertyAdapter<Bounds> implements DistanceDisplayConditionProperty {
+public class DefaultDistanceDisplayConditionProperty extends SinglePropertyAdapter<Bounds, DistanceDisplayConditionProperty> implements DistanceDisplayConditionProperty {
 
     public DefaultDistanceDisplayConditionProperty() {
         super();

@@ -1,6 +1,7 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.BackgroundPaddingCesiumWriter;
+import aurora.cesium.language.writer.RepeatCesiumWriter;
 
 /**
  * @author hanhaoran
@@ -9,4 +10,6 @@ import aurora.cesium.language.writer.BackgroundPaddingCesiumWriter;
 public interface RectangularProperty extends Property {
 
     void dispatchRectangular(BackgroundPaddingCesiumWriter writer);
+
+    void dispatchRectangular(RepeatCesiumWriter writer);
 }

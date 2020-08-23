@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.VerticalOriginCesiumWriter;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultVerticalOriginProperty extends SinglePropertyAdapter<CesiumVerticalOrigin> implements VerticalOriginProperty, IntervalProperty, Property {
+public class DefaultVerticalOriginProperty extends SinglePropertyAdapter<CesiumVerticalOrigin, VerticalOriginProperty> implements VerticalOriginProperty {
 
     public DefaultVerticalOriginProperty() {
         super();

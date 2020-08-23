@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultPositionProperty extends PropertyAdapter implements PositionProperty {
+public class DefaultPositionProperty extends PropertyAdapter<PositionProperty> implements PositionProperty {
 
     private CartesianProperty cartesian;
 

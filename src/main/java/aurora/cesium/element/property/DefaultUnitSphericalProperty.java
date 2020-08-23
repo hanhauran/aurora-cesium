@@ -7,7 +7,7 @@ import aurora.cesium.language.writer.UnitSpherical;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultUnitSphericalProperty extends SinglePropertyAdapter<UnitSpherical> implements UnitSphericalProperty {
+public class DefaultUnitSphericalProperty extends SinglePropertyAdapter<UnitSpherical, UnitSphericalProperty> implements UnitSphericalProperty {
 
     public DefaultUnitSphericalProperty() {
         super();

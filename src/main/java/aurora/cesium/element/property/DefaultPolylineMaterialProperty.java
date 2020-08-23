@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultPolylineMaterialProperty extends PropertyAdapter implements PolylineMaterialProperty {
+public class DefaultPolylineMaterialProperty extends PropertyAdapter<PolylineMaterialProperty> implements PolylineMaterialProperty {
 
     private SolidColorMaterialProperty solidColor;
 

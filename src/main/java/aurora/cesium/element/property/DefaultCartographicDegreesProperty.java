@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultCartographicDegreesProperty extends SinglePropertyAdapter<Cartographic> implements CartographicDegreesProperty {
+public class DefaultCartographicDegreesProperty extends SinglePropertyAdapter<Cartographic, CartographicDegreesProperty> implements CartographicDegreesProperty {
 
     public DefaultCartographicDegreesProperty() {
         super();

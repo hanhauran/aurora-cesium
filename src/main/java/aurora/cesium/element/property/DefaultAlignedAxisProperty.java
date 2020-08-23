@@ -8,7 +8,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultAlignedAxisProperty extends PropertyAdapter implements AlignedAxisProperty {
+public class DefaultAlignedAxisProperty extends PropertyAdapter<AlignedAxisProperty> implements AlignedAxisProperty {
 
     private UnitCartesianProperty unitCartesian;
 

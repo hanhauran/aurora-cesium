@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.ShadowModeCesiumWriter;
  * @author hanhaoran
  * @date 2020/8/22
  */
-public class DefaultShadowModeProperty extends SinglePropertyAdapter<CesiumShadowMode> implements ShadowModeProperty {
+public class DefaultShadowModeProperty extends SinglePropertyAdapter<CesiumShadowMode, ShadowModeProperty> implements ShadowModeProperty {
 
     public DefaultShadowModeProperty() {
         super();

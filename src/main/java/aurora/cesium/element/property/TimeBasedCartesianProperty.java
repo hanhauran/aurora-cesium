@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class TimeBasedCartesianProperty extends SingleTimeBasedPropertyAdapter<Cartesian> implements CartesianProperty {
+public class TimeBasedCartesianProperty extends SingleTimeBasedPropertyAdapter<Cartesian, CartesianProperty> implements CartesianProperty {
 
     public TimeBasedCartesianProperty() {
         super();
@@ -20,6 +20,11 @@ public class TimeBasedCartesianProperty extends SingleTimeBasedPropertyAdapter<C
 
     public TimeBasedCartesianProperty(List<JulianDate> dates, List<Cartesian> instance, Integer startIndex, Integer length) {
         super(dates, instance, startIndex, length);
+    }
+
+    @Override
+    public void dispatchCartesian(BoxDimensionsCesiumWriter writer) {
+        dispatchConsumer(writer::writeCartesian, writer::writeCartesian);
     }
 
     @Override

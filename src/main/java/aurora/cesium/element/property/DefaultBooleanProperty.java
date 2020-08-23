@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultBooleanProperty extends SinglePropertyAdapter<Boolean> implements BooleanProperty {
+public class DefaultBooleanProperty extends SinglePropertyAdapter<Boolean, BooleanProperty> implements BooleanProperty {
 
     public DefaultBooleanProperty() {
         super();

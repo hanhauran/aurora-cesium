@@ -11,7 +11,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedIntegerProperty extends SingleTimeBasedPropertyAdapter<Integer> implements IntegerProperty {
+public class TimeBasedIntegerProperty extends SingleTimeBasedPropertyAdapter<Integer, IntegerProperty> implements IntegerProperty {
 
     public TimeBasedIntegerProperty() {
         super();

@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class DefaultViewFromProperty extends PropertyAdapter implements ViewFromProperty {
+public class DefaultViewFromProperty extends PropertyAdapter<ViewFromProperty> implements ViewFromProperty {
 
     protected CartesianProperty cartesian;
 

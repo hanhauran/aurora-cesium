@@ -32,4 +32,34 @@ public class CzmlAdapter implements Czml {
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
+
+
+    public static final class Builder {
+        private StartElement startElement;
+        private List<Entity> entities;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withStartElement(StartElement startElement) {
+            this.startElement = startElement;
+            return this;
+        }
+
+        public Builder withEntities(List<Entity> entities) {
+            this.entities = entities;
+            return this;
+        }
+
+        public CzmlAdapter build() {
+            CzmlAdapter czmlAdapter = new CzmlAdapter();
+            czmlAdapter.setStartElement(startElement);
+            czmlAdapter.setEntities(entities);
+            return czmlAdapter;
+        }
+    }
 }

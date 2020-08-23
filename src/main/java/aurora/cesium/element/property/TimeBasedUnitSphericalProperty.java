@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedUnitSphericalProperty extends SingleTimeBasedPropertyAdapter<UnitSpherical> implements UnitSphericalProperty {
+public class TimeBasedUnitSphericalProperty extends SingleTimeBasedPropertyAdapter<UnitSpherical, UnitSphericalProperty> implements UnitSphericalProperty {
 
     public TimeBasedUnitSphericalProperty() {
         super();

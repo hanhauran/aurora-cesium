@@ -1,15 +1,12 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Cartesian;
-import aurora.cesium.language.writer.EyeOffsetCesiumWriter;
-import aurora.cesium.language.writer.PositionCesiumWriter;
-import aurora.cesium.language.writer.ViewFromCesiumWriter;
+import aurora.cesium.language.writer.*;
 
 /**
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class DefaultCartesianProperty extends SinglePropertyAdapter<Cartesian> implements CartesianProperty {
+public class DefaultCartesianProperty extends SinglePropertyAdapter<Cartesian, CartesianProperty> implements CartesianProperty {
 
     public DefaultCartesianProperty() {
         super();
@@ -17,6 +14,11 @@ public class DefaultCartesianProperty extends SinglePropertyAdapter<Cartesian> i
 
     public DefaultCartesianProperty(Cartesian instance) {
         super(instance);
+    }
+
+    @Override
+    public void dispatchCartesian(BoxDimensionsCesiumWriter writer) {
+        dispatchConsumer(writer::writeCartesian);
     }
 
     @Override

@@ -9,6 +9,10 @@ import aurora.cesium.language.writer.PacketCesiumWriter;
  */
 public interface StartElement extends Element {
 
+    static StartElementAdapter.Builder newBuilder() {
+        return StartElementAdapter.Builder.newBuilder();
+    }
+
     @Override
     String getId();
 

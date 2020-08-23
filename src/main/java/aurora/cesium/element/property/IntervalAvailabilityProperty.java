@@ -9,7 +9,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class IntervalAvailabilityProperty extends PropertyAdapter implements AvailabilityProperty {
+public class IntervalAvailabilityProperty extends PropertyAdapter<AvailabilityProperty> implements AvailabilityProperty {
 
     public IntervalAvailabilityProperty() {
         super();

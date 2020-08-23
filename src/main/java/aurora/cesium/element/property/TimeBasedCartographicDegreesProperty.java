@@ -11,7 +11,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedCartographicDegreesProperty extends SingleTimeBasedPropertyAdapter<Cartographic> implements CartographicDegreesProperty {
+public class TimeBasedCartographicDegreesProperty extends SingleTimeBasedPropertyAdapter<Cartographic, CartographicDegreesProperty> implements CartographicDegreesProperty {
 
     public TimeBasedCartographicDegreesProperty() {
         super();

@@ -11,7 +11,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedCartographicRadiansProperty extends SingleTimeBasedPropertyAdapter<Cartographic> implements CartographicRadiansProperty {
+public class TimeBasedCartographicRadiansProperty extends SingleTimeBasedPropertyAdapter<Cartographic, CartographicRadiansProperty> implements CartographicRadiansProperty {
 
     public TimeBasedCartographicRadiansProperty() {
         super();

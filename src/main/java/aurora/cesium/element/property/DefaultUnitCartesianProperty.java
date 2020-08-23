@@ -7,7 +7,7 @@ import aurora.cesium.language.writer.UnitCartesian;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultUnitCartesianProperty extends SinglePropertyAdapter<UnitCartesian> implements UnitCartesianProperty {
+public class DefaultUnitCartesianProperty extends SinglePropertyAdapter<UnitCartesian, UnitCartesianProperty> implements UnitCartesianProperty {
 
     public DefaultUnitCartesianProperty() {
         super();

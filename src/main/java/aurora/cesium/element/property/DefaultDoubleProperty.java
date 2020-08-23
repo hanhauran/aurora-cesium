@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultDoubleProperty extends SinglePropertyAdapter<Double> implements DoubleProperty {
+public class DefaultDoubleProperty extends SinglePropertyAdapter<Double, DoubleProperty> implements DoubleProperty {
 
     public DefaultDoubleProperty() {
         super();

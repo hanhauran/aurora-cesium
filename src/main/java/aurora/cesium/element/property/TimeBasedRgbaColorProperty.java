@@ -12,7 +12,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedRgbaColorProperty extends SingleTimeBasedPropertyAdapter<Color> implements ColorProperty {
+public class TimeBasedRgbaColorProperty extends SingleTimeBasedPropertyAdapter<Color, ColorProperty> implements ColorProperty {
 
     public TimeBasedRgbaColorProperty() {
         super();

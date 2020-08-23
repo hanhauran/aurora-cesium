@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedDistanceDisplayConditionProperty extends SingleTimeBasedPropertyAdapter<Bounds> implements DistanceDisplayConditionProperty {
+public class TimeBasedDistanceDisplayConditionProperty extends SingleTimeBasedPropertyAdapter<Bounds, DistanceDisplayConditionProperty> implements DistanceDisplayConditionProperty {
 
     public TimeBasedDistanceDisplayConditionProperty() {
         super();

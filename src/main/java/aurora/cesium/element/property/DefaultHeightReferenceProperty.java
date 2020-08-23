@@ -9,7 +9,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<CesiumHeightReference> implements HeightReferenceProperty {
+public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<CesiumHeightReference, HeightReferenceProperty> implements HeightReferenceProperty {
 
     public DefaultHeightReferenceProperty() {
         super();

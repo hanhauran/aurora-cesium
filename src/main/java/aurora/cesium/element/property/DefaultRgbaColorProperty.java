@@ -10,7 +10,7 @@ import java.awt.*;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultRgbaColorProperty extends SinglePropertyAdapter<Color> implements ColorProperty {
+public class DefaultRgbaColorProperty extends SinglePropertyAdapter<Color, ColorProperty> implements ColorProperty {
 
     public DefaultRgbaColorProperty() {
         super();

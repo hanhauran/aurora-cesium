@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedUnitCartesian extends SingleTimeBasedPropertyAdapter<UnitCartesian> implements UnitCartesianProperty {
+public class TimeBasedUnitCartesian extends SingleTimeBasedPropertyAdapter<UnitCartesian, UnitCartesianProperty> implements UnitCartesianProperty {
 
     public TimeBasedUnitCartesian() {
         super();

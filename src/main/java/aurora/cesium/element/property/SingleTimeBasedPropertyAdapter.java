@@ -10,7 +10,7 @@ import java.util.function.BiConsumer;
  * @author hanhaoran
  * @date 2020/8/21
  */
-abstract class SingleTimeBasedPropertyAdapter<T> extends SinglePropertyAdapter<List<T>> {
+abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends SinglePropertyAdapter<List<T>, P> {
 
     protected List<JulianDate> dates;
 
@@ -59,6 +59,10 @@ abstract class SingleTimeBasedPropertyAdapter<T> extends SinglePropertyAdapter<L
 
     public SingleTimeBasedPropertyAdapter(Reference reference) {
         super(reference);
+    }
+
+    public SingleTimeBasedPropertyAdapter(List<P> intervals) {
+        super(intervals);
     }
 
     void dispatchConsumer(BiConsumer<List<JulianDate>, List<T>> biConsumer, QuadrupleConsumer<List<JulianDate>, List<T>, Integer, Integer> quadrupleConsumer) {

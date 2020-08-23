@@ -10,6 +10,10 @@ interface IntervalProperty extends Property {
     TimeInterval getInterval();
 
     default <T extends CesiumPropertyWriter<T>> void dispatchInterval(T writer) {
-        Optional.ofNullable(getInterval()).ifPresent(writer::writeInterval);
+        dispatchInterval(writer, this);
+    }
+
+    default <T extends CesiumPropertyWriter<T>> void dispatchInterval(T writer, IntervalProperty property) {
+        Optional.ofNullable(property.getInterval()).ifPresent(writer::writeInterval);
     }
 }

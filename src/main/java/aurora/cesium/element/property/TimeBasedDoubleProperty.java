@@ -11,7 +11,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class TimeBasedDoubleProperty extends SingleTimeBasedPropertyAdapter<Double> implements DoubleProperty {
+public class TimeBasedDoubleProperty extends SingleTimeBasedPropertyAdapter<Double, DoubleProperty> implements DoubleProperty {
 
     public TimeBasedDoubleProperty() {
         super();

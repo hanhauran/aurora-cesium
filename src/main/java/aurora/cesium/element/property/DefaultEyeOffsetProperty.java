@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultEyeOffsetProperty extends PropertyAdapter implements EyeOffsetProperty {
+public class DefaultEyeOffsetProperty extends PropertyAdapter<EyeOffsetProperty> implements EyeOffsetProperty {
 
     private CartesianProperty cartesian;
 

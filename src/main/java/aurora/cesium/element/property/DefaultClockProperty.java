@@ -8,7 +8,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultClockProperty extends PropertyAdapter implements ClockProperty {
+public class DefaultClockProperty extends PropertyAdapter<ClockProperty> implements ClockProperty {
 
     private JulianDate currentTime;
 
