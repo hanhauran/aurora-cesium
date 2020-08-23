@@ -37,7 +37,7 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
 
     private DoubleProperty silhouetteSize;
 
-    private ShadowModeProperty shadowMode;
+    private ShadowModeProperty shadows;
 
     @Override
     public void dispatch(ModelCesiumWriter writer) {
@@ -55,7 +55,7 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
             Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
             Optional.ofNullable(getSilhouetteColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openSilhouetteColorProperty()));
             Optional.ofNullable(getSilhouetteSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openSilhouetteSizeProperty()));
-            Optional.ofNullable(getShadowMode()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
+            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
         }
     }
@@ -178,12 +178,12 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
     }
 
     @Override
-    public ShadowModeProperty getShadowMode() {
-        return shadowMode;
+    public ShadowModeProperty getShadows() {
+        return shadows;
     }
 
-    public void setShadowMode(ShadowModeProperty shadowMode) {
-        this.shadowMode = shadowMode;
+    public void setShadows(ShadowModeProperty shadows) {
+        this.shadows = shadows;
     }
 
 
@@ -202,7 +202,7 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
         private DoubleProperty scale;
         private ColorProperty silhouetteColor;
         private DoubleProperty silhouetteSize;
-        private ShadowModeProperty shadowMode;
+        private ShadowModeProperty shadows;
 
         private Builder() {
         }
@@ -276,8 +276,8 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
             return this;
         }
 
-        public Builder withShadowMode(ShadowModeProperty shadowMode) {
-            this.shadowMode = shadowMode;
+        public Builder withShadows(ShadowModeProperty shadowMode) {
+            this.shadows = shadowMode;
             return this;
         }
 
@@ -301,7 +301,7 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
             modelGraphicsAdapter.setScale(scale);
             modelGraphicsAdapter.setSilhouetteColor(silhouetteColor);
             modelGraphicsAdapter.setSilhouetteSize(silhouetteSize);
-            modelGraphicsAdapter.setShadowMode(shadowMode);
+            modelGraphicsAdapter.setShadows(shadows);
             modelGraphicsAdapter.setShow(show);
             return modelGraphicsAdapter;
         }

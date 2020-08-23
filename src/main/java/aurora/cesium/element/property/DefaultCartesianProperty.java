@@ -22,6 +22,11 @@ public class DefaultCartesianProperty extends SinglePropertyAdapter<Cartesian, C
     }
 
     @Override
+    public void dispatchCartesian(EllipsoidRadiiCesiumWriter writer) {
+        dispatchConsumer(writer::writeCartesian);
+    }
+
+    @Override
     public void dispatchCartesian(EyeOffsetCesiumWriter writer) {
         dispatchConsumer(writer::writeCartesian);
     }

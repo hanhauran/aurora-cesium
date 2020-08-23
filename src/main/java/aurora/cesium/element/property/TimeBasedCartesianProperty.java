@@ -28,6 +28,11 @@ public class TimeBasedCartesianProperty extends SingleTimeBasedPropertyAdapter<C
     }
 
     @Override
+    public void dispatchCartesian(EllipsoidRadiiCesiumWriter writer) {
+        dispatchConsumer(writer::writeCartesian, writer::writeCartesian);
+    }
+
+    @Override
     public void dispatchCartesian(EyeOffsetCesiumWriter writer) {
         dispatchConsumer(writer::writeCartesian, writer::writeCartesian);
     }

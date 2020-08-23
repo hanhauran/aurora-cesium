@@ -39,7 +39,7 @@ public interface ModelGraphics extends Graphics<ModelCesiumWriter> {
 
     DoubleProperty getSilhouetteSize();
 
-    ShadowModeProperty getShadowMode();
+    ShadowModeProperty getShadows();
 
     @Override
     BooleanProperty getShow();

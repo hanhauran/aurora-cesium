@@ -29,7 +29,7 @@ public interface BoxGraphics extends Graphics<BoxCesiumWriter> {
 
     DoubleProperty getOutlineWidth();
 
-    ShadowModeProperty getShadowMode();
+    ShadowModeProperty getShadows();
 
     @Override
     BooleanProperty getShow();
