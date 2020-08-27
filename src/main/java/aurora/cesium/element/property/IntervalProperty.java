@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.advanced.CesiumPropertyWriter;
 
 import java.util.Optional;
 
+@Deprecated
 interface IntervalProperty extends Property {
 
     TimeInterval getInterval();

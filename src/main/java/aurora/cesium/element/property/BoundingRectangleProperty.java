@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface BoundingRectangleProperty extends InterpolatableProperty, MultiIntervalProperty<BoundingRectangleCesiumWriter, BoundingRectangleProperty>, ReferenceProperty {
+public interface BoundingRectangleProperty extends InterpolatableProperty, MultiIntervalProperty<BoundingRectangleProperty>, ReferenceProperty {
 
     @Override
     Interpolations getInterpolations();
@@ -24,6 +24,5 @@ public interface BoundingRectangleProperty extends InterpolatableProperty, Multi
     @Override
     Reference getReference();
 
-    @Override
     void dispatch(BoundingRectangleCesiumWriter writer);
 }

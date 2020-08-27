@@ -33,7 +33,7 @@ public class DefaultBooleanProperty extends SinglePropertyAdapter<Boolean, Boole
     public void dispatch(BooleanCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeBoolean);
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }

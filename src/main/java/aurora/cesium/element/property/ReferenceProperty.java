@@ -14,10 +14,6 @@ public interface ReferenceProperty extends Property {
     Reference getReference();
 
     default void dispatchReference(ICesiumReferenceValuePropertyWriter writer) {
-        dispatchReference(writer, this);
-    }
-
-    default void dispatchReference(ICesiumReferenceValuePropertyWriter writer, ReferenceProperty property) {
-        Optional.ofNullable(property.getReference()).ifPresent(writer::writeReference);
+        Optional.ofNullable(getReference()).ifPresent(writer::writeReference);
     }
 }

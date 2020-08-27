@@ -5,50 +5,69 @@ import aurora.cesium.language.writer.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * @author hanhaoran
  * @date 2020/8/21
  */
-abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends SinglePropertyAdapter<List<T>, P> {
+abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends SinglePropertyAdapter<T, P> {
 
     protected List<JulianDate> dates;
+
+    protected List<T> instances;
 
     protected Integer startIndex;
 
     protected Integer length;
 
-    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance) {
-        this(dates, instance, null, null, null, null);
+    public SingleTimeBasedPropertyAdapter(T instance) {
+        super(instance);
     }
 
-    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, Interpolations interpolations) {
-        this(dates, instance, null, null, interpolations, null);
+    public SingleTimeBasedPropertyAdapter(T instance, TimeInterval interval) {
+        super(instance, interval);
     }
 
-    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, TimeInterval interval) {
-        this(dates, instance, null, null, null, interval);
+    public SingleTimeBasedPropertyAdapter(T instance, Interpolations interpolations) {
+        super(instance, interpolations);
     }
 
-    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, Interpolations interpolations, TimeInterval interval) {
-        this(dates, instance, null, null, interpolations, interval);
+    public SingleTimeBasedPropertyAdapter(T instance, Interpolations interpolations, TimeInterval interval) {
+        super(instance, interpolations, interval);
     }
 
-    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, Integer startIndex, Integer length) {
-        this(dates, instance, startIndex, length, null, null);
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instances) {
+        this(dates, instances, null, null, null, null);
     }
 
-    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, Integer startIndex, Integer length, Interpolations interpolations) {
-        this(dates, instance, startIndex, length, interpolations, null);
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instances, Interpolations interpolations) {
+        this(dates, instances, null, null, interpolations, null);
     }
 
-    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, Integer startIndex, Integer length, TimeInterval interval) {
-        this(dates, instance, startIndex, length, null, interval);
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instances, TimeInterval interval) {
+        this(dates, instances, null, null, null, interval);
     }
 
-    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instances, Interpolations interpolations, TimeInterval interval) {
+        this(dates, instances, null, null, interpolations, interval);
+    }
+
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instances, Integer startIndex, Integer length) {
+        this(dates, instances, startIndex, length, null, null);
+    }
+
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instances, Integer startIndex, Integer length, Interpolations interpolations) {
+        this(dates, instances, startIndex, length, interpolations, null);
+    }
+
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instances, Integer startIndex, Integer length, TimeInterval interval) {
+        this(dates, instances, startIndex, length, null, interval);
+    }
+
+    public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instances, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
         this.dates = dates;
-        this.instance = instance;
+        this.instances = instances;
         this.startIndex = startIndex;
         this.length = length;
         this.interpolations = interpolations;
@@ -63,13 +82,14 @@ abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends Sin
         super(reference);
     }
 
-    void dispatchConsumer(BiConsumer<List<JulianDate>, List<T>> biConsumer, QuadrupleConsumer<List<JulianDate>, List<T>, Integer, Integer> quadrupleConsumer) {
+    void dispatchConsumer(Consumer<? super T> consumer, BiConsumer<List<JulianDate>, List<T>> biConsumer, QuadrupleConsumer<List<JulianDate>, List<T>, Integer, Integer> quadrupleConsumer) {
+        Optional.ofNullable(instance).ifPresent(consumer);
         Optional.ofNullable(getStartIndex()).ifPresentOrElse(
                 idx -> Optional.ofNullable(getLength()).ifPresentOrElse(
-                        len -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(instance).ifPresent(it -> quadrupleConsumer.accept(julianDates, it, idx, len))),
-                        () -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(instance).ifPresent(it -> biConsumer.accept(julianDates, it)))
+                        len -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(instances).ifPresent(it -> quadrupleConsumer.accept(julianDates, it, idx, len))),
+                        () -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(instances).ifPresent(it -> biConsumer.accept(julianDates, it)))
                 ),
-                () -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(instance).ifPresent(it -> biConsumer.accept(julianDates, it)))
+                () -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(instances).ifPresent(it -> biConsumer.accept(julianDates, it)))
         );
     }
 

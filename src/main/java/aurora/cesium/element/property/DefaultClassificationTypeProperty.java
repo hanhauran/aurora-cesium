@@ -33,19 +33,10 @@ public class DefaultClassificationTypeProperty extends SinglePropertyAdapter<Ces
     @Override
     public void dispatch(ClassificationTypeCesiumWriter writer) {
         try (writer) {
-            doDispatch(writer, this);
-            dispatchIntervals(writer::openMultipleIntervals, (itemWriter, property) -> {
-                try (itemWriter) {
-                    doDispatch(itemWriter, property);
-                }
-            });
+            dispatchConsumer(writer::writeClassificationType);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchReference(writer);
         }
-    }
-
-    private void doDispatch(ClassificationTypeCesiumWriter writer, ClassificationTypeProperty property) {
-        Optional.ofNullable(property.getClassificationType()).ifPresent(writer::writeClassificationType);
-        dispatchInterval(writer, property);
-        dispatchReference(writer, property);
     }
 
     @Override

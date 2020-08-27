@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface BooleanProperty extends MultiIntervalProperty<BooleanCesiumWriter, BooleanProperty>, ReferenceProperty {
+public interface BooleanProperty extends MultiIntervalProperty<BooleanProperty>, ReferenceProperty {
 
     @Override
     TimeInterval getInterval();
@@ -21,6 +21,5 @@ public interface BooleanProperty extends MultiIntervalProperty<BooleanCesiumWrit
     @Override
     Reference getReference();
 
-    @Override
     void dispatch(BooleanCesiumWriter writer);
 }

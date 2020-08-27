@@ -41,7 +41,7 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter<AlignedAxisPrope
             Optional.ofNullable(getUnitCartesian()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchUnitCartesian(writer));
             Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchUnitSpherical(writer));
             dispatchInterpolations(writer);
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 

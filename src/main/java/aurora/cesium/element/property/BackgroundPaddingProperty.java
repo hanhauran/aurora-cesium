@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface BackgroundPaddingProperty extends MultiIntervalProperty<BackgroundPaddingCesiumWriter, BackgroundPaddingProperty>, ReferenceProperty {
+public interface BackgroundPaddingProperty extends MultiIntervalProperty<BackgroundPaddingProperty>, ReferenceProperty {
 
     RectangularProperty getRectangular();
 
@@ -23,6 +23,5 @@ public interface BackgroundPaddingProperty extends MultiIntervalProperty<Backgro
     @Override
     Reference getReference();
 
-    @Override
     void dispatch(BackgroundPaddingCesiumWriter writer);
 }

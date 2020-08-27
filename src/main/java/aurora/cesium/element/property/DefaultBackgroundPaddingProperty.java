@@ -33,7 +33,7 @@ public class DefaultBackgroundPaddingProperty extends SinglePropertyAdapter<Rect
     public void dispatch(BackgroundPaddingCesiumWriter writer) {
         try (writer) {
             Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchRectangular(writer));
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }

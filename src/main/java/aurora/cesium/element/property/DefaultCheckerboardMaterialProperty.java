@@ -22,20 +22,11 @@ public class DefaultCheckerboardMaterialProperty extends PropertyAdapter<Checker
     @Override
     public void dispatch(CheckerboardMaterialCesiumWriter writer) {
         try (writer) {
-            doDispatch(writer, this);
-            dispatchIntervals(writer::openMultipleIntervals, ((itemWriter, property) -> {
-                try (itemWriter) {
-                    doDispatch(itemWriter, property);
-                }
-            }));
+            Optional.ofNullable(getEvenColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openEvenColorProperty()));
+            Optional.ofNullable(getOddColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOddColorProperty()));
+            Optional.ofNullable(getRepeat()).ifPresent(repeatProperty -> repeatProperty.dispatch(writer.openRepeatProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
-    }
-
-    private void doDispatch(CheckerboardMaterialCesiumWriter writer, CheckerboardMaterialProperty property) {
-        Optional.ofNullable(property.getEvenColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openEvenColorProperty()));
-        Optional.ofNullable(property.getOddColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOddColorProperty()));
-        Optional.ofNullable(property.getRepeat()).ifPresent(repeatProperty -> repeatProperty.dispatch(writer.openRepeatProperty()));
-        dispatchInterval(writer, property);
     }
 
     @Override
@@ -89,13 +80,5 @@ public class DefaultCheckerboardMaterialProperty extends PropertyAdapter<Checker
 
     public void setIntervals(List<CheckerboardMaterialProperty> intervals) {
         this.intervals = intervals;
-    }
-
-    public Reference getReference() {
-        return reference;
-    }
-
-    public void setReference(Reference reference) {
-        this.reference = reference;
     }
 }

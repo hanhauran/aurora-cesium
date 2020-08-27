@@ -34,7 +34,7 @@ public class DefaultArcTypeProperty extends SinglePropertyAdapter<CesiumArcType,
     public void dispatch(ArcTypeCesiumWriter writer) {
         try (writer) {
             Optional.ofNullable(getArcType()).ifPresent(writer::writeArcType);
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }

@@ -12,15 +12,13 @@ import java.util.function.BiConsumer;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface MultiIntervalProperty<W extends CesiumPropertyWriter<W>, P extends MultiIntervalProperty<W, P>> {
+public interface MultiIntervalProperty<P extends MultiIntervalProperty<P>> extends Property {
 
     TimeInterval getInterval();
 
     List<P> getIntervals();
 
-    void dispatch(W writer);
-
-    default void dispatchInterval(W writer) {
+    default <W extends CesiumPropertyWriter<W>> void dispatchInterval(W writer, BiConsumer<? super W, ? super P> biConsumer) {
         Optional.ofNullable(getInterval()).ifPresent(writer::writeInterval);
         Optional.ofNullable(getIntervals()).ifPresent(properties -> {
             if (properties.isEmpty()) {
@@ -30,7 +28,7 @@ public interface MultiIntervalProperty<W extends CesiumPropertyWriter<W>, P exte
             try (CesiumIntervalListWriter<W> intervalListWriter = writer.openMultipleIntervals()) {
                 properties.forEach(property -> {
                     try (W intervalWriter = intervalListWriter.openInterval()) {
-                        property.dispatch(intervalWriter);
+                        biConsumer.accept(intervalWriter, property);
                     }
                 });
             }

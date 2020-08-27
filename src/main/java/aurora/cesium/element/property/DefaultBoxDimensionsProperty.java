@@ -36,7 +36,7 @@ public class DefaultBoxDimensionsProperty extends PropertyAdapter<BoxDimensionsP
     public void dispatch(BoxDimensionsCesiumWriter writer) {
         try (writer) {
             Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchCartesian(writer));
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }
