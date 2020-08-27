@@ -1,6 +1,6 @@
 package aurora.cesium.element.graphics;
 
-import aurora.cesium.element.property.BooleanProperty;
+import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.PolylineCesiumWriter;
 
 /**
@@ -9,8 +9,34 @@ import aurora.cesium.language.writer.PolylineCesiumWriter;
  */
 public interface PolylineGraphics extends Graphics<PolylineCesiumWriter> {
 
+    static PolylineGraphicsAdapter.Builder newBuilder() {
+        return PolylineGraphicsAdapter.Builder.newBuilder();
+    }
+
+    ArcTypeProperty getArcType();
+
+    BooleanProperty getClampToGround();
+
+    ClassificationTypeProperty getClassificationType();
+
+    PolylineMaterialProperty getDepthFailMaterial();
+
+    DistanceDisplayConditionProperty getDistanceDisplayCondition();
+
+    DoubleProperty getGranularity();
+
+    PolylineMaterialProperty getMaterial();
+
+    PositionListProperty getPositions();
+
+    ShadowModeProperty getShadows();
+
     @Override
     BooleanProperty getShow();
+
+    DoubleProperty getWidth();
+
+    IntegerProperty getZIndex();
 
     @Override
     void dispatch(PolylineCesiumWriter writer);
