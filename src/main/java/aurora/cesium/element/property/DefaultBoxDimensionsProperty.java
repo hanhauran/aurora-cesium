@@ -4,6 +4,7 @@ import aurora.cesium.language.writer.BoxDimensionsCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,10 +15,6 @@ public class DefaultBoxDimensionsProperty extends PropertyAdapter<BoxDimensionsP
 
     private CartesianProperty cartesian;
 
-    public DefaultBoxDimensionsProperty() {
-        super();
-    }
-
     public DefaultBoxDimensionsProperty(CartesianProperty cartesian) {
         this(cartesian, null);
     }
@@ -25,6 +22,10 @@ public class DefaultBoxDimensionsProperty extends PropertyAdapter<BoxDimensionsP
     public DefaultBoxDimensionsProperty(CartesianProperty cartesian, TimeInterval interval) {
         this.cartesian = cartesian;
         this.interval = interval;
+    }
+
+    public DefaultBoxDimensionsProperty(List<BoxDimensionsProperty> intervals) {
+        super(intervals);
     }
 
     public DefaultBoxDimensionsProperty(Reference reference) {
@@ -56,6 +57,15 @@ public class DefaultBoxDimensionsProperty extends PropertyAdapter<BoxDimensionsP
 
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
+    }
+
+    @Override
+    public List<BoxDimensionsProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<BoxDimensionsProperty> intervals) {
+        this.intervals = intervals;
     }
 
     @Override

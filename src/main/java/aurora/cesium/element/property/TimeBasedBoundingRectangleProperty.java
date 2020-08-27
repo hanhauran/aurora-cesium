@@ -10,10 +10,6 @@ import java.util.List;
  */
 public class TimeBasedBoundingRectangleProperty extends SingleTimeBasedPropertyAdapter<BoundingRectangle, BoundingRectangleProperty> implements BoundingRectangleProperty {
 
-    public TimeBasedBoundingRectangleProperty() {
-        super();
-    }
-
     public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance) {
         super(dates, instance);
     }
@@ -44,6 +40,10 @@ public class TimeBasedBoundingRectangleProperty extends SingleTimeBasedPropertyA
 
     public TimeBasedBoundingRectangleProperty(List<JulianDate> dates, List<BoundingRectangle> instance, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
         super(dates, instance, startIndex, length, interpolations, interval);
+    }
+
+    public TimeBasedBoundingRectangleProperty(List<BoundingRectangleProperty> intervals) {
+        super(intervals);
     }
 
     public TimeBasedBoundingRectangleProperty(Reference reference) {
@@ -84,6 +84,15 @@ public class TimeBasedBoundingRectangleProperty extends SingleTimeBasedPropertyA
 
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
+    }
+
+    @Override
+    public List<BoundingRectangleProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<BoundingRectangleProperty> intervals) {
+        this.intervals = intervals;
     }
 
     @Override

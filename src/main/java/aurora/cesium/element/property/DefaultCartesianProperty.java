@@ -1,6 +1,7 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.*;
+import aurora.cesium.language.writer.advanced.ICesiumCartesian3ValuePropertyWriter;
 
 /**
  * @author hanhaoran
@@ -17,27 +18,7 @@ public class DefaultCartesianProperty extends SinglePropertyAdapter<Cartesian, C
     }
 
     @Override
-    public void dispatchCartesian(BoxDimensionsCesiumWriter writer) {
-        dispatchConsumer(writer::writeCartesian);
-    }
-
-    @Override
-    public void dispatchCartesian(EllipsoidRadiiCesiumWriter writer) {
-        dispatchConsumer(writer::writeCartesian);
-    }
-
-    @Override
-    public void dispatchCartesian(EyeOffsetCesiumWriter writer) {
-        dispatchConsumer(writer::writeCartesian);
-    }
-
-    @Override
-    public void dispatchCartesian(PositionCesiumWriter writer) {
-        dispatchConsumer(writer::writeCartesian);
-    }
-
-    @Override
-    public void dispatchCartesian(ViewFromCesiumWriter writer) {
+    public void dispatchCartesian(ICesiumCartesian3ValuePropertyWriter writer) {
         dispatchConsumer(writer::writeCartesian);
     }
 

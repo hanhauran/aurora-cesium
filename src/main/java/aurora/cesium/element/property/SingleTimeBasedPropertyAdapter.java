@@ -18,8 +18,6 @@ abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends Sin
 
     protected Integer length;
 
-    public SingleTimeBasedPropertyAdapter() {}
-
     public SingleTimeBasedPropertyAdapter(List<JulianDate> dates, List<T> instance) {
         this(dates, instance, null, null, null, null);
     }
@@ -57,12 +55,12 @@ abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends Sin
         this.interval = interval;
     }
 
-    public SingleTimeBasedPropertyAdapter(Reference reference) {
-        super(reference);
-    }
-
     public SingleTimeBasedPropertyAdapter(List<P> intervals) {
         super(intervals);
+    }
+
+    public SingleTimeBasedPropertyAdapter(Reference reference) {
+        super(reference);
     }
 
     void dispatchConsumer(BiConsumer<List<JulianDate>, List<T>> biConsumer, QuadrupleConsumer<List<JulianDate>, List<T>, Integer, Integer> quadrupleConsumer) {

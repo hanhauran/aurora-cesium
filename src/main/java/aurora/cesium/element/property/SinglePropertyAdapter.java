@@ -14,7 +14,9 @@ abstract class SinglePropertyAdapter<T, P extends Property> extends PropertyAdap
 
     protected T instance;
 
-    public SinglePropertyAdapter() {}
+    public SinglePropertyAdapter() {
+        super();
+    }
 
     public SinglePropertyAdapter(T instance) {
         this.instance = instance;
@@ -34,12 +36,12 @@ abstract class SinglePropertyAdapter<T, P extends Property> extends PropertyAdap
         this.interval = interval;
     }
 
-    public SinglePropertyAdapter(Reference reference) {
-        super(reference);
-    }
-
     public SinglePropertyAdapter(List<P> intervals) {
         this.intervals = intervals;
+    }
+
+    public SinglePropertyAdapter(Reference reference) {
+        super(reference);
     }
 
     void dispatchConsumer(Consumer<? super T> action) {

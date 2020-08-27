@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author hanhaoran
@@ -21,23 +22,24 @@ public class DefaultArcTypeProperty extends SinglePropertyAdapter<CesiumArcType,
         super(instance, interval);
     }
 
-    public DefaultArcTypeProperty(Reference reference) {
-        super(reference);
-    }
-
     public DefaultArcTypeProperty(List<ArcTypeProperty> intervals) {
         super(intervals);
+    }
+
+    public DefaultArcTypeProperty(Reference reference) {
+        super(reference);
     }
 
     @Override
     public void dispatch(ArcTypeCesiumWriter writer) {
         try (writer) {
-            dispatchConsumer(writer::writeArcType);
+            Optional.ofNullable(getArcType()).ifPresent(writer::writeArcType);
             dispatchInterval(writer);
             dispatchReference(writer);
         }
     }
 
+    @Override
     public CesiumArcType getArcType() {
         return instance;
     }

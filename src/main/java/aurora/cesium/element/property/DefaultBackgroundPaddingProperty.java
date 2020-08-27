@@ -4,27 +4,25 @@ import aurora.cesium.language.writer.BackgroundPaddingCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class DefaultBackgroundPaddingProperty extends PropertyAdapter<BackgroundPaddingProperty> implements BackgroundPaddingProperty {
+public class DefaultBackgroundPaddingProperty extends SinglePropertyAdapter<RectangularProperty, BackgroundPaddingProperty> implements BackgroundPaddingProperty {
 
-    private RectangularProperty rectangular;
-
-    public DefaultBackgroundPaddingProperty() {
-        super();
+    public DefaultBackgroundPaddingProperty(RectangularProperty instance) {
+        super(instance);
     }
 
-    public DefaultBackgroundPaddingProperty(RectangularProperty rectangular) {
-        this(rectangular, null);
+    public DefaultBackgroundPaddingProperty(RectangularProperty instance, TimeInterval interval) {
+        super(instance, interval);
     }
 
-    public DefaultBackgroundPaddingProperty(RectangularProperty rectangular, TimeInterval interval) {
-        this.rectangular = rectangular;
-        this.interval = interval;
+    public DefaultBackgroundPaddingProperty(List<BackgroundPaddingProperty> intervals) {
+        super(intervals);
     }
 
     public DefaultBackgroundPaddingProperty(Reference reference) {
@@ -42,11 +40,11 @@ public class DefaultBackgroundPaddingProperty extends PropertyAdapter<Background
 
     @Override
     public RectangularProperty getRectangular() {
-        return rectangular;
+        return instance;
     }
 
     public void setRectangular(RectangularProperty rectangular) {
-        this.rectangular = rectangular;
+        this.instance = rectangular;
     }
 
     @Override
@@ -56,6 +54,15 @@ public class DefaultBackgroundPaddingProperty extends PropertyAdapter<Background
 
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
+    }
+
+    @Override
+    public List<BackgroundPaddingProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<BackgroundPaddingProperty> intervals) {
+        this.intervals = intervals;
     }
 
     @Override

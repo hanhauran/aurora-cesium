@@ -5,15 +5,14 @@ import aurora.cesium.language.writer.BoundingRectangleCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
 public class DefaultBoundingRectangleProperty extends SinglePropertyAdapter<BoundingRectangle, BoundingRectangleProperty> implements BoundingRectangleProperty {
-
-    public DefaultBoundingRectangleProperty() {
-        super();
-    }
 
     public DefaultBoundingRectangleProperty(BoundingRectangle instance) {
         super(instance);
@@ -29,6 +28,10 @@ public class DefaultBoundingRectangleProperty extends SinglePropertyAdapter<Boun
 
     public DefaultBoundingRectangleProperty(BoundingRectangle instance, Interpolations interpolations, TimeInterval interval) {
         super(instance, interpolations, interval);
+    }
+
+    public DefaultBoundingRectangleProperty(List<BoundingRectangleProperty> intervals) {
+        super(intervals);
     }
 
     public DefaultBoundingRectangleProperty(Reference reference) {
@@ -69,6 +72,15 @@ public class DefaultBoundingRectangleProperty extends SinglePropertyAdapter<Boun
 
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
+    }
+
+    @Override
+    public List<BoundingRectangleProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<BoundingRectangleProperty> intervals) {
+        this.intervals = intervals;
     }
 
     @Override

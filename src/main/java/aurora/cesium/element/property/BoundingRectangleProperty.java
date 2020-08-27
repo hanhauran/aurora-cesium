@@ -4,11 +4,13 @@ import aurora.cesium.language.writer.BoundingRectangleCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
+
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface BoundingRectangleProperty extends IntervalProperty, InterpolatableProperty, ReferenceProperty {
+public interface BoundingRectangleProperty extends InterpolatableProperty, MultiIntervalProperty<BoundingRectangleCesiumWriter, BoundingRectangleProperty>, ReferenceProperty {
 
     @Override
     Interpolations getInterpolations();
@@ -17,7 +19,11 @@ public interface BoundingRectangleProperty extends IntervalProperty, Interpolata
     TimeInterval getInterval();
 
     @Override
+    List<BoundingRectangleProperty> getIntervals();
+
+    @Override
     Reference getReference();
 
+    @Override
     void dispatch(BoundingRectangleCesiumWriter writer);
 }

@@ -1,6 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.*;
+import aurora.cesium.language.writer.advanced.ICesiumCartesian3ValuePropertyWriter;
 
 /**
  * @author hanhaoran
@@ -8,13 +8,5 @@ import aurora.cesium.language.writer.*;
  */
 public interface CartesianProperty extends Property {
 
-    void dispatchCartesian(BoxDimensionsCesiumWriter writer);
-
-    void dispatchCartesian(EllipsoidRadiiCesiumWriter writer);
-
-    void dispatchCartesian(EyeOffsetCesiumWriter writer);
-
-    void dispatchCartesian(PositionCesiumWriter writer);
-
-    void dispatchCartesian(ViewFromCesiumWriter writer);
+    void dispatchCartesian(ICesiumCartesian3ValuePropertyWriter writer);
 }

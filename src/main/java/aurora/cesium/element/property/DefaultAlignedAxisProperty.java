@@ -2,6 +2,7 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,36 +15,20 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter<AlignedAxisPrope
 
     private UnitSphericalProperty unitSpherical;
 
-    public DefaultAlignedAxisProperty() {
-        super();
-    }
-
-    public DefaultAlignedAxisProperty(UnitCartesianProperty unitCartesian, Interpolations interpolations) {
-        this(unitCartesian, interpolations, null);
-    }
-
-    public DefaultAlignedAxisProperty(UnitCartesianProperty unitCartesian, TimeInterval interval) {
-        this(unitCartesian, null, interval);
-    }
-
     public DefaultAlignedAxisProperty(UnitCartesianProperty unitCartesian, Interpolations interpolations, TimeInterval interval) {
         this.unitCartesian = unitCartesian;
         this.interpolations = interpolations;
         this.interval = interval;
     }
 
-    public DefaultAlignedAxisProperty(UnitSphericalProperty unitSpherical, TimeInterval interval) {
-        this(unitSpherical, null, interval);
-    }
-
-    public DefaultAlignedAxisProperty(UnitSphericalProperty unitSpherical, Interpolations interpolations) {
-        this(unitSpherical, interpolations, null);
-    }
-
     public DefaultAlignedAxisProperty(UnitSphericalProperty unitSpherical, Interpolations interpolations, TimeInterval interval) {
         this.unitSpherical = unitSpherical;
         this.interpolations = interpolations;
         this.interval = interval;
+    }
+
+    public DefaultAlignedAxisProperty(List<AlignedAxisProperty> intervals) {
+        super(intervals);
     }
 
     public DefaultAlignedAxisProperty(Reference reference) {
@@ -57,7 +42,6 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter<AlignedAxisPrope
             Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchUnitSpherical(writer));
             dispatchInterpolations(writer);
             dispatchInterval(writer);
-            dispatchReference(writer);
         }
     }
 
@@ -95,6 +79,15 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter<AlignedAxisPrope
 
     public void setInterval(TimeInterval interval) {
         this.interval = interval;
+    }
+
+    @Override
+    public List<AlignedAxisProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<AlignedAxisProperty> intervals) {
+        this.intervals = intervals;
     }
 
     @Override

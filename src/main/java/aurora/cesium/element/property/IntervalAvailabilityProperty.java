@@ -9,15 +9,9 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class IntervalAvailabilityProperty extends PropertyAdapter<AvailabilityProperty> implements AvailabilityProperty {
+public class IntervalAvailabilityProperty implements AvailabilityProperty {
 
-    public IntervalAvailabilityProperty() {
-        super();
-    }
-
-    public IntervalAvailabilityProperty(TimeInterval interval) {
-        this.interval = interval;
-    }
+    private TimeInterval interval;
 
     @Override
     public void dispatchAvailability(PacketCesiumWriter writer) {

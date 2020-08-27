@@ -1,24 +1,39 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.CesiumIntervalListWriter;
+import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.advanced.CesiumPropertyWriter;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface MultiIntervalProperty<T extends IntervalProperty> {
+public interface MultiIntervalProperty<W extends CesiumPropertyWriter<W>, P extends MultiIntervalProperty<W, P>> {
 
-    List<T> getIntervals();
+    TimeInterval getInterval();
 
-    default <U extends CesiumPropertyWriter<U>, W extends CesiumIntervalListWriter<U>> void dispatchIntervals(Supplier<W> intervalListWriterSupplier, BiConsumer<? super U, ? super T> biConsumer) {
-        if (getIntervals() != null && !getIntervals().isEmpty()) {
-            W intervalListWriter = intervalListWriterSupplier.get();
-            getIntervals().forEach(property -> biConsumer.accept(intervalListWriter.openInterval(), property));
-        }
+    List<P> getIntervals();
+
+    void dispatch(W writer);
+
+    default void dispatchInterval(W writer) {
+        Optional.ofNullable(getInterval()).ifPresent(writer::writeInterval);
+        Optional.ofNullable(getIntervals()).ifPresent(properties -> {
+            if (properties.isEmpty()) {
+                return;
+            }
+
+            try (CesiumIntervalListWriter<W> intervalListWriter = writer.openMultipleIntervals()) {
+                properties.forEach(property -> {
+                    try (W intervalWriter = intervalListWriter.openInterval()) {
+                        property.dispatch(intervalWriter);
+                    }
+                });
+            }
+        });
     }
 }
