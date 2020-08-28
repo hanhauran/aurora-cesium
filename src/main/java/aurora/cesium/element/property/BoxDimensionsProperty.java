@@ -10,6 +10,10 @@ import aurora.cesium.language.writer.TimeInterval;
  */
 public interface BoxDimensionsProperty extends IntervalProperty<BoxDimensionsProperty>, ReferenceProperty {
 
+    static DefaultBoxDimensionsProperty.Builder newBuilder() {
+        return DefaultBoxDimensionsProperty.Builder.newBuilder();
+    }
+
     CartesianProperty getCartesian();
 
     @Override

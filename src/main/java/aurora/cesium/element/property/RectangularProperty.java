@@ -12,5 +12,5 @@ public interface RectangularProperty extends Property {
         return DefaultRectangularProperty.Builder.newBuilder();
     }
 
-    void dispatch(ICesiumCartesian2ValuePropertyWriter writer);
+    void dispatchWithoutClose(ICesiumCartesian2ValuePropertyWriter writer);
 }

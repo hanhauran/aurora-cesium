@@ -1,7 +1,6 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.CheckerboardMaterialCesiumWriter;
-import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
@@ -80,5 +79,64 @@ public class DefaultCheckerboardMaterialProperty extends PropertyAdapter<Checker
 
     public void setIntervals(List<CheckerboardMaterialProperty> intervals) {
         this.intervals = intervals;
+    }
+
+
+    public static final class Builder {
+        private ColorProperty evenColor;
+        private ColorProperty oddColor;
+        private RepeatProperty repeat;
+
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<CheckerboardMaterialProperty> intervals;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withEvenColor(ColorProperty evenColor) {
+            this.evenColor = evenColor;
+            return this;
+        }
+
+        public Builder withOddColor(ColorProperty oddColor) {
+            this.oddColor = oddColor;
+            return this;
+        }
+
+        public Builder withRepeat(RepeatProperty repeat) {
+            this.repeat = repeat;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<CheckerboardMaterialProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public DefaultCheckerboardMaterialProperty build() {
+            DefaultCheckerboardMaterialProperty defaultCheckerboardMaterialProperty = new DefaultCheckerboardMaterialProperty();
+            defaultCheckerboardMaterialProperty.setEvenColor(evenColor);
+            defaultCheckerboardMaterialProperty.setOddColor(oddColor);
+            defaultCheckerboardMaterialProperty.setRepeat(repeat);
+            defaultCheckerboardMaterialProperty.setInterpolations(interpolations);
+            defaultCheckerboardMaterialProperty.setInterval(interval);
+            defaultCheckerboardMaterialProperty.setIntervals(intervals);
+            return defaultCheckerboardMaterialProperty;
+        }
     }
 }

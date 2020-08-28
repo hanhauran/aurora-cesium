@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface BackgroundPaddingProperty extends IntervalProperty<BackgroundPaddingProperty>, ReferenceProperty {
 
+    static DefaultBackgroundPaddingProperty.Builder newBuilder() {
+        return DefaultBackgroundPaddingProperty.Builder.newBuilder();
+    }
+
     RectangularProperty getRectangular();
 
     @Override

@@ -8,5 +8,9 @@ import aurora.cesium.language.writer.PacketCesiumWriter;
  */
 public interface AvailabilityProperty extends Property {
 
+    static DefaultAvailabilityProperty.Builder newBuilder() {
+        return DefaultAvailabilityProperty.Builder.newBuilder();
+    }
+
     void dispatchAvailability(PacketCesiumWriter writer);
 }

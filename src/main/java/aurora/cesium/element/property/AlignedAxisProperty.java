@@ -12,20 +12,8 @@ import java.util.List;
  */
 public interface AlignedAxisProperty extends InterpolatableProperty, IntervalProperty<AlignedAxisProperty>, ReferenceProperty {
 
-    static AlignedAxisProperty from(UnitCartesianProperty unitCartesian, Interpolations interpolations, TimeInterval interval) {
-        return new DefaultAlignedAxisProperty(unitCartesian, interpolations, interval);
-    }
-
-    static AlignedAxisProperty from(UnitSphericalProperty unitSpherical, Interpolations interpolations, TimeInterval interval) {
-        return new DefaultAlignedAxisProperty(unitSpherical, interpolations, interval);
-    }
-
-    static AlignedAxisProperty from(List<AlignedAxisProperty> intervals) {
-        return new DefaultAlignedAxisProperty(intervals);
-    }
-
-    static AlignedAxisProperty from(Reference reference) {
-        return new DefaultAlignedAxisProperty(reference);
+    static DefaultAlignedAxisProperty.Builder newBuilder() {
+        return DefaultAlignedAxisProperty.Builder.newBuilder();
     }
 
     UnitCartesianProperty getUnitCartesian();

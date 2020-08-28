@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class DefaultDoubleProperty extends SingleTimeBasedPropertyAdapter<Double, DoubleProperty> implements DoubleProperty {
 
-    public DefaultDoubleProperty() {
-        super();
-    }
-
     @Override
     public void dispatch(DoubleCesiumWriter writer) {
         try (writer) {
@@ -25,22 +21,6 @@ public class DefaultDoubleProperty extends SingleTimeBasedPropertyAdapter<Double
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public Double getDouble() {
-        return instance;
-    }
-
-    public void setDouble(Double instance) {
-        this.instance = instance;
-    }
-
-    public List<Double> getDoubles() {
-        return instances;
-    }
-
-    public void setDoubles(List<Double> instances) {
-        this.instances = instances;
     }
 
     @Override
@@ -81,11 +61,11 @@ public class DefaultDoubleProperty extends SingleTimeBasedPropertyAdapter<Double
 
     public static final class Builder {
         protected List<JulianDate> dates;
-        protected List<Double> instances;
+        protected List<Double> values;
         protected Integer startIndex;
         protected Integer length;
 
-        protected Double instance;
+        protected Double value;
 
         protected Interpolations interpolations;
         protected TimeInterval interval;
@@ -99,22 +79,22 @@ public class DefaultDoubleProperty extends SingleTimeBasedPropertyAdapter<Double
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<Double> instances) {
+        public Builder withValues(List<JulianDate> dates, List<Double> instances) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = instances;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<Double> instances, Integer startIndex, Integer length) {
+        public Builder withValues(List<JulianDate> dates, List<Double> instances, Integer startIndex, Integer length) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = instances;
             this.startIndex = startIndex;
             this.length = length;
             return this;
         }
 
-        public Builder with(Double instance) {
-            this.instance = instance;
+        public Builder withValue(Double instance) {
+            this.value = instance;
             return this;
         }
 
@@ -141,14 +121,14 @@ public class DefaultDoubleProperty extends SingleTimeBasedPropertyAdapter<Double
         public DefaultDoubleProperty build() {
             DefaultDoubleProperty defaultDoubleProperty = new DefaultDoubleProperty();
             defaultDoubleProperty.setDates(dates);
+            defaultDoubleProperty.setValues(values);
             defaultDoubleProperty.setStartIndex(startIndex);
             defaultDoubleProperty.setLength(length);
+            defaultDoubleProperty.setValue(value);
             defaultDoubleProperty.setInterpolations(interpolations);
             defaultDoubleProperty.setInterval(interval);
             defaultDoubleProperty.setIntervals(intervals);
             defaultDoubleProperty.setReference(reference);
-            defaultDoubleProperty.instances = this.instances;
-            defaultDoubleProperty.instance = this.instance;
             return defaultDoubleProperty;
         }
     }

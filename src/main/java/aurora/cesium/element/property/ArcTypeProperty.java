@@ -1,7 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.ArcTypeCesiumWriter;
-import aurora.cesium.language.writer.CesiumArcType;
+import
+        aurora.cesium.language.writer.ArcTypeCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
@@ -13,7 +13,9 @@ import java.util.List;
  */
 public interface ArcTypeProperty extends IntervalProperty<ArcTypeProperty>, ReferenceProperty {
 
-    CesiumArcType getArcType();
+    static DefaultArcTypeProperty.Builder newBuilder() {
+        return DefaultArcTypeProperty.Builder.newBuilder();
+    }
 
     @Override
     TimeInterval getInterval();

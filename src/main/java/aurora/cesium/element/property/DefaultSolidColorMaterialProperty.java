@@ -49,11 +49,11 @@ public class DefaultSolidColorMaterialProperty extends PropertyAdapter<SolidColo
         this.intervals = intervals;
     }
 
-
     public static final class Builder {
+        private ColorProperty color;
+
         protected TimeInterval interval;
         protected List<SolidColorMaterialProperty> intervals;
-        private ColorProperty color;
 
         private Builder() {
         }

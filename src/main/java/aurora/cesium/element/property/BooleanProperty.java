@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface BooleanProperty extends IntervalProperty<BooleanProperty>, ReferenceProperty {
 
+    static DefaultBooleanProperty.Builder newBuilder() {
+        return DefaultBooleanProperty.Builder.newBuilder();
+    }
+
     @Override
     TimeInterval getInterval();
 

@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface VerticalOriginProperty extends IntervalProperty<VerticalOriginProperty>, ReferenceProperty {
 
+    static DefaultVerticalOriginProperty.Builder newBuilder() {
+        return DefaultVerticalOriginProperty.Builder.newBuilder();
+    }
+
     @Override
     TimeInterval getInterval();
 

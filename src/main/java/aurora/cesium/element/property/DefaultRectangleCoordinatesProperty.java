@@ -83,17 +83,18 @@ public class DefaultRectangleCoordinatesProperty extends PropertyAdapter<Rectang
     }
 
     public static final class Builder {
+        private CartographicExtentProperty wsen;
+        private CartographicExtentProperty wsenDegrees;
+
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<RectangleCoordinatesProperty> intervals;
         protected Reference reference;
-        private CartographicExtentProperty wsen;
-        private CartographicExtentProperty wsenDegrees;
 
         private Builder() {
         }
 
-        public static Builder aDefaultRectangleCoordinatesProperty() {
+        public static Builder newBuilder() {
             return new Builder();
         }
 

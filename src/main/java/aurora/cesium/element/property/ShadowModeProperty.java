@@ -9,6 +9,10 @@ import aurora.cesium.language.writer.ShadowModeCesiumWriter;
  */
 public interface ShadowModeProperty extends Property, ReferenceProperty {
 
+    static DefaultShadowModeProperty.Builder newBuilder() {
+        return DefaultShadowModeProperty.Builder.newBuilder();
+    }
+
     @Override
     Reference getReference();
 

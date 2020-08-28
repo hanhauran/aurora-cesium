@@ -58,10 +58,12 @@ public class DefaultPixelOffsetProperty extends SingleTimeBasedPropertyAdapter<R
 
     public static final class Builder {
         protected List<JulianDate> dates;
-        protected List<Rectangular> instances;
+        protected List<Rectangular> values;
         protected Integer startIndex;
         protected Integer length;
-        protected Rectangular instance;
+
+        protected Rectangular value;
+
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<PixelOffsetProperty> intervals;
@@ -70,26 +72,26 @@ public class DefaultPixelOffsetProperty extends SingleTimeBasedPropertyAdapter<R
         private Builder() {
         }
 
-        public static Builder aDefaultPixelOffsetProperty() {
+        public static Builder newBuilder() {
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<Rectangular> instances) {
+        public Builder with(List<JulianDate> dates, List<Rectangular> values) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = values;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<Rectangular> instances, Integer startIndex, Integer length) {
+        public Builder with(List<JulianDate> dates, List<Rectangular> values, Integer startIndex, Integer length) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = values;
             this.startIndex = startIndex;
             this.length = length;
             return this;
         }
 
-        public Builder with(Rectangular instance) {
-            this.instance = instance;
+        public Builder with(Rectangular value) {
+            this.value = value;
             return this;
         }
 
@@ -116,10 +118,10 @@ public class DefaultPixelOffsetProperty extends SingleTimeBasedPropertyAdapter<R
         public DefaultPixelOffsetProperty build() {
             DefaultPixelOffsetProperty defaultPixelOffsetProperty = new DefaultPixelOffsetProperty();
             defaultPixelOffsetProperty.setDates(dates);
-            defaultPixelOffsetProperty.setInstances(instances);
+            defaultPixelOffsetProperty.setValues(values);
             defaultPixelOffsetProperty.setStartIndex(startIndex);
             defaultPixelOffsetProperty.setLength(length);
-            defaultPixelOffsetProperty.setInstance(instance);
+            defaultPixelOffsetProperty.setValue(value);
             defaultPixelOffsetProperty.setInterpolations(interpolations);
             defaultPixelOffsetProperty.setInterval(interval);
             defaultPixelOffsetProperty.setIntervals(intervals);

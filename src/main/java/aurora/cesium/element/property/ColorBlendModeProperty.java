@@ -8,5 +8,9 @@ import aurora.cesium.language.writer.ColorBlendModeCesiumWriter;
  */
 public interface ColorBlendModeProperty extends Property, ReferenceProperty {
 
+    static DefaultColorBlendModeProperty.Builder newBuilder() {
+        return DefaultColorBlendModeProperty.Builder.newBuilder();
+    }
+
     void dispatch(ColorBlendModeCesiumWriter writer);
 }

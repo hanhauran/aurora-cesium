@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<CesiumHeightReference, HeightReferenceProperty> implements HeightReferenceProperty {
 
-    public DefaultHeightReferenceProperty() {
-        super();
-    }
-
     @Override
     public void dispatch(HeightReferenceCesiumWriter writer) {
         try (writer) {
@@ -24,14 +20,6 @@ public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<Cesium
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public CesiumHeightReference getHeightReference() {
-        return instance;
-    }
-
-    public void setHeightReference(CesiumHeightReference heightReference) {
-        this.instance = heightReference;
     }
 
     @Override
@@ -62,8 +50,8 @@ public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<Cesium
     }
 
     public static final class Builder {
-        protected CesiumHeightReference instance;
-        protected Interpolations interpolations;
+        protected CesiumHeightReference value;
+
         protected TimeInterval interval;
         protected List<HeightReferenceProperty> intervals;
         protected Reference reference;
@@ -71,17 +59,12 @@ public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<Cesium
         private Builder() {
         }
 
-        public static Builder aDefaultHeightReferenceProperty() {
+        public static Builder newBuilder() {
             return new Builder();
         }
 
-        public Builder with(CesiumHeightReference instance) {
-            this.instance = instance;
-            return this;
-        }
-
-        public Builder withInterpolations(Interpolations interpolations) {
-            this.interpolations = interpolations;
+        public Builder withValue(CesiumHeightReference value) {
+            this.value = value;
             return this;
         }
 
@@ -102,11 +85,10 @@ public class DefaultHeightReferenceProperty extends SinglePropertyAdapter<Cesium
 
         public DefaultHeightReferenceProperty build() {
             DefaultHeightReferenceProperty defaultHeightReferenceProperty = new DefaultHeightReferenceProperty();
+            defaultHeightReferenceProperty.setValue(value);
             defaultHeightReferenceProperty.setInterval(interval);
             defaultHeightReferenceProperty.setIntervals(intervals);
             defaultHeightReferenceProperty.setReference(reference);
-            defaultHeightReferenceProperty.interpolations = this.interpolations;
-            defaultHeightReferenceProperty.instance = this.instance;
             return defaultHeightReferenceProperty;
         }
     }

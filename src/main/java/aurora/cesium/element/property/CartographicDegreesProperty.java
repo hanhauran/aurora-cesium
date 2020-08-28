@@ -8,5 +8,9 @@ import aurora.cesium.language.writer.PositionCesiumWriter;
  */
 public interface CartographicDegreesProperty extends Property {
 
+    static DefaultCartographicDegreesProperty.Builder newBuilder() {
+        return DefaultCartographicDegreesProperty.Builder.newBuilder();
+    }
+
     void dispatchCartographicDegrees(PositionCesiumWriter writer);
 }

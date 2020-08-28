@@ -11,36 +11,52 @@ import java.util.List;
  */
 public class DefaultCartesianProperty extends SingleTimeBasedPropertyAdapter<Cartesian, CartesianProperty> implements CartesianProperty {
 
-    public DefaultCartesianProperty(Cartesian instance) {
-        super(instance);
-    }
-
-    public DefaultCartesianProperty(List<JulianDate> dates, List<Cartesian> instances) {
-        super(dates, instances);
-    }
-
-    public DefaultCartesianProperty(List<JulianDate> dates, List<Cartesian> instances, Integer startIndex, Integer length) {
-        super(dates, instances, startIndex, length);
-    }
-
     @Override
     public void dispatchCartesian(ICesiumCartesian3ValuePropertyWriter writer) {
         dispatchConsumer(writer::writeCartesian, writer::writeCartesian, writer::writeCartesian);
     }
 
-    public Cartesian getCartesian() {
-        return instance;
-    }
+    public static final class Builder {
+        protected List<JulianDate> dates;
+        protected List<Cartesian> values;
+        protected Integer startIndex;
+        protected Integer length;
+        protected Cartesian value;
 
-    public void setCartesian(Cartesian cartesian) {
-        this.instance = cartesian;
-    }
+        private Builder() {
+        }
 
-    public List<Cartesian> getCartesians() {
-        return instances;
-    }
+        public static Builder newBuilder() {
+            return new Builder();
+        }
 
-    public void setCartesians(List<Cartesian> cartesians) {
-        this.instances = cartesians;
+        public Builder withValues(List<JulianDate> dates, List<Cartesian> values) {
+            this.dates = dates;
+            this.values = values;
+            return this;
+        }
+
+        public Builder withValues(List<JulianDate> dates, List<Cartesian> values, Integer startIndex, Integer length) {
+            this.dates = dates;
+            this.values = values;
+            this.startIndex = startIndex;
+            this.length = length;
+            return this;
+        }
+
+        public Builder withValue(Cartesian value) {
+            this.value = value;
+            return this;
+        }
+
+        public DefaultCartesianProperty build() {
+            DefaultCartesianProperty defaultCartesianProperty = new DefaultCartesianProperty();
+            defaultCartesianProperty.setDates(dates);
+            defaultCartesianProperty.setValues(values);
+            defaultCartesianProperty.setStartIndex(startIndex);
+            defaultCartesianProperty.setLength(length);
+            defaultCartesianProperty.setValue(value);
+            return defaultCartesianProperty;
+        }
     }
 }

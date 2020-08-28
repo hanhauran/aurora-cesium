@@ -10,10 +10,6 @@ import java.util.List;
  */
 public class DefaultOrientationProperty extends SingleTimeBasedPropertyAdapter<UnitQuaternion, OrientationProperty> implements OrientationProperty {
 
-    public DefaultOrientationProperty() {
-        super();
-    }
-
     @Override
     public void dispatch(OrientationCesiumWriter writer) {
         try (writer) {
@@ -62,11 +58,11 @@ public class DefaultOrientationProperty extends SingleTimeBasedPropertyAdapter<U
 
     public static final class Builder {
         protected List<JulianDate> dates;
-        protected List<UnitQuaternion> instances;
+        protected List<UnitQuaternion> values;
         protected Integer startIndex;
         protected Integer length;
 
-        protected UnitQuaternion instance;
+        protected UnitQuaternion value;
 
         protected Interpolations interpolations;
         protected TimeInterval interval;
@@ -80,22 +76,22 @@ public class DefaultOrientationProperty extends SingleTimeBasedPropertyAdapter<U
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<UnitQuaternion> instances) {
+        public Builder with(List<JulianDate> dates, List<UnitQuaternion> values) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = values;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<UnitQuaternion> instances, Integer startIndex, Integer length) {
+        public Builder with(List<JulianDate> dates, List<UnitQuaternion> values, Integer startIndex, Integer length) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = values;
             this.startIndex = startIndex;
             this.length = length;
             return this;
         }
 
-        public Builder with(UnitQuaternion instance) {
-            this.instance = instance;
+        public Builder with(UnitQuaternion value) {
+            this.value = value;
             return this;
         }
 
@@ -122,10 +118,10 @@ public class DefaultOrientationProperty extends SingleTimeBasedPropertyAdapter<U
         public DefaultOrientationProperty build() {
             DefaultOrientationProperty defaultOrientationProperty = new DefaultOrientationProperty();
             defaultOrientationProperty.setDates(dates);
-            defaultOrientationProperty.setInstances(instances);
+            defaultOrientationProperty.setValues(values);
             defaultOrientationProperty.setStartIndex(startIndex);
             defaultOrientationProperty.setLength(length);
-            defaultOrientationProperty.setInstance(instance);
+            defaultOrientationProperty.setValue(value);
             defaultOrientationProperty.setInterpolations(interpolations);
             defaultOrientationProperty.setInterval(interval);
             defaultOrientationProperty.setIntervals(intervals);

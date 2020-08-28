@@ -20,22 +20,6 @@ public class DefaultDistanceDisplayConditionProperty extends SingleTimeBasedProp
         }
     }
 
-    public Bounds getBounds() {
-        return instance;
-    }
-
-    public void setBounds(Bounds bounds) {
-        this.instance = bounds;
-    }
-
-    public List<Bounds> getBoundsList() {
-        return instances;
-    }
-
-    public void setBoundsList(List<Bounds> boundsList) {
-        this.instances = boundsList;
-    }
-
     @Override
     public Interpolations getInterpolations() {
         return interpolations;
@@ -75,11 +59,11 @@ public class DefaultDistanceDisplayConditionProperty extends SingleTimeBasedProp
 
     public static final class Builder {
         protected List<JulianDate> dates;
-        protected List<Bounds> instances;
+        protected List<Bounds> values;
         protected Integer startIndex;
         protected Integer length;
 
-        protected Bounds instance;
+        protected Bounds value;
 
         protected Interpolations interpolations;
         protected TimeInterval interval;
@@ -93,22 +77,22 @@ public class DefaultDistanceDisplayConditionProperty extends SingleTimeBasedProp
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<Bounds> instances) {
+        public Builder withValues(List<JulianDate> dates, List<Bounds> instances) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = instances;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<Bounds> instances, Integer startIndex, Integer length) {
+        public Builder withValues(List<JulianDate> dates, List<Bounds> instances, Integer startIndex, Integer length) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = instances;
             this.startIndex = startIndex;
             this.length = length;
             return this;
         }
 
-        public Builder with(Bounds instance) {
-            this.instance = instance;
+        public Builder withValue(Bounds instance) {
+            this.value = instance;
             return this;
         }
 
@@ -135,8 +119,10 @@ public class DefaultDistanceDisplayConditionProperty extends SingleTimeBasedProp
         public DefaultDistanceDisplayConditionProperty build() {
             DefaultDistanceDisplayConditionProperty defaultDistanceDisplayConditionProperty = new DefaultDistanceDisplayConditionProperty();
             defaultDistanceDisplayConditionProperty.setDates(dates);
+            defaultDistanceDisplayConditionProperty.setValues(values);
             defaultDistanceDisplayConditionProperty.setStartIndex(startIndex);
             defaultDistanceDisplayConditionProperty.setLength(length);
+            defaultDistanceDisplayConditionProperty.setValue(value);
             defaultDistanceDisplayConditionProperty.setInterpolations(interpolations);
             defaultDistanceDisplayConditionProperty.setInterval(interval);
             defaultDistanceDisplayConditionProperty.setIntervals(intervals);

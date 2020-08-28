@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface LabelStyleProperty extends IntervalProperty<LabelStyleProperty>, ReferenceProperty {
 
+    static DefaultLabelStyleProperty.Builder newBuilder() {
+        return DefaultLabelStyleProperty.Builder.newBuilder();
+    }
+
     @Override
     TimeInterval getInterval();
 

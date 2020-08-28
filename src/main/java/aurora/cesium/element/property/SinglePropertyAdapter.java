@@ -12,26 +12,26 @@ import java.util.function.Consumer;
  */
 abstract class SinglePropertyAdapter<T, P extends Property> extends PropertyAdapter<P> {
 
-    protected T instance;
+    protected T value;
 
     public SinglePropertyAdapter() {
         super();
     }
 
-    public SinglePropertyAdapter(T instance) {
-        this.instance = instance;
+    public SinglePropertyAdapter(T value) {
+        this.value = value;
     }
 
-    public SinglePropertyAdapter(T instance, TimeInterval interval) {
-        this(instance, null, interval);
+    public SinglePropertyAdapter(T value, TimeInterval interval) {
+        this(value, null, interval);
     }
 
-    public SinglePropertyAdapter(T instance, Interpolations interpolations) {
-        this(instance, interpolations, null);
+    public SinglePropertyAdapter(T value, Interpolations interpolations) {
+        this(value, interpolations, null);
     }
 
-    public SinglePropertyAdapter(T instance, Interpolations interpolations, TimeInterval interval) {
-        this.instance = instance;
+    public SinglePropertyAdapter(T value, Interpolations interpolations, TimeInterval interval) {
+        this.value = value;
         this.interpolations = interpolations;
         this.interval = interval;
     }
@@ -45,14 +45,14 @@ abstract class SinglePropertyAdapter<T, P extends Property> extends PropertyAdap
     }
 
     void dispatchConsumer(Consumer<? super T> action) {
-        Optional.ofNullable(instance).ifPresent(action);
+        Optional.ofNullable(value).ifPresent(action);
     }
 
-    public T getInstance() {
-        return instance;
+    public T getValue() {
+        return value;
     }
 
-    public void setInstance(T instance) {
-        this.instance = instance;
+    public void setValue(T value) {
+        this.value = value;
     }
 }

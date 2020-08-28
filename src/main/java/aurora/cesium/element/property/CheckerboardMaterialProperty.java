@@ -11,6 +11,10 @@ import java.util.List;
  */
 public interface CheckerboardMaterialProperty extends IntervalProperty<CheckerboardMaterialProperty> {
 
+    static DefaultCheckerboardMaterialProperty.Builder newBuilder() {
+        return DefaultCheckerboardMaterialProperty.Builder.newBuilder();
+    }
+
     ColorProperty getEvenColor();
 
     ColorProperty getOddColor();

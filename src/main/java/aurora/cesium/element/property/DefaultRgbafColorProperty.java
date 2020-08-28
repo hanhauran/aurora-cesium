@@ -14,86 +14,14 @@ import java.util.List;
  */
 public class DefaultRgbafColorProperty extends SingleTimeBasedPropertyAdapter<Color, ColorProperty> implements ColorProperty {
 
-    public DefaultRgbafColorProperty(Color instance) {
-        super(instance);
-    }
-
-    public DefaultRgbafColorProperty(Color instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
-    public DefaultRgbafColorProperty(Color instance, Interpolations interpolations) {
-        super(instance, interpolations);
-    }
-
-    public DefaultRgbafColorProperty(Color instance, Interpolations interpolations, TimeInterval interval) {
-        super(instance, interpolations, interval);
-    }
-
-    public DefaultRgbafColorProperty(List<JulianDate> dates, List<Color> instances) {
-        super(dates, instances);
-    }
-
-    public DefaultRgbafColorProperty(List<JulianDate> dates, List<Color> instances, Interpolations interpolations) {
-        super(dates, instances, interpolations);
-    }
-
-    public DefaultRgbafColorProperty(List<JulianDate> dates, List<Color> instances, TimeInterval interval) {
-        super(dates, instances, interval);
-    }
-
-    public DefaultRgbafColorProperty(List<JulianDate> dates, List<Color> instances, Interpolations interpolations, TimeInterval interval) {
-        super(dates, instances, interpolations, interval);
-    }
-
-    public DefaultRgbafColorProperty(List<JulianDate> dates, List<Color> instances, Integer startIndex, Integer length) {
-        super(dates, instances, startIndex, length);
-    }
-
-    public DefaultRgbafColorProperty(List<JulianDate> dates, List<Color> instances, Integer startIndex, Integer length, Interpolations interpolations) {
-        super(dates, instances, startIndex, length, interpolations);
-    }
-
-    public DefaultRgbafColorProperty(List<JulianDate> dates, List<Color> instances, Integer startIndex, Integer length, TimeInterval interval) {
-        super(dates, instances, startIndex, length, interval);
-    }
-
-    public DefaultRgbafColorProperty(List<JulianDate> dates, List<Color> instances, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
-        super(dates, instances, startIndex, length, interpolations, interval);
-    }
-
-    public DefaultRgbafColorProperty(List<ColorProperty> intervals) {
-        super(intervals);
-    }
-
-    public DefaultRgbafColorProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(ColorCesiumWriter writer) {
         try (writer) {
-            dispatchConsumer(writer::writeRgbaf);
+            dispatchConsumer(writer::writeRgbaf, writer::writeRgbaf, writer::writeRgbaf);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public Color getColor() {
-        return instance;
-    }
-
-    public void setColor(Color color) {
-        this.instance = color;
-    }
-
-    public java.util.List<Color> getColors() {
-        return instances;
-    }
-
-    public void setColors(List<Color> colors) {
-        this.instances = colors;
     }
 
     @Override
@@ -130,5 +58,79 @@ public class DefaultRgbafColorProperty extends SingleTimeBasedPropertyAdapter<Co
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected List<JulianDate> dates;
+        protected List<Color> values;
+        protected Integer startIndex;
+        protected Integer length;
+        protected Color value;
+
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<ColorProperty> intervals;
+        protected Reference reference;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withValues(List<JulianDate> dates, List<Color> values) {
+            this.dates = dates;
+            this.values = values;
+            return this;
+        }
+
+        public Builder withValues(List<JulianDate> dates, List<Color> values, Integer startIndex, Integer length) {
+            this.dates = dates;
+            this.values = values;
+            this.startIndex = startIndex;
+            this.length = length;
+            return this;
+        }
+
+
+        public Builder withValue(Color value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<ColorProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultRgbafColorProperty build() {
+            DefaultRgbafColorProperty defaultRgbafColorProperty = new DefaultRgbafColorProperty();
+            defaultRgbafColorProperty.setDates(dates);
+            defaultRgbafColorProperty.setValues(values);
+            defaultRgbafColorProperty.setStartIndex(startIndex);
+            defaultRgbafColorProperty.setLength(length);
+            defaultRgbafColorProperty.setValue(value);
+            defaultRgbafColorProperty.setInterpolations(interpolations);
+            defaultRgbafColorProperty.setInterval(interval);
+            defaultRgbafColorProperty.setIntervals(intervals);
+            defaultRgbafColorProperty.setReference(reference);
+            return defaultRgbafColorProperty;
+        }
     }
 }

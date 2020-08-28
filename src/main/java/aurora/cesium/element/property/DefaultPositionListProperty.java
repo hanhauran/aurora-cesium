@@ -83,12 +83,13 @@ public class DefaultPositionListProperty extends PropertyAdapter<PositionListPro
     }
 
     public static final class Builder {
-        protected TimeInterval interval;
-        protected List<PositionListProperty> intervals;
-        protected List<Reference> references;
         private Iterable<Cartesian> cartesians;
         private Iterable<Cartographic> cartographicDegrees;
         private Iterable<Cartographic> cartographicRadians;
+
+        protected TimeInterval interval;
+        protected List<PositionListProperty> intervals;
+        protected List<Reference> references;
 
         private Builder() {
         }

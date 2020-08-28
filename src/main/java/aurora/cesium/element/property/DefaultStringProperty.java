@@ -31,14 +31,6 @@ public class DefaultStringProperty extends SinglePropertyAdapter<String, StringP
         }
     }
 
-    public String getString() {
-        return instance;
-    }
-
-    public void setString(String string) {
-        this.instance = string;
-    }
-
     @Override
     public TimeInterval getInterval() {
         return interval;
@@ -67,7 +59,8 @@ public class DefaultStringProperty extends SinglePropertyAdapter<String, StringP
     }
 
     public static final class Builder {
-        protected String instance;
+        protected String value;
+
         protected TimeInterval interval;
         protected List<StringProperty> intervals;
         protected Reference reference;
@@ -75,12 +68,12 @@ public class DefaultStringProperty extends SinglePropertyAdapter<String, StringP
         private Builder() {
         }
 
-        public static Builder aDefaultStringProperty() {
+        public static Builder newBuilder() {
             return new Builder();
         }
 
-        public Builder withInstance(String instance) {
-            this.instance = instance;
+        public Builder withValue(String instance) {
+            this.value = instance;
             return this;
         }
 
@@ -101,7 +94,7 @@ public class DefaultStringProperty extends SinglePropertyAdapter<String, StringP
 
         public DefaultStringProperty build() {
             DefaultStringProperty defaultStringProperty = new DefaultStringProperty();
-            defaultStringProperty.setInstance(instance);
+            defaultStringProperty.setValue(value);
             defaultStringProperty.setInterval(interval);
             defaultStringProperty.setIntervals(intervals);
             defaultStringProperty.setReference(reference);

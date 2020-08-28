@@ -15,26 +15,6 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter<AlignedAxisPrope
 
     private UnitSphericalProperty unitSpherical;
 
-    public DefaultAlignedAxisProperty(UnitCartesianProperty unitCartesian, Interpolations interpolations, TimeInterval interval) {
-        this.unitCartesian = unitCartesian;
-        this.interpolations = interpolations;
-        this.interval = interval;
-    }
-
-    public DefaultAlignedAxisProperty(UnitSphericalProperty unitSpherical, Interpolations interpolations, TimeInterval interval) {
-        this.unitSpherical = unitSpherical;
-        this.interpolations = interpolations;
-        this.interval = interval;
-    }
-
-    public DefaultAlignedAxisProperty(List<AlignedAxisProperty> intervals) {
-        super(intervals);
-    }
-
-    public DefaultAlignedAxisProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(AlignedAxisCesiumWriter writer) {
         try (writer) {
@@ -42,6 +22,7 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter<AlignedAxisPrope
             Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchUnitSpherical(writer));
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchReference(writer);
         }
     }
 
@@ -97,5 +78,62 @@ public class DefaultAlignedAxisProperty extends PropertyAdapter<AlignedAxisPrope
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<AlignedAxisProperty> intervals;
+        protected Reference reference;
+        private UnitCartesianProperty unitCartesian;
+        private UnitSphericalProperty unitSpherical;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withUnitCartesian(UnitCartesianProperty unitCartesian) {
+            this.unitCartesian = unitCartesian;
+            return this;
+        }
+
+        public Builder withUnitSpherical(UnitSphericalProperty unitSpherical) {
+            this.unitSpherical = unitSpherical;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<AlignedAxisProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultAlignedAxisProperty build() {
+            DefaultAlignedAxisProperty defaultAlignedAxisProperty = new DefaultAlignedAxisProperty();
+            defaultAlignedAxisProperty.setUnitCartesian(unitCartesian);
+            defaultAlignedAxisProperty.setUnitSpherical(unitSpherical);
+            defaultAlignedAxisProperty.setInterpolations(interpolations);
+            defaultAlignedAxisProperty.setInterval(interval);
+            defaultAlignedAxisProperty.setIntervals(intervals);
+            defaultAlignedAxisProperty.setReference(reference);
+            return defaultAlignedAxisProperty;
+        }
     }
 }

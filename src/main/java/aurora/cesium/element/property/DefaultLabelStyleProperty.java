@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabelStyle, LabelStyleProperty> implements LabelStyleProperty {
 
-    public DefaultLabelStyleProperty() {
-        super();
-    }
-
     @Override
     public void dispatch(LabelStyleCesiumWriter writer) {
         try (writer) {
@@ -24,14 +20,6 @@ public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabel
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public CesiumLabelStyle getLabelStyle() {
-        return instance;
-    }
-
-    public void setLabelStyle(CesiumLabelStyle labelStyle) {
-        this.instance = labelStyle;
     }
 
     @Override
@@ -62,8 +50,8 @@ public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabel
     }
 
     public static final class Builder {
-        protected CesiumLabelStyle instance;
-        protected Interpolations interpolations;
+        protected CesiumLabelStyle value;
+
         protected TimeInterval interval;
         protected List<LabelStyleProperty> intervals;
         protected Reference reference;
@@ -75,13 +63,8 @@ public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabel
             return new Builder();
         }
 
-        public Builder with(CesiumLabelStyle instance) {
-            this.instance = instance;
-            return this;
-        }
-
-        public Builder withInterpolations(Interpolations interpolations) {
-            this.interpolations = interpolations;
+        public Builder withValue(CesiumLabelStyle value) {
+            this.value = value;
             return this;
         }
 
@@ -102,11 +85,10 @@ public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabel
 
         public DefaultLabelStyleProperty build() {
             DefaultLabelStyleProperty defaultLabelStyleProperty = new DefaultLabelStyleProperty();
+            defaultLabelStyleProperty.setValue(value);
             defaultLabelStyleProperty.setInterval(interval);
             defaultLabelStyleProperty.setIntervals(intervals);
             defaultLabelStyleProperty.setReference(reference);
-            defaultLabelStyleProperty.interpolations = this.interpolations;
-            defaultLabelStyleProperty.instance = this.instance;
             return defaultLabelStyleProperty;
         }
     }

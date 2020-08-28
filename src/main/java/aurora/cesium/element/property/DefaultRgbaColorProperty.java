@@ -14,86 +14,14 @@ import java.util.List;
  */
 public class DefaultRgbaColorProperty extends SingleTimeBasedPropertyAdapter<Color, ColorProperty> implements ColorProperty {
 
-    public DefaultRgbaColorProperty(Color instance) {
-        super(instance);
-    }
-
-    public DefaultRgbaColorProperty(Color instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
-    public DefaultRgbaColorProperty(Color instance, Interpolations interpolations) {
-        super(instance, interpolations);
-    }
-
-    public DefaultRgbaColorProperty(Color instance, Interpolations interpolations, TimeInterval interval) {
-        super(instance, interpolations, interval);
-    }
-
-    public DefaultRgbaColorProperty(List<JulianDate> dates, List<Color> instances) {
-        super(dates, instances);
-    }
-
-    public DefaultRgbaColorProperty(List<JulianDate> dates, List<Color> instances, Interpolations interpolations) {
-        super(dates, instances, interpolations);
-    }
-
-    public DefaultRgbaColorProperty(List<JulianDate> dates, List<Color> instances, TimeInterval interval) {
-        super(dates, instances, interval);
-    }
-
-    public DefaultRgbaColorProperty(List<JulianDate> dates, List<Color> instances, Interpolations interpolations, TimeInterval interval) {
-        super(dates, instances, interpolations, interval);
-    }
-
-    public DefaultRgbaColorProperty(List<JulianDate> dates, List<Color> instances, Integer startIndex, Integer length) {
-        super(dates, instances, startIndex, length);
-    }
-
-    public DefaultRgbaColorProperty(List<JulianDate> dates, List<Color> instances, Integer startIndex, Integer length, Interpolations interpolations) {
-        super(dates, instances, startIndex, length, interpolations);
-    }
-
-    public DefaultRgbaColorProperty(List<JulianDate> dates, List<Color> instances, Integer startIndex, Integer length, TimeInterval interval) {
-        super(dates, instances, startIndex, length, interval);
-    }
-
-    public DefaultRgbaColorProperty(List<JulianDate> dates, List<Color> instances, Integer startIndex, Integer length, Interpolations interpolations, TimeInterval interval) {
-        super(dates, instances, startIndex, length, interpolations, interval);
-    }
-
-    public DefaultRgbaColorProperty(List<ColorProperty> intervals) {
-        super(intervals);
-    }
-
-    public DefaultRgbaColorProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(ColorCesiumWriter writer) {
         try (writer) {
-            dispatchConsumer(writer::writeRgba);
+            dispatchConsumer(writer::writeRgba, writer::writeRgba, writer::writeRgba);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public Color getColor() {
-        return instance;
-    }
-
-    public void setColor(Color color) {
-        this.instance = color;
-    }
-
-    public List<Color> getColors() {
-        return instances;
-    }
-
-    public void setColors(List<Color> colors) {
-        this.instances = colors;
     }
 
     @Override
@@ -130,5 +58,78 @@ public class DefaultRgbaColorProperty extends SingleTimeBasedPropertyAdapter<Col
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected List<JulianDate> dates;
+        protected List<Color> values;
+        protected Integer startIndex;
+        protected Integer length;
+        protected Color value;
+
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<ColorProperty> intervals;
+        protected Reference reference;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withValues(List<JulianDate> dates, List<Color> values) {
+            this.dates = dates;
+            this.values = values;
+            return this;
+        }
+
+        public Builder withValues(List<JulianDate> dates, List<Color> values, Integer startIndex, Integer length) {
+            this.dates = dates;
+            this.values = values;
+            this.startIndex = startIndex;
+            this.length = length;
+            return this;
+        }
+
+        public Builder withValue(Color value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<ColorProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultRgbaColorProperty build() {
+            DefaultRgbaColorProperty defaultRgbaColorProperty = new DefaultRgbaColorProperty();
+            defaultRgbaColorProperty.setDates(dates);
+            defaultRgbaColorProperty.setValues(values);
+            defaultRgbaColorProperty.setStartIndex(startIndex);
+            defaultRgbaColorProperty.setLength(length);
+            defaultRgbaColorProperty.setValue(value);
+            defaultRgbaColorProperty.setInterpolations(interpolations);
+            defaultRgbaColorProperty.setInterval(interval);
+            defaultRgbaColorProperty.setIntervals(intervals);
+            defaultRgbaColorProperty.setReference(reference);
+            return defaultRgbaColorProperty;
+        }
     }
 }

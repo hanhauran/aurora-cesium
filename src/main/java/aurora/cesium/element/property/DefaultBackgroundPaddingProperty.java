@@ -11,28 +11,14 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class DefaultBackgroundPaddingProperty extends SinglePropertyAdapter<RectangularProperty, BackgroundPaddingProperty> implements BackgroundPaddingProperty {
+public class DefaultBackgroundPaddingProperty extends PropertyAdapter<BackgroundPaddingProperty> implements BackgroundPaddingProperty {
 
-    public DefaultBackgroundPaddingProperty(RectangularProperty instance) {
-        super(instance);
-    }
-
-    public DefaultBackgroundPaddingProperty(RectangularProperty instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
-    public DefaultBackgroundPaddingProperty(List<BackgroundPaddingProperty> intervals) {
-        super(intervals);
-    }
-
-    public DefaultBackgroundPaddingProperty(Reference reference) {
-        super(reference);
-    }
+    private RectangularProperty rectangular;
 
     @Override
     public void dispatch(BackgroundPaddingCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatch(writer));
+            Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchWithoutClose(writer));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
@@ -40,11 +26,11 @@ public class DefaultBackgroundPaddingProperty extends SinglePropertyAdapter<Rect
 
     @Override
     public RectangularProperty getRectangular() {
-        return instance;
+        return rectangular;
     }
 
     public void setRectangular(RectangularProperty rectangular) {
-        this.instance = rectangular;
+        this.rectangular = rectangular;
     }
 
     @Override
@@ -72,5 +58,48 @@ public class DefaultBackgroundPaddingProperty extends SinglePropertyAdapter<Rect
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected TimeInterval interval;
+        protected List<BackgroundPaddingProperty> intervals;
+        protected Reference reference;
+        private RectangularProperty rectangular;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withRectangular(RectangularProperty rectangular) {
+            this.rectangular = rectangular;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<BackgroundPaddingProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultBackgroundPaddingProperty build() {
+            DefaultBackgroundPaddingProperty defaultBackgroundPaddingProperty = new DefaultBackgroundPaddingProperty();
+            defaultBackgroundPaddingProperty.setRectangular(rectangular);
+            defaultBackgroundPaddingProperty.setInterval(interval);
+            defaultBackgroundPaddingProperty.setIntervals(intervals);
+            defaultBackgroundPaddingProperty.setReference(reference);
+            return defaultBackgroundPaddingProperty;
+        }
     }
 }

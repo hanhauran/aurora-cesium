@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface PixelOffsetProperty extends InterpolatableProperty, IntervalProperty<PixelOffsetProperty>, ReferenceProperty {
 
+    static DefaultPixelOffsetProperty.Builder newBuilder() {
+        return DefaultPixelOffsetProperty.Builder.newBuilder();
+    }
+
     @Override
     Interpolations getInterpolations();
 

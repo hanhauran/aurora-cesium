@@ -18,7 +18,7 @@ public class DefaultRepeatProperty extends PropertyAdapter<RepeatProperty> imple
     @Override
     public void dispatch(RepeatCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatch(writer));
+            Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchWithoutClose(writer));
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
@@ -71,11 +71,12 @@ public class DefaultRepeatProperty extends PropertyAdapter<RepeatProperty> imple
     }
 
     public static final class Builder {
+        private RectangularProperty rectangular;
+
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<RepeatProperty> intervals;
         protected Reference reference;
-        private RectangularProperty rectangular;
 
         private Builder() {
         }

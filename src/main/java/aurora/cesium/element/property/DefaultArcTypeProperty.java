@@ -6,7 +6,6 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author hanhaoran
@@ -14,38 +13,13 @@ import java.util.Optional;
  */
 public class DefaultArcTypeProperty extends SinglePropertyAdapter<CesiumArcType, ArcTypeProperty> implements ArcTypeProperty {
 
-    public DefaultArcTypeProperty(CesiumArcType instance) {
-        super(instance);
-    }
-
-    public DefaultArcTypeProperty(CesiumArcType instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
-    public DefaultArcTypeProperty(List<ArcTypeProperty> intervals) {
-        super(intervals);
-    }
-
-    public DefaultArcTypeProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(ArcTypeCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getArcType()).ifPresent(writer::writeArcType);
+            dispatchConsumer(writer::writeArcType);
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    @Override
-    public CesiumArcType getArcType() {
-        return instance;
-    }
-
-    public void setArcType(CesiumArcType arcType) {
-        this.instance = arcType;
     }
 
     @Override
@@ -73,5 +47,48 @@ public class DefaultArcTypeProperty extends SinglePropertyAdapter<CesiumArcType,
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected CesiumArcType value;
+        protected TimeInterval interval;
+        protected List<ArcTypeProperty> intervals;
+        protected Reference reference;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withValue(CesiumArcType instance) {
+            this.value = instance;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<ArcTypeProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultArcTypeProperty build() {
+            DefaultArcTypeProperty defaultArcTypeProperty = new DefaultArcTypeProperty();
+            defaultArcTypeProperty.setValue(value);
+            defaultArcTypeProperty.setInterval(interval);
+            defaultArcTypeProperty.setIntervals(intervals);
+            defaultArcTypeProperty.setReference(reference);
+            return defaultArcTypeProperty;
+        }
     }
 }

@@ -15,10 +15,6 @@ public class DefaultEyeOffsetProperty extends PropertyAdapter<EyeOffsetProperty>
 
     private CartesianProperty cartesian;
 
-    public DefaultEyeOffsetProperty() {
-        super();
-    }
-
     @Override
     public void dispatch(EyeOffsetCesiumWriter writer) {
         try (writer) {
@@ -75,11 +71,12 @@ public class DefaultEyeOffsetProperty extends PropertyAdapter<EyeOffsetProperty>
     }
 
     public static final class Builder {
+        private CartesianProperty cartesian;
+
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<EyeOffsetProperty> intervals;
         protected Reference reference;
-        private CartesianProperty cartesian;
 
         private Builder() {
         }

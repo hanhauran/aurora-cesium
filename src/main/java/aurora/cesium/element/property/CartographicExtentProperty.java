@@ -8,6 +8,10 @@ import aurora.cesium.language.writer.RectangleCoordinatesCesiumWriter;
  */
 public interface CartographicExtentProperty extends Property {
 
+    static DefaultCartographicExtentProperty.Builder newBuilder() {
+        return DefaultCartographicExtentProperty.Builder.newBuilder();
+    }
+
     void dispatchWsen(RectangleCoordinatesCesiumWriter writer);
 
     void dispatchWsenDegrees(RectangleCoordinatesCesiumWriter writer);

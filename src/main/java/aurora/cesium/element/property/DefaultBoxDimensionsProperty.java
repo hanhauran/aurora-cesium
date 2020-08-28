@@ -15,23 +15,6 @@ public class DefaultBoxDimensionsProperty extends PropertyAdapter<BoxDimensionsP
 
     private CartesianProperty cartesian;
 
-    public DefaultBoxDimensionsProperty(CartesianProperty cartesian) {
-        this(cartesian, null);
-    }
-
-    public DefaultBoxDimensionsProperty(CartesianProperty cartesian, TimeInterval interval) {
-        this.cartesian = cartesian;
-        this.interval = interval;
-    }
-
-    public DefaultBoxDimensionsProperty(List<BoxDimensionsProperty> intervals) {
-        super(intervals);
-    }
-
-    public DefaultBoxDimensionsProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(BoxDimensionsCesiumWriter writer) {
         try (writer) {
@@ -75,5 +58,48 @@ public class DefaultBoxDimensionsProperty extends PropertyAdapter<BoxDimensionsP
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected TimeInterval interval;
+        protected List<BoxDimensionsProperty> intervals;
+        protected Reference reference;
+        private CartesianProperty cartesian;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withCartesian(CartesianProperty cartesian) {
+            this.cartesian = cartesian;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<BoxDimensionsProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultBoxDimensionsProperty build() {
+            DefaultBoxDimensionsProperty defaultBoxDimensionsProperty = new DefaultBoxDimensionsProperty();
+            defaultBoxDimensionsProperty.setCartesian(cartesian);
+            defaultBoxDimensionsProperty.setInterval(interval);
+            defaultBoxDimensionsProperty.setIntervals(intervals);
+            defaultBoxDimensionsProperty.setReference(reference);
+            return defaultBoxDimensionsProperty;
+        }
     }
 }

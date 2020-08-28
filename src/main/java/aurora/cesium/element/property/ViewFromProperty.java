@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface ViewFromProperty extends InterpolatableProperty, IntervalProperty<ViewFromProperty>, ReferenceProperty {
 
+    static DefaultViewFromProperty.Builder newBuilder() {
+        return DefaultViewFromProperty.Builder.newBuilder();
+    }
+
     CartesianProperty getCartesian();
 
     @Override

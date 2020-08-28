@@ -10,6 +10,10 @@ import java.util.List;
  */
 public interface ClockProperty extends IntervalProperty<ClockProperty> {
 
+    static DefaultClockProperty.Builder newBuilder() {
+        return DefaultClockProperty.Builder.newBuilder();
+    }
+
     JulianDate getCurrentTime();
 
     Double getMultiplier();

@@ -51,6 +51,7 @@ public class DefaultUriProperty extends SinglePropertyAdapter<CesiumResource, Ur
 
     public static final class Builder {
         protected CesiumResource instance;
+
         protected TimeInterval interval;
         protected List<UriProperty> intervals;
         protected Reference reference;
@@ -84,7 +85,7 @@ public class DefaultUriProperty extends SinglePropertyAdapter<CesiumResource, Ur
 
         public DefaultUriProperty build() {
             DefaultUriProperty defaultUriProperty = new DefaultUriProperty();
-            defaultUriProperty.setInstance(instance);
+            defaultUriProperty.setValue(instance);
             defaultUriProperty.setInterval(interval);
             defaultUriProperty.setIntervals(intervals);
             defaultUriProperty.setReference(reference);

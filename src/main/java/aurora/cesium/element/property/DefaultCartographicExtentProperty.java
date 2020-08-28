@@ -5,25 +5,12 @@ import aurora.cesium.language.writer.JulianDate;
 import aurora.cesium.language.writer.RectangleCoordinatesCesiumWriter;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
 public class DefaultCartographicExtentProperty extends SingleTimeBasedPropertyAdapter<CartographicExtent, CartographicExtentProperty> implements CartographicExtentProperty {
-
-    public DefaultCartographicExtentProperty(CartographicExtent instance) {
-        super(instance);
-    }
-
-    public DefaultCartographicExtentProperty(List<JulianDate> dates, List<CartographicExtent> instances) {
-        super(dates, instances);
-    }
-
-    public DefaultCartographicExtentProperty(List<JulianDate> dates, List<CartographicExtent> instances, Integer startIndex, Integer length) {
-        super(dates, instances, startIndex, length);
-    }
 
     @Override
     public void dispatchWsen(RectangleCoordinatesCesiumWriter writer) {
@@ -35,19 +22,47 @@ public class DefaultCartographicExtentProperty extends SingleTimeBasedPropertyAd
         dispatchConsumer(writer::writeWsenDegrees, writer::writeWsenDegrees, writer::writeWsenDegrees);
     }
 
-    public CartographicExtent getExtent() {
-        return instance;
-    }
+    public static final class Builder {
+        protected List<JulianDate> dates;
+        protected List<CartographicExtent> values;
+        protected Integer startIndex;
+        protected Integer length;
+        protected CartographicExtent value;
 
-    public void setExtent(CartographicExtent extent) {
-        this.instance = extent;
-    }
+        private Builder() {
+        }
 
-    public List<CartographicExtent> getExtents() {
-        return instances;
-    }
+        public static Builder newBuilder() {
+            return new Builder();
+        }
 
-    public void setExtents(List<CartographicExtent> extents) {
-        this.instances = extents;
+        public Builder withValues(List<JulianDate> dates, List<CartographicExtent> values) {
+            this.dates = dates;
+            this.values = values;
+            return this;
+        }
+
+        public Builder withValues(List<JulianDate> dates, List<CartographicExtent> values, Integer startIndex, Integer length) {
+            this.dates = dates;
+            this.values = values;
+            this.startIndex = startIndex;
+            this.length = length;
+            return this;
+        }
+
+        public Builder withValue(CartographicExtent value) {
+            this.value = value;
+            return this;
+        }
+
+        public DefaultCartographicExtentProperty build() {
+            DefaultCartographicExtentProperty defaultCartographicExtentProperty = new DefaultCartographicExtentProperty();
+            defaultCartographicExtentProperty.setDates(dates);
+            defaultCartographicExtentProperty.setValues(values);
+            defaultCartographicExtentProperty.setStartIndex(startIndex);
+            defaultCartographicExtentProperty.setLength(length);
+            defaultCartographicExtentProperty.setValue(value);
+            return defaultCartographicExtentProperty;
+        }
     }
 }

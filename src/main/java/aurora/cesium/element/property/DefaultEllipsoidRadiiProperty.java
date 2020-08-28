@@ -71,11 +71,12 @@ public class DefaultEllipsoidRadiiProperty extends PropertyAdapter<EllipsoidRadi
     }
 
     public static final class Builder {
+        private CartesianProperty cartesian;
+
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<EllipsoidRadiiProperty> intervals;
         protected Reference reference;
-        private CartesianProperty cartesian;
 
         private Builder() {
         }

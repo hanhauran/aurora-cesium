@@ -19,18 +19,6 @@ public class DefaultClockProperty extends PropertyAdapter<ClockProperty> impleme
 
     private ClockStep step;
 
-    public DefaultClockProperty(JulianDate currentTime, Double multiplier, ClockRange range, ClockStep step) {
-        this(currentTime, multiplier, range, step, null);
-    }
-
-    public DefaultClockProperty(JulianDate currentTime, Double multiplier, ClockRange range, ClockStep step, TimeInterval interval) {
-        this.currentTime = currentTime;
-        this.multiplier = multiplier;
-        this.range = range;
-        this.step = step;
-        this.interval = interval;
-    }
-
     @Override
     public void dispatch(ClockCesiumWriter writer) {
         try (writer) {
@@ -95,5 +83,55 @@ public class DefaultClockProperty extends PropertyAdapter<ClockProperty> impleme
 
     public void setIntervals(List<ClockProperty> intervals) {
         this.intervals = intervals;
+    }
+
+    public static final class Builder {
+        protected TimeInterval interval;
+        private JulianDate currentTime;
+        private Double multiplier;
+        private ClockRange range;
+        private ClockStep step;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withCurrentTime(JulianDate currentTime) {
+            this.currentTime = currentTime;
+            return this;
+        }
+
+        public Builder withMultiplier(Double multiplier) {
+            this.multiplier = multiplier;
+            return this;
+        }
+
+        public Builder withRange(ClockRange range) {
+            this.range = range;
+            return this;
+        }
+
+        public Builder withStep(ClockStep step) {
+            this.step = step;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public DefaultClockProperty build() {
+            DefaultClockProperty defaultClockProperty = new DefaultClockProperty();
+            defaultClockProperty.setCurrentTime(currentTime);
+            defaultClockProperty.setMultiplier(multiplier);
+            defaultClockProperty.setRange(range);
+            defaultClockProperty.setStep(step);
+            defaultClockProperty.setInterval(interval);
+            return defaultClockProperty;
+        }
     }
 }

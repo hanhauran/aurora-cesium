@@ -6,29 +6,12 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
 public class DefaultClassificationTypeProperty extends SinglePropertyAdapter<CesiumClassificationType, ClassificationTypeProperty> implements ClassificationTypeProperty {
-
-    public DefaultClassificationTypeProperty(CesiumClassificationType instance) {
-        super(instance);
-    }
-
-    public DefaultClassificationTypeProperty(CesiumClassificationType instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
-    public DefaultClassificationTypeProperty(Reference reference) {
-        super(reference);
-    }
-
-    public DefaultClassificationTypeProperty(List<ClassificationTypeProperty> intervals) {
-        super(intervals);
-    }
 
     @Override
     public void dispatch(ClassificationTypeCesiumWriter writer) {
@@ -41,11 +24,11 @@ public class DefaultClassificationTypeProperty extends SinglePropertyAdapter<Ces
 
     @Override
     public CesiumClassificationType getClassificationType() {
-        return instance;
+        return value;
     }
 
     public void setClassificationType(CesiumClassificationType type) {
-        this.instance = type;
+        this.value = type;
     }
 
     @Override
@@ -73,5 +56,49 @@ public class DefaultClassificationTypeProperty extends SinglePropertyAdapter<Ces
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected CesiumClassificationType value;
+        protected TimeInterval interval;
+
+        protected List<ClassificationTypeProperty> intervals;
+        protected Reference reference;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withValue(CesiumClassificationType value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<ClassificationTypeProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultClassificationTypeProperty build() {
+            DefaultClassificationTypeProperty defaultClassificationTypeProperty = new DefaultClassificationTypeProperty();
+            defaultClassificationTypeProperty.setValue(value);
+            defaultClassificationTypeProperty.setInterval(interval);
+            defaultClassificationTypeProperty.setIntervals(intervals);
+            defaultClassificationTypeProperty.setReference(reference);
+            return defaultClassificationTypeProperty;
+        }
     }
 }

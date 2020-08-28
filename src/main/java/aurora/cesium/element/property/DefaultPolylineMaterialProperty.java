@@ -50,9 +50,10 @@ public class DefaultPolylineMaterialProperty extends PropertyAdapter<PolylineMat
     }
 
     public static final class Builder {
+        private SolidColorMaterialProperty solidColor;
+
         protected TimeInterval interval;
         protected List<PolylineMaterialProperty> intervals;
-        private SolidColorMaterialProperty solidColor;
 
         private Builder() {
         }

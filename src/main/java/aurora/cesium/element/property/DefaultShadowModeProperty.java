@@ -26,4 +26,34 @@ public class DefaultShadowModeProperty extends SinglePropertyAdapter<CesiumShado
     public void setReference(Reference reference) {
         this.reference = reference;
     }
+
+
+    public static final class Builder {
+        protected CesiumShadowMode value;
+        protected Reference reference;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withValue(CesiumShadowMode value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultShadowModeProperty build() {
+            DefaultShadowModeProperty defaultShadowModeProperty = new DefaultShadowModeProperty();
+            defaultShadowModeProperty.setValue(value);
+            defaultShadowModeProperty.setReference(reference);
+            return defaultShadowModeProperty;
+        }
+    }
 }

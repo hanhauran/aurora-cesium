@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class DefaultIntegerProperty extends SingleTimeBasedPropertyAdapter<Integer, IntegerProperty> implements IntegerProperty {
 
-    public DefaultIntegerProperty() {
-        super();
-    }
-
     @Override
     public void dispatch(IntegerCesiumWriter writer) {
         try (writer) {
@@ -25,22 +21,6 @@ public class DefaultIntegerProperty extends SingleTimeBasedPropertyAdapter<Integ
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public Integer getInteger() {
-        return instance;
-    }
-
-    public void setInteger(Integer integer) {
-        this.instance = integer;
-    }
-
-    public List<Integer> getIntegers() {
-        return instances;
-    }
-
-    public void setIntegers(List<Integer> integers) {
-        this.instances = integers;
     }
 
     @Override
@@ -81,11 +61,11 @@ public class DefaultIntegerProperty extends SingleTimeBasedPropertyAdapter<Integ
 
     public static final class Builder {
         protected List<JulianDate> dates;
-        protected List<Integer> instances;
+        protected List<Integer> values;
         protected Integer startIndex;
         protected Integer length;
 
-        protected Integer instance;
+        protected Integer value;
 
         protected Interpolations interpolations;
         protected TimeInterval interval;
@@ -99,22 +79,22 @@ public class DefaultIntegerProperty extends SingleTimeBasedPropertyAdapter<Integ
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<Integer> instances) {
+        public Builder withValues(List<JulianDate> dates, List<Integer> instances) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = instances;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<Integer> instances, Integer startIndex, Integer length) {
+        public Builder withValues(List<JulianDate> dates, List<Integer> instances, Integer startIndex, Integer length) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = instances;
             this.startIndex = startIndex;
             this.length = length;
             return this;
         }
 
-        public Builder with(Integer instance) {
-            this.instance = instance;
+        public Builder withValue(Integer instance) {
+            this.value = instance;
             return this;
         }
 
@@ -141,8 +121,10 @@ public class DefaultIntegerProperty extends SingleTimeBasedPropertyAdapter<Integ
         public DefaultIntegerProperty build() {
             DefaultIntegerProperty defaultIntegerProperty = new DefaultIntegerProperty();
             defaultIntegerProperty.setDates(dates);
+            defaultIntegerProperty.setValues(values);
             defaultIntegerProperty.setStartIndex(startIndex);
             defaultIntegerProperty.setLength(length);
+            defaultIntegerProperty.setValue(value);
             defaultIntegerProperty.setInterpolations(interpolations);
             defaultIntegerProperty.setInterval(interval);
             defaultIntegerProperty.setIntervals(intervals);

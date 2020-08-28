@@ -3,7 +3,6 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.Cartographic;
 import aurora.cesium.language.writer.JulianDate;
 import aurora.cesium.language.writer.PositionCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 
@@ -13,36 +12,52 @@ import java.util.List;
  */
 public class DefaultCartographicRadiansProperty extends SingleTimeBasedPropertyAdapter<Cartographic, CartographicRadiansProperty> implements CartographicRadiansProperty {
 
-    public DefaultCartographicRadiansProperty(Cartographic instance) {
-        super(instance);
-    }
-
-    public DefaultCartographicRadiansProperty(List<JulianDate> dates, List<Cartographic> instances) {
-        super(dates, instances);
-    }
-
-    public DefaultCartographicRadiansProperty(List<JulianDate> dates, List<Cartographic> instances, Integer startIndex, Integer length) {
-        super(dates, instances, startIndex, length);
-    }
-
     @Override
     public void dispatchCartographicRadians(PositionCesiumWriter writer) {
         dispatchConsumer(writer::writeCartographicRadians, writer::writeCartographicRadians, writer::writeCartographicRadians);
     }
 
-    public Cartographic getCartographic() {
-        return instance;
-    }
+    public static final class Builder {
+        protected List<JulianDate> dates;
+        protected List<Cartographic> values;
+        protected Integer startIndex;
+        protected Integer length;
+        protected Cartographic value;
 
-    public void setCartographic(Cartographic cartographic) {
-        this.instance = cartographic;
-    }
+        private Builder() {
+        }
 
-    public List<Cartographic> getCartographics() {
-        return instances;
-    }
+        public static Builder newBuilder() {
+            return new Builder();
+        }
 
-    public void setCartographics(List<Cartographic> cartographics) {
-        this.instances = cartographics;
+        public Builder withValues(List<JulianDate> dates, List<Cartographic> values) {
+            this.dates = dates;
+            this.values = values;
+            return this;
+        }
+
+        public Builder withValues(List<JulianDate> dates, List<Cartographic> values, Integer startIndex, Integer length) {
+            this.dates = dates;
+            this.values = values;
+            this.startIndex = startIndex;
+            this.length = length;
+            return this;
+        }
+
+        public Builder withValue(Cartographic value) {
+            this.value = value;
+            return this;
+        }
+
+        public DefaultCartographicRadiansProperty build() {
+            DefaultCartographicRadiansProperty defaultCartographicRadiansProperty = new DefaultCartographicRadiansProperty();
+            defaultCartographicRadiansProperty.setDates(dates);
+            defaultCartographicRadiansProperty.setValues(values);
+            defaultCartographicRadiansProperty.setStartIndex(startIndex);
+            defaultCartographicRadiansProperty.setLength(length);
+            defaultCartographicRadiansProperty.setValue(value);
+            return defaultCartographicRadiansProperty;
+        }
     }
 }

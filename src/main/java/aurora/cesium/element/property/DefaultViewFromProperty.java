@@ -72,6 +72,7 @@ public class DefaultViewFromProperty extends PropertyAdapter<ViewFromProperty> i
 
     public static final class Builder {
         protected CartesianProperty cartesian;
+
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<ViewFromProperty> intervals;
@@ -80,7 +81,7 @@ public class DefaultViewFromProperty extends PropertyAdapter<ViewFromProperty> i
         private Builder() {
         }
 
-        public static Builder aDefaultViewFromProperty() {
+        public static Builder newBuilder() {
             return new Builder();
         }
 

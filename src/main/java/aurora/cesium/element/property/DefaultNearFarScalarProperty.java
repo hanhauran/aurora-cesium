@@ -10,10 +10,6 @@ import java.util.List;
  */
 public class DefaultNearFarScalarProperty extends SingleTimeBasedPropertyAdapter<NearFarScalar, NearFarScalarProperty> implements NearFarScalarProperty {
 
-    public DefaultNearFarScalarProperty() {
-        super();
-    }
-
     @Override
     public void dispatch(NearFarScalarCesiumWriter writer) {
         try (writer) {
@@ -22,22 +18,6 @@ public class DefaultNearFarScalarProperty extends SingleTimeBasedPropertyAdapter
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public NearFarScalar getNearFarScalar() {
-        return instance;
-    }
-
-    public void setNearFarScalar(NearFarScalar nearFarScalar) {
-        this.instance = nearFarScalar;
-    }
-
-    public List<NearFarScalar> getNearFarScalars() {
-        return instances;
-    }
-
-    public void setNearFarScalar(List<NearFarScalar> nearFarScalars) {
-        this.instances = nearFarScalars;
     }
 
     @Override
@@ -78,11 +58,11 @@ public class DefaultNearFarScalarProperty extends SingleTimeBasedPropertyAdapter
 
     public static final class Builder {
         protected List<JulianDate> dates;
-        protected List<NearFarScalar> instances;
+        protected List<NearFarScalar> values;
         protected Integer startIndex;
         protected Integer length;
 
-        protected NearFarScalar instance;
+        protected NearFarScalar value;
 
         protected Interpolations interpolations;
         protected TimeInterval interval;
@@ -96,22 +76,22 @@ public class DefaultNearFarScalarProperty extends SingleTimeBasedPropertyAdapter
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<NearFarScalar> instances) {
+        public Builder withValues(List<JulianDate> dates, List<NearFarScalar> values) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = values;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<NearFarScalar> instances, Integer startIndex, Integer length) {
+        public Builder withValues(List<JulianDate> dates, List<NearFarScalar> values, Integer startIndex, Integer length) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = values;
             this.startIndex = startIndex;
             this.length = length;
             return this;
         }
 
-        public Builder with(NearFarScalar instance) {
-            this.instance = instance;
+        public Builder withValue(NearFarScalar value) {
+            this.value = value;
             return this;
         }
 
@@ -138,8 +118,10 @@ public class DefaultNearFarScalarProperty extends SingleTimeBasedPropertyAdapter
         public DefaultNearFarScalarProperty build() {
             DefaultNearFarScalarProperty defaultNearFarScalarProperty = new DefaultNearFarScalarProperty();
             defaultNearFarScalarProperty.setDates(dates);
+            defaultNearFarScalarProperty.setValues(values);
             defaultNearFarScalarProperty.setStartIndex(startIndex);
             defaultNearFarScalarProperty.setLength(length);
+            defaultNearFarScalarProperty.setValue(value);
             defaultNearFarScalarProperty.setInterpolations(interpolations);
             defaultNearFarScalarProperty.setInterval(interval);
             defaultNearFarScalarProperty.setIntervals(intervals);

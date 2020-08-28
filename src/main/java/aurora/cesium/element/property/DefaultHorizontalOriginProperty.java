@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<CesiumHorizontalOrigin, HorizontalOriginProperty> implements HorizontalOriginProperty {
 
-    public DefaultHorizontalOriginProperty() {
-        super();
-    }
-
     @Override
     public void dispatch(HorizontalOriginCesiumWriter writer) {
         try (writer) {
@@ -24,14 +20,6 @@ public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<Cesiu
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public CesiumHorizontalOrigin getHorizontalOrigin() {
-        return instance;
-    }
-
-    public void setHorizontalOrigin(CesiumHorizontalOrigin horizontalOrigin) {
-        this.instance = horizontalOrigin;
     }
 
     @Override
@@ -62,8 +50,8 @@ public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<Cesiu
     }
 
     public static final class Builder {
-        protected CesiumHorizontalOrigin instance;
-        protected Interpolations interpolations;
+        protected CesiumHorizontalOrigin value;
+
         protected TimeInterval interval;
         protected List<HorizontalOriginProperty> intervals;
         protected Reference reference;
@@ -71,17 +59,12 @@ public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<Cesiu
         private Builder() {
         }
 
-        public static Builder aDefaultHorizontalOriginProperty() {
+        public static Builder newBuilder() {
             return new Builder();
         }
 
-        public Builder with(CesiumHorizontalOrigin instance) {
-            this.instance = instance;
-            return this;
-        }
-
-        public Builder withInterpolations(Interpolations interpolations) {
-            this.interpolations = interpolations;
+        public Builder withValue(CesiumHorizontalOrigin value) {
+            this.value = value;
             return this;
         }
 
@@ -102,11 +85,10 @@ public class DefaultHorizontalOriginProperty extends SinglePropertyAdapter<Cesiu
 
         public DefaultHorizontalOriginProperty build() {
             DefaultHorizontalOriginProperty defaultHorizontalOriginProperty = new DefaultHorizontalOriginProperty();
+            defaultHorizontalOriginProperty.setValue(value);
             defaultHorizontalOriginProperty.setInterval(interval);
             defaultHorizontalOriginProperty.setIntervals(intervals);
             defaultHorizontalOriginProperty.setReference(reference);
-            defaultHorizontalOriginProperty.interpolations = this.interpolations;
-            defaultHorizontalOriginProperty.instance = this.instance;
             return defaultHorizontalOriginProperty;
         }
     }

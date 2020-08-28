@@ -12,6 +12,14 @@ import java.util.List;
  */
 public interface ColorProperty extends InterpolatableProperty, IntervalProperty<ColorProperty>, ReferenceProperty {
 
+    static DefaultRgbaColorProperty.Builder newRgbaBuilder() {
+        return DefaultRgbaColorProperty.Builder.newBuilder();
+    }
+
+    static DefaultRgbafColorProperty.Builder newRgbafBuilder() {
+        return DefaultRgbafColorProperty.Builder.newBuilder();
+    }
+
     @Override
     Interpolations getInterpolations();
 

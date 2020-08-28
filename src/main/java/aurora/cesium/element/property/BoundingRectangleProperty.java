@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface BoundingRectangleProperty extends InterpolatableProperty, IntervalProperty<BoundingRectangleProperty>, ReferenceProperty {
 
+    static DefaultBoundingRectangleProperty.Builder newBuilder() {
+        return DefaultBoundingRectangleProperty.Builder.newBuilder();
+    }
+
     @Override
     Interpolations getInterpolations();
 

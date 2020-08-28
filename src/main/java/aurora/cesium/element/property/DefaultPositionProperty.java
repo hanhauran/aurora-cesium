@@ -95,13 +95,14 @@ public class DefaultPositionProperty extends PropertyAdapter<PositionProperty> i
     }
 
     public static final class Builder {
+        private CartesianProperty cartesian;
+        private CartographicDegreesProperty cartographicDegrees;
+        private CartographicRadiansProperty cartographicRadians;
+
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<PositionProperty> intervals;
         protected Reference reference;
-        private CartesianProperty cartesian;
-        private CartographicDegreesProperty cartographicDegrees;
-        private CartographicRadiansProperty cartographicRadians;
 
         private Builder() {
         }

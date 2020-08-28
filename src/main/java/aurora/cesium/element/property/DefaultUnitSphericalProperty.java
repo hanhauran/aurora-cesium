@@ -17,13 +17,13 @@ public class DefaultUnitSphericalProperty extends SingleTimeBasedPropertyAdapter
         dispatchConsumer(writer::writeUnitSpherical, writer::writeUnitSpherical, writer::writeUnitSpherical);
     }
 
-
     public static final class Builder {
         protected List<JulianDate> dates;
-        protected List<UnitSpherical> instances;
+        protected List<UnitSpherical> values;
         protected Integer startIndex;
         protected Integer length;
-        protected UnitSpherical instance;
+
+        protected UnitSpherical value;
 
         private Builder() {
         }
@@ -32,32 +32,32 @@ public class DefaultUnitSphericalProperty extends SingleTimeBasedPropertyAdapter
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<UnitSpherical> instances) {
+        public Builder withValues(List<JulianDate> dates, List<UnitSpherical> instances) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = instances;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<UnitSpherical> instances, Integer startIndex, Integer length) {
+        public Builder withValues(List<JulianDate> dates, List<UnitSpherical> instances, Integer startIndex, Integer length) {
             this.dates = dates;
-            this.instances = instances;
+            this.values = instances;
             this.startIndex = startIndex;
             this.length = length;
             return this;
         }
 
-        public Builder with(UnitSpherical instance) {
-            this.instance = instance;
+        public Builder withValue(UnitSpherical instance) {
+            this.value = instance;
             return this;
         }
 
         public DefaultUnitSphericalProperty build() {
             DefaultUnitSphericalProperty defaultUnitSphericalProperty = new DefaultUnitSphericalProperty();
             defaultUnitSphericalProperty.setDates(dates);
-            defaultUnitSphericalProperty.setInstances(instances);
+            defaultUnitSphericalProperty.setValues(values);
             defaultUnitSphericalProperty.setStartIndex(startIndex);
             defaultUnitSphericalProperty.setLength(length);
-            defaultUnitSphericalProperty.setInstance(instance);
+            defaultUnitSphericalProperty.setValue(value);
             return defaultUnitSphericalProperty;
         }
     }

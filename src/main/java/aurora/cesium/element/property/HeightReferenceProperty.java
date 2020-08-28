@@ -12,6 +12,10 @@ import java.util.List;
  */
 public interface HeightReferenceProperty extends IntervalProperty<HeightReferenceProperty>, ReferenceProperty {
 
+    static DefaultHeightReferenceProperty.Builder newBuilder() {
+        return DefaultHeightReferenceProperty.Builder.newBuilder();
+    }
+
     @Override
     TimeInterval getInterval();
 
