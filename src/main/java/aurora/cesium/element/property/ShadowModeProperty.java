@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.ShadowModeCesiumWriter;
 
 /**
@@ -7,6 +8,9 @@ import aurora.cesium.language.writer.ShadowModeCesiumWriter;
  * @date 2020/8/22
  */
 public interface ShadowModeProperty extends Property, ReferenceProperty {
+
+    @Override
+    Reference getReference();
 
     void dispatch(ShadowModeCesiumWriter writer);
 }

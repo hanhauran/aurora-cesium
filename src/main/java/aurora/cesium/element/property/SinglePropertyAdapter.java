@@ -47,4 +47,12 @@ abstract class SinglePropertyAdapter<T, P extends Property> extends PropertyAdap
     void dispatchConsumer(Consumer<? super T> action) {
         Optional.ofNullable(instance).ifPresent(action);
     }
+
+    public T getInstance() {
+        return instance;
+    }
+
+    public void setInstance(T instance) {
+        this.instance = instance;
+    }
 }

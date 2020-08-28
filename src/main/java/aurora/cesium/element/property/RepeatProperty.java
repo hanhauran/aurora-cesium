@@ -10,7 +10,11 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface RepeatProperty extends InterpolatableProperty, IntervalProperty, MultiIntervalProperty<RepeatProperty>, ReferenceProperty {
+public interface RepeatProperty extends InterpolatableProperty, MultiIntervalProperty<RepeatProperty>, ReferenceProperty {
+
+    static DefaultRepeatProperty.Builder newBuilder() {
+        return DefaultRepeatProperty.Builder.newBuilder();
+    }
 
     RectangularProperty getRectangular();
 

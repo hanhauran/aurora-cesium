@@ -18,6 +18,8 @@ abstract class PropertyAdapter<P extends Property> {
 
     protected Reference reference;
 
+    protected List<Reference> references;
+
     public PropertyAdapter() {}
 
     public PropertyAdapter(List<P> intervals) {

@@ -15,32 +15,14 @@ public class DefaultRepeatProperty extends PropertyAdapter<RepeatProperty> imple
 
     private RectangularProperty rectangular;
 
-    public DefaultRepeatProperty() {
-        super();
-    }
-
-    public DefaultRepeatProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(RepeatCesiumWriter writer) {
         try (writer) {
-            doDispatch(writer, this);
+            Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatch(writer));
+            dispatchInterpolations(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
-            dispatchIntervals(writer::openMultipleIntervals, ((itemWriter, property) -> {
-                try (itemWriter) {
-                    doDispatch(itemWriter, property);
-                }
-            }));
         }
-    }
-
-    private void doDispatch(RepeatCesiumWriter writer, RepeatProperty property) {
-        Optional.ofNullable(property.getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchRectangular(writer));
-        dispatchInterpolations(writer, property);
-        dispatchInterval(writer, property);
-        dispatchReference(writer, property);
     }
 
     @Override
@@ -86,5 +68,55 @@ public class DefaultRepeatProperty extends PropertyAdapter<RepeatProperty> imple
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<RepeatProperty> intervals;
+        protected Reference reference;
+        private RectangularProperty rectangular;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withRectangular(RectangularProperty rectangular) {
+            this.rectangular = rectangular;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<RepeatProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultRepeatProperty build() {
+            DefaultRepeatProperty defaultRepeatProperty = new DefaultRepeatProperty();
+            defaultRepeatProperty.setRectangular(rectangular);
+            defaultRepeatProperty.setInterpolations(interpolations);
+            defaultRepeatProperty.setInterval(interval);
+            defaultRepeatProperty.setIntervals(intervals);
+            defaultRepeatProperty.setReference(reference);
+            return defaultRepeatProperty;
+        }
     }
 }

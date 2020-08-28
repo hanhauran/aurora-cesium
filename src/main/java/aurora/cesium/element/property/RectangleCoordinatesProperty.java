@@ -10,7 +10,8 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public interface RectangleCoordinatesProperty extends InterpolatableProperty, IntervalProperty, MultiIntervalProperty<RectangleCoordinatesProperty>, ReferenceProperty {
+public interface RectangleCoordinatesProperty extends InterpolatableProperty, MultiIntervalProperty<RectangleCoordinatesProperty>,
+        ReferenceProperty {
 
     CartographicExtentProperty getWsen();
 

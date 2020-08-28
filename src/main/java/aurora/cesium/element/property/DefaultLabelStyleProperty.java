@@ -5,6 +5,8 @@ import aurora.cesium.language.writer.LabelStyleCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
+
 /**
  * @author hanhaoran
  * @date 2020/8/20
@@ -15,23 +17,11 @@ public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabel
         super();
     }
 
-    public DefaultLabelStyleProperty(CesiumLabelStyle instance) {
-        super(instance);
-    }
-
-    public DefaultLabelStyleProperty(CesiumLabelStyle instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
-    public DefaultLabelStyleProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(LabelStyleCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeLabelStyle);
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }
@@ -54,11 +44,70 @@ public class DefaultLabelStyleProperty extends SinglePropertyAdapter<CesiumLabel
     }
 
     @Override
+    public List<LabelStyleProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<LabelStyleProperty> intervals) {
+        this.intervals = intervals;
+    }
+
+    @Override
     public Reference getReference() {
         return reference;
     }
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected CesiumLabelStyle instance;
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<LabelStyleProperty> intervals;
+        protected Reference reference;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder with(CesiumLabelStyle instance) {
+            this.instance = instance;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<LabelStyleProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultLabelStyleProperty build() {
+            DefaultLabelStyleProperty defaultLabelStyleProperty = new DefaultLabelStyleProperty();
+            defaultLabelStyleProperty.setInterval(interval);
+            defaultLabelStyleProperty.setIntervals(intervals);
+            defaultLabelStyleProperty.setReference(reference);
+            defaultLabelStyleProperty.interpolations = this.interpolations;
+            defaultLabelStyleProperty.instance = this.instance;
+            return defaultLabelStyleProperty;
+        }
     }
 }

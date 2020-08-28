@@ -10,7 +10,11 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface EllipsoidRadiiProperty extends InterpolatableProperty, IntervalProperty, MultiIntervalProperty<EllipsoidRadiiProperty>, ReferenceProperty {
+public interface EllipsoidRadiiProperty extends InterpolatableProperty, MultiIntervalProperty<EllipsoidRadiiProperty>, ReferenceProperty {
+
+    static DefaultEllipsoidRadiiProperty.Builder newBuilder() {
+        return DefaultEllipsoidRadiiProperty.Builder.newBuilder();
+    }
 
     CartesianProperty getCartesian();
 

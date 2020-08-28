@@ -5,43 +5,21 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.VerticalOriginCesiumWriter;
 
+import java.util.List;
+
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
 public class DefaultVerticalOriginProperty extends SinglePropertyAdapter<CesiumVerticalOrigin, VerticalOriginProperty> implements VerticalOriginProperty {
 
-    public DefaultVerticalOriginProperty() {
-        super();
-    }
-
-    public DefaultVerticalOriginProperty(CesiumVerticalOrigin instance) {
-        super(instance);
-    }
-
-    public DefaultVerticalOriginProperty(CesiumVerticalOrigin instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
-    public DefaultVerticalOriginProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(VerticalOriginCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeVerticalOrigin);
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
-    }
-
-    public CesiumVerticalOrigin getVerticalOrigin() {
-        return instance;
-    }
-
-    public void setVerticalOrigin(CesiumVerticalOrigin verticalOrigin) {
-        this.instance = verticalOrigin;
     }
 
     @Override
@@ -54,11 +32,63 @@ public class DefaultVerticalOriginProperty extends SinglePropertyAdapter<CesiumV
     }
 
     @Override
+    public List<VerticalOriginProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<VerticalOriginProperty> intervals) {
+        this.intervals = intervals;
+    }
+
+    @Override
     public Reference getReference() {
         return reference;
     }
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected CesiumVerticalOrigin instance;
+        protected TimeInterval interval;
+        protected List<VerticalOriginProperty> intervals;
+        protected Reference reference;
+
+        private Builder() {
+        }
+
+        public static Builder aDefaultVerticalOriginProperty() {
+            return new Builder();
+        }
+
+        public Builder withInstance(CesiumVerticalOrigin instance) {
+            this.instance = instance;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<VerticalOriginProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultVerticalOriginProperty build() {
+            DefaultVerticalOriginProperty defaultVerticalOriginProperty = new DefaultVerticalOriginProperty();
+            defaultVerticalOriginProperty.setInstance(instance);
+            defaultVerticalOriginProperty.setInterval(interval);
+            defaultVerticalOriginProperty.setIntervals(intervals);
+            defaultVerticalOriginProperty.setReference(reference);
+            return defaultVerticalOriginProperty;
+        }
     }
 }

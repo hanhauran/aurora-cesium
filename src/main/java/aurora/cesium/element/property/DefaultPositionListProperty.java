@@ -17,16 +17,14 @@ public class DefaultPositionListProperty extends PropertyAdapter<PositionListPro
 
     private Iterable<Cartographic> cartographicRadians;
 
-    private Iterable<Reference> references;
-
     @Override
     public void dispatch(PositionListCesiumWriter writer) {
         try (writer) {
             Optional.ofNullable(getCartesians()).ifPresent(writer::writeCartesian);
             Optional.ofNullable(getCartographicDegrees()).ifPresent(writer::writeCartographicDegrees);
             Optional.ofNullable(getCartographicRadians()).ifPresent(writer::writeCartographicRadians);
-            dispatchInterval(writer);
-            Optional.ofNullable(getReferences()).ifPresent(writer::writeReferences);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchReferences(writer);
         }
     }
 
@@ -76,11 +74,68 @@ public class DefaultPositionListProperty extends PropertyAdapter<PositionListPro
     }
 
     @Override
-    public Iterable<Reference> getReferences() {
+    public List<Reference> getReferences() {
         return references;
     }
 
-    public void setReferences(Iterable<Reference> references) {
+    public void setReferences(List<Reference> references) {
         this.references = references;
+    }
+
+    public static final class Builder {
+        protected TimeInterval interval;
+        protected List<PositionListProperty> intervals;
+        protected List<Reference> references;
+        private Iterable<Cartesian> cartesians;
+        private Iterable<Cartographic> cartographicDegrees;
+        private Iterable<Cartographic> cartographicRadians;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withCartesians(Iterable<Cartesian> cartesians) {
+            this.cartesians = cartesians;
+            return this;
+        }
+
+        public Builder withCartographicDegrees(Iterable<Cartographic> cartographicDegrees) {
+            this.cartographicDegrees = cartographicDegrees;
+            return this;
+        }
+
+        public Builder withCartographicRadians(Iterable<Cartographic> cartographicRadians) {
+            this.cartographicRadians = cartographicRadians;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<PositionListProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReferences(List<Reference> references) {
+            this.references = references;
+            return this;
+        }
+
+        public DefaultPositionListProperty build() {
+            DefaultPositionListProperty defaultPositionListProperty = new DefaultPositionListProperty();
+            defaultPositionListProperty.setCartesians(cartesians);
+            defaultPositionListProperty.setCartographicDegrees(cartographicDegrees);
+            defaultPositionListProperty.setCartographicRadians(cartographicRadians);
+            defaultPositionListProperty.setInterval(interval);
+            defaultPositionListProperty.setIntervals(intervals);
+            defaultPositionListProperty.setReferences(references);
+            return defaultPositionListProperty;
+        }
     }
 }

@@ -4,6 +4,7 @@ import aurora.cesium.language.writer.PositionCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,68 +19,6 @@ public class DefaultPositionProperty extends PropertyAdapter<PositionProperty> i
 
     private CartographicRadiansProperty cartographicRadians;
 
-    public DefaultPositionProperty() {
-        super();
-    }
-
-    public DefaultPositionProperty(CartesianProperty cartesian) {
-        this(cartesian, null, null);
-    }
-
-    public DefaultPositionProperty(CartesianProperty cartesian, TimeInterval interval) {
-        this(cartesian, null, interval);
-    }
-
-    public DefaultPositionProperty(CartesianProperty cartesian, Interpolations interpolations) {
-        this(cartesian, interpolations, null);
-    }
-
-    public DefaultPositionProperty(CartesianProperty cartesian, Interpolations interpolations, TimeInterval interval) {
-        this.cartesian = cartesian;
-        this.interpolations = interpolations;
-        this.interval = interval;
-    }
-
-    public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees) {
-        this(cartographicDegrees, null, null);
-    }
-
-    public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees, Interpolations interpolations) {
-        this(cartographicDegrees, interpolations, null);
-    }
-
-    public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees, TimeInterval interval) {
-        this(cartographicDegrees, null, interval);
-    }
-
-    public DefaultPositionProperty(CartographicDegreesProperty cartographicDegrees, Interpolations interpolations, TimeInterval interval) {
-        this.cartographicDegrees = cartographicDegrees;
-        this.interpolations = interpolations;
-        this.interval = interval;
-    }
-
-    public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians) {
-        this(cartographicRadians, null, null);
-    }
-
-    public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians, Interpolations interpolations) {
-        this(cartographicRadians, interpolations, null);
-    }
-
-    public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians, TimeInterval interval) {
-        this(cartographicRadians, null, interval);
-    }
-
-    public DefaultPositionProperty(CartographicRadiansProperty cartographicRadians, Interpolations interpolations, TimeInterval interval) {
-        this.cartographicRadians = cartographicRadians;
-        this.interpolations = interpolations;
-        this.interval = interval;
-    }
-
-    public DefaultPositionProperty(Reference reference) {
-        super(reference);
-    }
-
     @Override
     public void dispatch(PositionCesiumWriter writer) {
         try (writer) {
@@ -87,7 +26,7 @@ public class DefaultPositionProperty extends PropertyAdapter<PositionProperty> i
             Optional.ofNullable(getCartographicDegrees()).ifPresent(cartographicDegreesProperty -> cartographicDegreesProperty.dispatchCartographicDegrees(writer));
             Optional.ofNullable(getCartographicRadians()).ifPresent(cartographicRadiansProperty -> cartographicRadiansProperty.dispatchCartographicRadians(writer));
             dispatchInterpolations(writer);
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }
@@ -138,11 +77,84 @@ public class DefaultPositionProperty extends PropertyAdapter<PositionProperty> i
     }
 
     @Override
+    public List<PositionProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<PositionProperty> intervals) {
+        this.intervals = intervals;
+    }
+
+    @Override
     public Reference getReference() {
         return reference;
     }
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<PositionProperty> intervals;
+        protected Reference reference;
+        private CartesianProperty cartesian;
+        private CartographicDegreesProperty cartographicDegrees;
+        private CartographicRadiansProperty cartographicRadians;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withCartesian(CartesianProperty cartesian) {
+            this.cartesian = cartesian;
+            return this;
+        }
+
+        public Builder withCartographicDegrees(CartographicDegreesProperty cartographicDegrees) {
+            this.cartographicDegrees = cartographicDegrees;
+            return this;
+        }
+
+        public Builder withCartographicRadians(CartographicRadiansProperty cartographicRadians) {
+            this.cartographicRadians = cartographicRadians;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<PositionProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultPositionProperty build() {
+            DefaultPositionProperty defaultPositionProperty = new DefaultPositionProperty();
+            defaultPositionProperty.setCartesian(cartesian);
+            defaultPositionProperty.setCartographicDegrees(cartographicDegrees);
+            defaultPositionProperty.setCartographicRadians(cartographicRadians);
+            defaultPositionProperty.setInterpolations(interpolations);
+            defaultPositionProperty.setInterval(interval);
+            defaultPositionProperty.setIntervals(intervals);
+            defaultPositionProperty.setReference(reference);
+            return defaultPositionProperty;
+        }
     }
 }

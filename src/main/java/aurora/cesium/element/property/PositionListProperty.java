@@ -8,7 +8,11 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public interface PositionListProperty extends IntervalProperty, MultiIntervalProperty<PositionListProperty>, ReferencesProperty {
+public interface PositionListProperty extends MultiIntervalProperty<PositionListProperty>, ReferencesProperty {
+
+    static DefaultPositionListProperty.Builder newBuilder() {
+        return DefaultPositionListProperty.Builder.newBuilder();
+    }
 
     Iterable<Cartesian> getCartesians();
 

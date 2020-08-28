@@ -4,11 +4,17 @@ import aurora.cesium.language.writer.PositionCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
+
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface PositionProperty extends InterpolatableProperty, IntervalProperty, ReferenceProperty {
+public interface PositionProperty extends InterpolatableProperty, MultiIntervalProperty<PositionProperty>, ReferenceProperty {
+
+    static DefaultPositionProperty.Builder newBuilder() {
+        return DefaultPositionProperty.Builder.newBuilder();
+    }
 
     CartesianProperty getCartesian();
 
@@ -21,6 +27,9 @@ public interface PositionProperty extends InterpolatableProperty, IntervalProper
 
     @Override
     TimeInterval getInterval();
+
+    @Override
+    List<PositionProperty> getIntervals();
 
     @Override
     Reference getReference();

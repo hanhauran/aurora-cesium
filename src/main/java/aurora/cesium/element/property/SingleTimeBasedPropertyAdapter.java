@@ -21,6 +21,10 @@ abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends Sin
 
     protected Integer length;
 
+    public SingleTimeBasedPropertyAdapter() {
+        super();
+    }
+
     public SingleTimeBasedPropertyAdapter(T instance) {
         super(instance);
     }
@@ -93,12 +97,25 @@ abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends Sin
         );
     }
 
+    @Override
+    void dispatchConsumer(Consumer<? super T> action) {
+        throw new UnsupportedOperationException("bad methods...");
+    }
+
     public List<JulianDate> getDates() {
         return dates;
     }
 
     public void setDates(List<JulianDate> dates) {
         this.dates = dates;
+    }
+
+    public List<T> getInstances() {
+        return instances;
+    }
+
+    public void setInstances(List<T> instances) {
+        this.instances = instances;
     }
 
     public Integer getStartIndex() {

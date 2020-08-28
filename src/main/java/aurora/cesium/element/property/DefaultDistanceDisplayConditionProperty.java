@@ -1,46 +1,21 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Bounds;
-import aurora.cesium.language.writer.DistanceDisplayConditionCesiumWriter;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.TimeInterval;
+import aurora.cesium.language.writer.*;
+
+import java.util.List;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DefaultDistanceDisplayConditionProperty extends SinglePropertyAdapter<Bounds, DistanceDisplayConditionProperty> implements DistanceDisplayConditionProperty {
-
-    public DefaultDistanceDisplayConditionProperty() {
-        super();
-    }
-
-    public DefaultDistanceDisplayConditionProperty(Bounds instance) {
-        super(instance);
-    }
-
-    public DefaultDistanceDisplayConditionProperty(Bounds instance, TimeInterval interval) {
-        super(instance, interval);
-    }
-
-    public DefaultDistanceDisplayConditionProperty(Bounds instance, Interpolations interpolations) {
-        super(instance, interpolations);
-    }
-
-    public DefaultDistanceDisplayConditionProperty(Bounds instance, Interpolations interpolations, TimeInterval interval) {
-        super(instance, interpolations, interval);
-    }
-
-    public DefaultDistanceDisplayConditionProperty(Reference reference) {
-        super(reference);
-    }
+public class DefaultDistanceDisplayConditionProperty extends SingleTimeBasedPropertyAdapter<Bounds, DistanceDisplayConditionProperty> implements DistanceDisplayConditionProperty {
 
     @Override
     public void dispatch(DistanceDisplayConditionCesiumWriter writer) {
         try (writer) {
-            dispatchConsumer(writer::writeDistanceDisplayCondition);
+            dispatchConsumer(writer::writeDistanceDisplayCondition, writer::writeDistanceDisplayCondition, writer::writeDistanceDisplayCondition);
             dispatchInterpolations(writer);
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }
@@ -51,6 +26,14 @@ public class DefaultDistanceDisplayConditionProperty extends SinglePropertyAdapt
 
     public void setBounds(Bounds bounds) {
         this.instance = bounds;
+    }
+
+    public List<Bounds> getBoundsList() {
+        return instances;
+    }
+
+    public void setBoundsList(List<Bounds> boundsList) {
+        this.instances = boundsList;
     }
 
     @Override
@@ -72,11 +55,93 @@ public class DefaultDistanceDisplayConditionProperty extends SinglePropertyAdapt
     }
 
     @Override
+    public List<DistanceDisplayConditionProperty> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(List<DistanceDisplayConditionProperty> intervals) {
+        this.intervals = intervals;
+    }
+
+    @Override
     public Reference getReference() {
         return reference;
     }
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+
+    public static final class Builder {
+        protected List<JulianDate> dates;
+        protected List<Bounds> instances;
+        protected Integer startIndex;
+        protected Integer length;
+
+        protected Bounds instance;
+
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<DistanceDisplayConditionProperty> intervals;
+        protected Reference reference;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder with(List<JulianDate> dates, List<Bounds> instances) {
+            this.dates = dates;
+            this.instances = instances;
+            return this;
+        }
+
+        public Builder with(List<JulianDate> dates, List<Bounds> instances, Integer startIndex, Integer length) {
+            this.dates = dates;
+            this.instances = instances;
+            this.startIndex = startIndex;
+            this.length = length;
+            return this;
+        }
+
+        public Builder with(Bounds instance) {
+            this.instance = instance;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<DistanceDisplayConditionProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultDistanceDisplayConditionProperty build() {
+            DefaultDistanceDisplayConditionProperty defaultDistanceDisplayConditionProperty = new DefaultDistanceDisplayConditionProperty();
+            defaultDistanceDisplayConditionProperty.setDates(dates);
+            defaultDistanceDisplayConditionProperty.setStartIndex(startIndex);
+            defaultDistanceDisplayConditionProperty.setLength(length);
+            defaultDistanceDisplayConditionProperty.setInterpolations(interpolations);
+            defaultDistanceDisplayConditionProperty.setInterval(interval);
+            defaultDistanceDisplayConditionProperty.setIntervals(intervals);
+            defaultDistanceDisplayConditionProperty.setReference(reference);
+            return defaultDistanceDisplayConditionProperty;
+        }
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface ImageMaterialProperty extends IntervalProperty, MultiIntervalProperty<ImageMaterialProperty> {
+public interface ImageMaterialProperty extends MultiIntervalProperty<ImageMaterialProperty> {
 
     ColorProperty getColor();
 

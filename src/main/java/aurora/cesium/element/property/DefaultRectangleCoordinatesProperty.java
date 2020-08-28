@@ -11,19 +11,11 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class DefaultRectangleCoordinatesProperty implements RectangleCoordinatesProperty {
+public class DefaultRectangleCoordinatesProperty extends PropertyAdapter<RectangleCoordinatesProperty> implements RectangleCoordinatesProperty {
 
     private CartographicExtentProperty wsen;
 
     private CartographicExtentProperty wsenDegrees;
-
-    private Interpolations interpolations;
-
-    private TimeInterval interval;
-
-    private List<RectangleCoordinatesProperty> intervals;
-
-    private Reference reference;
 
     @Override
     public void dispatch(RectangleCoordinatesCesiumWriter writer) {
@@ -31,7 +23,7 @@ public class DefaultRectangleCoordinatesProperty implements RectangleCoordinates
             Optional.ofNullable(getWsen()).ifPresent(cartographicExtentProperty -> cartographicExtentProperty.dispatchWsen(writer));
             Optional.ofNullable(getWsenDegrees()).ifPresent(cartographicExtentProperty -> cartographicExtentProperty.dispatchWsenDegrees(writer));
             dispatchInterpolations(writer);
-            dispatchInterval(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }
@@ -88,5 +80,62 @@ public class DefaultRectangleCoordinatesProperty implements RectangleCoordinates
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<RectangleCoordinatesProperty> intervals;
+        protected Reference reference;
+        private CartographicExtentProperty wsen;
+        private CartographicExtentProperty wsenDegrees;
+
+        private Builder() {
+        }
+
+        public static Builder aDefaultRectangleCoordinatesProperty() {
+            return new Builder();
+        }
+
+        public Builder withWsen(CartographicExtentProperty wsen) {
+            this.wsen = wsen;
+            return this;
+        }
+
+        public Builder withWsenDegrees(CartographicExtentProperty wsenDegrees) {
+            this.wsenDegrees = wsenDegrees;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<RectangleCoordinatesProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultRectangleCoordinatesProperty build() {
+            DefaultRectangleCoordinatesProperty defaultRectangleCoordinatesProperty = new DefaultRectangleCoordinatesProperty();
+            defaultRectangleCoordinatesProperty.setWsen(wsen);
+            defaultRectangleCoordinatesProperty.setWsenDegrees(wsenDegrees);
+            defaultRectangleCoordinatesProperty.setInterpolations(interpolations);
+            defaultRectangleCoordinatesProperty.setInterval(interval);
+            defaultRectangleCoordinatesProperty.setIntervals(intervals);
+            defaultRectangleCoordinatesProperty.setReference(reference);
+            return defaultRectangleCoordinatesProperty;
+        }
     }
 }

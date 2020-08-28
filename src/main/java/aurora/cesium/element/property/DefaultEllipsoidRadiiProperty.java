@@ -18,20 +18,11 @@ public class DefaultEllipsoidRadiiProperty extends PropertyAdapter<EllipsoidRadi
     @Override
     public void dispatch(EllipsoidRadiiCesiumWriter writer) {
         try (writer) {
-            doDispatch(writer, this);
-            dispatchIntervals(writer::openMultipleIntervals, (itemWriter, property) -> {
-                try (itemWriter) {
-                    doDispatch(itemWriter, property);
-                }
-            });
+            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchCartesian(writer));
+            dispatchInterpolations(writer);
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchReference(writer);
         }
-    }
-
-    private void doDispatch(EllipsoidRadiiCesiumWriter writer, EllipsoidRadiiProperty property) {
-        Optional.ofNullable(property.getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchCartesian(writer));
-        dispatchInterpolations(writer, property);
-        dispatchInterval(writer, property);
-        dispatchReference(writer, property);
     }
 
     @Override
@@ -77,5 +68,55 @@ public class DefaultEllipsoidRadiiProperty extends PropertyAdapter<EllipsoidRadi
 
     public void setReference(Reference reference) {
         this.reference = reference;
+    }
+
+    public static final class Builder {
+        protected Interpolations interpolations;
+        protected TimeInterval interval;
+        protected List<EllipsoidRadiiProperty> intervals;
+        protected Reference reference;
+        private CartesianProperty cartesian;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder withCartesian(CartesianProperty cartesian) {
+            this.cartesian = cartesian;
+            return this;
+        }
+
+        public Builder withInterpolations(Interpolations interpolations) {
+            this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<EllipsoidRadiiProperty> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
+        public Builder withReference(Reference reference) {
+            this.reference = reference;
+            return this;
+        }
+
+        public DefaultEllipsoidRadiiProperty build() {
+            DefaultEllipsoidRadiiProperty defaultEllipsoidRadiiProperty = new DefaultEllipsoidRadiiProperty();
+            defaultEllipsoidRadiiProperty.setCartesian(cartesian);
+            defaultEllipsoidRadiiProperty.setInterpolations(interpolations);
+            defaultEllipsoidRadiiProperty.setInterval(interval);
+            defaultEllipsoidRadiiProperty.setIntervals(intervals);
+            defaultEllipsoidRadiiProperty.setReference(reference);
+            return defaultEllipsoidRadiiProperty;
+        }
     }
 }
