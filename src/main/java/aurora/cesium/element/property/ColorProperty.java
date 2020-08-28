@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface ColorProperty extends InterpolatableProperty, MultiIntervalProperty<ColorProperty>, ReferenceProperty {
+public interface ColorProperty extends InterpolatableProperty, IntervalProperty<ColorProperty>, ReferenceProperty {
 
     @Override
     Interpolations getInterpolations();

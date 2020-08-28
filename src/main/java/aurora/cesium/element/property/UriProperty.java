@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface UriProperty extends MultiIntervalProperty<UriProperty>, ReferenceProperty {
+public interface UriProperty extends IntervalProperty<UriProperty>, ReferenceProperty {
 
     static DefaultUriProperty.Builder newBuilder() {
         return DefaultUriProperty.Builder.newBuilder();

@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface PixelOffsetProperty extends InterpolatableProperty, MultiIntervalProperty<PixelOffsetProperty>, ReferenceProperty {
+public interface PixelOffsetProperty extends InterpolatableProperty, IntervalProperty<PixelOffsetProperty>, ReferenceProperty {
 
     @Override
     Interpolations getInterpolations();

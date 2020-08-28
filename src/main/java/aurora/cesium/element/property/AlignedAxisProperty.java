@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface AlignedAxisProperty extends InterpolatableProperty, MultiIntervalProperty<AlignedAxisProperty>, ReferenceProperty {
+public interface AlignedAxisProperty extends InterpolatableProperty, IntervalProperty<AlignedAxisProperty>, ReferenceProperty {
 
     static AlignedAxisProperty from(UnitCartesianProperty unitCartesian, Interpolations interpolations, TimeInterval interval) {
         return new DefaultAlignedAxisProperty(unitCartesian, interpolations, interval);

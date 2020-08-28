@@ -6,7 +6,7 @@ import aurora.cesium.language.writer.GridMaterialCesiumWriter;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface GridMaterialProperty extends IntervalProperty, MultiIntervalProperty<GridMaterialProperty> {
+public interface GridMaterialProperty extends IntervalProperty<GridMaterialProperty> {
 
     DoubleProperty getCellAlpha();
 

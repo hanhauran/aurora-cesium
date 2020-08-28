@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface HeightReferenceProperty extends MultiIntervalProperty<HeightReferenceProperty>, ReferenceProperty {
+public interface HeightReferenceProperty extends IntervalProperty<HeightReferenceProperty>, ReferenceProperty {
 
     @Override
     TimeInterval getInterval();

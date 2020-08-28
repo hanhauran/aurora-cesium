@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface ViewFromProperty extends InterpolatableProperty, MultiIntervalProperty<ViewFromProperty>, ReferenceProperty {
+public interface ViewFromProperty extends InterpolatableProperty, IntervalProperty<ViewFromProperty>, ReferenceProperty {
 
     CartesianProperty getCartesian();
 

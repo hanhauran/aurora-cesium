@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface BoundingRectangleProperty extends InterpolatableProperty, MultiIntervalProperty<BoundingRectangleProperty>, ReferenceProperty {
+public interface BoundingRectangleProperty extends InterpolatableProperty, IntervalProperty<BoundingRectangleProperty>, ReferenceProperty {
 
     @Override
     Interpolations getInterpolations();

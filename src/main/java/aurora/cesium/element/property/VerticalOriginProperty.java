@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface VerticalOriginProperty extends MultiIntervalProperty<VerticalOriginProperty>, ReferenceProperty {
+public interface VerticalOriginProperty extends IntervalProperty<VerticalOriginProperty>, ReferenceProperty {
 
     @Override
     TimeInterval getInterval();

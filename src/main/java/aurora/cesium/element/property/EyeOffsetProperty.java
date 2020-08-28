@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface EyeOffsetProperty extends InterpolatableProperty, MultiIntervalProperty<EyeOffsetProperty>, ReferenceProperty {
+public interface EyeOffsetProperty extends InterpolatableProperty, IntervalProperty<EyeOffsetProperty>, ReferenceProperty {
 
     static DefaultEyeOffsetProperty.Builder newBuilder() {
         return DefaultEyeOffsetProperty.Builder.newBuilder();

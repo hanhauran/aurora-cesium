@@ -4,7 +4,6 @@ import aurora.cesium.language.writer.FontCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.StringCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
-import aurora.cesium.language.writer.advanced.ICesiumStringValuePropertyWriter;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface StringProperty extends MultiIntervalProperty<StringProperty>, ReferenceProperty {
+public interface StringProperty extends IntervalProperty<StringProperty>, ReferenceProperty {
 
     @Override
     TimeInterval getInterval();

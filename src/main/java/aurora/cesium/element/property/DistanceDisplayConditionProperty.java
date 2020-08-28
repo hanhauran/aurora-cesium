@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface DistanceDisplayConditionProperty extends InterpolatableProperty, MultiIntervalProperty<DistanceDisplayConditionProperty>
+public interface DistanceDisplayConditionProperty extends InterpolatableProperty, IntervalProperty<DistanceDisplayConditionProperty>
         , ReferenceProperty {
 
     static DefaultDistanceDisplayConditionProperty.Builder newBuilder() {

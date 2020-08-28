@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface ClockProperty extends MultiIntervalProperty<ClockProperty> {
+public interface ClockProperty extends IntervalProperty<ClockProperty> {
 
     JulianDate getCurrentTime();
 

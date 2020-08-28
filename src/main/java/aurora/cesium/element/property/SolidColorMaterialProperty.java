@@ -9,7 +9,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface SolidColorMaterialProperty extends MultiIntervalProperty<SolidColorMaterialProperty> {
+public interface SolidColorMaterialProperty extends IntervalProperty<SolidColorMaterialProperty> {
 
     static DefaultSolidColorMaterialProperty.Builder newBuilder() {
         return DefaultSolidColorMaterialProperty.Builder.newBuilder();

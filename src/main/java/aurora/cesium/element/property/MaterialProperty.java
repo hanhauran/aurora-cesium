@@ -9,7 +9,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface MaterialProperty extends IntervalProperty, MultiIntervalProperty<MaterialProperty> {
+public interface MaterialProperty extends IntervalProperty<MaterialProperty> {
 
     CheckerboardMaterialProperty getCheckerboardMaterial();
 

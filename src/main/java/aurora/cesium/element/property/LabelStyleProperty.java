@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface LabelStyleProperty extends MultiIntervalProperty<LabelStyleProperty>, ReferenceProperty {
+public interface LabelStyleProperty extends IntervalProperty<LabelStyleProperty>, ReferenceProperty {
 
     @Override
     TimeInterval getInterval();

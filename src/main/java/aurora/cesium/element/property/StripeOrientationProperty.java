@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface StripeOrientationProperty extends MultiIntervalProperty<StripeOrientationProperty>, ReferenceProperty {
+public interface StripeOrientationProperty extends IntervalProperty<StripeOrientationProperty>, ReferenceProperty {
 
     @Override
     TimeInterval getInterval();

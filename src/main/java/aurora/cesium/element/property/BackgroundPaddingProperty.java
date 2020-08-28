@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface BackgroundPaddingProperty extends MultiIntervalProperty<BackgroundPaddingProperty>, ReferenceProperty {
+public interface BackgroundPaddingProperty extends IntervalProperty<BackgroundPaddingProperty>, ReferenceProperty {
 
     RectangularProperty getRectangular();
 

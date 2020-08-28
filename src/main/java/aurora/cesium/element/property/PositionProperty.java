@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface PositionProperty extends InterpolatableProperty, MultiIntervalProperty<PositionProperty>, ReferenceProperty {
+public interface PositionProperty extends InterpolatableProperty, IntervalProperty<PositionProperty>, ReferenceProperty {
 
     static DefaultPositionProperty.Builder newBuilder() {
         return DefaultPositionProperty.Builder.newBuilder();

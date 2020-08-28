@@ -8,7 +8,7 @@ import aurora.cesium.language.writer.TimeInterval;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface BoxDimensionsProperty extends MultiIntervalProperty<BoxDimensionsProperty>, ReferenceProperty {
+public interface BoxDimensionsProperty extends IntervalProperty<BoxDimensionsProperty>, ReferenceProperty {
 
     CartesianProperty getCartesian();
 

@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface NearFarScalarProperty extends InterpolatableProperty, MultiIntervalProperty<NearFarScalarProperty>, ReferenceProperty {
+public interface NearFarScalarProperty extends InterpolatableProperty, IntervalProperty<NearFarScalarProperty>, ReferenceProperty {
 
     static DefaultNearFarScalarProperty.Builder newBuilder() {
         return DefaultNearFarScalarProperty.Builder.newBuilder();

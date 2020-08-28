@@ -9,7 +9,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface PolylineMaterialProperty extends MultiIntervalProperty<PolylineMaterialProperty> {
+public interface PolylineMaterialProperty extends IntervalProperty<PolylineMaterialProperty> {
 
     static DefaultPolylineMaterialProperty.Builder newBuilder() {
         return DefaultPolylineMaterialProperty.Builder.newBuilder();

@@ -11,7 +11,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface ClassificationTypeProperty extends MultiIntervalProperty<ClassificationTypeProperty>, ReferenceProperty {
+public interface ClassificationTypeProperty extends IntervalProperty<ClassificationTypeProperty>, ReferenceProperty {
 
     CesiumClassificationType getClassificationType();
 

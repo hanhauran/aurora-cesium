@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface OrientationProperty extends InterpolatableProperty, MultiIntervalProperty<OrientationProperty>, ReferenceProperty {
+public interface OrientationProperty extends InterpolatableProperty, IntervalProperty<OrientationProperty>, ReferenceProperty {
 
     static DefaultOrientationProperty.Builder newBuilder() {
         return DefaultOrientationProperty.Builder.newBuilder();

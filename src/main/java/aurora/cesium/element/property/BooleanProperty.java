@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface BooleanProperty extends MultiIntervalProperty<BooleanProperty>, ReferenceProperty {
+public interface BooleanProperty extends IntervalProperty<BooleanProperty>, ReferenceProperty {
 
     @Override
     TimeInterval getInterval();

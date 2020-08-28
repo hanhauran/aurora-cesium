@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface DoubleProperty extends InterpolatableProperty, MultiIntervalProperty<DoubleProperty>, ReferenceProperty {
+public interface DoubleProperty extends InterpolatableProperty, IntervalProperty<DoubleProperty>, ReferenceProperty {
 
     static DefaultDoubleProperty.Builder newBuilder() {
         return DefaultDoubleProperty.Builder.newBuilder();

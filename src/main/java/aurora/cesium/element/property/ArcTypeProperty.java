@@ -11,7 +11,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public interface ArcTypeProperty extends MultiIntervalProperty<ArcTypeProperty>, ReferenceProperty {
+public interface ArcTypeProperty extends IntervalProperty<ArcTypeProperty>, ReferenceProperty {
 
     CesiumArcType getArcType();
 
