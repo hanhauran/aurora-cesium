@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.BoxCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class BoxGraphicsAdapter extends GraphicsAdapter<BoxCesiumWriter> implements BoxGraphics {
+public class BoxGraphicsAdapter extends GraphicsAdapter<BoxGraphics, BoxCesiumWriter> implements BoxGraphics {
 
     private BoxDimensionsProperty dimensions;
 
@@ -42,6 +44,7 @@ public class BoxGraphicsAdapter extends GraphicsAdapter<BoxCesiumWriter> impleme
             Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
             Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -128,16 +131,19 @@ public class BoxGraphicsAdapter extends GraphicsAdapter<BoxCesiumWriter> impleme
 
 
     public static final class Builder {
-        protected BooleanProperty show;
         private BoxDimensionsProperty dimensions;
         private DistanceDisplayConditionProperty distanceDisplayCondition;
         private BooleanProperty fill;
         private HeightReferenceProperty heightReference;
         private MaterialProperty material;
+        private BooleanProperty show;
         private BooleanProperty outline;
         private ColorProperty outlineColor;
         private DoubleProperty outlineWidth;
         private ShadowModeProperty shadows;
+
+        private TimeInterval interval;
+        private List<BoxGraphics> intervals;
 
         private Builder() {
         }
@@ -186,13 +192,23 @@ public class BoxGraphicsAdapter extends GraphicsAdapter<BoxCesiumWriter> impleme
             return this;
         }
 
-        public Builder withShadows(ShadowModeProperty shadowMode) {
-            this.shadows = shadowMode;
+        public Builder withShadows(ShadowModeProperty shadows) {
+            this.shadows = shadows;
             return this;
         }
 
         public Builder withShow(BooleanProperty show) {
             this.show = show;
+            return this;
+        }
+
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<BoxGraphics> intervals) {
+            this.intervals = intervals;
             return this;
         }
 
@@ -208,6 +224,8 @@ public class BoxGraphicsAdapter extends GraphicsAdapter<BoxCesiumWriter> impleme
             boxGraphicsAdapter.setOutlineWidth(outlineWidth);
             boxGraphicsAdapter.setShadows(shadows);
             boxGraphicsAdapter.setShow(show);
+            boxGraphicsAdapter.setInterval(interval);
+            boxGraphicsAdapter.setIntervals(intervals);
             return boxGraphicsAdapter;
         }
     }

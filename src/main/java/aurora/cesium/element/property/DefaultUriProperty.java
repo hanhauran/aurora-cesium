@@ -14,10 +14,10 @@ import java.util.List;
 public class DefaultUriProperty extends SinglePropertyAdapter<CesiumResource, UriProperty> implements UriProperty {
 
     @Override
-    public void dispatchUri(UriCesiumWriter writer) {
+    public void dispatch(UriCesiumWriter writer) {
         try (writer) {
             dispatchConsumer(writer::writeUri);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatchUri(intervalWriter));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
             dispatchReference(writer);
         }
     }
@@ -50,7 +50,7 @@ public class DefaultUriProperty extends SinglePropertyAdapter<CesiumResource, Ur
     }
 
     public static final class Builder {
-        protected CesiumResource instance;
+        protected CesiumResource value;
 
         protected TimeInterval interval;
         protected List<UriProperty> intervals;
@@ -63,8 +63,8 @@ public class DefaultUriProperty extends SinglePropertyAdapter<CesiumResource, Ur
             return new Builder();
         }
 
-        public Builder withInstance(CesiumResource instance) {
-            this.instance = instance;
+        public Builder withValue(CesiumResource value) {
+            this.value = value;
             return this;
         }
 
@@ -85,7 +85,7 @@ public class DefaultUriProperty extends SinglePropertyAdapter<CesiumResource, Ur
 
         public DefaultUriProperty build() {
             DefaultUriProperty defaultUriProperty = new DefaultUriProperty();
-            defaultUriProperty.setValue(instance);
+            defaultUriProperty.setValue(value);
             defaultUriProperty.setInterval(interval);
             defaultUriProperty.setIntervals(intervals);
             defaultUriProperty.setReference(reference);

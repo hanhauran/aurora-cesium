@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.LabelCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class LabelGraphicsAdapter extends GraphicsAdapter<LabelCesiumWriter> implements LabelGraphics {
+public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCesiumWriter> implements LabelGraphics {
 
     private ColorProperty backgroundColor;
 
@@ -79,6 +81,7 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelCesiumWriter> imp
             Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
             Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
             Optional.ofNullable(getVerticalOrigin()).ifPresent(verticalOriginProperty -> verticalOriginProperty.dispatch(writer.openVerticalOriginProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -286,6 +289,9 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelCesiumWriter> imp
         private DoubleProperty outlineWidth;
         private VerticalOriginProperty verticalOrigin;
 
+        private TimeInterval interval;
+        private List<LabelGraphics> intervals;
+
         private Builder() {
         }
 
@@ -398,6 +404,16 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelCesiumWriter> imp
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<LabelGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public LabelGraphicsAdapter build() {
             LabelGraphicsAdapter labelGraphicsAdapter = new LabelGraphicsAdapter();
             labelGraphicsAdapter.setBackgroundColor(backgroundColor);
@@ -421,6 +437,8 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelCesiumWriter> imp
             labelGraphicsAdapter.setOutlineWidth(outlineWidth);
             labelGraphicsAdapter.setVerticalOrigin(verticalOrigin);
             labelGraphicsAdapter.setShow(show);
+            labelGraphicsAdapter.setInterval(interval);
+            labelGraphicsAdapter.setIntervals(intervals);
             return labelGraphicsAdapter;
         }
     }

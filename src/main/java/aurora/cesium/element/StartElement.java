@@ -9,6 +9,10 @@ import aurora.cesium.language.writer.PacketCesiumWriter;
  */
 public interface StartElement extends Element {
 
+    static StartElement defaultStartElement() {
+        return newBuilder().withId("document").withName("CZML").withVersion("1.0").build();
+    }
+
     static StartElementAdapter.Builder newBuilder() {
         return StartElementAdapter.Builder.newBuilder();
     }

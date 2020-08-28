@@ -15,7 +15,23 @@ public interface PolylineMaterialProperty extends IntervalProperty<PolylineMater
         return DefaultPolylineMaterialProperty.Builder.newBuilder();
     }
 
-    SolidColorMaterialProperty getSolidColor();
+    CheckerboardMaterialProperty getCheckerboardMaterial();
+
+    GridMaterialProperty getGridMaterial();
+
+    ImageMaterialProperty getImageMaterial();
+
+    PolylineArrowMaterialProperty getPolylineArrowMaterial();
+
+    PolylineDashMaterialProperty getPolylineDashMaterial();
+
+    PolylineGlowMaterialProperty getPolylineGlowMaterial();
+
+    PolylineOutlineMaterialProperty getPolylineOutlineMaterial();
+
+    SolidColorMaterialProperty getSolidColorMaterial();
+
+    StripeMaterialProperty getStripeMaterial();
 
     @Override
     TimeInterval getInterval();

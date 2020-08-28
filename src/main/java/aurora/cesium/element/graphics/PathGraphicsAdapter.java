@@ -5,14 +5,16 @@ import aurora.cesium.element.property.DistanceDisplayConditionProperty;
 import aurora.cesium.element.property.DoubleProperty;
 import aurora.cesium.element.property.PolylineMaterialProperty;
 import aurora.cesium.language.writer.PathCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/22
  */
-public class PathGraphicsAdapter extends GraphicsAdapter<PathCesiumWriter> implements PathGraphics {
+public class PathGraphicsAdapter extends GraphicsAdapter<PathGraphics, PathCesiumWriter> implements PathGraphics {
 
     private DistanceDisplayConditionProperty distanceDisplayCondition;
 
@@ -40,6 +42,7 @@ public class PathGraphicsAdapter extends GraphicsAdapter<PathCesiumWriter> imple
             Optional.ofNullable(getResolution()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openResolutionProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
             Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openWidthProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -106,6 +109,9 @@ public class PathGraphicsAdapter extends GraphicsAdapter<PathCesiumWriter> imple
         protected BooleanProperty show;
         private DoubleProperty width;
 
+        private TimeInterval interval;
+        private List<PathGraphics> intervals;
+
         private Builder() {
         }
 
@@ -148,6 +154,16 @@ public class PathGraphicsAdapter extends GraphicsAdapter<PathCesiumWriter> imple
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<PathGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public PathGraphicsAdapter build() {
             PathGraphicsAdapter pathGraphicsAdapter = new PathGraphicsAdapter();
             pathGraphicsAdapter.setDistanceDisplayCondition(distanceDisplayCondition);
@@ -157,6 +173,8 @@ public class PathGraphicsAdapter extends GraphicsAdapter<PathCesiumWriter> imple
             pathGraphicsAdapter.setResolution(resolution);
             pathGraphicsAdapter.setWidth(width);
             pathGraphicsAdapter.setShow(show);
+            pathGraphicsAdapter.setInterval(interval);
+            pathGraphicsAdapter.setIntervals(intervals);
             return pathGraphicsAdapter;
         }
     }

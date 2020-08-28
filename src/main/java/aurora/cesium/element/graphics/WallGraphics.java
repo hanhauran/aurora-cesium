@@ -3,13 +3,16 @@ package aurora.cesium.element.graphics;
 import aurora.cesium.element.property.BooleanProperty;
 import aurora.cesium.element.property.DoubleProperty;
 import aurora.cesium.element.property.PositionListProperty;
+import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.WallCesiumWriter;
+
+import java.util.List;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface WallGraphics extends Graphics<WallCesiumWriter> {
+public interface WallGraphics extends Graphics<WallGraphics, WallCesiumWriter> {
 
     DoubleProperty getMaximumHeights();
 
@@ -17,6 +20,12 @@ public interface WallGraphics extends Graphics<WallCesiumWriter> {
 
     @Override
     BooleanProperty getShow();
+
+    @Override
+    TimeInterval getInterval();
+
+    @Override
+    List<WallGraphics> getIntervals();
 
     @Override
     void dispatch(WallCesiumWriter writer);

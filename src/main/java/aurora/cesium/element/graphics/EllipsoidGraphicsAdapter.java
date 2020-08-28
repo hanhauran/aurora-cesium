@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.EllipsoidCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidCesiumWriter> implements EllipsoidGraphics {
+public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidGraphics, EllipsoidCesiumWriter> implements EllipsoidGraphics {
 
     private DistanceDisplayConditionProperty distanceDisplayCondition;
 
@@ -65,6 +67,7 @@ public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidCesiumWri
             Optional.ofNullable(getSlicePartitions()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openSlicePartitionsProperty()));
             Optional.ofNullable(getStackPartitions()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openStackPartitionsProperty()));
             Optional.ofNullable(getSubDivisions()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openSubdivisionsProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -242,6 +245,9 @@ public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidCesiumWri
         private IntegerProperty stackPartitions;
         private IntegerProperty subDivisions;
 
+        private TimeInterval interval;
+        private List<EllipsoidGraphics> intervals;
+
         private Builder() {
         }
 
@@ -339,6 +345,16 @@ public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidCesiumWri
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<EllipsoidGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public EllipsoidGraphicsAdapter build() {
             EllipsoidGraphicsAdapter ellipsoidGraphicsAdapter = new EllipsoidGraphicsAdapter();
             ellipsoidGraphicsAdapter.setDistanceDisplayCondition(distanceDisplayCondition);
@@ -359,6 +375,8 @@ public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidCesiumWri
             ellipsoidGraphicsAdapter.setStackPartitions(stackPartitions);
             ellipsoidGraphicsAdapter.setSubDivisions(subDivisions);
             ellipsoidGraphicsAdapter.setShow(show);
+            ellipsoidGraphicsAdapter.setInterval(interval);
+            ellipsoidGraphicsAdapter.setIntervals(intervals);
             return ellipsoidGraphicsAdapter;
         }
     }

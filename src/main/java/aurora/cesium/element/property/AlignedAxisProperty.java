@@ -1,8 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.AlignedAxisCesiumWriter;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.TimeInterval;
+import aurora.cesium.language.writer.*;
 
 import java.util.List;
 
@@ -11,6 +9,14 @@ import java.util.List;
  * @date 2020/8/20
  */
 public interface AlignedAxisProperty extends InterpolatableProperty, IntervalProperty<AlignedAxisProperty>, ReferenceProperty {
+
+    static AlignedAxisProperty from(UnitCartesian unitCartesian) {
+        return newBuilder().withUnitCartesian(UnitCartesianProperty.from(unitCartesian)).build();
+    }
+
+    static AlignedAxisProperty from(UnitSpherical unitSpherical) {
+        return newBuilder().withUnitSpherical(UnitSphericalProperty.from(unitSpherical)).build();
+    }
 
     static DefaultAlignedAxisProperty.Builder newBuilder() {
         return DefaultAlignedAxisProperty.Builder.newBuilder();

@@ -1,6 +1,7 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.BoxDimensionsCesiumWriter;
+import aurora.cesium.language.writer.Cartesian;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
@@ -9,6 +10,10 @@ import aurora.cesium.language.writer.TimeInterval;
  * @date 2020/8/23
  */
 public interface BoxDimensionsProperty extends IntervalProperty<BoxDimensionsProperty>, ReferenceProperty {
+
+    static BoxDimensionsProperty from(Cartesian cartesian) {
+        return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
+    }
 
     static DefaultBoxDimensionsProperty.Builder newBuilder() {
         return DefaultBoxDimensionsProperty.Builder.newBuilder();

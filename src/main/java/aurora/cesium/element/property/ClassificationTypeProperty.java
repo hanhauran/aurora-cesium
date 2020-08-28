@@ -13,6 +13,10 @@ import java.util.List;
  */
 public interface ClassificationTypeProperty extends IntervalProperty<ClassificationTypeProperty>, ReferenceProperty {
 
+    static ClassificationTypeProperty from(CesiumClassificationType type) {
+        return newBuilder().withValue(type).build();
+    }
+
     static DefaultClassificationTypeProperty.Builder newBuilder() {
         return DefaultClassificationTypeProperty.Builder.newBuilder();
     }

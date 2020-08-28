@@ -3,6 +3,7 @@ package aurora.cesium;
 import aurora.cesium.element.Entity;
 import aurora.cesium.element.StartElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,53 +14,35 @@ public class CzmlAdapter implements Czml {
 
     private StartElement startElement;
 
-    private List<Entity> entities;
+    private final List<Entity> entities;
+
+    public CzmlAdapter() {
+        this.entities = new ArrayList<>();
+    }
+
+    public CzmlAdapter(int initialCapacity) {
+        this.entities = new ArrayList<>(initialCapacity);
+    }
+
+    @Override
+    public Czml push(Entity entity) {
+        entities.add(entity);
+        return this;
+    }
 
     @Override
     public StartElement getStartElement() {
         return startElement;
     }
 
-    public void setStartElement(StartElement startElement) {
+    @Override
+    public Czml setStartElement(StartElement startElement) {
         this.startElement = startElement;
+        return this;
     }
 
     @Override
     public List<Entity> getEntities() {
         return entities;
-    }
-
-    public void setEntities(List<Entity> entities) {
-        this.entities = entities;
-    }
-
-
-    public static final class Builder {
-        private StartElement startElement;
-        private List<Entity> entities;
-
-        private Builder() {
-        }
-
-        public static Builder newBuilder() {
-            return new Builder();
-        }
-
-        public Builder withStartElement(StartElement startElement) {
-            this.startElement = startElement;
-            return this;
-        }
-
-        public Builder withEntities(List<Entity> entities) {
-            this.entities = entities;
-            return this;
-        }
-
-        public CzmlAdapter build() {
-            CzmlAdapter czmlAdapter = new CzmlAdapter();
-            czmlAdapter.setStartElement(startElement);
-            czmlAdapter.setEntities(entities);
-            return czmlAdapter;
-        }
     }
 }

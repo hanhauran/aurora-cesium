@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.Rectangular;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.RepeatCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
@@ -11,6 +12,10 @@ import java.util.List;
  * @date 2020/8/23
  */
 public interface RepeatProperty extends InterpolatableProperty, IntervalProperty<RepeatProperty>, ReferenceProperty {
+
+    static RepeatProperty from(Rectangular rectangular) {
+        return newBuilder().withRectangular(RectangularProperty.from(rectangular)).build();
+    }
 
     static DefaultRepeatProperty.Builder newBuilder() {
         return DefaultRepeatProperty.Builder.newBuilder();

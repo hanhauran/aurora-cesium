@@ -10,6 +10,10 @@ import java.util.List;
  */
 public interface DoubleProperty extends InterpolatableProperty, IntervalProperty<DoubleProperty>, ReferenceProperty {
 
+    static DoubleProperty from(Double value) {
+        return newBuilder().withValue(value).build();
+    }
+
     static DefaultDoubleProperty.Builder newBuilder() {
         return DefaultDoubleProperty.Builder.newBuilder();
     }

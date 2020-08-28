@@ -2,12 +2,15 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.PointCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
+
+import java.util.List;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface PointGraphics extends Graphics<PointCesiumWriter> {
+public interface PointGraphics extends Graphics<PointGraphics, PointCesiumWriter> {
 
     static PathGraphicsAdapter.Builder newBuilder() {
         return PathGraphicsAdapter.Builder.newBuilder();
@@ -33,6 +36,12 @@ public interface PointGraphics extends Graphics<PointCesiumWriter> {
     BooleanProperty getShow();
 
     NearFarScalarProperty getTranslucencyByDistance();
+
+    @Override
+    TimeInterval getInterval();
+
+    @Override
+    List<PointGraphics> getIntervals();
 
     @Override
     void dispatch(PointCesiumWriter writer);

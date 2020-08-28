@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.CartographicExtent;
 import aurora.cesium.language.writer.RectangleCoordinatesCesiumWriter;
 
 /**
@@ -7,6 +8,10 @@ import aurora.cesium.language.writer.RectangleCoordinatesCesiumWriter;
  * @date 2020/8/27
  */
 public interface CartographicExtentProperty extends Property {
+
+    static CartographicExtentProperty from(CartographicExtent extent) {
+        return newBuilder().withValue(extent).build();
+    }
 
     static DefaultCartographicExtentProperty.Builder newBuilder() {
         return DefaultCartographicExtentProperty.Builder.newBuilder();

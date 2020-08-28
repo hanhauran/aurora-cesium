@@ -61,7 +61,9 @@ public class DefaultBoundingRectangleProperty extends SingleTimeBasedPropertyAda
         protected List<BoundingRectangle> values;
         protected Integer startIndex;
         protected Integer length;
+
         protected BoundingRectangle value;
+
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<BoundingRectangleProperty> intervals;

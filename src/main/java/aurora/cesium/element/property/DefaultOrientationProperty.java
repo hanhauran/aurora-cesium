@@ -76,13 +76,13 @@ public class DefaultOrientationProperty extends SingleTimeBasedPropertyAdapter<U
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<UnitQuaternion> values) {
+        public Builder withValues(List<JulianDate> dates, List<UnitQuaternion> values) {
             this.dates = dates;
             this.values = values;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<UnitQuaternion> values, Integer startIndex, Integer length) {
+        public Builder withValues(List<JulianDate> dates, List<UnitQuaternion> values, Integer startIndex, Integer length) {
             this.dates = dates;
             this.values = values;
             this.startIndex = startIndex;
@@ -90,7 +90,7 @@ public class DefaultOrientationProperty extends SingleTimeBasedPropertyAdapter<U
             return this;
         }
 
-        public Builder with(UnitQuaternion value) {
+        public Builder withValue(UnitQuaternion value) {
             this.value = value;
             return this;
         }

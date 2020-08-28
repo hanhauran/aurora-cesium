@@ -4,14 +4,16 @@ import aurora.cesium.element.property.BooleanProperty;
 import aurora.cesium.element.property.DoubleProperty;
 import aurora.cesium.element.property.UriProperty;
 import aurora.cesium.language.writer.TilesetCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class TilesetGraphicsAdapter extends GraphicsAdapter<TilesetCesiumWriter> implements TilesetGraphics {
+public class TilesetGraphicsAdapter extends GraphicsAdapter<TilesetGraphics, TilesetCesiumWriter> implements TilesetGraphics {
 
     private DoubleProperty maximumScreenSpaceError;
 
@@ -22,7 +24,8 @@ public class TilesetGraphicsAdapter extends GraphicsAdapter<TilesetCesiumWriter>
         try (writer) {
             Optional.ofNullable(getMaximumScreenSpaceError()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumScreenSpaceErrorProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getUri()).ifPresent(uriProperty -> uriProperty.dispatchUri(writer.openUriProperty()));
+            Optional.ofNullable(getUri()).ifPresent(uriProperty -> uriProperty.dispatch(writer.openUriProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -49,6 +52,9 @@ public class TilesetGraphicsAdapter extends GraphicsAdapter<TilesetCesiumWriter>
         private DoubleProperty maximumScreenSpaceError;
         private UriProperty uri;
 
+        private TimeInterval interval;
+        private List<TilesetGraphics> intervals;
+
         private Builder() {
         }
 
@@ -71,11 +77,23 @@ public class TilesetGraphicsAdapter extends GraphicsAdapter<TilesetCesiumWriter>
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<TilesetGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public TilesetGraphicsAdapter build() {
             TilesetGraphicsAdapter tilesetGraphicsAdapter = new TilesetGraphicsAdapter();
             tilesetGraphicsAdapter.setMaximumScreenSpaceError(maximumScreenSpaceError);
             tilesetGraphicsAdapter.setUri(uri);
             tilesetGraphicsAdapter.setShow(show);
+            tilesetGraphicsAdapter.setInterval(interval);
+            tilesetGraphicsAdapter.setIntervals(intervals);
             return tilesetGraphicsAdapter;
         }
     }

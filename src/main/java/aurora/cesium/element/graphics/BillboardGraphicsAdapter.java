@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.BillboardCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWriter> implements BillboardGraphics {
+public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardGraphics, BillboardCesiumWriter> implements BillboardGraphics {
 
     private AlignedAxisProperty alignedAxis;
 
@@ -60,7 +62,7 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
             Optional.ofNullable(getHeight()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openHeightProperty()));
             Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
             Optional.ofNullable(getHorizontalOrigin()).ifPresent(horizontalOriginProperty -> horizontalOriginProperty.dispatch(writer.openHorizontalOriginProperty()));
-            Optional.ofNullable(getImage()).ifPresent(resourceProperty -> resourceProperty.dispatchUri(writer.openImageProperty()));
+            Optional.ofNullable(getImage()).ifPresent(resourceProperty -> resourceProperty.dispatch(writer.openImageProperty()));
             Optional.ofNullable(getImageSubRegion()).ifPresent(boundingRectangleProperty -> boundingRectangleProperty.dispatch(writer.openImageSubRegionProperty()));
             Optional.ofNullable(getPixelOffset()).ifPresent(pixelOffsetProperty -> pixelOffsetProperty.dispatch(writer.openPixelOffsetProperty()));
             Optional.ofNullable(getPixelOffsetScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openPixelOffsetScaleByDistanceProperty()));
@@ -72,6 +74,7 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
             Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openTranslucencyByDistanceProperty()));
             Optional.ofNullable(getVerticalOrigin()).ifPresent(verticalOriginProperty -> verticalOriginProperty.dispatch(writer.openVerticalOriginProperty()));
             Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openWidthProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -247,7 +250,6 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
     }
 
     public static final class Builder {
-        protected BooleanProperty show;
         private AlignedAxisProperty alignedAxis;
         private ColorProperty color;
         private DoubleProperty disabledDepthTestDistance;
@@ -263,10 +265,14 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
         private DoubleProperty rotation;
         private DoubleProperty scale;
         private NearFarScalarProperty scaleByDistance;
+        private BooleanProperty show;
         private BooleanProperty sizeInMeters;
         private NearFarScalarProperty translucencyByDistance;
         private VerticalOriginProperty verticalOrigin;
         private DoubleProperty width;
+
+        private TimeInterval interval;
+        private List<BillboardGraphics> intervals;
 
         private Builder() {
         }
@@ -375,6 +381,16 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<BillboardGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public BillboardGraphicsAdapter build() {
             BillboardGraphicsAdapter billboardGraphicsAdapter = new BillboardGraphicsAdapter();
             billboardGraphicsAdapter.setAlignedAxis(alignedAxis);
@@ -397,6 +413,8 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardCesiumWri
             billboardGraphicsAdapter.setVerticalOrigin(verticalOrigin);
             billboardGraphicsAdapter.setWidth(width);
             billboardGraphicsAdapter.setShow(show);
+            billboardGraphicsAdapter.setInterval(interval);
+            billboardGraphicsAdapter.setIntervals(intervals);
             return billboardGraphicsAdapter;
         }
     }

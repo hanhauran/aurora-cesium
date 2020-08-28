@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.Bounds;
 import aurora.cesium.language.writer.DistanceDisplayConditionCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
@@ -11,6 +12,10 @@ import java.util.List;
  * @date 2020/8/20
  */
 public interface DistanceDisplayConditionProperty extends InterpolatableProperty, IntervalProperty<DistanceDisplayConditionProperty>, ReferenceProperty {
+
+    static DistanceDisplayConditionProperty from(Bounds value) {
+        return newBuilder().withValue(value).build();
+    }
 
     static DefaultDistanceDisplayConditionProperty.Builder newBuilder() {
         return DefaultDistanceDisplayConditionProperty.Builder.newBuilder();

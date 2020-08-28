@@ -50,7 +50,7 @@ public class DefaultVerticalOriginProperty extends SinglePropertyAdapter<CesiumV
     }
 
     public static final class Builder {
-        protected CesiumVerticalOrigin instance;
+        protected CesiumVerticalOrigin value;
 
         protected TimeInterval interval;
         protected List<VerticalOriginProperty> intervals;
@@ -63,8 +63,8 @@ public class DefaultVerticalOriginProperty extends SinglePropertyAdapter<CesiumV
             return new Builder();
         }
 
-        public Builder withInstance(CesiumVerticalOrigin instance) {
-            this.instance = instance;
+        public Builder withValue(CesiumVerticalOrigin instance) {
+            this.value = instance;
             return this;
         }
 
@@ -85,7 +85,7 @@ public class DefaultVerticalOriginProperty extends SinglePropertyAdapter<CesiumV
 
         public DefaultVerticalOriginProperty build() {
             DefaultVerticalOriginProperty defaultVerticalOriginProperty = new DefaultVerticalOriginProperty();
-            defaultVerticalOriginProperty.setValue(instance);
+            defaultVerticalOriginProperty.setValue(value);
             defaultVerticalOriginProperty.setInterval(interval);
             defaultVerticalOriginProperty.setIntervals(intervals);
             defaultVerticalOriginProperty.setReference(reference);

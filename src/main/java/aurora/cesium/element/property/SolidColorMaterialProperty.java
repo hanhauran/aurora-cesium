@@ -11,6 +11,10 @@ import java.util.List;
  */
 public interface SolidColorMaterialProperty extends IntervalProperty<SolidColorMaterialProperty> {
 
+    static SolidColorMaterialProperty from(ColorProperty color) {
+        return newBuilder().withColor(color).build();
+    }
+
     static DefaultSolidColorMaterialProperty.Builder newBuilder() {
         return DefaultSolidColorMaterialProperty.Builder.newBuilder();
     }

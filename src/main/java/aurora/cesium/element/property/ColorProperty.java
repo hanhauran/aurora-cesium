@@ -4,6 +4,7 @@ import aurora.cesium.language.writer.ColorCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -11,6 +12,14 @@ import java.util.List;
  * @date 2020/8/20
  */
 public interface ColorProperty extends InterpolatableProperty, IntervalProperty<ColorProperty>, ReferenceProperty {
+
+    static ColorProperty fromRgba(Color value) {
+        return newRgbaBuilder().withValue(value).build();
+    }
+
+    static ColorProperty fromRgbaf(Color value) {
+        return newRgbafBuilder().withValue(value).build();
+    }
 
     static DefaultRgbaColorProperty.Builder newRgbaBuilder() {
         return DefaultRgbaColorProperty.Builder.newBuilder();

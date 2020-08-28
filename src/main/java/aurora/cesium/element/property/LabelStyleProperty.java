@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.CesiumLabelStyle;
 import aurora.cesium.language.writer.LabelStyleCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
@@ -11,6 +12,10 @@ import java.util.List;
  * @date 2020/8/20
  */
 public interface LabelStyleProperty extends IntervalProperty<LabelStyleProperty>, ReferenceProperty {
+
+    static LabelStyleProperty from(CesiumLabelStyle value) {
+        return newBuilder().withValue(value).build();
+    }
 
     static DefaultLabelStyleProperty.Builder newBuilder() {
         return DefaultLabelStyleProperty.Builder.newBuilder();

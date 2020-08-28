@@ -1,6 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.AlignedAxisCesiumWriter;
+import aurora.cesium.language.writer.UnitCartesian;
+import aurora.cesium.language.writer.advanced.ICesiumUnitCartesian3ValuePropertyWriter;
 
 /**
  * @author hanhaoran
@@ -8,9 +9,13 @@ import aurora.cesium.language.writer.AlignedAxisCesiumWriter;
  */
 public interface UnitCartesianProperty extends Property {
 
+    static UnitCartesianProperty from(UnitCartesian unitCartesian) {
+        return newBuilder().withValue(unitCartesian).build();
+    }
+
     static DefaultUnitCartesianProperty.Builder newBuilder() {
         return DefaultUnitCartesianProperty.Builder.newBuilder();
     }
 
-    void dispatchUnitCartesian(AlignedAxisCesiumWriter writer);
+    void dispatchWithoutClose(ICesiumUnitCartesian3ValuePropertyWriter writer);
 }

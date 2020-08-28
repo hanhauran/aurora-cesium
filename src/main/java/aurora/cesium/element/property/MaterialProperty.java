@@ -11,6 +11,10 @@ import java.util.List;
  */
 public interface MaterialProperty extends IntervalProperty<MaterialProperty> {
 
+    static DefaultMaterialProperty.Builder newBuilder() {
+        return DefaultMaterialProperty.Builder.newBuilder();
+    }
+
     CheckerboardMaterialProperty getCheckerboardMaterial();
 
     GridMaterialProperty getGridMaterial();

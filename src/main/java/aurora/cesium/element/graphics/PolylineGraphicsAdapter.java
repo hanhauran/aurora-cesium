@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.PolylineCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineCesiumWriter> implements PolylineGraphics {
+public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, PolylineCesiumWriter> implements PolylineGraphics {
 
     private ArcTypeProperty arcType;
 
@@ -48,6 +50,7 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineCesiumWrite
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
             Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openWidthProperty()));
             Optional.ofNullable(getZIndex()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openZIndexProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -163,6 +166,9 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineCesiumWrite
         private DoubleProperty width;
         private IntegerProperty zIndex;
 
+        private TimeInterval interval;
+        private List<PolylineGraphics> intervals;
+
         private Builder() {
         }
 
@@ -230,6 +236,16 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineCesiumWrite
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<PolylineGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public PolylineGraphicsAdapter build() {
             PolylineGraphicsAdapter polylineGraphicsAdapter = new PolylineGraphicsAdapter();
             polylineGraphicsAdapter.setArcType(arcType);
@@ -244,6 +260,8 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineCesiumWrite
             polylineGraphicsAdapter.setWidth(width);
             polylineGraphicsAdapter.setZIndex(zIndex);
             polylineGraphicsAdapter.setShow(show);
+            polylineGraphicsAdapter.setInterval(interval);
+            polylineGraphicsAdapter.setIntervals(intervals);
             return polylineGraphicsAdapter;
         }
     }

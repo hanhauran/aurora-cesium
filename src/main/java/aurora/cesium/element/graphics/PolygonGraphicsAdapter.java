@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.PolygonCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonCesiumWriter> implements PolygonGraphics {
+public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, PolygonCesiumWriter> implements PolygonGraphics {
 
     private ArcTypeProperty arcType;
 
@@ -72,6 +74,7 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonCesiumWriter>
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
             Optional.ofNullable(getStRotation()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openStRotationProperty()));
             Optional.ofNullable(getZIndex()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openZIndexProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -267,6 +270,9 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonCesiumWriter>
         private DoubleProperty stRotation;
         private IntegerProperty zIndex;
 
+        private TimeInterval interval;
+        private List<PolygonGraphics> intervals;
+
         private Builder() {
         }
 
@@ -374,6 +380,16 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonCesiumWriter>
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<PolygonGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public PolygonGraphicsAdapter build() {
             PolygonGraphicsAdapter polygonGraphicsAdapter = new PolygonGraphicsAdapter();
             polygonGraphicsAdapter.setArcType(arcType);
@@ -396,6 +412,8 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonCesiumWriter>
             polygonGraphicsAdapter.setStRotation(stRotation);
             polygonGraphicsAdapter.setZIndex(zIndex);
             polygonGraphicsAdapter.setShow(show);
+            polygonGraphicsAdapter.setInterval(interval);
+            polygonGraphicsAdapter.setIntervals(intervals);
             return polygonGraphicsAdapter;
         }
     }

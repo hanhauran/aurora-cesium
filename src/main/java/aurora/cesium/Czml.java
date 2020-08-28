@@ -11,11 +11,19 @@ import java.util.List;
  */
 public interface Czml {
 
-    static CzmlAdapter.Builder newBuilder() {
-        return CzmlAdapter.Builder.newBuilder();
+    static Czml create() {
+        return new CzmlAdapter();
     }
 
+    static Czml create(int initialCapacity) {
+        return new CzmlAdapter(initialCapacity);
+    }
+
+    Czml push(Entity entity);
+
     StartElement getStartElement();
+
+    Czml setStartElement(StartElement startElement);
 
     List<Entity> getEntities();
 }

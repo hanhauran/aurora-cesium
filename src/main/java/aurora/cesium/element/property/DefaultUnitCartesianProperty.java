@@ -1,8 +1,8 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.AlignedAxisCesiumWriter;
 import aurora.cesium.language.writer.JulianDate;
 import aurora.cesium.language.writer.UnitCartesian;
+import aurora.cesium.language.writer.advanced.ICesiumUnitCartesian3ValuePropertyWriter;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class DefaultUnitCartesianProperty extends SingleTimeBasedPropertyAdapter<UnitCartesian, UnitCartesianProperty> implements UnitCartesianProperty {
 
     @Override
-    public void dispatchUnitCartesian(AlignedAxisCesiumWriter writer) {
+    public void dispatchWithoutClose(ICesiumUnitCartesian3ValuePropertyWriter writer) {
         dispatchConsumer(writer::writeUnitCartesian, writer::writeUnitCartesian, writer::writeUnitCartesian);
     }
 

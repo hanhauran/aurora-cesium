@@ -76,13 +76,13 @@ public class DefaultPixelOffsetProperty extends SingleTimeBasedPropertyAdapter<R
             return new Builder();
         }
 
-        public Builder with(List<JulianDate> dates, List<Rectangular> values) {
+        public Builder withValues(List<JulianDate> dates, List<Rectangular> values) {
             this.dates = dates;
             this.values = values;
             return this;
         }
 
-        public Builder with(List<JulianDate> dates, List<Rectangular> values, Integer startIndex, Integer length) {
+        public Builder withValues(List<JulianDate> dates, List<Rectangular> values, Integer startIndex, Integer length) {
             this.dates = dates;
             this.values = values;
             this.startIndex = startIndex;
@@ -90,7 +90,7 @@ public class DefaultPixelOffsetProperty extends SingleTimeBasedPropertyAdapter<R
             return this;
         }
 
-        public Builder with(Rectangular value) {
+        public Builder withValue(Rectangular value) {
             this.value = value;
             return this;
         }

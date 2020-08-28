@@ -26,11 +26,7 @@ public interface IntervalProperty<P extends IntervalProperty<P>> extends Propert
             }
 
             try (CesiumIntervalListWriter<W> intervalListWriter = writer.openMultipleIntervals()) {
-                properties.forEach(property -> {
-                    try (W intervalWriter = intervalListWriter.openInterval()) {
-                        biConsumer.accept(intervalWriter, property);
-                    }
-                });
+                properties.forEach(property -> biConsumer.accept(intervalListWriter.openInterval(), property));
             }
         });
     }

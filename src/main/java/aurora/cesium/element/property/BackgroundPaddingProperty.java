@@ -1,6 +1,7 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.BackgroundPaddingCesiumWriter;
+import aurora.cesium.language.writer.Rectangular;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
@@ -11,6 +12,10 @@ import java.util.List;
  * @date 2020/8/21
  */
 public interface BackgroundPaddingProperty extends IntervalProperty<BackgroundPaddingProperty>, ReferenceProperty {
+
+    static BackgroundPaddingProperty from(Rectangular rectangular) {
+        return newBuilder().withRectangular(RectangularProperty.from(rectangular)).build();
+    }
 
     static DefaultBackgroundPaddingProperty.Builder newBuilder() {
         return DefaultBackgroundPaddingProperty.Builder.newBuilder();

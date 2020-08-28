@@ -61,10 +61,11 @@ public class DefaultBoxDimensionsProperty extends PropertyAdapter<BoxDimensionsP
     }
 
     public static final class Builder {
+        private CartesianProperty cartesian;
+
         protected TimeInterval interval;
         protected List<BoxDimensionsProperty> intervals;
         protected Reference reference;
-        private CartesianProperty cartesian;
 
         private Builder() {
         }

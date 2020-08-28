@@ -12,23 +12,119 @@ import java.util.Optional;
  */
 public class DefaultPolylineMaterialProperty extends PropertyAdapter<PolylineMaterialProperty> implements PolylineMaterialProperty {
 
-    private SolidColorMaterialProperty solidColor;
+    private CheckerboardMaterialProperty checkerboardMaterial;
+
+    private GridMaterialProperty gridMaterial;
+
+    private ImageMaterialProperty imageMaterial;
+
+    private PolylineArrowMaterialProperty polylineArrowMaterial;
+
+    private PolylineDashMaterialProperty polylineDashMaterial;
+
+    private PolylineGlowMaterialProperty polylineGlowMaterial;
+
+    private PolylineOutlineMaterialProperty polylineOutlineMaterial;
+
+    private SolidColorMaterialProperty solidColorMaterial;
+
+    private StripeMaterialProperty stripeMaterial;
 
     @Override
     public void dispatch(PolylineMaterialCesiumWriter writer) {
         try (writer) {
-            Optional.ofNullable(getSolidColor()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer.openSolidColorProperty()));
+            Optional.ofNullable(getCheckerboardMaterial()).ifPresent(checkerboardMaterialProperty -> checkerboardMaterialProperty.dispatch(writer.openCheckerboardProperty()));
+            Optional.ofNullable(getGridMaterial()).ifPresent(gridMaterialProperty -> gridMaterialProperty.dispatch(writer.openGridProperty()));
+            Optional.ofNullable(getImageMaterial()).ifPresent(imageMaterialProperty -> imageMaterialProperty.dispatch(writer.openImageProperty()));
+            Optional.ofNullable(getPolylineArrowMaterial()).ifPresent(polylineArrowMaterialProperty -> polylineArrowMaterialProperty.dispatch(writer.openPolylineArrowProperty()));
+            Optional.ofNullable(getPolylineDashMaterial()).ifPresent(polylineDashMaterialProperty -> polylineDashMaterialProperty.dispatch(writer.openPolylineDashProperty()));
+            Optional.ofNullable(getPolylineGlowMaterial()).ifPresent(polylineGlowMaterialProperty -> polylineGlowMaterialProperty.dispatch(writer.openPolylineGlowProperty()));
+            Optional.ofNullable(getPolylineOutlineMaterial()).ifPresent(polylineOutlineMaterialProperty -> polylineOutlineMaterialProperty.dispatch(writer.openPolylineOutlineProperty()));
+            Optional.ofNullable(getSolidColorMaterial()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer.openSolidColorProperty()));
+            Optional.ofNullable(getStripeMaterial()).ifPresent(stripeMaterialProperty -> stripeMaterialProperty.dispatch(writer.openStripeProperty()));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
     @Override
-    public SolidColorMaterialProperty getSolidColor() {
-        return solidColor;
+    public CheckerboardMaterialProperty getCheckerboardMaterial() {
+        return checkerboardMaterial;
     }
 
-    public void setSolidColor(SolidColorMaterialProperty solidColor) {
-        this.solidColor = solidColor;
+    public void setCheckerboardMaterial(CheckerboardMaterialProperty checkerboardMaterial) {
+        this.checkerboardMaterial = checkerboardMaterial;
+    }
+
+    @Override
+    public GridMaterialProperty getGridMaterial() {
+        return gridMaterial;
+    }
+
+    public void setGridMaterial(GridMaterialProperty gridMaterial) {
+        this.gridMaterial = gridMaterial;
+    }
+
+    @Override
+    public ImageMaterialProperty getImageMaterial() {
+        return imageMaterial;
+    }
+
+    public void setImageMaterial(ImageMaterialProperty imageMaterial) {
+        this.imageMaterial = imageMaterial;
+    }
+
+    @Override
+    public PolylineArrowMaterialProperty getPolylineArrowMaterial() {
+        return polylineArrowMaterial;
+    }
+
+    public void setPolylineArrowMaterial(PolylineArrowMaterialProperty polylineArrowMaterial) {
+        this.polylineArrowMaterial = polylineArrowMaterial;
+    }
+
+    @Override
+    public PolylineDashMaterialProperty getPolylineDashMaterial() {
+        return polylineDashMaterial;
+    }
+
+    public void setPolylineDashMaterial(PolylineDashMaterialProperty polylineDashMaterial) {
+        this.polylineDashMaterial = polylineDashMaterial;
+    }
+
+    @Override
+    public PolylineGlowMaterialProperty getPolylineGlowMaterial() {
+        return polylineGlowMaterial;
+    }
+
+    public void setPolylineGlowMaterial(PolylineGlowMaterialProperty polylineGlowMaterial) {
+        this.polylineGlowMaterial = polylineGlowMaterial;
+    }
+
+    @Override
+    public PolylineOutlineMaterialProperty getPolylineOutlineMaterial() {
+        return polylineOutlineMaterial;
+    }
+
+    public void setPolylineOutlineMaterial(PolylineOutlineMaterialProperty polylineOutlineMaterial) {
+        this.polylineOutlineMaterial = polylineOutlineMaterial;
+    }
+
+    @Override
+    public SolidColorMaterialProperty getSolidColorMaterial() {
+        return solidColorMaterial;
+    }
+
+    public void setSolidColorMaterial(SolidColorMaterialProperty solidColorMaterial) {
+        this.solidColorMaterial = solidColorMaterial;
+    }
+
+    @Override
+    public StripeMaterialProperty getStripeMaterial() {
+        return stripeMaterial;
+    }
+
+    public void setStripeMaterial(StripeMaterialProperty stripeMaterial) {
+        this.stripeMaterial = stripeMaterial;
     }
 
     @Override
@@ -50,7 +146,15 @@ public class DefaultPolylineMaterialProperty extends PropertyAdapter<PolylineMat
     }
 
     public static final class Builder {
-        private SolidColorMaterialProperty solidColor;
+        private CheckerboardMaterialProperty checkerboardMaterial;
+        private GridMaterialProperty gridMaterial;
+        private ImageMaterialProperty imageMaterial;
+        private PolylineArrowMaterialProperty polylineArrowMaterial;
+        private PolylineDashMaterialProperty polylineDashMaterial;
+        private PolylineGlowMaterialProperty polylineGlowMaterial;
+        private PolylineOutlineMaterialProperty polylineOutlineMaterial;
+        private SolidColorMaterialProperty solidColorMaterial;
+        private StripeMaterialProperty stripeMaterial;
 
         protected TimeInterval interval;
         protected List<PolylineMaterialProperty> intervals;
@@ -62,8 +166,48 @@ public class DefaultPolylineMaterialProperty extends PropertyAdapter<PolylineMat
             return new Builder();
         }
 
-        public Builder withSolidColor(SolidColorMaterialProperty solidColor) {
-            this.solidColor = solidColor;
+        public Builder withCheckerboardMaterial(CheckerboardMaterialProperty checkerboardMaterial) {
+            this.checkerboardMaterial = checkerboardMaterial;
+            return this;
+        }
+
+        public Builder withGridMaterial(GridMaterialProperty gridMaterial) {
+            this.gridMaterial = gridMaterial;
+            return this;
+        }
+
+        public Builder withImageMaterial(ImageMaterialProperty imageMaterial) {
+            this.imageMaterial = imageMaterial;
+            return this;
+        }
+
+        public Builder withPolylineArrowMaterial(PolylineArrowMaterialProperty polylineArrowMaterial) {
+            this.polylineArrowMaterial = polylineArrowMaterial;
+            return this;
+        }
+
+        public Builder withPolylineDashMaterial(PolylineDashMaterialProperty polylineDashMaterial) {
+            this.polylineDashMaterial = polylineDashMaterial;
+            return this;
+        }
+
+        public Builder withPolylineGlowMaterial(PolylineGlowMaterialProperty polylineGlowMaterial) {
+            this.polylineGlowMaterial = polylineGlowMaterial;
+            return this;
+        }
+
+        public Builder withPolylineOutlineMaterial(PolylineOutlineMaterialProperty polylineOutlineMaterial) {
+            this.polylineOutlineMaterial = polylineOutlineMaterial;
+            return this;
+        }
+
+        public Builder withSolidColorMaterial(SolidColorMaterialProperty solidColorMaterial) {
+            this.solidColorMaterial = solidColorMaterial;
+            return this;
+        }
+
+        public Builder withStripeMaterial(StripeMaterialProperty stripeMaterial) {
+            this.stripeMaterial = stripeMaterial;
             return this;
         }
 
@@ -79,7 +223,15 @@ public class DefaultPolylineMaterialProperty extends PropertyAdapter<PolylineMat
 
         public DefaultPolylineMaterialProperty build() {
             DefaultPolylineMaterialProperty defaultPolylineMaterialProperty = new DefaultPolylineMaterialProperty();
-            defaultPolylineMaterialProperty.setSolidColor(solidColor);
+            defaultPolylineMaterialProperty.setCheckerboardMaterial(checkerboardMaterial);
+            defaultPolylineMaterialProperty.setGridMaterial(gridMaterial);
+            defaultPolylineMaterialProperty.setImageMaterial(imageMaterial);
+            defaultPolylineMaterialProperty.setPolylineArrowMaterial(polylineArrowMaterial);
+            defaultPolylineMaterialProperty.setPolylineDashMaterial(polylineDashMaterial);
+            defaultPolylineMaterialProperty.setPolylineGlowMaterial(polylineGlowMaterial);
+            defaultPolylineMaterialProperty.setPolylineOutlineMaterial(polylineOutlineMaterial);
+            defaultPolylineMaterialProperty.setSolidColorMaterial(solidColorMaterial);
+            defaultPolylineMaterialProperty.setStripeMaterial(stripeMaterial);
             defaultPolylineMaterialProperty.setInterval(interval);
             defaultPolylineMaterialProperty.setIntervals(intervals);
             return defaultPolylineMaterialProperty;

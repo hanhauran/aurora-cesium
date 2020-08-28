@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.RectangleCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class RectangleGraphicsAdapter extends GraphicsAdapter<RectangleCesiumWriter> implements RectangleGraphics {
+public class RectangleGraphicsAdapter extends GraphicsAdapter<RectangleGraphics, RectangleCesiumWriter> implements RectangleGraphics {
 
     private ClassificationTypeProperty classificationType;
 
@@ -66,6 +68,7 @@ public class RectangleGraphicsAdapter extends GraphicsAdapter<RectangleCesiumWri
             Optional.ofNullable(getStRotation()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openStRotationProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
             Optional.ofNullable(getZIndex()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openZIndexProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -241,6 +244,9 @@ public class RectangleGraphicsAdapter extends GraphicsAdapter<RectangleCesiumWri
         private DoubleProperty stRotation;
         private IntegerProperty zIndex;
 
+        private TimeInterval interval;
+        private List<RectangleGraphics> intervals;
+
         private Builder() {
         }
 
@@ -338,6 +344,16 @@ public class RectangleGraphicsAdapter extends GraphicsAdapter<RectangleCesiumWri
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<RectangleGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public RectangleGraphicsAdapter build() {
             RectangleGraphicsAdapter rectangleGraphicsAdapter = new RectangleGraphicsAdapter();
             rectangleGraphicsAdapter.setClassificationType(classificationType);
@@ -358,6 +374,8 @@ public class RectangleGraphicsAdapter extends GraphicsAdapter<RectangleCesiumWri
             rectangleGraphicsAdapter.setStRotation(stRotation);
             rectangleGraphicsAdapter.setZIndex(zIndex);
             rectangleGraphicsAdapter.setShow(show);
+            rectangleGraphicsAdapter.setInterval(interval);
+            rectangleGraphicsAdapter.setIntervals(intervals);
             return rectangleGraphicsAdapter;
         }
     }

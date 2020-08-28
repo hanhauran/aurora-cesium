@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.Rectangular;
 import aurora.cesium.language.writer.advanced.ICesiumCartesian2ValuePropertyWriter;
 
 /**
@@ -7,6 +8,10 @@ import aurora.cesium.language.writer.advanced.ICesiumCartesian2ValuePropertyWrit
  * @date 2020/8/21
  */
 public interface RectangularProperty extends Property {
+
+    static RectangularProperty from(Rectangular rectangular) {
+        return newBuilder().withValue(rectangular).build();
+    }
 
     static DefaultRectangularProperty.Builder newBuilder() {
         return DefaultRectangularProperty.Builder.newBuilder();

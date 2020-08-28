@@ -13,6 +13,10 @@ import java.util.List;
  */
 public interface StringProperty extends IntervalProperty<StringProperty>, ReferenceProperty {
 
+    static StringProperty from(String value) {
+        return newBuilder().withValue(value).build();
+    }
+
     static DefaultStringProperty.Builder newBuilder() {
         return DefaultStringProperty.Builder.newBuilder();
     }

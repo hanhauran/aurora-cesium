@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.Cartesian;
 import aurora.cesium.language.writer.EyeOffsetCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
@@ -11,6 +12,10 @@ import java.util.List;
  * @date 2020/8/20
  */
 public interface EyeOffsetProperty extends InterpolatableProperty, IntervalProperty<EyeOffsetProperty>, ReferenceProperty {
+
+    static EyeOffsetProperty from(Cartesian value) {
+        return newBuilder().withCartesian(CartesianProperty.from(value)).build();
+    }
 
     static DefaultEyeOffsetProperty.Builder newBuilder() {
         return DefaultEyeOffsetProperty.Builder.newBuilder();

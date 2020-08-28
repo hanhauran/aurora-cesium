@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.CylinderCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderCesiumWriter> implements CylinderGraphics {
+public class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderGraphics, CylinderCesiumWriter> implements CylinderGraphics {
 
     private DoubleProperty bottomRadius;
 
@@ -54,6 +56,7 @@ public class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderCesiumWrite
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
             Optional.ofNullable(getSlices()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openSlicesProperty()));
             Optional.ofNullable(getTopRadius()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openTopRadiusProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -191,6 +194,9 @@ public class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderCesiumWrite
         private IntegerProperty slices;
         private DoubleProperty topRadius;
 
+        private TimeInterval interval;
+        private List<CylinderGraphics> intervals;
+
         private Builder() {
         }
 
@@ -268,6 +274,16 @@ public class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderCesiumWrite
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<CylinderGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public CylinderGraphicsAdapter build() {
             CylinderGraphicsAdapter cylinderGraphicsAdapter = new CylinderGraphicsAdapter();
             cylinderGraphicsAdapter.setBottomRadius(bottomRadius);
@@ -284,6 +300,8 @@ public class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderCesiumWrite
             cylinderGraphicsAdapter.setSlices(slices);
             cylinderGraphicsAdapter.setTopRadius(topRadius);
             cylinderGraphicsAdapter.setShow(show);
+            cylinderGraphicsAdapter.setInterval(interval);
+            cylinderGraphicsAdapter.setIntervals(intervals);
             return cylinderGraphicsAdapter;
         }
     }

@@ -2,12 +2,15 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.RectangleCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
+
+import java.util.List;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface RectangleGraphics extends Graphics<RectangleCesiumWriter> {
+public interface RectangleGraphics extends Graphics<RectangleGraphics, RectangleCesiumWriter> {
 
     static RectangleGraphicsAdapter.Builder newBuilder() {
         return RectangleGraphicsAdapter.Builder.newBuilder();
@@ -49,6 +52,12 @@ public interface RectangleGraphics extends Graphics<RectangleCesiumWriter> {
     BooleanProperty getShow();
 
     IntegerProperty getZIndex();
+
+    @Override
+    TimeInterval getInterval();
+
+    @Override
+    List<RectangleGraphics> getIntervals();
 
     @Override
     void dispatch(RectangleCesiumWriter writer);

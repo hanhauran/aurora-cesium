@@ -2,14 +2,18 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.ModelCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/22
  */
-public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> implements ModelGraphics {
+public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCesiumWriter> implements ModelGraphics {
+
+    private ArticulationsProperty articulations;
 
     private ColorProperty color;
 
@@ -29,6 +33,8 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
 
     private DoubleProperty minimumPixelSize;
 
+    private NodeTransformationsProperty nodeTransformations;
+
     private BooleanProperty runAnimations;
 
     private DoubleProperty scale;
@@ -42,22 +48,34 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
     @Override
     public void dispatch(ModelCesiumWriter writer) {
         try (writer) {
+            Optional.ofNullable(getArticulations()).ifPresent(articulationsProperty -> articulationsProperty.dispatch(writer.openArticulationsProperty()));
             Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
             Optional.ofNullable(getColorBlendMode()).ifPresent(colorBlendModeProperty -> colorBlendModeProperty.dispatch(writer.openColorBlendModeProperty()));
             Optional.ofNullable(getColorBlendAmount()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openColorBlendAmountProperty()));
             Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getGltf()).ifPresent(uriProperty -> uriProperty.dispatchUri(writer.openGltfProperty()));
+            Optional.ofNullable(getGltf()).ifPresent(uriProperty -> uriProperty.dispatch(writer.openGltfProperty()));
             Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
             Optional.ofNullable(getIncrementallyLoadTextures()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openIncrementallyLoadTexturesProperty()));
             Optional.ofNullable(getMaximumScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumScaleProperty()));
             Optional.ofNullable(getMinimumPixelSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMinimumPixelSizeProperty()));
+            Optional.ofNullable(getNodeTransformations()).ifPresent(nodeTransformationsProperty -> nodeTransformationsProperty.dispatch(writer.openNodeTransformationsProperty()));
             Optional.ofNullable(getRunAnimations()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openRunAnimationsProperty()));
             Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
             Optional.ofNullable(getSilhouetteColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openSilhouetteColorProperty()));
             Optional.ofNullable(getSilhouetteSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openSilhouetteSizeProperty()));
             Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
+    }
+
+    @Override
+    public ArticulationsProperty getArticulations() {
+        return articulations;
+    }
+
+    public void setArticulations(ArticulationsProperty articulations) {
+        this.articulations = articulations;
     }
 
     @Override
@@ -142,6 +160,15 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
     }
 
     @Override
+    public NodeTransformationsProperty getNodeTransformations() {
+        return nodeTransformations;
+    }
+
+    public void setNodeTransformations(NodeTransformationsProperty nodeTransformations) {
+        this.nodeTransformations = nodeTransformations;
+    }
+
+    @Override
     public BooleanProperty getRunAnimations() {
         return runAnimations;
     }
@@ -203,6 +230,9 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
         private ColorProperty silhouetteColor;
         private DoubleProperty silhouetteSize;
         private ShadowModeProperty shadows;
+
+        private TimeInterval interval;
+        private List<ModelGraphics> intervals;
 
         private Builder() {
         }
@@ -286,6 +316,16 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<ModelGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public ModelGraphicsAdapter build() {
             ModelGraphicsAdapter modelGraphicsAdapter = new ModelGraphicsAdapter();
             modelGraphicsAdapter.setColor(color);
@@ -303,6 +343,8 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelCesiumWriter> imp
             modelGraphicsAdapter.setSilhouetteSize(silhouetteSize);
             modelGraphicsAdapter.setShadows(shadows);
             modelGraphicsAdapter.setShow(show);
+            modelGraphicsAdapter.setInterval(interval);
+            modelGraphicsAdapter.setIntervals(intervals);
             return modelGraphicsAdapter;
         }
     }

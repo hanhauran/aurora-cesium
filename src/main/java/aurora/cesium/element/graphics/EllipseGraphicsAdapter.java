@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.EllipseCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class EllipseGraphicsAdapter extends GraphicsAdapter<EllipseCesiumWriter> implements EllipseGraphics {
+public class EllipseGraphicsAdapter extends GraphicsAdapter<EllipseGraphics, EllipseCesiumWriter> implements EllipseGraphics {
 
     private ClassificationTypeProperty classificationType;
 
@@ -72,6 +74,7 @@ public class EllipseGraphicsAdapter extends GraphicsAdapter<EllipseCesiumWriter>
             Optional.ofNullable(getStRotation()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openStRotationProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
             Optional.ofNullable(getZIndex()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openZIndexProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -269,6 +272,9 @@ public class EllipseGraphicsAdapter extends GraphicsAdapter<EllipseCesiumWriter>
         private DoubleProperty stRotation;
         private IntegerProperty zIndex;
 
+        private TimeInterval interval;
+        private List<EllipseGraphics> intervals;
+
         private Builder() {
         }
 
@@ -376,6 +382,16 @@ public class EllipseGraphicsAdapter extends GraphicsAdapter<EllipseCesiumWriter>
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<EllipseGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public EllipseGraphicsAdapter build() {
             EllipseGraphicsAdapter ellipseGraphicsAdapter = new EllipseGraphicsAdapter();
             ellipseGraphicsAdapter.setClassificationType(classificationType);
@@ -398,6 +414,8 @@ public class EllipseGraphicsAdapter extends GraphicsAdapter<EllipseCesiumWriter>
             ellipseGraphicsAdapter.setStRotation(stRotation);
             ellipseGraphicsAdapter.setZIndex(zIndex);
             ellipseGraphicsAdapter.setShow(show);
+            ellipseGraphicsAdapter.setInterval(interval);
+            ellipseGraphicsAdapter.setIntervals(intervals);
             return ellipseGraphicsAdapter;
         }
     }

@@ -2,14 +2,16 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.PointCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class PointGraphicsAdapter extends GraphicsAdapter<PointCesiumWriter> implements PointGraphics {
+public class PointGraphicsAdapter extends GraphicsAdapter<PointGraphics, PointCesiumWriter> implements PointGraphics {
 
     private ColorProperty color;
 
@@ -42,6 +44,7 @@ public class PointGraphicsAdapter extends GraphicsAdapter<PointCesiumWriter> imp
             Optional.ofNullable(getScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openScaleByDistanceProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
             Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openTranslucencyByDistanceProperty()));
+            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
 
@@ -139,6 +142,9 @@ public class PointGraphicsAdapter extends GraphicsAdapter<PointCesiumWriter> imp
         private BooleanProperty show;
         private NearFarScalarProperty translucencyByDistance;
 
+        private TimeInterval interval;
+        private List<PointGraphics> intervals;
+
         private Builder() {
         }
 
@@ -196,6 +202,16 @@ public class PointGraphicsAdapter extends GraphicsAdapter<PointCesiumWriter> imp
             return this;
         }
 
+        public Builder withInterval(TimeInterval interval) {
+            this.interval = interval;
+            return this;
+        }
+
+        public Builder withIntervals(List<PointGraphics> intervals) {
+            this.intervals = intervals;
+            return this;
+        }
+
         public PointGraphicsAdapter build() {
             PointGraphicsAdapter pointGraphicsAdapter = new PointGraphicsAdapter();
             pointGraphicsAdapter.setColor(color);
@@ -208,6 +224,8 @@ public class PointGraphicsAdapter extends GraphicsAdapter<PointCesiumWriter> imp
             pointGraphicsAdapter.setScaleByDistance(scaleByDistance);
             pointGraphicsAdapter.setTranslucencyByDistance(translucencyByDistance);
             pointGraphicsAdapter.setShow(show);
+            pointGraphicsAdapter.setInterval(interval);
+            pointGraphicsAdapter.setIntervals(intervals);
             return pointGraphicsAdapter;
         }
     }

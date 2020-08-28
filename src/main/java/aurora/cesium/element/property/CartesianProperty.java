@@ -1,5 +1,6 @@
 package aurora.cesium.element.property;
 
+import aurora.cesium.language.writer.Cartesian;
 import aurora.cesium.language.writer.advanced.ICesiumCartesian3ValuePropertyWriter;
 
 /**
@@ -7,6 +8,10 @@ import aurora.cesium.language.writer.advanced.ICesiumCartesian3ValuePropertyWrit
  * @date 2020/8/21
  */
 public interface CartesianProperty extends Property {
+
+    static CartesianProperty from(Cartesian cartesian) {
+        return newBuilder().withValue(cartesian).build();
+    }
 
     static DefaultCartesianProperty.Builder newBuilder() {
         return DefaultCartesianProperty.Builder.newBuilder();

@@ -1,12 +1,19 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.GridMaterialCesiumWriter;
+import aurora.cesium.language.writer.TimeInterval;
+
+import java.util.List;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
 public interface GridMaterialProperty extends IntervalProperty<GridMaterialProperty> {
+
+    static DefaultGridMaterialProperty.Builder newBuilder() {
+        return DefaultGridMaterialProperty.Builder.newBuilder();
+    }
 
     DoubleProperty getCellAlpha();
 
@@ -17,6 +24,12 @@ public interface GridMaterialProperty extends IntervalProperty<GridMaterialPrope
     LineOffsetProperty getLineOffset();
 
     LineThicknessProperty getLineThickness();
+
+    @Override
+    TimeInterval getInterval();
+
+    @Override
+    List<GridMaterialProperty> getIntervals();
 
     void dispatch(GridMaterialCesiumWriter writer);
 }

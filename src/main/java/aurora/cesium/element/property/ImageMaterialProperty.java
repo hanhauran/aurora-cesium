@@ -11,6 +11,10 @@ import java.util.List;
  */
 public interface ImageMaterialProperty extends IntervalProperty<ImageMaterialProperty> {
 
+    static DefaultImageMaterialProperty.Builder newBuilder() {
+        return DefaultImageMaterialProperty.Builder.newBuilder();
+    }
+
     ColorProperty getColor();
 
     UriProperty getImage();
