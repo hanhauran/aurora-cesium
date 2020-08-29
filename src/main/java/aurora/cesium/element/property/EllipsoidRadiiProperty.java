@@ -13,12 +13,16 @@ import java.util.List;
  */
 public interface EllipsoidRadiiProperty extends InterpolatableProperty, IntervalProperty<EllipsoidRadiiProperty>, ReferenceProperty {
 
-    static EllipsoidRadiiProperty from(Cartesian value) {
-        return newBuilder().withCartesian(CartesianProperty.from(value)).build();
+    static EllipsoidRadiiProperty from(Cartesian cartesian) {
+        return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
     }
 
-    static DefaultEllipsoidRadiiProperty.Builder newBuilder() {
-        return DefaultEllipsoidRadiiProperty.Builder.newBuilder();
+    static EllipsoidRadiiProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static EllipsoidRadiiPropertyImpl.Builder newBuilder() {
+        return EllipsoidRadiiPropertyImpl.Builder.newBuilder();
     }
 
     CartesianProperty getCartesian();

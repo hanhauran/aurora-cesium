@@ -17,8 +17,12 @@ public interface BoundingRectangleProperty extends InterpolatableProperty, Inter
         return newBuilder().withValue(boundingRectangle).build();
     }
 
-    static DefaultBoundingRectangleProperty.Builder newBuilder() {
-        return DefaultBoundingRectangleProperty.Builder.newBuilder();
+    static BoundingRectangleProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static BoundingRectanglePropertyImpl.Builder newBuilder() {
+        return BoundingRectanglePropertyImpl.Builder.newBuilder();
     }
 
     @Override

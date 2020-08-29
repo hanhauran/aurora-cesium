@@ -13,8 +13,8 @@ public interface CartographicDegreesProperty extends Property {
         return newBuilder().withValue(cartographic).build();
     }
 
-    static DefaultCartographicDegreesProperty.Builder newBuilder() {
-        return DefaultCartographicDegreesProperty.Builder.newBuilder();
+    static CartographicDegreesPropertyImpl.Builder newBuilder() {
+        return CartographicDegreesPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchCartographicDegrees(PositionCesiumWriter writer);

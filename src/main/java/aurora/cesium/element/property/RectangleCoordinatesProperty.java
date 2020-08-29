@@ -12,8 +12,20 @@ import java.util.List;
  */
 public interface RectangleCoordinatesProperty extends InterpolatableProperty, IntervalProperty<RectangleCoordinatesProperty>, ReferenceProperty {
 
-    static DefaultRectangleCoordinatesProperty.Builder newBuilder() {
-        return DefaultRectangleCoordinatesProperty.Builder.newBuilder();
+    static RectangleCoordinatesProperty fromWsen(CartographicExtentProperty extentProperty) {
+        return newBuilder().withWsen(extentProperty).build();
+    }
+
+    static RectangleCoordinatesProperty fromWsenDegrees(CartographicExtentProperty extentProperty) {
+        return newBuilder().withWsenDegrees(extentProperty).build();
+    }
+
+    static RectangleCoordinatesProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static RectangleCoordinatesPropertyImpl.Builder newBuilder() {
+        return RectangleCoordinatesPropertyImpl.Builder.newBuilder();
     }
 
     CartographicExtentProperty getWsen();

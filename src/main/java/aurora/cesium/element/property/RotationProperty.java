@@ -14,11 +14,19 @@ import java.util.List;
 public interface RotationProperty extends InterpolatableProperty, IntervalProperty<RotationProperty>, ReferenceProperty {
 
     static RotationProperty from(UnitQuaternion unitQuaternion) {
-        return newBuilder().withUnitQuaternion(UnitQuaternionProperty.from(unitQuaternion)).build();
+        return from(UnitQuaternionProperty.from(unitQuaternion));
     }
 
-    static DefaultRotationProperty.Builder newBuilder() {
-        return DefaultRotationProperty.Builder.newBuilder();
+    static RotationProperty from(UnitQuaternionProperty unitQuaternionProperty) {
+        return newBuilder().withUnitQuaternion(unitQuaternionProperty).build();
+    }
+
+    static RotationProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static RotationPropertyImpl.Builder newBuilder() {
+        return RotationPropertyImpl.Builder.newBuilder();
     }
 
     UnitQuaternionProperty getUnitQuaternion();

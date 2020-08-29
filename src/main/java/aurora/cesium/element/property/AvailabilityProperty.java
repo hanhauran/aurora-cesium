@@ -19,8 +19,8 @@ public interface AvailabilityProperty extends Property {
         return newBuilder().withIntervals(intervals).build();
     }
 
-    static DefaultAvailabilityProperty.Builder newBuilder() {
-        return DefaultAvailabilityProperty.Builder.newBuilder();
+    static AvailabilityPropertyImpl.Builder newBuilder() {
+        return AvailabilityPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchAvailability(PacketCesiumWriter writer);

@@ -13,12 +13,16 @@ import java.util.List;
  */
 public interface OrientationProperty extends InterpolatableProperty, IntervalProperty<OrientationProperty>, ReferenceProperty {
 
-    static OrientationProperty from(UnitQuaternion value) {
-        return newBuilder().withValue(value).build();
+    static OrientationProperty from(UnitQuaternion unitQuaternion) {
+        return newBuilder().withValue(unitQuaternion).build();
     }
 
-    static DefaultOrientationProperty.Builder newBuilder() {
-        return DefaultOrientationProperty.Builder.newBuilder();
+    static OrientationProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static OrientationPropertyImpl.Builder newBuilder() {
+        return OrientationPropertyImpl.Builder.newBuilder();
     }
 
     @Override

@@ -13,20 +13,24 @@ import java.util.List;
  */
 public interface ColorProperty extends InterpolatableProperty, IntervalProperty<ColorProperty>, ReferenceProperty {
 
-    static ColorProperty fromRgba(Color value) {
-        return newRgbaBuilder().withValue(value).build();
+    static ColorProperty fromRgba(Color color) {
+        return newRgbaBuilder().withValue(color).build();
     }
 
-    static ColorProperty fromRgbaf(Color value) {
-        return newRgbafBuilder().withValue(value).build();
+    static ColorProperty fromRgbaf(Color color) {
+        return newRgbafBuilder().withValue(color).build();
     }
 
-    static DefaultRgbaColorProperty.Builder newRgbaBuilder() {
-        return DefaultRgbaColorProperty.Builder.newBuilder();
+    static ColorProperty from(Reference reference) {
+        return newRgbaBuilder().withReference(reference).build();
     }
 
-    static DefaultRgbafColorProperty.Builder newRgbafBuilder() {
-        return DefaultRgbafColorProperty.Builder.newBuilder();
+    static RgbaColorPropertyImpl.Builder newRgbaBuilder() {
+        return RgbaColorPropertyImpl.Builder.newBuilder();
+    }
+
+    static RgbafColorPropertyImpl.Builder newRgbafBuilder() {
+        return RgbafColorPropertyImpl.Builder.newBuilder();
     }
 
     @Override

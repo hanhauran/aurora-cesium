@@ -11,8 +11,12 @@ import java.util.List;
  */
 public interface NodeTransformationsProperty extends IntervalProperty<NodeTransformationsProperty> {
 
-    static DefaultNodeTransformationsProperty.Builder newBuilder() {
-        return DefaultNodeTransformationsProperty.Builder.newBuilder();
+    static NodeTransformationsProperty from(List<NodeTransformationProperty> transformations) {
+        return newBuilder().withNodeTransformations(transformations).build();
+    }
+
+    static NodeTransformationsPropertyImpl.Builder newBuilder() {
+        return NodeTransformationsPropertyImpl.Builder.newBuilder();
     }
 
     List<NodeTransformationProperty> getNodeTransformations();

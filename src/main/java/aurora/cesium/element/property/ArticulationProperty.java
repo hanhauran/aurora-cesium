@@ -16,8 +16,12 @@ public interface ArticulationProperty extends InterpolatableProperty, IntervalPr
         return newBuilder(name).withValue(dbl).build();
     }
 
-    static DefaultArticulationProperty.Builder newBuilder(String name) {
-        return DefaultArticulationProperty.Builder.newBuilder(name);
+    static ArticulationProperty from(String name, Reference reference) {
+        return newBuilder(name).withReference(reference).build();
+    }
+
+    static ArticulationPropertyImpl.Builder newBuilder(String name) {
+        return ArticulationPropertyImpl.Builder.newBuilder(name);
     }
 
     String getName();

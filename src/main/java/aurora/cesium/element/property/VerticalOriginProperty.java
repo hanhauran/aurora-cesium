@@ -13,12 +13,16 @@ import java.util.List;
  */
 public interface VerticalOriginProperty extends IntervalProperty<VerticalOriginProperty>, ReferenceProperty {
 
-    static VerticalOriginProperty from(CesiumVerticalOrigin origin) {
-        return newBuilder().withValue(origin).build();
+    static VerticalOriginProperty from(CesiumVerticalOrigin verticalOrigin) {
+        return newBuilder().withValue(verticalOrigin).build();
     }
 
-    static DefaultVerticalOriginProperty.Builder newBuilder() {
-        return DefaultVerticalOriginProperty.Builder.newBuilder();
+    static VerticalOriginProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static VerticalOriginPropertyImpl.Builder newBuilder() {
+        return VerticalOriginPropertyImpl.Builder.newBuilder();
     }
 
     @Override

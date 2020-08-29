@@ -13,8 +13,8 @@ public interface RectangularProperty extends Property {
         return newBuilder().withValue(rectangular).build();
     }
 
-    static DefaultRectangularProperty.Builder newBuilder() {
-        return DefaultRectangularProperty.Builder.newBuilder();
+    static RectangularPropertyImpl.Builder newBuilder() {
+        return RectangularPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchWithoutClose(ICesiumCartesian2ValuePropertyWriter writer);

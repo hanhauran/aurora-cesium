@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface StripeMaterialProperty extends IntervalProperty<StripeMaterialProperty> {
 
-    static DefaultStripeMaterialProperty.Builder newBuilder() {
-        return DefaultStripeMaterialProperty.Builder.newBuilder();
+    static StripeMaterialPropertyImpl.Builder newBuilder() {
+        return StripeMaterialPropertyImpl.Builder.newBuilder();
     }
 
     StripeOrientationProperty getOrientation();

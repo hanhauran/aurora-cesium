@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface MaterialProperty extends IntervalProperty<MaterialProperty> {
 
-    static DefaultMaterialProperty.Builder newBuilder() {
-        return DefaultMaterialProperty.Builder.newBuilder();
+    static MaterialPropertyImpl.Builder newBuilder() {
+        return MaterialPropertyImpl.Builder.newBuilder();
     }
 
     CheckerboardMaterialProperty getCheckerboardMaterial();

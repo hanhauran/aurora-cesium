@@ -10,8 +10,24 @@ import java.util.List;
  */
 public interface PositionListProperty extends IntervalProperty<PositionListProperty>, ReferencesProperty {
 
-    static DefaultPositionListProperty.Builder newBuilder() {
-        return DefaultPositionListProperty.Builder.newBuilder();
+    static PositionListProperty fromCartesians(Iterable<Cartesian> cartesians) {
+        return newBuilder().withCartesians(cartesians).build();
+    }
+
+    static PositionListProperty fromCartographicDegrees(Iterable<Cartographic> cartographicDegrees) {
+        return newBuilder().withCartographicDegrees(cartographicDegrees).build();
+    }
+
+    static PositionListProperty fromCartographicRadians(Iterable<Cartographic> cartographicRadians) {
+        return newBuilder().withCartographicRadians(cartographicRadians).build();
+    }
+
+    static PositionListProperty from(Iterable<Reference> references) {
+        return newBuilder().withReferences(references).build();
+    }
+
+    static PositionListPropertyImpl.Builder newBuilder() {
+        return PositionListPropertyImpl.Builder.newBuilder();
     }
 
     Iterable<Cartesian> getCartesians();

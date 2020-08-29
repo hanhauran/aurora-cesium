@@ -13,8 +13,8 @@ public interface CartographicRadiansProperty extends Property {
         return newBuilder().withValue(cartographic).build();
     }
 
-    static DefaultCartographicRadiansProperty.Builder newBuilder() {
-        return DefaultCartographicRadiansProperty.Builder.newBuilder();
+    static CartographicRadiansPropertyImpl.Builder newBuilder() {
+        return CartographicRadiansPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchCartographicRadians(PositionCesiumWriter writer);

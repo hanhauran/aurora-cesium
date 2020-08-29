@@ -17,8 +17,12 @@ public interface HeightReferenceProperty extends IntervalProperty<HeightReferenc
         return newBuilder().withValue(value).build();
     }
 
-    static DefaultHeightReferenceProperty.Builder newBuilder() {
-        return DefaultHeightReferenceProperty.Builder.newBuilder();
+    static HeightReferenceProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static HeightReferencePropertyImpl.Builder newBuilder() {
+        return HeightReferencePropertyImpl.Builder.newBuilder();
     }
 
     @Override

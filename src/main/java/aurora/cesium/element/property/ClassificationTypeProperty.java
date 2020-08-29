@@ -17,8 +17,12 @@ public interface ClassificationTypeProperty extends IntervalProperty<Classificat
         return newBuilder().withValue(type).build();
     }
 
-    static DefaultClassificationTypeProperty.Builder newBuilder() {
-        return DefaultClassificationTypeProperty.Builder.newBuilder();
+    static ClassificationTypeProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static ClassificationTypePropertyImpl.Builder newBuilder() {
+        return ClassificationTypePropertyImpl.Builder.newBuilder();
     }
 
     CesiumClassificationType getClassificationType();

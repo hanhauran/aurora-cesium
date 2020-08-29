@@ -14,11 +14,19 @@ import java.util.List;
 public interface TranslationProperty extends InterpolatableProperty, IntervalProperty<TranslationProperty>, ReferenceProperty {
 
     static TranslationProperty from(Cartesian cartesian) {
-        return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
+        return from(CartesianProperty.from(cartesian));
     }
 
-    static DefaultTranslationProperty.Builder newBuilder() {
-        return DefaultTranslationProperty.Builder.newBuilder();
+    static TranslationProperty from(CartesianProperty cartesianProperty) {
+        return newBuilder().withCartesian(cartesianProperty).build();
+    }
+
+    static TranslationProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static TranslationPropertyImpl.Builder newBuilder() {
+        return TranslationPropertyImpl.Builder.newBuilder();
     }
 
     CartesianProperty getCartesian();

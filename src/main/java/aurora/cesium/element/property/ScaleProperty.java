@@ -14,11 +14,15 @@ import java.util.List;
 public interface ScaleProperty extends InterpolatableProperty, IntervalProperty<ScaleProperty>, ReferenceProperty {
 
     static ScaleProperty from(Cartesian cartesian) {
-        return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
+        return from(CartesianProperty.from(cartesian));
     }
 
-    static DefaultScaleProperty.Builder newBuilder() {
-        return DefaultScaleProperty.Builder.newBuilder();
+    static ScaleProperty from(CartesianProperty cartesianProperty) {
+        return newBuilder().withCartesian(cartesianProperty).build();
+    }
+
+    static ScalePropertyImpl.Builder newBuilder() {
+        return ScalePropertyImpl.Builder.newBuilder();
     }
 
     CartesianProperty getCartesian();

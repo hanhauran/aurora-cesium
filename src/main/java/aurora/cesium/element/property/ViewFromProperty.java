@@ -14,11 +14,19 @@ import java.util.List;
 public interface ViewFromProperty extends InterpolatableProperty, IntervalProperty<ViewFromProperty>, ReferenceProperty {
 
     static ViewFromProperty from(Cartesian cartesian) {
-        return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
+        return from(CartesianProperty.from(cartesian));
     }
 
-    static DefaultViewFromProperty.Builder newBuilder() {
-        return DefaultViewFromProperty.Builder.newBuilder();
+    static ViewFromProperty from(CartesianProperty cartesianProperty) {
+        return newBuilder().withCartesian(cartesianProperty).build();
+    }
+
+    static ViewFromProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static ViewFromPropertyImpl.Builder newBuilder() {
+        return ViewFromPropertyImpl.Builder.newBuilder();
     }
 
     CartesianProperty getCartesian();

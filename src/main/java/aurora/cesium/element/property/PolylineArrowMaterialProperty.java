@@ -15,8 +15,8 @@ public interface PolylineArrowMaterialProperty extends IntervalProperty<Polyline
         return newBuilder().withColor(color).build();
     }
 
-    static DefaultPolylineArrowMaterialProperty.Builder newBuilder() {
-        return DefaultPolylineArrowMaterialProperty.Builder.newBuilder();
+    static PolylineArrowMaterialPropertyImpl.Builder newBuilder() {
+        return PolylineArrowMaterialPropertyImpl.Builder.newBuilder();
     }
 
     ColorProperty getColor();

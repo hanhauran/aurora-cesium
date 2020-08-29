@@ -11,8 +11,12 @@ import java.util.List;
  */
 public interface ArticulationsProperty extends IntervalProperty<ArticulationsProperty> {
 
-    static DefaultArticulationsProperty.Builder newBuilder() {
-        return DefaultArticulationsProperty.Builder.newBuilder();
+    static ArticulationsProperty from(List<ArticulationProperty> articulations) {
+        return newBuilder().withArticulations(articulations).build();
+    }
+
+    static ArticulationsPropertyImpl.Builder newBuilder() {
+        return ArticulationsPropertyImpl.Builder.newBuilder();
     }
 
     List<ArticulationProperty> getArticulations();

@@ -17,8 +17,12 @@ public interface DistanceDisplayConditionProperty extends InterpolatableProperty
         return newBuilder().withValue(value).build();
     }
 
-    static DefaultDistanceDisplayConditionProperty.Builder newBuilder() {
-        return DefaultDistanceDisplayConditionProperty.Builder.newBuilder();
+    static DistanceDisplayConditionProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static DistanceDisplayConditionPropertyImpl.Builder newBuilder() {
+        return DistanceDisplayConditionPropertyImpl.Builder.newBuilder();
     }
 
     @Override

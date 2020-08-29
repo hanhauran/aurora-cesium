@@ -13,8 +13,8 @@ public interface CartesianProperty extends Property {
         return newBuilder().withValue(cartesian).build();
     }
 
-    static DefaultCartesianProperty.Builder newBuilder() {
-        return DefaultCartesianProperty.Builder.newBuilder();
+    static CartesianPropertyImpl.Builder newBuilder() {
+        return CartesianPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchCartesian(ICesiumCartesian3ValuePropertyWriter writer);

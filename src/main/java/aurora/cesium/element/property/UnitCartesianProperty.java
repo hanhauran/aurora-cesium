@@ -13,8 +13,8 @@ public interface UnitCartesianProperty extends Property {
         return newBuilder().withValue(unitCartesian).build();
     }
 
-    static DefaultUnitCartesianProperty.Builder newBuilder() {
-        return DefaultUnitCartesianProperty.Builder.newBuilder();
+    static UnitCartesianPropertyImpl.Builder newBuilder() {
+        return UnitCartesianPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchWithoutClose(ICesiumUnitCartesian3ValuePropertyWriter writer);

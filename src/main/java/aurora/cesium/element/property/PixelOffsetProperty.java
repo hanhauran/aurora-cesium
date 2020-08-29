@@ -13,12 +13,16 @@ import java.util.List;
  */
 public interface PixelOffsetProperty extends InterpolatableProperty, IntervalProperty<PixelOffsetProperty>, ReferenceProperty {
 
-    static PixelOffsetProperty from(Rectangular value) {
-        return newBuilder().withValue(value).build();
+    static PixelOffsetProperty from(Rectangular rectangular) {
+        return newBuilder().withValue(rectangular).build();
     }
 
-    static DefaultPixelOffsetProperty.Builder newBuilder() {
-        return DefaultPixelOffsetProperty.Builder.newBuilder();
+    static PixelOffsetProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static PixelOffsetPropertyImpl.Builder newBuilder() {
+        return PixelOffsetPropertyImpl.Builder.newBuilder();
     }
 
     @Override

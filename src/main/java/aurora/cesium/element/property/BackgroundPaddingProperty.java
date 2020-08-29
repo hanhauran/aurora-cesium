@@ -14,11 +14,19 @@ import java.util.List;
 public interface BackgroundPaddingProperty extends IntervalProperty<BackgroundPaddingProperty>, ReferenceProperty {
 
     static BackgroundPaddingProperty from(Rectangular rectangular) {
-        return newBuilder().withRectangular(RectangularProperty.from(rectangular)).build();
+        return from(RectangularProperty.from(rectangular));
     }
 
-    static DefaultBackgroundPaddingProperty.Builder newBuilder() {
-        return DefaultBackgroundPaddingProperty.Builder.newBuilder();
+    static BackgroundPaddingProperty from(RectangularProperty rectangularProperty) {
+        return newBuilder().withRectangular(rectangularProperty).build();
+    }
+
+    static BackgroundPaddingProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static BackgroundPaddingPropertyImpl.Builder newBuilder() {
+        return BackgroundPaddingPropertyImpl.Builder.newBuilder();
     }
 
     RectangularProperty getRectangular();

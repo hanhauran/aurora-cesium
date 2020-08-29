@@ -13,12 +13,16 @@ import java.util.List;
  */
 public interface EyeOffsetProperty extends InterpolatableProperty, IntervalProperty<EyeOffsetProperty>, ReferenceProperty {
 
-    static EyeOffsetProperty from(Cartesian value) {
-        return newBuilder().withCartesian(CartesianProperty.from(value)).build();
+    static EyeOffsetProperty from(Cartesian cartesian) {
+        return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
     }
 
-    static DefaultEyeOffsetProperty.Builder newBuilder() {
-        return DefaultEyeOffsetProperty.Builder.newBuilder();
+    static EyeOffsetProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static EyeOffsetPropertyImpl.Builder newBuilder() {
+        return EyeOffsetPropertyImpl.Builder.newBuilder();
     }
 
     CartesianProperty getCartesian();

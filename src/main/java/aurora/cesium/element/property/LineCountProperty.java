@@ -13,12 +13,20 @@ import java.util.List;
  */
 public interface LineCountProperty extends InterpolatableProperty, IntervalProperty<LineCountProperty>, ReferenceProperty {
 
-    static LineCountProperty from(Rectangular value) {
-        return newBuilder().withRectangular(RectangularProperty.from(value)).build();
+    static LineCountProperty from(Rectangular rectangular) {
+        return from(RectangularProperty.from(rectangular));
     }
 
-    static DefaultLineCountProperty.Builder newBuilder() {
-        return DefaultLineCountProperty.Builder.newBuilder();
+    static LineCountProperty from(RectangularProperty rectangularProperty) {
+        return newBuilder().withRectangular(rectangularProperty).build();
+    }
+
+    static LineCountProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static LineCountPropertyImpl.Builder newBuilder() {
+        return LineCountPropertyImpl.Builder.newBuilder();
     }
 
     RectangularProperty getRectangular();

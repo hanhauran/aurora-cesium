@@ -14,8 +14,12 @@ public interface DoubleProperty extends InterpolatableProperty, IntervalProperty
         return newBuilder().withValue(value).build();
     }
 
-    static DefaultDoubleProperty.Builder newBuilder() {
-        return DefaultDoubleProperty.Builder.newBuilder();
+    static DoubleProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static DoublePropertyImpl.Builder newBuilder() {
+        return DoublePropertyImpl.Builder.newBuilder();
     }
 
     @Override

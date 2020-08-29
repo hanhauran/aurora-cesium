@@ -13,8 +13,8 @@ public interface CartographicExtentProperty extends Property {
         return newBuilder().withValue(extent).build();
     }
 
-    static DefaultCartographicExtentProperty.Builder newBuilder() {
-        return DefaultCartographicExtentProperty.Builder.newBuilder();
+    static CartographicExtentPropertyImpl.Builder newBuilder() {
+        return CartographicExtentPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchWsen(RectangleCoordinatesCesiumWriter writer);

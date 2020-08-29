@@ -14,11 +14,19 @@ import java.util.List;
 public interface RepeatProperty extends InterpolatableProperty, IntervalProperty<RepeatProperty>, ReferenceProperty {
 
     static RepeatProperty from(Rectangular rectangular) {
-        return newBuilder().withRectangular(RectangularProperty.from(rectangular)).build();
+        return from(RectangularProperty.from(rectangular));
     }
 
-    static DefaultRepeatProperty.Builder newBuilder() {
-        return DefaultRepeatProperty.Builder.newBuilder();
+    static RepeatProperty from(RectangularProperty rectangularProperty) {
+        return newBuilder().withRectangular(rectangularProperty).build();
+    }
+
+    static RepeatProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static RepeatPropertyImpl.Builder newBuilder() {
+        return RepeatPropertyImpl.Builder.newBuilder();
     }
 
     RectangularProperty getRectangular();

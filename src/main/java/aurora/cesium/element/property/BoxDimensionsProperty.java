@@ -12,11 +12,19 @@ import aurora.cesium.language.writer.TimeInterval;
 public interface BoxDimensionsProperty extends IntervalProperty<BoxDimensionsProperty>, ReferenceProperty {
 
     static BoxDimensionsProperty from(Cartesian cartesian) {
-        return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
+        return from(CartesianProperty.from(cartesian));
     }
 
-    static DefaultBoxDimensionsProperty.Builder newBuilder() {
-        return DefaultBoxDimensionsProperty.Builder.newBuilder();
+    static BoxDimensionsProperty from(CartesianProperty cartesianProperty) {
+        return newBuilder().withCartesian(cartesianProperty).build();
+    }
+
+    static BoxDimensionsProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static BoxDimensionsPropertyImpl.Builder newBuilder() {
+        return BoxDimensionsPropertyImpl.Builder.newBuilder();
     }
 
     CartesianProperty getCartesian();

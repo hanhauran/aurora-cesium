@@ -13,12 +13,20 @@ import java.util.List;
  */
 public interface LineOffsetProperty extends InterpolatableProperty, IntervalProperty<LineOffsetProperty>, ReferenceProperty {
 
-    static LineOffsetProperty from(Rectangular value) {
-        return newBuilder().withRectangular(RectangularProperty.from(value)).build();
+    static LineOffsetProperty from(Rectangular rectangular) {
+        return from(RectangularProperty.from(rectangular));
     }
 
-    static DefaultLineOffsetProperty.Builder newBuilder() {
-        return DefaultLineOffsetProperty.Builder.newBuilder();
+    static LineOffsetProperty from(RectangularProperty rectangularProperty) {
+        return newBuilder().withRectangular(rectangularProperty).build();
+    }
+
+    static LineOffsetProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static LineOffsetPropertyImpl.Builder newBuilder() {
+        return LineOffsetPropertyImpl.Builder.newBuilder();
     }
 
     RectangularProperty getRectangular();

@@ -16,8 +16,12 @@ public interface IntegerProperty extends InterpolatableProperty, IntervalPropert
         return newBuilder().withValue(value).build();
     }
 
-    static DefaultIntegerProperty.Builder newBuilder() {
-        return DefaultIntegerProperty.Builder.newBuilder();
+    static IntegerProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static IntegerPropertyImpl.Builder newBuilder() {
+        return IntegerPropertyImpl.Builder.newBuilder();
     }
 
     @Override

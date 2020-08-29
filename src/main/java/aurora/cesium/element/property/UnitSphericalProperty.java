@@ -13,8 +13,8 @@ public interface UnitSphericalProperty extends Property {
         return newBuilder().withValue(unitSpherical).build();
     }
 
-    static DefaultUnitSphericalProperty.Builder newBuilder() {
-        return DefaultUnitSphericalProperty.Builder.newBuilder();
+    static UnitSphericalPropertyImpl.Builder newBuilder() {
+        return UnitSphericalPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchUnitSpherical(AlignedAxisCesiumWriter writer);
