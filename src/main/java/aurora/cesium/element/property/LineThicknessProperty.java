@@ -13,12 +13,20 @@ import java.util.List;
  */
 public interface LineThicknessProperty extends InterpolatableProperty, IntervalProperty<LineThicknessProperty>, ReferenceProperty {
 
-    static LineThicknessProperty from(Rectangular value) {
-        return newBuilder().withRectangular(RectangularProperty.from(value)).build();
+    static LineThicknessProperty from(Rectangular rectangular) {
+        return from(RectangularProperty.from(rectangular));
     }
 
-    static DefaultLineThicknessProperty.Builder newBuilder() {
-        return DefaultLineThicknessProperty.Builder.newBuilder();
+    static LineThicknessProperty from(RectangularProperty rectangularProperty) {
+        return newBuilder().withRectangular(rectangularProperty).build();
+    }
+
+    static LineThicknessProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static LineThicknessPropertyImpl.Builder newBuilder() {
+        return LineThicknessPropertyImpl.Builder.newBuilder();
     }
 
     @Override

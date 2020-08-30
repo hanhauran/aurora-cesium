@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface PolylineMaterialProperty extends IntervalProperty<PolylineMaterialProperty> {
 
-    static DefaultPolylineMaterialProperty.Builder newBuilder() {
-        return DefaultPolylineMaterialProperty.Builder.newBuilder();
+    static PolylineMaterialPropertyImpl.Builder newBuilder() {
+        return PolylineMaterialPropertyImpl.Builder.newBuilder();
     }
 
     CheckerboardMaterialProperty getCheckerboardMaterial();

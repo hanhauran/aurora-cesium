@@ -16,8 +16,12 @@ public interface BooleanProperty extends IntervalProperty<BooleanProperty>, Refe
         return newBuilder().withValue(value).build();
     }
 
-    static DefaultBooleanProperty.Builder newBuilder() {
-        return DefaultBooleanProperty.Builder.newBuilder();
+    static BooleanProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static BooleanPropertyImpl.Builder newBuilder() {
+        return BooleanPropertyImpl.Builder.newBuilder();
     }
 
     @Override

@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface PolylineOutlineMaterialProperty extends IntervalProperty<PolylineOutlineMaterialProperty> {
 
-    static DefaultPolylineOutlineMaterialProperty.Builder newBuilder() {
-        return DefaultPolylineOutlineMaterialProperty.Builder.newBuilder();
+    static PolylineOutlineMaterialPropertyImpl.Builder newBuilder() {
+        return PolylineOutlineMaterialPropertyImpl.Builder.newBuilder();
     }
 
     ColorProperty getColor();

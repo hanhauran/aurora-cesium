@@ -10,20 +10,24 @@ import java.util.List;
  */
 public interface PositionProperty extends InterpolatableProperty, IntervalProperty<PositionProperty>, ReferenceProperty {
 
-    static PositionProperty from(Cartesian cartesian) {
+    static PositionProperty fromCartesian(Cartesian cartesian) {
         return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
     }
 
-    static PositionProperty fromDegrees(Cartographic cartographic) {
+    static PositionProperty fromCartographicDegrees(Cartographic cartographic) {
         return newBuilder().withCartographicDegrees(CartographicDegreesProperty.from(cartographic)).build();
     }
 
-    static PositionProperty fromRadians(Cartographic cartographic) {
+    static PositionProperty fromCartographicRadians(Cartographic cartographic) {
         return newBuilder().withCartographicRadians(CartographicRadiansProperty.from(cartographic)).build();
     }
 
-    static DefaultPositionProperty.Builder newBuilder() {
-        return DefaultPositionProperty.Builder.newBuilder();
+    static PositionProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static PositionPropertyImpl.Builder newBuilder() {
+        return PositionPropertyImpl.Builder.newBuilder();
     }
 
     CartesianProperty getCartesian();

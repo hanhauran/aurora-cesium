@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface PolylineDashMaterialProperty extends IntervalProperty<PolylineDashMaterialProperty> {
 
-    static DefaultPolylineDashMaterialProperty.Builder newBuilder() {
-        return DefaultPolylineDashMaterialProperty.Builder.newBuilder();
+    static PolylineDashMaterialPropertyImpl.Builder newBuilder() {
+        return PolylineDashMaterialPropertyImpl.Builder.newBuilder();
     }
 
     ColorProperty getColor();

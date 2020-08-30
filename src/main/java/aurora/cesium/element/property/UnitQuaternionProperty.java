@@ -9,12 +9,12 @@ import aurora.cesium.language.writer.advanced.ICesiumUnitQuaternionValueProperty
  */
 public interface UnitQuaternionProperty extends Property {
 
-    static UnitQuaternionProperty from(UnitQuaternion value) {
-        return newBuilder().withValue(value).build();
+    static UnitQuaternionProperty from(UnitQuaternion unitQuaternion) {
+        return newBuilder().withValue(unitQuaternion).build();
     }
 
-    static DefaultUnitQuaternionProperty.Builder newBuilder() {
-        return DefaultUnitQuaternionProperty.Builder.newBuilder();
+    static UnitQuaternionPropertyImpl.Builder newBuilder() {
+        return UnitQuaternionPropertyImpl.Builder.newBuilder();
     }
 
     void dispatchWithoutClose(ICesiumUnitQuaternionValuePropertyWriter writer);

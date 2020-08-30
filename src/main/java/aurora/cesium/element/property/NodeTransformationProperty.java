@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface NodeTransformationProperty extends IntervalProperty<NodeTransformationProperty> {
 
-    static DefaultNodeTransformationProperty.Builder newBuilder(String name) {
-        return DefaultNodeTransformationProperty.Builder.newBuilder(name);
+    static NodeTransformationPropertyImpl.Builder newBuilder(String name) {
+        return NodeTransformationPropertyImpl.Builder.newBuilder(name);
     }
 
     String getName();

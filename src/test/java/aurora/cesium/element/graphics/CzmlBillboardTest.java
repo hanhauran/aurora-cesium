@@ -27,7 +27,7 @@ public class CzmlBillboardTest {
         czml.push(
             Entity.newBuilder()
                 .withId("Cesium/Billboard").withName("Billboard").withDescription(StringProperty.from("<p><a href='www.baidu.com' target='_blank'>Baidu</a> Billboard </p>"))
-                .withPosition(PositionProperty.fromDegrees(new Cartographic(114, 30, 1000)))
+                .withPosition(PositionProperty.fromCartographicDegrees(new Cartographic(114, 30, 1000)))
                 .withBillboard(
                     BillboardGraphics.newBuilder()
                         .withInterval(new TimeInterval(Times.trans2JulianDate(LocalDateTime.now()), Times.trans2JulianDate(LocalDateTime.now().plusHours(2))))

@@ -13,12 +13,16 @@ import java.util.List;
  */
 public interface StripeOrientationProperty extends IntervalProperty<StripeOrientationProperty>, ReferenceProperty {
 
-    static StripeOrientationProperty from(CesiumStripeOrientation value) {
-        return newBuilder().withValue(value).build();
+    static StripeOrientationProperty from(CesiumStripeOrientation stripeOrientation) {
+        return newBuilder().withValue(stripeOrientation).build();
     }
 
-    static DefaultStripeOrientationProperty.Builder newBuilder() {
-        return DefaultStripeOrientationProperty.Builder.newBuilder();
+    static StripeOrientationProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static StripeOrientationPropertyImpl.Builder newBuilder() {
+        return StripeOrientationPropertyImpl.Builder.newBuilder();
     }
 
     @Override

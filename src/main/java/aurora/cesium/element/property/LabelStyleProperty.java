@@ -17,8 +17,12 @@ public interface LabelStyleProperty extends IntervalProperty<LabelStyleProperty>
         return newBuilder().withValue(value).build();
     }
 
-    static DefaultLabelStyleProperty.Builder newBuilder() {
-        return DefaultLabelStyleProperty.Builder.newBuilder();
+    static LabelStyleProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static LabelStylePropertyImpl.Builder newBuilder() {
+        return LabelStylePropertyImpl.Builder.newBuilder();
     }
 
     @Override

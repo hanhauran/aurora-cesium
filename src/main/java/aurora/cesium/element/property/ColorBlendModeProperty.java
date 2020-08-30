@@ -2,6 +2,7 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.CesiumColorBlendMode;
 import aurora.cesium.language.writer.ColorBlendModeCesiumWriter;
+import aurora.cesium.language.writer.Reference;
 
 /**
  * @author hanhaoran
@@ -9,12 +10,16 @@ import aurora.cesium.language.writer.ColorBlendModeCesiumWriter;
  */
 public interface ColorBlendModeProperty extends Property, ReferenceProperty {
 
-    static ColorBlendModeProperty from(CesiumColorBlendMode value) {
-        return newBuilder().withValue(value).build();
+    static ColorBlendModeProperty from(CesiumColorBlendMode colorBlendMode) {
+        return newBuilder().withValue(colorBlendMode).build();
     }
 
-    static DefaultColorBlendModeProperty.Builder newBuilder() {
-        return DefaultColorBlendModeProperty.Builder.newBuilder();
+    static ColorBlendModeProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static ColorBlendModePropertyImpl.Builder newBuilder() {
+        return ColorBlendModePropertyImpl.Builder.newBuilder();
     }
 
     void dispatch(ColorBlendModeCesiumWriter writer);

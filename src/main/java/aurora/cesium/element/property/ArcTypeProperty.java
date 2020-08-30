@@ -17,8 +17,12 @@ public interface ArcTypeProperty extends IntervalProperty<ArcTypeProperty>, Refe
         return newBuilder().withValue(arcType).build();
     }
 
-    static DefaultArcTypeProperty.Builder newBuilder() {
-        return DefaultArcTypeProperty.Builder.newBuilder();
+    static ArcTypeProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static ArcTypePropertyImpl.Builder newBuilder() {
+        return ArcTypePropertyImpl.Builder.newBuilder();
     }
 
     @Override

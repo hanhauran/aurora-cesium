@@ -11,15 +11,27 @@ import java.util.List;
 public interface AlignedAxisProperty extends InterpolatableProperty, IntervalProperty<AlignedAxisProperty>, ReferenceProperty {
 
     static AlignedAxisProperty from(UnitCartesian unitCartesian) {
-        return newBuilder().withUnitCartesian(UnitCartesianProperty.from(unitCartesian)).build();
+        return from(UnitCartesianProperty.from(unitCartesian));
+    }
+
+    static AlignedAxisProperty from(UnitCartesianProperty unitCartesianProperty) {
+        return newBuilder().withUnitCartesian(unitCartesianProperty).build();
     }
 
     static AlignedAxisProperty from(UnitSpherical unitSpherical) {
-        return newBuilder().withUnitSpherical(UnitSphericalProperty.from(unitSpherical)).build();
+        return from(UnitSphericalProperty.from(unitSpherical));
     }
 
-    static DefaultAlignedAxisProperty.Builder newBuilder() {
-        return DefaultAlignedAxisProperty.Builder.newBuilder();
+    static AlignedAxisProperty from(UnitSphericalProperty unitSphericalProperty) {
+        return newBuilder().withUnitSpherical(unitSphericalProperty).build();
+    }
+
+    static AlignedAxisProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static AlignedAxisPropertyImpl.Builder newBuilder() {
+        return AlignedAxisPropertyImpl.Builder.newBuilder();
     }
 
     UnitCartesianProperty getUnitCartesian();

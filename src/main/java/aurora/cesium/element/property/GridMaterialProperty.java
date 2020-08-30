@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface GridMaterialProperty extends IntervalProperty<GridMaterialProperty> {
 
-    static DefaultGridMaterialProperty.Builder newBuilder() {
-        return DefaultGridMaterialProperty.Builder.newBuilder();
+    static GridMaterialPropertyImpl.Builder newBuilder() {
+        return GridMaterialPropertyImpl.Builder.newBuilder();
     }
 
     DoubleProperty getCellAlpha();

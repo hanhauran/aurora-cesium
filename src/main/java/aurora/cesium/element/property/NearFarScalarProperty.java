@@ -13,12 +13,16 @@ import java.util.List;
  */
 public interface NearFarScalarProperty extends InterpolatableProperty, IntervalProperty<NearFarScalarProperty>, ReferenceProperty {
 
-    static NearFarScalarProperty from(NearFarScalar value) {
-        return newBuilder().withValue(value).build();
+    static NearFarScalarProperty from(NearFarScalar nearFarScalar) {
+        return newBuilder().withValue(nearFarScalar).build();
     }
 
-    static DefaultNearFarScalarProperty.Builder newBuilder() {
-        return DefaultNearFarScalarProperty.Builder.newBuilder();
+    static NearFarScalarProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static NearFarScalarPropertyImpl.Builder newBuilder() {
+        return NearFarScalarPropertyImpl.Builder.newBuilder();
     }
 
     @Override

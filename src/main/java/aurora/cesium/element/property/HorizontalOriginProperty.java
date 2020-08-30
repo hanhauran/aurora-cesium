@@ -17,8 +17,12 @@ public interface HorizontalOriginProperty extends IntervalProperty<HorizontalOri
         return newBuilder().withValue(value).build();
     }
 
-    static DefaultHorizontalOriginProperty.Builder newBuilder() {
-        return DefaultHorizontalOriginProperty.Builder.newBuilder();
+    static HorizontalOriginProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static HorizontalOriginPropertyImpl.Builder newBuilder() {
+        return HorizontalOriginPropertyImpl.Builder.newBuilder();
     }
 
     @Override

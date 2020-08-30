@@ -17,8 +17,12 @@ public interface UriProperty extends IntervalProperty<UriProperty>, ReferencePro
         return newBuilder().withValue(resource).build();
     }
 
-    static DefaultUriProperty.Builder newBuilder() {
-        return DefaultUriProperty.Builder.newBuilder();
+    static UriProperty from(Reference reference) {
+        return newBuilder().withReference(reference).build();
+    }
+
+    static UriPropertyImpl.Builder newBuilder() {
+        return UriPropertyImpl.Builder.newBuilder();
     }
 
     @Override
