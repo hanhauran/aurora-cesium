@@ -65,6 +65,8 @@ public interface PolygonGraphics extends Graphics<PolygonGraphics, PolygonCesium
      */
     BooleanProperty getPerPositionHeight();
 
+    PositionListProperty getPositions();
+
     ShadowModeProperty getShadows();
 
     @Override

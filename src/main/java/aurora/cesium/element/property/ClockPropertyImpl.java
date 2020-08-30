@@ -26,7 +26,6 @@ public class ClockPropertyImpl extends PropertyAdapter<ClockProperty> implements
             Optional.ofNullable(getMultiplier()).ifPresent(writer::writeMultiplier);
             Optional.ofNullable(getRange()).ifPresent(writer::writeRange);
             Optional.ofNullable(getStep()).ifPresent(writer::writeStep);
-            Optional.ofNullable(getInterval()).ifPresent(writer::writeInterval);
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

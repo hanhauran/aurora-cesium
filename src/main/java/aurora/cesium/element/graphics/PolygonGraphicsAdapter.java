@@ -45,6 +45,8 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
 
     private BooleanProperty perPositionHeight;
 
+    private PositionListProperty positions;
+
     private ShadowModeProperty shadows;
 
     private DoubleProperty stRotation;
@@ -70,6 +72,7 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
             Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
             Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
             Optional.ofNullable(getPerPositionHeight()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openPerPositionHeightProperty()));
+            Optional.ofNullable(getPositions()).ifPresent(positionListProperty -> positionListProperty.dispatch(writer.openPositionsProperty()));
             Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
             Optional.ofNullable(getStRotation()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openStRotationProperty()));
@@ -223,6 +226,15 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
     }
 
     @Override
+    public PositionListProperty getPositions() {
+        return positions;
+    }
+
+    public void setPositions(PositionListProperty positions) {
+        this.positions = positions;
+    }
+
+    @Override
     public ShadowModeProperty getShadows() {
         return shadows;
     }
@@ -265,6 +277,7 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
         private ColorProperty outlineColor;
         private DoubleProperty outlineWidth;
         private BooleanProperty perPositionHeight;
+        private PositionListProperty positions;
         private ShadowModeProperty shadows;
         private BooleanProperty show;
         private DoubleProperty stRotation;
@@ -360,6 +373,11 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
             return this;
         }
 
+        public Builder withPositions(PositionListProperty positions) {
+            this.positions = positions;
+            return this;
+        }
+
         public Builder withShadows(ShadowModeProperty shadows) {
             this.shadows = shadows;
             return this;
@@ -408,6 +426,7 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
             polygonGraphicsAdapter.setOutlineColor(outlineColor);
             polygonGraphicsAdapter.setOutlineWidth(outlineWidth);
             polygonGraphicsAdapter.setPerPositionHeight(perPositionHeight);
+            polygonGraphicsAdapter.setPositions(positions);
             polygonGraphicsAdapter.setShadows(shadows);
             polygonGraphicsAdapter.setStRotation(stRotation);
             polygonGraphicsAdapter.setZIndex(zIndex);
