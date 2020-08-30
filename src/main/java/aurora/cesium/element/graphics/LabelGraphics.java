@@ -73,6 +73,16 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     HorizontalOriginProperty getHorizontalOrigin();
 
     /**
+     * Gets or sets the Property specifying the outline {@link java.awt.Color}.
+     */
+    ColorProperty getOutlineColor();
+
+    /**
+     * Gets or sets the numeric Property specifying the outline width.
+     */
+    DoubleProperty getOutlineWidth();
+
+    /**
      * Gets or sets the {@link aurora.cesium.language.writer.Rectangular} Property specifying the label's pixel offset in screen space
      * from the origin of this label.  This is commonly used to align multiple labels and labels at
      * the same position, e.g., an image and text.  The screen space origin is the top, left corner of the
@@ -135,16 +145,6 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
      * Outside of these ranges the label's translucency remains clamped to the nearest bound.
      */
     NearFarScalarProperty getTranslucencyByDistance();
-
-    /**
-     * Gets or sets the Property specifying the outline {@link java.awt.Color}.
-     */
-    ColorProperty getOutlineColor();
-
-    /**
-     * Gets or sets the numeric Property specifying the outline width.
-     */
-    DoubleProperty getOutlineWidth();
 
     /**
      * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumVerticalOrigin}.

@@ -32,14 +32,14 @@ public interface EllipsoidGraphics extends Graphics<EllipsoidGraphics, Ellipsoid
     HeightReferenceProperty getHeightReference();
 
     /**
-     * Gets or sets the Property specifying the material used to fill the ellipsoid.
-     */
-    MaterialProperty getMaterial();
-
-    /**
      * Gets or sets the {@link aurora.cesium.language.writer.Cartesian} specifying the inner radii of the ellipsoid.
      */
     EllipsoidRadiiProperty getInnerRadii();
+
+    /**
+     * Gets or sets the Property specifying the material used to fill the ellipsoid.
+     */
+    MaterialProperty getMaterial();
 
     /**
      * Gets or sets the Property specifying the maximum clock angle of the ellipsoid.

@@ -17,9 +17,9 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCe
 
     private ColorProperty color;
 
-    private ColorBlendModeProperty colorBlendMode;
-
     private DoubleProperty colorBlendAmount;
+
+    private ColorBlendModeProperty colorBlendMode;
 
     private DistanceDisplayConditionProperty distanceDisplayCondition;
 
@@ -39,19 +39,19 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCe
 
     private DoubleProperty scale;
 
+    private ShadowModeProperty shadows;
+
     private ColorProperty silhouetteColor;
 
     private DoubleProperty silhouetteSize;
-
-    private ShadowModeProperty shadows;
 
     @Override
     public void dispatch(ModelCesiumWriter writer) {
         try (writer) {
             Optional.ofNullable(getArticulations()).ifPresent(articulationsProperty -> articulationsProperty.dispatch(writer.openArticulationsProperty()));
             Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-            Optional.ofNullable(getColorBlendMode()).ifPresent(colorBlendModeProperty -> colorBlendModeProperty.dispatch(writer.openColorBlendModeProperty()));
             Optional.ofNullable(getColorBlendAmount()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openColorBlendAmountProperty()));
+            Optional.ofNullable(getColorBlendMode()).ifPresent(colorBlendModeProperty -> colorBlendModeProperty.dispatch(writer.openColorBlendModeProperty()));
             Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
             Optional.ofNullable(getGltf()).ifPresent(uriProperty -> uriProperty.dispatch(writer.openGltfProperty()));
             Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
@@ -61,10 +61,10 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCe
             Optional.ofNullable(getNodeTransformations()).ifPresent(nodeTransformationsProperty -> nodeTransformationsProperty.dispatch(writer.openNodeTransformationsProperty()));
             Optional.ofNullable(getRunAnimations()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openRunAnimationsProperty()));
             Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
-            Optional.ofNullable(getSilhouetteColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openSilhouetteColorProperty()));
-            Optional.ofNullable(getSilhouetteSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openSilhouetteSizeProperty()));
             Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
+            Optional.ofNullable(getSilhouetteColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openSilhouetteColorProperty()));
+            Optional.ofNullable(getSilhouetteSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openSilhouetteSizeProperty()));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
@@ -88,21 +88,21 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCe
     }
 
     @Override
-    public ColorBlendModeProperty getColorBlendMode() {
-        return colorBlendMode;
-    }
-
-    public void setColorBlendMode(ColorBlendModeProperty colorBlendMode) {
-        this.colorBlendMode = colorBlendMode;
-    }
-
-    @Override
     public DoubleProperty getColorBlendAmount() {
         return colorBlendAmount;
     }
 
     public void setColorBlendAmount(DoubleProperty colorBlendAmount) {
         this.colorBlendAmount = colorBlendAmount;
+    }
+
+    @Override
+    public ColorBlendModeProperty getColorBlendMode() {
+        return colorBlendMode;
+    }
+
+    public void setColorBlendMode(ColorBlendModeProperty colorBlendMode) {
+        this.colorBlendMode = colorBlendMode;
     }
 
     @Override
@@ -187,6 +187,15 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCe
     }
 
     @Override
+    public ShadowModeProperty getShadows() {
+        return shadows;
+    }
+
+    public void setShadows(ShadowModeProperty shadows) {
+        this.shadows = shadows;
+    }
+
+    @Override
     public ColorProperty getSilhouetteColor() {
         return silhouetteColor;
     }
@@ -203,16 +212,6 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCe
     public void setSilhouetteSize(DoubleProperty silhouetteSize) {
         this.silhouetteSize = silhouetteSize;
     }
-
-    @Override
-    public ShadowModeProperty getShadows() {
-        return shadows;
-    }
-
-    public void setShadows(ShadowModeProperty shadows) {
-        this.shadows = shadows;
-    }
-
 
     public static final class Builder {
         protected BooleanProperty show;

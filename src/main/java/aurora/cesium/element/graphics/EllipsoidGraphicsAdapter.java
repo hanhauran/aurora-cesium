@@ -19,9 +19,9 @@ public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidGraphics,
 
     private HeightReferenceProperty heightReference;
 
-    private MaterialProperty material;
-
     private EllipsoidRadiiProperty innerRadii;
+
+    private MaterialProperty material;
 
     private DoubleProperty maximumClock;
 
@@ -54,6 +54,7 @@ public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidGraphics,
             Optional.ofNullable(getFill()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openFillProperty()));
             Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
             Optional.ofNullable(getInnerRadii()).ifPresent(ellipsoidRadiiProperty -> ellipsoidRadiiProperty.dispatch(writer.openInnerRadiiProperty()));
+            Optional.ofNullable(getMaterial()).ifPresent(materialProperty -> materialProperty.dispatch(writer.openMaterialProperty()));
             Optional.ofNullable(getMaximumClock()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumClockProperty()));
             Optional.ofNullable(getMaximumCone()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumConeProperty()));
             Optional.ofNullable(getMinimumClock()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMinimumClockProperty()));

@@ -31,6 +31,10 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
 
     private HorizontalOriginProperty horizontalOrigin;
 
+    private ColorProperty outlineColor;
+
+    private DoubleProperty outlineWidth;
+
     private PixelOffsetProperty pixelOffset;
 
     private NearFarScalarProperty pixelOffsetScaleByDistance;
@@ -39,10 +43,6 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
 
     private NearFarScalarProperty scaleByDistance;
 
-    /**
-     * private BooleanProperty show;
-     */
-
     private BooleanProperty showBackground;
 
     private LabelStyleProperty style;
@@ -50,10 +50,6 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
     private StringProperty text;
 
     private NearFarScalarProperty translucencyByDistance;
-
-    private ColorProperty outlineColor;
-
-    private DoubleProperty outlineWidth;
 
     private VerticalOriginProperty verticalOrigin;
 
@@ -69,6 +65,8 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
             Optional.ofNullable(getFont()).ifPresent(stringProperty -> stringProperty.dispatch(writer.openFontProperty()));
             Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
             Optional.ofNullable(getHorizontalOrigin()).ifPresent(horizontalOriginProperty -> horizontalOriginProperty.dispatch(writer.openHorizontalOriginProperty()));
+            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
+            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
             Optional.ofNullable(getPixelOffset()).ifPresent(pixelOffsetProperty -> pixelOffsetProperty.dispatch(writer.openPixelOffsetProperty()));
             Optional.ofNullable(getPixelOffsetScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openPixelOffsetScaleByDistanceProperty()));
             Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
@@ -78,8 +76,6 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
             Optional.ofNullable(getStyle()).ifPresent(labelStyleProperty -> labelStyleProperty.dispatch(writer.openStyleProperty()));
             Optional.ofNullable(getText()).ifPresent(stringProperty -> stringProperty.dispatch(writer.openTextProperty()));
             Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openTranslucencyByDistanceProperty()));
-            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
-            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
             Optional.ofNullable(getVerticalOrigin()).ifPresent(verticalOriginProperty -> verticalOriginProperty.dispatch(writer.openVerticalOriginProperty()));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
@@ -167,6 +163,24 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
     }
 
     @Override
+    public ColorProperty getOutlineColor() {
+        return outlineColor;
+    }
+
+    public void setOutlineColor(ColorProperty outlineColor) {
+        this.outlineColor = outlineColor;
+    }
+
+    @Override
+    public DoubleProperty getOutlineWidth() {
+        return outlineWidth;
+    }
+
+    public void setOutlineWidth(DoubleProperty outlineWidth) {
+        this.outlineWidth = outlineWidth;
+    }
+
+    @Override
     public PixelOffsetProperty getPixelOffset() {
         return pixelOffset;
     }
@@ -236,24 +250,6 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
 
     public void setTranslucencyByDistance(NearFarScalarProperty translucencyByDistance) {
         this.translucencyByDistance = translucencyByDistance;
-    }
-
-    @Override
-    public ColorProperty getOutlineColor() {
-        return outlineColor;
-    }
-
-    public void setOutlineColor(ColorProperty outlineColor) {
-        this.outlineColor = outlineColor;
-    }
-
-    @Override
-    public DoubleProperty getOutlineWidth() {
-        return outlineWidth;
-    }
-
-    public void setOutlineWidth(DoubleProperty outlineWidth) {
-        this.outlineWidth = outlineWidth;
     }
 
     @Override

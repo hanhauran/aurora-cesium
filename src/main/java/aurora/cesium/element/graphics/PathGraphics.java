@@ -35,11 +35,6 @@ public interface PathGraphics extends Graphics<PathGraphics, PathCesiumWriter> {
     PolylineMaterialProperty getMaterial();
 
     /**
-     * Gets or sets the Property specifying the number of seconds behind the object to show.
-     */
-    DoubleProperty getTrailTime();
-
-    /**
      * Gets or sets the Property specifying the maximum number of seconds to step when sampling the position.
      */
     DoubleProperty getResolution();
@@ -49,6 +44,11 @@ public interface PathGraphics extends Graphics<PathGraphics, PathCesiumWriter> {
      */
     @Override
     BooleanProperty getShow();
+
+    /**
+     * Gets or sets the Property specifying the number of seconds behind the object to show.
+     */
+    DoubleProperty getTrailTime();
 
     /**
      * Gets or sets the numeric Property specifying the width in pixels.

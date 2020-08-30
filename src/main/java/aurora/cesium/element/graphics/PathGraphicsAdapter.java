@@ -22,13 +22,9 @@ public class PathGraphicsAdapter extends GraphicsAdapter<PathGraphics, PathCesiu
 
     private PolylineMaterialProperty material;
 
-    private DoubleProperty trailTime;
-
     private DoubleProperty resolution;
 
-    /**
-     * private BooleanProperty show;
-     */
+    private DoubleProperty trailTime;
 
     private DoubleProperty width;
 
@@ -38,9 +34,9 @@ public class PathGraphicsAdapter extends GraphicsAdapter<PathGraphics, PathCesiu
             Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
             Optional.ofNullable(getLeadTime()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openLeadTimeProperty()));
             Optional.ofNullable(getMaterial()).ifPresent(polylineMaterialProperty -> polylineMaterialProperty.dispatch(writer.openMaterialProperty()));
-            Optional.ofNullable(getTrailTime()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openTrailTimeProperty()));
             Optional.ofNullable(getResolution()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openResolutionProperty()));
             Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
+            Optional.ofNullable(getTrailTime()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openTrailTimeProperty()));
             Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openWidthProperty()));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
@@ -74,21 +70,21 @@ public class PathGraphicsAdapter extends GraphicsAdapter<PathGraphics, PathCesiu
     }
 
     @Override
-    public DoubleProperty getTrailTime() {
-        return trailTime;
-    }
-
-    public void setTrailTime(DoubleProperty trailTime) {
-        this.trailTime = trailTime;
-    }
-
-    @Override
     public DoubleProperty getResolution() {
         return resolution;
     }
 
     public void setResolution(DoubleProperty resolution) {
         this.resolution = resolution;
+    }
+
+    @Override
+    public DoubleProperty getTrailTime() {
+        return trailTime;
+    }
+
+    public void setTrailTime(DoubleProperty trailTime) {
+        this.trailTime = trailTime;
     }
 
     @Override

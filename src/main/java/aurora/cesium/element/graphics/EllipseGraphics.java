@@ -105,15 +105,15 @@ public interface EllipseGraphics extends Graphics<EllipseGraphics, EllipseCesium
     ShadowModeProperty getShadows();
 
     /**
-     * Gets or sets the numeric property specifying the rotation of the ellipse texture counter-clockwise from north.
-     */
-    DoubleProperty getStRotation();
-
-    /**
      * Gets or sets the boolean Property specifying the visibility of the ellipse.
      */
     @Override
     BooleanProperty getShow();
+
+    /**
+     * Gets or sets the numeric property specifying the rotation of the ellipse texture counter-clockwise from north.
+     */
+    DoubleProperty getStRotation();
 
     /**
      * Gets or sets the zIndex Property specifying the ellipse ordering.  Only has an effect if the ellipse is constant and neither height or extrudedHeight

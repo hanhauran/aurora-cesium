@@ -17,7 +17,7 @@ public interface ModelGraphics extends Graphics<ModelGraphics, ModelCesiumWriter
         return ModelGraphicsAdapter.Builder.newBuilder();
     }
     /**
-     * Gets or sets the set of articulation values to apply to this model.  This is represented as an {@link PropertyBag}, where keys are
+     * Gets or sets the set of articulation values to apply to this model.  This is represented as an PropertyBag, where keys are
      * composed as the name of the articulation, a single space, and the name of the stage.
      */
     ArticulationsProperty getArticulations();
@@ -28,16 +28,16 @@ public interface ModelGraphics extends Graphics<ModelGraphics, ModelCesiumWriter
     ColorProperty getColor();
 
     /**
-     * Gets or sets the enum Property specifying how the color blends with the model.
-     */
-    ColorBlendModeProperty getColorBlendMode();
-
-    /**
      * A numeric Property specifying the color strength when the <code>colorBlendMode</code> is MIX.
      * A value of 0.0 results in the model's rendered color while a value of 1.0 results in a solid color, with
      * any value in-between resulting in a mix of the two.
      */
     DoubleProperty getColorBlendAmount();
+
+    /**
+     * Gets or sets the enum Property specifying how the color blends with the model.
+     */
+    ColorBlendModeProperty getColorBlendMode();
 
     /**
      * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this model will be displayed.
@@ -90,16 +90,6 @@ public interface ModelGraphics extends Graphics<ModelGraphics, ModelCesiumWriter
     DoubleProperty getScale();
 
     /**
-     * Gets or sets the Property specifying the {@link java.awt.Color} of the silhouette.
-     */
-    ColorProperty getSilhouetteColor();
-
-    /**
-     * Gets or sets the numeric Property specifying the size of the silhouette in pixels.
-     */
-    DoubleProperty getSilhouetteSize();
-
-    /**
      * Get or sets the enum Property specifying whether the model
      * casts or receives shadows from light sources.
      */
@@ -110,6 +100,16 @@ public interface ModelGraphics extends Graphics<ModelGraphics, ModelCesiumWriter
      */
     @Override
     BooleanProperty getShow();
+
+    /**
+     * Gets or sets the Property specifying the {@link java.awt.Color} of the silhouette.
+     */
+    ColorProperty getSilhouetteColor();
+
+    /**
+     * Gets or sets the numeric Property specifying the size of the silhouette in pixels.
+     */
+    DoubleProperty getSilhouetteSize();
 
     @Override
     TimeInterval getInterval();

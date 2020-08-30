@@ -123,15 +123,15 @@ public interface BillboardGraphics extends Graphics<BillboardGraphics, Billboard
     NearFarScalarProperty getScaleByDistance();
 
     /**
-     * Gets or sets the boolean Property specifying if this billboard's size will be measured in meters.
-     */
-    BooleanProperty getSizeInMeters();
-
-    /**
      * Gets or sets the boolean Property specifying the visibility of the billboard.
      */
     @Override
     BooleanProperty getShow();
+
+    /**
+     * Gets or sets the boolean Property specifying if this billboard's size will be measured in meters.
+     */
+    BooleanProperty getSizeInMeters();
 
     /**
      * Gets or sets {@link NearFarScalar} Property specifying the translucency of the billboard based on the distance from the camera.
