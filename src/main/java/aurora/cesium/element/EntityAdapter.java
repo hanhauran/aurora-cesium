@@ -33,6 +33,8 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     private CorridorGraphics corridor;
 
+    private CustomPatternSensorGraphics customPatternSensor;
+
     private CylinderGraphics cylinder;
 
     private EllipseGraphics ellipse;
@@ -55,6 +57,8 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     private RectangleGraphics rectangle;
 
+    private RectangularSensorGraphics rectangularSensor;
+
     private TilesetGraphics tileset;
 
     private VectorGraphics vector;
@@ -76,6 +80,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             Optional.ofNullable(getBox()).ifPresent(boxGraphics -> boxGraphics.dispatch(writer::openBoxProperty));
             Optional.ofNullable(getConicSensor()).ifPresent(conicSensorGraphics -> conicSensorGraphics.dispatch(writer::openConicSensorProperty));
             Optional.ofNullable(getCorridor()).ifPresent(corridorGraphics -> corridorGraphics.dispatch(writer::openCorridorProperty));
+            Optional.ofNullable(getCustomPatternSensor()).ifPresent(customPatternSensorGraphics -> customPatternSensorGraphics.dispatch(writer::openCustomPatternSensorProperty));
             Optional.ofNullable(getCylinder()).ifPresent(cylinderGraphics -> cylinderGraphics.dispatch(writer::openCylinderProperty));
             Optional.ofNullable(getEllipse()).ifPresent(ellipseGraphics -> ellipseGraphics.dispatch(writer::openEllipseProperty));
             Optional.ofNullable(getEllipsoid()).ifPresent(ellipsoidGraphics -> ellipsoidGraphics.dispatch(writer::openEllipsoidProperty));
@@ -87,6 +92,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             Optional.ofNullable(getPolygon()).ifPresent(polygonGraphics -> polygonGraphics.dispatch(writer::openPolygonProperty));
             Optional.ofNullable(getPolyline()).ifPresent(polylineGraphics -> polylineGraphics.dispatch(writer::openPolylineProperty));
             Optional.ofNullable(getRectangle()).ifPresent(rectangleGraphics -> rectangleGraphics.dispatch(writer::openRectangleProperty));
+            Optional.ofNullable(getRectangularSensor()).ifPresent(rectangularSensorGraphics -> rectangularSensorGraphics.dispatch(writer::openRectangularSensorProperty));
             Optional.ofNullable(getTileset()).ifPresent(tilesetGraphics -> tilesetGraphics.dispatch(writer::openTilesetProperty));
             Optional.ofNullable(getVector()).ifPresent(vectorGraphics -> vectorGraphics.dispatch(writer::openVectorProperty));
             Optional.ofNullable(getWall()).ifPresent(wallGraphics -> wallGraphics.dispatch(writer::openWallProperty));
@@ -181,6 +187,15 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     public void setCorridor(CorridorGraphics corridor) {
         this.corridor = corridor;
+    }
+
+    @Override
+    public CustomPatternSensorGraphics getCustomPatternSensor() {
+        return customPatternSensor;
+    }
+
+    public void setCustomPatternSensor(CustomPatternSensorGraphics customPatternSensor) {
+        this.customPatternSensor = customPatternSensor;
     }
 
     @Override
@@ -283,6 +298,15 @@ public class EntityAdapter extends ElementAdapter implements Entity {
     }
 
     @Override
+    public RectangularSensorGraphics getRectangularSensor() {
+        return rectangularSensor;
+    }
+
+    public void setRectangularSensor(RectangularSensorGraphics rectangularSensor) {
+        this.rectangularSensor = rectangularSensor;
+    }
+
+    @Override
     public TilesetGraphics getTileset() {
         return tileset;
     }
@@ -322,6 +346,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
         private BoxGraphics box;
         private ConicSensorGraphics conicSensor;
         private CorridorGraphics corridor;
+        private CustomPatternSensorGraphics customPatternSensor;
         private CylinderGraphics cylinder;
         private EllipseGraphics ellipse;
         private EllipsoidGraphics ellipsoid;
@@ -333,6 +358,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
         private PolygonGraphics polygon;
         private PolylineGraphics polyline;
         private RectangleGraphics rectangle;
+        private RectangularSensorGraphics rectangularSensor;
         private TilesetGraphics tileset;
         private VectorGraphics vector;
         private WallGraphics wall;
@@ -394,6 +420,11 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             return this;
         }
 
+        public Builder withCustomPatternSensor(CustomPatternSensorGraphics customPatternSensor) {
+            this.customPatternSensor = customPatternSensor;
+            return this;
+        }
+
         public Builder withCylinder(CylinderGraphics cylinder) {
             this.cylinder = cylinder;
             return this;
@@ -449,6 +480,11 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             return this;
         }
 
+        public Builder withRectangularSensor(RectangularSensorGraphics rectangularSensor) {
+            this.rectangularSensor = rectangularSensor;
+            return this;
+        }
+
         public Builder withTileset(TilesetGraphics tileset) {
             this.tileset = tileset;
             return this;
@@ -486,6 +522,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             entityAdapter.setBox(box);
             entityAdapter.setConicSensor(conicSensor);
             entityAdapter.setCorridor(corridor);
+            entityAdapter.setCustomPatternSensor(customPatternSensor);
             entityAdapter.setCylinder(cylinder);
             entityAdapter.setEllipse(ellipse);
             entityAdapter.setEllipsoid(ellipsoid);
@@ -497,6 +534,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             entityAdapter.setPolygon(polygon);
             entityAdapter.setPolyline(polyline);
             entityAdapter.setRectangle(rectangle);
+            entityAdapter.setRectangularSensor(rectangularSensor);
             entityAdapter.setTileset(tileset);
             entityAdapter.setVector(vector);
             entityAdapter.setWall(wall);

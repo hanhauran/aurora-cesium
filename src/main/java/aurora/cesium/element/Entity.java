@@ -42,6 +42,8 @@ public interface Entity extends Element {
 
     CorridorGraphics getCorridor();
 
+    CustomPatternSensorGraphics getCustomPatternSensor();
+
     CylinderGraphics getCylinder();
 
     EllipseGraphics getEllipse();
@@ -63,6 +65,8 @@ public interface Entity extends Element {
     PolylineGraphics getPolyline();
 
     RectangleGraphics getRectangle();
+
+    RectangularSensorGraphics getRectangularSensor();
 
     TilesetGraphics getTileset();
 
