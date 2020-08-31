@@ -88,13 +88,19 @@ abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends Sin
 
     void dispatchConsumer(Consumer<? super T> consumer, BiConsumer<List<JulianDate>, List<T>> biConsumer, QuadrupleConsumer<List<JulianDate>, List<T>, Integer, Integer> quadrupleConsumer) {
         Optional.ofNullable(value).ifPresent(consumer);
-        Optional.ofNullable(getStartIndex()).ifPresentOrElse(
-                idx -> Optional.ofNullable(getLength()).ifPresentOrElse(
-                        len -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(values).ifPresent(it -> quadrupleConsumer.accept(julianDates, it, idx, len))),
-                        () -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(values).ifPresent(it -> biConsumer.accept(julianDates, it)))
-                ),
-                () -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(values).ifPresent(it -> biConsumer.accept(julianDates, it)))
-        );
+        if (getStartIndex() == null || getLength() == null) {
+            Optional.ofNullable(getDates()).ifPresent(ds -> Optional.ofNullable(getValues()).ifPresent(vs -> biConsumer.accept(ds, vs)));
+        } else {
+            Optional.ofNullable(getDates()).ifPresent(ds -> Optional.ofNullable(getValues()).ifPresent(vs -> quadrupleConsumer.accept(ds, vs, getStartIndex(), getLength())));
+        }
+//        JDK9
+//        Optional.ofNullable(getStartIndex()).ifPresentOrElse(
+//                idx -> Optional.ofNullable(getLength()).ifPresentOrElse(
+//                        len -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(values).ifPresent(it -> quadrupleConsumer.accept(julianDates, it, idx, len))),
+//                        () -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(values).ifPresent(it -> biConsumer.accept(julianDates, it)))
+//                ),
+//                () -> Optional.ofNullable(getDates()).ifPresent(julianDates -> Optional.ofNullable(values).ifPresent(it -> biConsumer.accept(julianDates, it)))
+//        );
     }
 
     @Override
