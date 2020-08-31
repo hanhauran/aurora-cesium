@@ -1,0 +1,35 @@
+package aurora.cesium.element.property;
+
+import aurora.cesium.language.writer.DoubleListCesiumWriter;
+import aurora.cesium.language.writer.Reference;
+import aurora.cesium.language.writer.TimeInterval;
+
+import java.util.List;
+import java.util.function.Supplier;
+
+/**
+ * @author hanhaoran
+ * @date 2020/8/31
+ */
+public interface DoubleListProperty extends Property<DoubleListCesiumWriter>, Intervalable<DoubleListProperty>, ListReferenceable {
+
+    static DoubleListProperty from(Iterable<Double> doubles) {
+        return newBuilder().withValue(doubles).build();
+    }
+
+    static DoubleListPropertyImpl.Builder newBuilder() {
+        return DoubleListPropertyImpl.Builder.newBuilder();
+    }
+
+    @Override
+    TimeInterval getInterval();
+
+    @Override
+    List<DoubleListProperty> getIntervals();
+
+    @Override
+    Iterable<Reference> getReferences();
+
+    @Override
+    void dispatch(Supplier<DoubleListCesiumWriter> supplier);
+}

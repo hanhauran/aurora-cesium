@@ -29,6 +29,8 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     private BoxGraphics box;
 
+    private ConicSensorGraphics conicSensor;
+
     private CorridorGraphics corridor;
 
     private CylinderGraphics cylinder;
@@ -36,6 +38,8 @@ public class EntityAdapter extends ElementAdapter implements Entity {
     private EllipseGraphics ellipse;
 
     private EllipsoidGraphics ellipsoid;
+
+    private FanGraphics fan;
 
     private LabelGraphics label;
 
@@ -53,6 +57,8 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     private TilesetGraphics tileset;
 
+    private VectorGraphics vector;
+
     private WallGraphics wall;
 
     @Override
@@ -68,10 +74,12 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             Optional.ofNullable(getViewFrom()).ifPresent(viewFromProperty -> viewFromProperty.dispatch(writer::openViewFromProperty));
             Optional.ofNullable(getBillboard()).ifPresent(billboardGraphics -> billboardGraphics.dispatch(writer::openBillboardProperty));
             Optional.ofNullable(getBox()).ifPresent(boxGraphics -> boxGraphics.dispatch(writer::openBoxProperty));
+            Optional.ofNullable(getConicSensor()).ifPresent(conicSensorGraphics -> conicSensorGraphics.dispatch(writer::openConicSensorProperty));
             Optional.ofNullable(getCorridor()).ifPresent(corridorGraphics -> corridorGraphics.dispatch(writer::openCorridorProperty));
             Optional.ofNullable(getCylinder()).ifPresent(cylinderGraphics -> cylinderGraphics.dispatch(writer::openCylinderProperty));
             Optional.ofNullable(getEllipse()).ifPresent(ellipseGraphics -> ellipseGraphics.dispatch(writer::openEllipseProperty));
             Optional.ofNullable(getEllipsoid()).ifPresent(ellipsoidGraphics -> ellipsoidGraphics.dispatch(writer::openEllipsoidProperty));
+            Optional.ofNullable(getFan()).ifPresent(fanGraphics -> fanGraphics.dispatch(writer::openFanProperty));
             Optional.ofNullable(getLabel()).ifPresent(labelGraphics -> labelGraphics.dispatch(writer::openLabelProperty));
             Optional.ofNullable(getModel()).ifPresent(modelGraphics -> modelGraphics.dispatch(writer::openModelProperty));
             Optional.ofNullable(getPath()).ifPresent(pathGraphics -> pathGraphics.dispatch(writer::openPathProperty));
@@ -80,6 +88,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             Optional.ofNullable(getPolyline()).ifPresent(polylineGraphics -> polylineGraphics.dispatch(writer::openPolylineProperty));
             Optional.ofNullable(getRectangle()).ifPresent(rectangleGraphics -> rectangleGraphics.dispatch(writer::openRectangleProperty));
             Optional.ofNullable(getTileset()).ifPresent(tilesetGraphics -> tilesetGraphics.dispatch(writer::openTilesetProperty));
+            Optional.ofNullable(getVector()).ifPresent(vectorGraphics -> vectorGraphics.dispatch(writer::openVectorProperty));
             Optional.ofNullable(getWall()).ifPresent(wallGraphics -> wallGraphics.dispatch(writer::openWallProperty));
         }
     }
@@ -157,6 +166,15 @@ public class EntityAdapter extends ElementAdapter implements Entity {
     }
 
     @Override
+    public ConicSensorGraphics getConicSensor() {
+        return conicSensor;
+    }
+
+    public void setConicSensor(ConicSensorGraphics conicSensor) {
+        this.conicSensor = conicSensor;
+    }
+
+    @Override
     public CorridorGraphics getCorridor() {
         return corridor;
     }
@@ -190,6 +208,15 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     public void setEllipsoid(EllipsoidGraphics ellipsoid) {
         this.ellipsoid = ellipsoid;
+    }
+
+    @Override
+    public FanGraphics getFan() {
+        return fan;
+    }
+
+    public void setFan(FanGraphics fan) {
+        this.fan = fan;
     }
 
     @Override
@@ -265,6 +292,15 @@ public class EntityAdapter extends ElementAdapter implements Entity {
     }
 
     @Override
+    public VectorGraphics getVector() {
+        return vector;
+    }
+
+    public void setVector(VectorGraphics vector) {
+        this.vector = vector;
+    }
+
+    @Override
     public WallGraphics getWall() {
         return wall;
     }
@@ -284,10 +320,12 @@ public class EntityAdapter extends ElementAdapter implements Entity {
         private ViewFromProperty viewFrom;
         private BillboardGraphics billboard;
         private BoxGraphics box;
+        private ConicSensorGraphics conicSensor;
         private CorridorGraphics corridor;
         private CylinderGraphics cylinder;
         private EllipseGraphics ellipse;
         private EllipsoidGraphics ellipsoid;
+        private FanGraphics fan;
         private LabelGraphics label;
         private ModelGraphics model;
         private PathGraphics path;
@@ -296,6 +334,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
         private PolylineGraphics polyline;
         private RectangleGraphics rectangle;
         private TilesetGraphics tileset;
+        private VectorGraphics vector;
         private WallGraphics wall;
 
         private Builder() {
@@ -345,6 +384,11 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             return this;
         }
 
+        public Builder withConicSensor(ConicSensorGraphics conicSensor) {
+            this.conicSensor = conicSensor;
+            return this;
+        }
+
         public Builder withCorridor(CorridorGraphics corridor) {
             this.corridor = corridor;
             return this;
@@ -362,6 +406,11 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
         public Builder withEllipsoid(EllipsoidGraphics ellipsoid) {
             this.ellipsoid = ellipsoid;
+            return this;
+        }
+
+        public Builder withFan(FanGraphics fan) {
+            this.fan = fan;
             return this;
         }
 
@@ -405,6 +454,11 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             return this;
         }
 
+        public Builder withVector(VectorGraphics vector) {
+            this.vector = vector;
+            return this;
+        }
+
         public Builder withWall(WallGraphics wall) {
             this.wall = wall;
             return this;
@@ -430,10 +484,12 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             entityAdapter.setViewFrom(viewFrom);
             entityAdapter.setBillboard(billboard);
             entityAdapter.setBox(box);
+            entityAdapter.setConicSensor(conicSensor);
             entityAdapter.setCorridor(corridor);
             entityAdapter.setCylinder(cylinder);
             entityAdapter.setEllipse(ellipse);
             entityAdapter.setEllipsoid(ellipsoid);
+            entityAdapter.setFan(fan);
             entityAdapter.setLabel(label);
             entityAdapter.setModel(model);
             entityAdapter.setPath(path);
@@ -442,6 +498,7 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             entityAdapter.setPolyline(polyline);
             entityAdapter.setRectangle(rectangle);
             entityAdapter.setTileset(tileset);
+            entityAdapter.setVector(vector);
             entityAdapter.setWall(wall);
             entityAdapter.setId(id);
             entityAdapter.setName(name);

@@ -1,8 +1,6 @@
 package aurora.cesium.element.graphics;
 
-import aurora.cesium.element.property.BooleanProperty;
-import aurora.cesium.element.property.DoubleProperty;
-import aurora.cesium.element.property.PositionListProperty;
+import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.WallCesiumWriter;
 
@@ -15,9 +13,31 @@ import java.util.function.Supplier;
  */
 public interface WallGraphics extends Graphics<WallGraphics, WallCesiumWriter> {
 
-    DoubleProperty getMaximumHeights();
+    static WallGraphicsAdapter.Builder newBuilder() {
+        return WallGraphicsAdapter.Builder.newBuilder();
+    }
+
+    DistanceDisplayConditionProperty getDistanceDisplayCondition();
+
+    BooleanProperty getFill();
+
+    DoubleProperty getGranularity();
+
+    MaterialProperty getMaterial();
+
+    DoubleListProperty getMaximumHeights();
+
+    DoubleListProperty getMinimumHeights();
+
+    BooleanProperty getOutline();
+
+    ColorProperty getOutlineColor();
+
+    DoubleProperty getOutlineWidth();
 
     PositionListProperty getPositions();
+
+    ShadowModeProperty getShadows();
 
     @Override
     BooleanProperty getShow();

@@ -38,6 +38,8 @@ public interface Entity extends Element {
 
     BoxGraphics getBox();
 
+    ConicSensorGraphics getConicSensor();
+
     CorridorGraphics getCorridor();
 
     CylinderGraphics getCylinder();
@@ -45,6 +47,8 @@ public interface Entity extends Element {
     EllipseGraphics getEllipse();
 
     EllipsoidGraphics getEllipsoid();
+
+    FanGraphics getFan();
 
     LabelGraphics getLabel();
 
@@ -61,6 +65,8 @@ public interface Entity extends Element {
     RectangleGraphics getRectangle();
 
     TilesetGraphics getTileset();
+
+    VectorGraphics getVector();
 
     WallGraphics getWall();
 

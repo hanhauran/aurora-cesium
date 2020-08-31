@@ -8,7 +8,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/21
  */
-abstract class PropertyAdapter<P extends Property> {
+abstract class PropertyAdapter<P extends Property<?>> {
 
     protected Interpolations interpolations;
 

@@ -11,7 +11,7 @@ import java.util.function.Consumer;
  * @author hanhaoran
  * @date 2020/8/21
  */
-abstract class SingleTimeBasedPropertyAdapter<T, P extends Property> extends SinglePropertyAdapter<T, P> {
+abstract class SingleTimeBasedPropertyAdapter<T, P extends Property<?>> extends SinglePropertyAdapter<T, P> {
 
     protected List<JulianDate> dates;
 

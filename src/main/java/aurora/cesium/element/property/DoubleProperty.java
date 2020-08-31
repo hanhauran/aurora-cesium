@@ -36,5 +36,5 @@ public interface DoubleProperty extends Property<DoubleCesiumWriter>, Interpolat
     Reference getReference();
 
     @Override
-    void dispatch(Supplier<DoubleCesiumWriter> writer);
+    void dispatch(Supplier<DoubleCesiumWriter> supplier);
 }

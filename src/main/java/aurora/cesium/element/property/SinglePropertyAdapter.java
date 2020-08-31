@@ -10,7 +10,7 @@ import java.util.function.Consumer;
  * @author hanhaoran
  * @date 2020/8/21
  */
-abstract class SinglePropertyAdapter<T, P extends Property> extends PropertyAdapter<P> {
+abstract class SinglePropertyAdapter<T, P extends Property<?>> extends PropertyAdapter<P> {
 
     protected T value;
 
