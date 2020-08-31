@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -16,10 +17,12 @@ public class RotationPropertyImpl extends PropertyAdapter<RotationProperty> impl
     private UnitQuaternionProperty unitQuaternion;
 
     @Override
-    public void dispatch(RotationCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<RotationCesiumWriter> supplier) {
+        try (RotationCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getUnitQuaternion()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchWithoutClose(writer));
-
+            dispatchInterpolations(writer);
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
+            dispatchReference(writer);
         }
     }
 

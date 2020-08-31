@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.StripeOrientationCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,10 +15,10 @@ import java.util.List;
 public class StripeOrientationPropertyImpl extends SinglePropertyAdapter<CesiumStripeOrientation, StripeOrientationProperty> implements StripeOrientationProperty {
 
     @Override
-    public void dispatch(StripeOrientationCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<StripeOrientationCesiumWriter> supplier) {
+        try (StripeOrientationCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeStripeOrientation);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

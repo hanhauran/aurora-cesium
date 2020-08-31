@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -32,18 +33,18 @@ public class PointGraphicsAdapter extends GraphicsAdapter<PointGraphics, PointCe
     private NearFarScalarProperty translucencyByDistance;
 
     @Override
-    public void dispatch(PointCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-            Optional.ofNullable(getDisableDepthTestDistance()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openDisableDepthTestDistanceProperty()));
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
-            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
-            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
-            Optional.ofNullable(getPixelSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openPixelSizeProperty()));
-            Optional.ofNullable(getScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openScaleByDistanceProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openTranslucencyByDistanceProperty()));
+    public void dispatch(Supplier<PointCesiumWriter> supplier) {
+        try (PointCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+            Optional.ofNullable(getDisableDepthTestDistance()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openDisableDepthTestDistanceProperty));
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer::openHeightReferenceProperty));
+            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOutlineColorProperty));
+            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openOutlineWidthProperty));
+            Optional.ofNullable(getPixelSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openPixelSizeProperty));
+            Optional.ofNullable(getScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer::openScaleByDistanceProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer::openTranslucencyByDistanceProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

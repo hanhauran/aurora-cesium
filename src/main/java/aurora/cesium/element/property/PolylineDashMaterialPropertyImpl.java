@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -21,13 +22,13 @@ public class PolylineDashMaterialPropertyImpl extends PropertyAdapter<PolylineDa
     private IntegerProperty dashPattern;
 
     @Override
-    public void dispatch(PolylineDashMaterialCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-            Optional.ofNullable(getGapColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openGapColorProperty()));
-            Optional.ofNullable(getDashLength()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openDashLengthProperty()));
-            Optional.ofNullable(getDashPattern()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openDashPatternProperty()));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<PolylineDashMaterialCesiumWriter> supplier) {
+        try (PolylineDashMaterialCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+            Optional.ofNullable(getGapColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openGapColorProperty));
+            Optional.ofNullable(getDashLength()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openDashLengthProperty));
+            Optional.ofNullable(getDashPattern()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openDashPatternProperty));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

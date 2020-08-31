@@ -3,12 +3,13 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
-public interface PositionListProperty extends IntervalProperty<PositionListProperty>, ReferencesProperty {
+public interface PositionListProperty extends Property<PositionListCesiumWriter>, Intervalable<PositionListProperty>, ListReferenceable {
 
     static PositionListProperty fromCartesians(Iterable<Cartesian> cartesians) {
         return newBuilder().withCartesians(cartesians).build();
@@ -45,5 +46,6 @@ public interface PositionListProperty extends IntervalProperty<PositionListPrope
     @Override
     Iterable<Reference> getReferences();
 
-    void dispatch(PositionListCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<PositionListCesiumWriter> supplier);
 }

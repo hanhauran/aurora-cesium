@@ -5,18 +5,19 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
-public interface RectangleCoordinatesProperty extends InterpolatableProperty, IntervalProperty<RectangleCoordinatesProperty>, ReferenceProperty {
+public interface RectangleCoordinatesProperty extends Property<RectangleCoordinatesCesiumWriter>, Interpolatable, Intervalable<RectangleCoordinatesProperty>, Referenceable {
 
-    static RectangleCoordinatesProperty fromWsen(CartographicExtentProperty extentProperty) {
+    static RectangleCoordinatesProperty from(CartographicRectangleRadiansProperty extentProperty) {
         return newBuilder().withWsen(extentProperty).build();
     }
 
-    static RectangleCoordinatesProperty fromWsenDegrees(CartographicExtentProperty extentProperty) {
+    static RectangleCoordinatesProperty from(CartographicRectangleDegreesProperty extentProperty) {
         return newBuilder().withWsenDegrees(extentProperty).build();
     }
 
@@ -28,9 +29,9 @@ public interface RectangleCoordinatesProperty extends InterpolatableProperty, In
         return RectangleCoordinatesPropertyImpl.Builder.newBuilder();
     }
 
-    CartographicExtentProperty getWsen();
+    CartographicRectangleRadiansProperty getWsen();
 
-    CartographicExtentProperty getWsenDegrees();
+    CartographicRectangleDegreesProperty getWsenDegrees();
 
     @Override
     Interpolations getInterpolations();
@@ -44,5 +45,6 @@ public interface RectangleCoordinatesProperty extends InterpolatableProperty, In
     @Override
     Reference getReference();
 
-    void dispatch(RectangleCoordinatesCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<RectangleCoordinatesCesiumWriter> supplier);
 }

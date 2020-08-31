@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -15,9 +16,9 @@ public class ArticulationsPropertyImpl extends PropertyAdapter<ArticulationsProp
     private List<ArticulationProperty> articulations;
 
     @Override
-    public void dispatch(ArticulationsCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getArticulations()).ifPresent(properties -> properties.forEach(property -> property.dispatch(writer.openArticulationProperty(property.getName()))));
+    public void dispatch(Supplier<ArticulationsCesiumWriter> supplier) {
+        try (ArticulationsCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getArticulations()).ifPresent(properties -> properties.forEach(property -> property.dispatch(() -> writer.openArticulationProperty(property.getName()))));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

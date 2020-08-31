@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.ImageMaterialCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface ImageMaterialProperty extends IntervalProperty<ImageMaterialProperty> {
+public interface ImageMaterialProperty extends Property<ImageMaterialCesiumWriter>, Intervalable<ImageMaterialProperty> {
 
     static ImageMaterialPropertyImpl.Builder newBuilder() {
         return ImageMaterialPropertyImpl.Builder.newBuilder();
@@ -29,5 +30,6 @@ public interface ImageMaterialProperty extends IntervalProperty<ImageMaterialPro
     @Override
     List<ImageMaterialProperty> getIntervals();
 
-    void dispatch(ImageMaterialCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ImageMaterialCesiumWriter> supplier);
 }

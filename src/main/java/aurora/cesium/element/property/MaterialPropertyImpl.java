@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -23,14 +24,14 @@ public class MaterialPropertyImpl extends PropertyAdapter<MaterialProperty> impl
     private StripeMaterialProperty stripeMaterial;
 
     @Override
-    public void dispatch(MaterialCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getCheckerboardMaterial()).ifPresent(checkerboardMaterialProperty -> checkerboardMaterialProperty.dispatch(writer.openCheckerboardProperty()));
-            Optional.ofNullable(getGridMaterial()).ifPresent(gridMaterialProperty -> gridMaterialProperty.dispatch(writer.openGridProperty()));
-            Optional.ofNullable(getImageMaterial()).ifPresent(imageMaterialProperty -> imageMaterialProperty.dispatch(writer.openImageProperty()));
-            Optional.ofNullable(getSolidColorMaterial()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer.openSolidColorProperty()));
-            Optional.ofNullable(getStripeMaterial()).ifPresent(stripeMaterialProperty -> stripeMaterialProperty.dispatch(writer.openStripeProperty()));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<MaterialCesiumWriter> supplier) {
+        try (MaterialCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getCheckerboardMaterial()).ifPresent(checkerboardMaterialProperty -> checkerboardMaterialProperty.dispatch(writer::openCheckerboardProperty));
+            Optional.ofNullable(getGridMaterial()).ifPresent(gridMaterialProperty -> gridMaterialProperty.dispatch(writer::openGridProperty));
+            Optional.ofNullable(getImageMaterial()).ifPresent(imageMaterialProperty -> imageMaterialProperty.dispatch(writer::openImageProperty));
+            Optional.ofNullable(getSolidColorMaterial()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer::openSolidColorProperty));
+            Optional.ofNullable(getStripeMaterial()).ifPresent(stripeMaterialProperty -> stripeMaterialProperty.dispatch(writer::openStripeProperty));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.CheckerboardMaterialCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface CheckerboardMaterialProperty extends IntervalProperty<CheckerboardMaterialProperty> {
+public interface CheckerboardMaterialProperty extends Property<CheckerboardMaterialCesiumWriter>, Intervalable<CheckerboardMaterialProperty> {
 
     static CheckerboardMaterialPropertyImpl.Builder newBuilder() {
         return CheckerboardMaterialPropertyImpl.Builder.newBuilder();
@@ -27,5 +28,6 @@ public interface CheckerboardMaterialProperty extends IntervalProperty<Checkerbo
     @Override
     List<CheckerboardMaterialProperty> getIntervals();
 
-    void dispatch(CheckerboardMaterialCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<CheckerboardMaterialCesiumWriter> supplier);
 }

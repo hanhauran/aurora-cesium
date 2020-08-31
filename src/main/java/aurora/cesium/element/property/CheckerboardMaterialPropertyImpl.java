@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -19,11 +20,11 @@ public class CheckerboardMaterialPropertyImpl extends PropertyAdapter<Checkerboa
     private RepeatProperty repeat;
 
     @Override
-    public void dispatch(CheckerboardMaterialCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getEvenColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openEvenColorProperty()));
-            Optional.ofNullable(getOddColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOddColorProperty()));
-            Optional.ofNullable(getRepeat()).ifPresent(repeatProperty -> repeatProperty.dispatch(writer.openRepeatProperty()));
+    public void dispatch(Supplier<CheckerboardMaterialCesiumWriter> supplier) {
+        try (CheckerboardMaterialCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getEvenColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openEvenColorProperty));
+            Optional.ofNullable(getOddColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOddColorProperty));
+            Optional.ofNullable(getRepeat()).ifPresent(repeatProperty -> repeatProperty.dispatch(writer::openRepeatProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

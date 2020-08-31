@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface HeightReferenceProperty extends IntervalProperty<HeightReferenceProperty>, ReferenceProperty {
+public interface HeightReferenceProperty extends Property<HeightReferenceCesiumWriter>, Intervalable<HeightReferenceProperty>, Referenceable {
 
     static HeightReferenceProperty from(CesiumHeightReference value) {
         return newBuilder().withValue(value).build();
@@ -34,5 +35,6 @@ public interface HeightReferenceProperty extends IntervalProperty<HeightReferenc
     @Override
     Reference getReference();
 
-    void dispatch(HeightReferenceCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<HeightReferenceCesiumWriter> supplier);
 }

@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.NearFarScalar;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -60,7 +61,7 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     /**
      * Gets or sets the string Property specifying the font in CSS syntax.
      */
-    StringProperty getFont();
+    FontProperty getFont();
 
     /**
      * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHeightReference}.
@@ -158,5 +159,5 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     List<LabelGraphics> getIntervals();
 
     @Override
-    void dispatch(LabelCesiumWriter writer);
+    void dispatch(Supplier<LabelCesiumWriter> supplier);
 }

@@ -5,12 +5,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface BooleanProperty extends IntervalProperty<BooleanProperty>, ReferenceProperty {
+public interface BooleanProperty extends Property<BooleanCesiumWriter>, Intervalable<BooleanProperty>, Referenceable {
 
     static BooleanProperty from(Boolean value) {
         return newBuilder().withValue(value).build();
@@ -33,5 +34,6 @@ public interface BooleanProperty extends IntervalProperty<BooleanProperty>, Refe
     @Override
     Reference getReference();
 
-    void dispatch(BooleanCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<BooleanCesiumWriter> supplier);
 }

@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.UnitQuaternion;
 import aurora.cesium.language.writer.advanced.ICesiumUnitQuaternionValuePropertyWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran

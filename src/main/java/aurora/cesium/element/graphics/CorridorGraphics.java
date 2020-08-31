@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.CorridorCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -22,5 +23,5 @@ public interface CorridorGraphics extends Graphics<CorridorGraphics, CorridorCes
     List<CorridorGraphics> getIntervals();
 
     @Override
-    void dispatch(CorridorCesiumWriter writer);
+    void dispatch(Supplier<CorridorCesiumWriter> supplier);
 }

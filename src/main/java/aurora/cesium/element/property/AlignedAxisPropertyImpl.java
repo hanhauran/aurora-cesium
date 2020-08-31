@@ -4,6 +4,7 @@ import aurora.cesium.language.writer.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -16,12 +17,12 @@ public class AlignedAxisPropertyImpl extends PropertyAdapter<AlignedAxisProperty
     private UnitSphericalProperty unitSpherical;
 
     @Override
-    public void dispatch(AlignedAxisCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<AlignedAxisCesiumWriter> supplier) {
+        try (AlignedAxisCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getUnitCartesian()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchWithoutClose(writer));
-            Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchUnitSpherical(writer));
+            Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchWithoutClose(writer));
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

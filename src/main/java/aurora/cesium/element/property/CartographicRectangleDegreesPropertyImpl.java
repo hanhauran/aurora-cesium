@@ -2,23 +2,18 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.CartographicExtent;
 import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.RectangleCoordinatesCesiumWriter;
+import aurora.cesium.language.writer.advanced.ICesiumCartographicRectangleDegreesValuePropertyWriter;
 
 import java.util.List;
 
 /**
  * @author hanhaoran
- * @date 2020/8/27
+ * @date 2020/8/31
  */
-public class CartographicExtentPropertyImpl extends SingleTimeBasedPropertyAdapter<CartographicExtent, CartographicExtentProperty> implements CartographicExtentProperty {
+public class CartographicRectangleDegreesPropertyImpl extends SingleTimeBasedPropertyAdapter<CartographicExtent, CartographicRectangleDegreesProperty> implements CartographicRectangleDegreesProperty {
 
     @Override
-    public void dispatchWsen(RectangleCoordinatesCesiumWriter writer) {
-        dispatchConsumer(writer::writeWsen, writer::writeWsen, writer::writeWsen);
-    }
-
-    @Override
-    public void dispatchWsenDegrees(RectangleCoordinatesCesiumWriter writer) {
+    public void dispatchWithoutClose(ICesiumCartographicRectangleDegreesValuePropertyWriter writer) {
         dispatchConsumer(writer::writeWsenDegrees, writer::writeWsenDegrees, writer::writeWsenDegrees);
     }
 
@@ -55,14 +50,14 @@ public class CartographicExtentPropertyImpl extends SingleTimeBasedPropertyAdapt
             return this;
         }
 
-        public CartographicExtentPropertyImpl build() {
-            CartographicExtentPropertyImpl cartographicExtentPropertyImpl = new CartographicExtentPropertyImpl();
-            cartographicExtentPropertyImpl.setDates(dates);
-            cartographicExtentPropertyImpl.setValues(values);
-            cartographicExtentPropertyImpl.setStartIndex(startIndex);
-            cartographicExtentPropertyImpl.setLength(length);
-            cartographicExtentPropertyImpl.setValue(value);
-            return cartographicExtentPropertyImpl;
+        public CartographicRectangleDegreesPropertyImpl build() {
+            CartographicRectangleDegreesPropertyImpl cartographicRectangleDegreesPropertyImpl = new CartographicRectangleDegreesPropertyImpl();
+            cartographicRectangleDegreesPropertyImpl.setDates(dates);
+            cartographicRectangleDegreesPropertyImpl.setValues(values);
+            cartographicRectangleDegreesPropertyImpl.setStartIndex(startIndex);
+            cartographicRectangleDegreesPropertyImpl.setLength(length);
+            cartographicRectangleDegreesPropertyImpl.setValue(value);
+            return cartographicRectangleDegreesPropertyImpl;
         }
     }
 }

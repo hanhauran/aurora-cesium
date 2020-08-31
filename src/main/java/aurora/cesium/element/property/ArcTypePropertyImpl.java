@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,10 +15,10 @@ import java.util.List;
 public class ArcTypePropertyImpl extends SinglePropertyAdapter<CesiumArcType, ArcTypeProperty> implements ArcTypeProperty {
 
     @Override
-    public void dispatch(ArcTypeCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<ArcTypeCesiumWriter> supplier) {
+        try (ArcTypeCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeArcType);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

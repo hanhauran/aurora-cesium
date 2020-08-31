@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,10 +15,10 @@ import java.util.List;
 public class HorizontalOriginPropertyImpl extends SinglePropertyAdapter<CesiumHorizontalOrigin, HorizontalOriginProperty> implements HorizontalOriginProperty {
 
     @Override
-    public void dispatch(HorizontalOriginCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<HorizontalOriginCesiumWriter> supplier) {
+        try (HorizontalOriginCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeHorizontalOrigin);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -16,10 +17,10 @@ public class BoxDimensionsPropertyImpl extends PropertyAdapter<BoxDimensionsProp
     private CartesianProperty cartesian;
 
     @Override
-    public void dispatch(BoxDimensionsCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchCartesian(writer));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<BoxDimensionsCesiumWriter> supplier) {
+        try (BoxDimensionsCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

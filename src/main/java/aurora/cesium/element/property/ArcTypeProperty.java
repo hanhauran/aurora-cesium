@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/27
  */
-public interface ArcTypeProperty extends IntervalProperty<ArcTypeProperty>, ReferenceProperty {
+public interface ArcTypeProperty extends Property<ArcTypeCesiumWriter>, Intervalable<ArcTypeProperty>, Referenceable {
 
     static ArcTypeProperty from(CesiumArcType arcType) {
         return newBuilder().withValue(arcType).build();
@@ -34,5 +35,6 @@ public interface ArcTypeProperty extends IntervalProperty<ArcTypeProperty>, Refe
     @Override
     Reference getReference();
 
-    void dispatch(ArcTypeCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ArcTypeCesiumWriter> supplier);
 }

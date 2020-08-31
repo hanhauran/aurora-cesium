@@ -7,7 +7,7 @@ import aurora.cesium.language.writer.advanced.ICesiumUnitQuaternionValueProperty
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface UnitQuaternionProperty extends Property {
+public interface UnitQuaternionProperty extends Property<ICesiumUnitQuaternionValuePropertyWriter> {
 
     static UnitQuaternionProperty from(UnitQuaternion unitQuaternion) {
         return newBuilder().withValue(unitQuaternion).build();
@@ -17,5 +17,6 @@ public interface UnitQuaternionProperty extends Property {
         return UnitQuaternionPropertyImpl.Builder.newBuilder();
     }
 
+    @Override
     void dispatchWithoutClose(ICesiumUnitQuaternionValuePropertyWriter writer);
 }

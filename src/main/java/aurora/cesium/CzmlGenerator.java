@@ -45,10 +45,10 @@ public final class CzmlGenerator {
     }
 
     private void writeEntity(CesiumOutputStream cos, CesiumStreamWriter csw, Entity entity) {
-        Optional.ofNullable(entity).ifPresent(et -> et.dispatch(csw.openPacket(cos)));
+        Optional.ofNullable(entity).ifPresent(et -> et.dispatch(() -> csw.openPacket(cos)));
     }
 
     private void writeStartElement(CesiumOutputStream cos, CesiumStreamWriter csw, StartElement startElement) {
-        Optional.ofNullable(startElement).ifPresent(se -> se.dispatch(csw.openPacket(cos)));
+        Optional.ofNullable(startElement).ifPresent(se -> se.dispatch(() -> csw.openPacket(cos)));
     }
 }

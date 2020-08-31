@@ -3,6 +3,7 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -11,11 +12,11 @@ import java.util.List;
 public class BoundingRectanglePropertyImpl extends SingleTimeBasedPropertyAdapter<BoundingRectangle, BoundingRectangleProperty> implements BoundingRectangleProperty {
 
     @Override
-    public void dispatch(BoundingRectangleCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<BoundingRectangleCesiumWriter> supplier) {
+        try (BoundingRectangleCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeBoundingRectangle, writer::writeBoundingRectangle, writer::writeBoundingRectangle);
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

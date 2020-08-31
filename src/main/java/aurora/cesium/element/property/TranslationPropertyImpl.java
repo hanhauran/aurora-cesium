@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TranslationCesiumWriter;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -16,11 +17,11 @@ public class TranslationPropertyImpl extends PropertyAdapter<TranslationProperty
     private CartesianProperty cartesian;
 
     @Override
-    public void dispatch(TranslationCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchCartesian(writer));
+    public void dispatch(Supplier<TranslationCesiumWriter> supplier) {
+        try (TranslationCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface LineThicknessProperty extends InterpolatableProperty, IntervalProperty<LineThicknessProperty>, ReferenceProperty {
+public interface LineThicknessProperty extends Property<LineThicknessCesiumWriter>, Interpolatable, Intervalable<LineThicknessProperty>, Referenceable {
 
     static LineThicknessProperty from(Rectangular rectangular) {
         return from(RectangularProperty.from(rectangular));
@@ -41,5 +42,6 @@ public interface LineThicknessProperty extends InterpolatableProperty, IntervalP
     @Override
     Reference getReference();
 
-    void dispatch(LineThicknessCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<LineThicknessCesiumWriter> supplier);
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface ReferenceProperty extends Property {
+public interface Referenceable {
 
     Reference getReference();
 

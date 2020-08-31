@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.PacketCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface AvailabilityProperty extends Property {
+public interface AvailabilityProperty extends Property<PacketCesiumWriter> {
 
     static AvailabilityProperty from(TimeInterval interval) {
         return newBuilder().withInterval(interval).build();
@@ -23,5 +24,6 @@ public interface AvailabilityProperty extends Property {
         return AvailabilityPropertyImpl.Builder.newBuilder();
     }
 
-    void dispatchAvailability(PacketCesiumWriter writer);
+    @Override
+    void dispatchWithoutClose(PacketCesiumWriter writer);
 }

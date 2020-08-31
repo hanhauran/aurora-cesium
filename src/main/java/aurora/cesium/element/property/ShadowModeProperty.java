@@ -4,11 +4,13 @@ import aurora.cesium.language.writer.CesiumShadowMode;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.ShadowModeCesiumWriter;
 
+import java.util.function.Supplier;
+
 /**
  * @author hanhaoran
  * @date 2020/8/22
  */
-public interface ShadowModeProperty extends Property, ReferenceProperty {
+public interface ShadowModeProperty extends Property<ShadowModeCesiumWriter>, Referenceable {
 
     static ShadowModeProperty from(CesiumShadowMode shadowMode) {
         return newBuilder().withValue(shadowMode).build();
@@ -25,5 +27,6 @@ public interface ShadowModeProperty extends Property, ReferenceProperty {
     @Override
     Reference getReference();
 
-    void dispatch(ShadowModeCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ShadowModeCesiumWriter> supplier);
 }

@@ -3,12 +3,13 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface AlignedAxisProperty extends InterpolatableProperty, IntervalProperty<AlignedAxisProperty>, ReferenceProperty {
+public interface AlignedAxisProperty extends Property<AlignedAxisCesiumWriter>, Interpolatable, Intervalable<AlignedAxisProperty>, Referenceable {
 
     static AlignedAxisProperty from(UnitCartesian unitCartesian) {
         return from(UnitCartesianProperty.from(unitCartesian));
@@ -50,5 +51,6 @@ public interface AlignedAxisProperty extends InterpolatableProperty, IntervalPro
     @Override
     Reference getReference();
 
-    void dispatch(AlignedAxisCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<AlignedAxisCesiumWriter> supplier);
 }

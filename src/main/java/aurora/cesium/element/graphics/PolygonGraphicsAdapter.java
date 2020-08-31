@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -15,11 +16,11 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
 
     private ArcTypeProperty arcType;
 
-    private BooleanProperty closeTop;
+    private ClassificationTypeProperty classificationType;
 
     private BooleanProperty closeBottom;
 
-    private ClassificationTypeProperty classificationType;
+    private BooleanProperty closeTop;
 
     private DistanceDisplayConditionProperty distanceDisplayCondition;
 
@@ -34,6 +35,8 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
     private DoubleProperty height;
 
     private HeightReferenceProperty heightReference;
+
+    private PositionListOfListsProperty holes;
 
     private MaterialProperty material;
 
@@ -54,29 +57,30 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
     private IntegerProperty zIndex;
 
     @Override
-    public void dispatch(PolygonCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getArcType()).ifPresent(arcTypeProperty -> arcTypeProperty.dispatch(writer.openArcTypeProperty()));
-            Optional.ofNullable(getCloseTop()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openCloseTopProperty()));
-            Optional.ofNullable(getCloseBottom()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openCloseBottomProperty()));
-            Optional.ofNullable(getClassificationType()).ifPresent(classificationTypeProperty -> classificationTypeProperty.dispatch(writer.openClassificationTypeProperty()));
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getExtrudedHeight()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openExtrudedHeightProperty()));
-            Optional.ofNullable(getExtrudedHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openExtrudedHeightReferenceProperty()));
-            Optional.ofNullable(getFill()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openFillProperty()));
-            Optional.ofNullable(getGranularity()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openGranularityProperty()));
-            Optional.ofNullable(getHeight()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openHeightProperty()));
-            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
-            Optional.ofNullable(getMaterial()).ifPresent(materialProperty -> materialProperty.dispatch(writer.openMaterialProperty()));
-            Optional.ofNullable(getOutline()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openOutlineProperty()));
-            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
-            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
-            Optional.ofNullable(getPerPositionHeight()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openPerPositionHeightProperty()));
-            Optional.ofNullable(getPositions()).ifPresent(positionListProperty -> positionListProperty.dispatch(writer.openPositionsProperty()));
-            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getStRotation()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openStRotationProperty()));
-            Optional.ofNullable(getZIndex()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openZIndexProperty()));
+    public void dispatch(Supplier<PolygonCesiumWriter> supplier) {
+        try (PolygonCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getArcType()).ifPresent(arcTypeProperty -> arcTypeProperty.dispatch(writer::openArcTypeProperty));
+            Optional.ofNullable(getClassificationType()).ifPresent(classificationTypeProperty -> classificationTypeProperty.dispatch(writer::openClassificationTypeProperty));
+            Optional.ofNullable(getCloseBottom()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openCloseBottomProperty));
+            Optional.ofNullable(getCloseTop()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openCloseTopProperty));
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getExtrudedHeight()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openExtrudedHeightProperty));
+            Optional.ofNullable(getExtrudedHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer::openExtrudedHeightReferenceProperty));
+            Optional.ofNullable(getFill()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openFillProperty));
+            Optional.ofNullable(getGranularity()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openGranularityProperty));
+            Optional.ofNullable(getHeight()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openHeightProperty));
+            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer::openHeightReferenceProperty));
+            Optional.ofNullable(getHoles()).ifPresent(positionListOfListsProperty -> positionListOfListsProperty.dispatch(writer::openHolesProperty));
+            Optional.ofNullable(getMaterial()).ifPresent(materialProperty -> materialProperty.dispatch(writer::openMaterialProperty));
+            Optional.ofNullable(getOutline()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openOutlineProperty));
+            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOutlineColorProperty));
+            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openOutlineWidthProperty));
+            Optional.ofNullable(getPerPositionHeight()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openPerPositionHeightProperty));
+            Optional.ofNullable(getPositions()).ifPresent(positionListProperty -> positionListProperty.dispatch(writer::openPositionsProperty));
+            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer::openShadowsProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getStRotation()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openStRotationProperty));
+            Optional.ofNullable(getZIndex()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openZIndexProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
@@ -91,12 +95,12 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
     }
 
     @Override
-    public BooleanProperty getCloseTop() {
-        return closeTop;
+    public ClassificationTypeProperty getClassificationType() {
+        return classificationType;
     }
 
-    public void setCloseTop(BooleanProperty closeTop) {
-        this.closeTop = closeTop;
+    public void setClassificationType(ClassificationTypeProperty classificationType) {
+        this.classificationType = classificationType;
     }
 
     @Override
@@ -109,12 +113,12 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
     }
 
     @Override
-    public ClassificationTypeProperty getClassificationType() {
-        return classificationType;
+    public BooleanProperty getCloseTop() {
+        return closeTop;
     }
 
-    public void setClassificationType(ClassificationTypeProperty classificationType) {
-        this.classificationType = classificationType;
+    public void setCloseTop(BooleanProperty closeTop) {
+        this.closeTop = closeTop;
     }
 
     @Override
@@ -178,6 +182,15 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
 
     public void setHeightReference(HeightReferenceProperty heightReference) {
         this.heightReference = heightReference;
+    }
+
+    @Override
+    public PositionListOfListsProperty getHoles() {
+        return holes;
+    }
+
+    public void setHoles(PositionListOfListsProperty holes) {
+        this.holes = holes;
     }
 
     @Override
@@ -252,6 +265,7 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
         this.stRotation = stRotation;
     }
 
+    @Override
     public IntegerProperty getZIndex() {
         return zIndex;
     }
@@ -261,10 +275,11 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
     }
 
     public static final class Builder {
+        protected BooleanProperty show;
         private ArcTypeProperty arcType;
-        private BooleanProperty closeTop;
-        private BooleanProperty closeBottom;
         private ClassificationTypeProperty classificationType;
+        private BooleanProperty closeBottom;
+        private BooleanProperty closeTop;
         private DistanceDisplayConditionProperty distanceDisplayCondition;
         private DoubleProperty extrudedHeight;
         private HeightReferenceProperty extrudedHeightReference;
@@ -272,6 +287,7 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
         private DoubleProperty granularity;
         private DoubleProperty height;
         private HeightReferenceProperty heightReference;
+        private PositionListOfListsProperty holes;
         private MaterialProperty material;
         private BooleanProperty outline;
         private ColorProperty outlineColor;
@@ -279,12 +295,11 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
         private BooleanProperty perPositionHeight;
         private PositionListProperty positions;
         private ShadowModeProperty shadows;
-        private BooleanProperty show;
         private DoubleProperty stRotation;
         private IntegerProperty zIndex;
 
-        private TimeInterval interval;
-        private List<PolygonGraphics> intervals;
+        protected TimeInterval interval;
+        protected List<PolygonGraphics> intervals;
 
         private Builder() {
         }
@@ -298,8 +313,8 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
             return this;
         }
 
-        public Builder withCloseTop(BooleanProperty closeTop) {
-            this.closeTop = closeTop;
+        public Builder withClassificationType(ClassificationTypeProperty classificationType) {
+            this.classificationType = classificationType;
             return this;
         }
 
@@ -308,8 +323,8 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
             return this;
         }
 
-        public Builder withClassificationType(ClassificationTypeProperty classificationType) {
-            this.classificationType = classificationType;
+        public Builder withCloseTop(BooleanProperty closeTop) {
+            this.closeTop = closeTop;
             return this;
         }
 
@@ -345,6 +360,11 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
 
         public Builder withHeightReference(HeightReferenceProperty heightReference) {
             this.heightReference = heightReference;
+            return this;
+        }
+
+        public Builder withHoles(PositionListOfListsProperty holes) {
+            this.holes = holes;
             return this;
         }
 
@@ -411,9 +431,9 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
         public PolygonGraphicsAdapter build() {
             PolygonGraphicsAdapter polygonGraphicsAdapter = new PolygonGraphicsAdapter();
             polygonGraphicsAdapter.setArcType(arcType);
-            polygonGraphicsAdapter.setCloseTop(closeTop);
-            polygonGraphicsAdapter.setCloseBottom(closeBottom);
             polygonGraphicsAdapter.setClassificationType(classificationType);
+            polygonGraphicsAdapter.setCloseBottom(closeBottom);
+            polygonGraphicsAdapter.setCloseTop(closeTop);
             polygonGraphicsAdapter.setDistanceDisplayCondition(distanceDisplayCondition);
             polygonGraphicsAdapter.setExtrudedHeight(extrudedHeight);
             polygonGraphicsAdapter.setExtrudedHeightReference(extrudedHeightReference);
@@ -421,6 +441,7 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
             polygonGraphicsAdapter.setGranularity(granularity);
             polygonGraphicsAdapter.setHeight(height);
             polygonGraphicsAdapter.setHeightReference(heightReference);
+            polygonGraphicsAdapter.setHoles(holes);
             polygonGraphicsAdapter.setMaterial(material);
             polygonGraphicsAdapter.setOutline(outline);
             polygonGraphicsAdapter.setOutlineColor(outlineColor);
@@ -429,10 +450,10 @@ public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, Pol
             polygonGraphicsAdapter.setPositions(positions);
             polygonGraphicsAdapter.setShadows(shadows);
             polygonGraphicsAdapter.setStRotation(stRotation);
-            polygonGraphicsAdapter.setZIndex(zIndex);
             polygonGraphicsAdapter.setShow(show);
             polygonGraphicsAdapter.setInterval(interval);
             polygonGraphicsAdapter.setIntervals(intervals);
+            polygonGraphicsAdapter.zIndex = this.zIndex;
             return polygonGraphicsAdapter;
         }
     }

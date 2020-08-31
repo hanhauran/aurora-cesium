@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -40,22 +41,22 @@ public class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderGraphics, C
     private DoubleProperty topRadius;
 
     @Override
-    public void dispatch(CylinderCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getBottomRadius()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openBottomRadiusProperty()));
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getFill()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openFillProperty()));
-            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
-            Optional.ofNullable(getLength()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openLengthProperty()));
-            Optional.ofNullable(getMaterial()).ifPresent(materialProperty -> materialProperty.dispatch(writer.openMaterialProperty()));
-            Optional.ofNullable(getNumberOfVerticalLines()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openNumberOfVerticalLinesProperty()));
-            Optional.ofNullable(getOutline()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openOutlineProperty()));
-            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
-            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
-            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getSlices()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openSlicesProperty()));
-            Optional.ofNullable(getTopRadius()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openTopRadiusProperty()));
+    public void dispatch(Supplier<CylinderCesiumWriter> supplier) {
+        try (CylinderCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getBottomRadius()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openBottomRadiusProperty));
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getFill()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openFillProperty));
+            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer::openHeightReferenceProperty));
+            Optional.ofNullable(getLength()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openLengthProperty));
+            Optional.ofNullable(getMaterial()).ifPresent(materialProperty -> materialProperty.dispatch(writer::openMaterialProperty));
+            Optional.ofNullable(getNumberOfVerticalLines()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openNumberOfVerticalLinesProperty));
+            Optional.ofNullable(getOutline()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openOutlineProperty));
+            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOutlineColorProperty));
+            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openOutlineWidthProperty));
+            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer::openShadowsProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getSlices()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openSlicesProperty));
+            Optional.ofNullable(getTopRadius()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openTopRadiusProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

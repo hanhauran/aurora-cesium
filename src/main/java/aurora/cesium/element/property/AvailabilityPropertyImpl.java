@@ -17,7 +17,7 @@ public class AvailabilityPropertyImpl implements AvailabilityProperty {
     private List<TimeInterval> intervals;
 
     @Override
-    public void dispatchAvailability(PacketCesiumWriter writer) {
+    public void dispatchWithoutClose(PacketCesiumWriter writer) {
         Optional.ofNullable(getInterval()).ifPresent(writer::writeAvailability);
         Optional.ofNullable(getIntervals()).ifPresent(writer::writeAvailability);
     }

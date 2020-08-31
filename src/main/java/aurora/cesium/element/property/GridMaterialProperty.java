@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.GridMaterialCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface GridMaterialProperty extends IntervalProperty<GridMaterialProperty> {
+public interface GridMaterialProperty extends Property<GridMaterialCesiumWriter>, Intervalable<GridMaterialProperty> {
 
     static GridMaterialPropertyImpl.Builder newBuilder() {
         return GridMaterialPropertyImpl.Builder.newBuilder();
@@ -31,5 +32,6 @@ public interface GridMaterialProperty extends IntervalProperty<GridMaterialPrope
     @Override
     List<GridMaterialProperty> getIntervals();
 
-    void dispatch(GridMaterialCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<GridMaterialCesiumWriter> supplier);
 }

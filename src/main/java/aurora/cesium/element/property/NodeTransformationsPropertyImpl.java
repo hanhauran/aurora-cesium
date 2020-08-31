@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -15,10 +16,10 @@ public class NodeTransformationsPropertyImpl extends PropertyAdapter<NodeTransfo
     private List<NodeTransformationProperty> nodeTransformations;
 
     @Override
-    public void dispatch(NodeTransformationsCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getNodeTransformations()).ifPresent(properties -> properties.forEach(property -> property.dispatch(writer.openNodeTransformationProperty(property.getName()))));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<NodeTransformationsCesiumWriter> supplier) {
+        try (NodeTransformationsCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getNodeTransformations()).ifPresent(properties -> properties.forEach(property -> property.dispatch(() -> writer.openNodeTransformationProperty(property.getName()))));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

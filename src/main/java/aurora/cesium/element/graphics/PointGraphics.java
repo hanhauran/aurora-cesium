@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.PointCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -44,5 +45,5 @@ public interface PointGraphics extends Graphics<PointGraphics, PointCesiumWriter
     List<PointGraphics> getIntervals();
 
     @Override
-    void dispatch(PointCesiumWriter writer);
+    void dispatch(Supplier<PointCesiumWriter> supplier);
 }

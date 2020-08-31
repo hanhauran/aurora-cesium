@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface ClassificationTypeProperty extends IntervalProperty<ClassificationTypeProperty>, ReferenceProperty {
+public interface ClassificationTypeProperty extends Property<ClassificationTypeCesiumWriter>, Intervalable<ClassificationTypeProperty>, Referenceable {
 
     static ClassificationTypeProperty from(CesiumClassificationType type) {
         return newBuilder().withValue(type).build();
@@ -36,5 +37,6 @@ public interface ClassificationTypeProperty extends IntervalProperty<Classificat
     @Override
     Reference getReference();
 
-    void dispatch(ClassificationTypeCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ClassificationTypeCesiumWriter> supplier);
 }

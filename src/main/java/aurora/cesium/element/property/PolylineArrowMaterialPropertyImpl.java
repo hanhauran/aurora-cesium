@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -15,10 +16,10 @@ public class PolylineArrowMaterialPropertyImpl extends PropertyAdapter<PolylineA
     private ColorProperty color;
 
     @Override
-    public void dispatch(PolylineArrowMaterialCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<PolylineArrowMaterialCesiumWriter> supplier) {
+        try (PolylineArrowMaterialCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

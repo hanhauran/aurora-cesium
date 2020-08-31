@@ -5,11 +5,13 @@ import aurora.cesium.language.writer.Cartesian;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
+import java.util.function.Supplier;
+
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface BoxDimensionsProperty extends IntervalProperty<BoxDimensionsProperty>, ReferenceProperty {
+public interface BoxDimensionsProperty extends Property<BoxDimensionsCesiumWriter>, Intervalable<BoxDimensionsProperty>, Referenceable {
 
     static BoxDimensionsProperty from(Cartesian cartesian) {
         return from(CartesianProperty.from(cartesian));
@@ -35,5 +37,6 @@ public interface BoxDimensionsProperty extends IntervalProperty<BoxDimensionsPro
     @Override
     Reference getReference();
 
-    void dispatch(BoxDimensionsCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<BoxDimensionsCesiumWriter> supplier);
 }

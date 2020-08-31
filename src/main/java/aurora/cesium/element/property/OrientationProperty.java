@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.UnitQuaternion;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface OrientationProperty extends InterpolatableProperty, IntervalProperty<OrientationProperty>, ReferenceProperty {
+public interface OrientationProperty extends Property<OrientationCesiumWriter>, Interpolatable, Intervalable<OrientationProperty>, Referenceable {
 
     static OrientationProperty from(UnitQuaternion unitQuaternion) {
         return newBuilder().withValue(unitQuaternion).build();
@@ -37,5 +38,6 @@ public interface OrientationProperty extends InterpolatableProperty, IntervalPro
     @Override
     Reference getReference();
 
-    void dispatch(OrientationCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<OrientationCesiumWriter> supplier);
 }

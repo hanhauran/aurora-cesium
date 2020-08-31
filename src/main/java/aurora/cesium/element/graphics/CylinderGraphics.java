@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.CylinderCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -95,5 +96,5 @@ public interface CylinderGraphics extends Graphics<CylinderGraphics, CylinderCes
     List<CylinderGraphics> getIntervals();
 
     @Override
-    void dispatch(CylinderCesiumWriter writer);
+    void dispatch(Supplier<CylinderCesiumWriter> supplier);
 }

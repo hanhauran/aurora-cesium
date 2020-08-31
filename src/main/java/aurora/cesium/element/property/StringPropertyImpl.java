@@ -1,11 +1,11 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.FontCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.StringCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,19 +14,10 @@ import java.util.List;
 public class StringPropertyImpl extends SinglePropertyAdapter<String, StringProperty> implements StringProperty {
 
     @Override
-    public void dispatch(StringCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<StringCesiumWriter> supplier) {
+        try (StringCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeString);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
-            dispatchReference(writer);
-        }
-    }
-
-    @Override
-    public void dispatch(FontCesiumWriter writer) {
-        try (writer) {
-            dispatchConsumer(writer::writeFont);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

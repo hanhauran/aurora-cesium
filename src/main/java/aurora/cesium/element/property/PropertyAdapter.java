@@ -18,7 +18,9 @@ abstract class PropertyAdapter<P extends Property> {
 
     protected Reference reference;
 
-    protected Iterable<Reference> references;
+    protected Iterable<Reference> referenceList;
+
+    protected Iterable<? extends Iterable<? extends Reference>> referenceListOfLists;
 
     public PropertyAdapter() {}
 

@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,11 +15,11 @@ import java.util.List;
 public class DoublePropertyImpl extends SingleTimeBasedPropertyAdapter<Double, DoubleProperty> implements DoubleProperty {
 
     @Override
-    public void dispatch(DoubleCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<DoubleCesiumWriter> supplier) {
+        try (DoubleCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeNumber, writer::writeNumber, writer::writeNumber);
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

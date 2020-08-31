@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.ArticulationsCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface ArticulationsProperty extends IntervalProperty<ArticulationsProperty> {
+public interface ArticulationsProperty extends Property<ArticulationsCesiumWriter>, Intervalable<ArticulationsProperty> {
 
     static ArticulationsProperty from(List<ArticulationProperty> articulations) {
         return newBuilder().withArticulations(articulations).build();
@@ -27,5 +28,6 @@ public interface ArticulationsProperty extends IntervalProperty<ArticulationsPro
     @Override
     List<ArticulationsProperty> getIntervals();
 
-    void dispatch(ArticulationsCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ArticulationsCesiumWriter> supplier);
 }

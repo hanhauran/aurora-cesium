@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -19,12 +20,12 @@ public class PolylineGlowMaterialPropertyImpl extends PropertyAdapter<PolylineGl
     private DoubleProperty taperPower;
 
     @Override
-    public void dispatch(PolylineGlowMaterialCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-            Optional.ofNullable(getGlowPower()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openGlowPowerProperty()));
-            Optional.ofNullable(getTaperPower()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openTaperPowerProperty()));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<PolylineGlowMaterialCesiumWriter> supplier) {
+        try (PolylineGlowMaterialCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+            Optional.ofNullable(getGlowPower()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openGlowPowerProperty));
+            Optional.ofNullable(getTaperPower()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openTaperPowerProperty));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

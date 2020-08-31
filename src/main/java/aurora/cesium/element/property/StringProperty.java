@@ -1,17 +1,17 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.FontCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.StringCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface StringProperty extends IntervalProperty<StringProperty>, ReferenceProperty {
+public interface StringProperty extends Property<StringCesiumWriter>, Intervalable<StringProperty>, Referenceable {
 
     static StringProperty from(String string) {
         return newBuilder().withValue(string).build();
@@ -34,7 +34,6 @@ public interface StringProperty extends IntervalProperty<StringProperty>, Refere
     @Override
     Reference getReference();
 
-    void dispatch(StringCesiumWriter writer);
-
-    void dispatch(FontCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<StringCesiumWriter> supplier);
 }

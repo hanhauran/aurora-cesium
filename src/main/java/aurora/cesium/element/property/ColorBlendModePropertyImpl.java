@@ -4,6 +4,8 @@ import aurora.cesium.language.writer.CesiumColorBlendMode;
 import aurora.cesium.language.writer.ColorBlendModeCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 
+import java.util.function.Supplier;
+
 /**
  * @author hanhaoran
  * @date 2020/8/23
@@ -11,8 +13,8 @@ import aurora.cesium.language.writer.Reference;
 public class ColorBlendModePropertyImpl extends SinglePropertyAdapter<CesiumColorBlendMode, ColorBlendModeProperty> implements ColorBlendModeProperty {
 
     @Override
-    public void dispatch(ColorBlendModeCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<ColorBlendModeCesiumWriter> supplier) {
+        try (ColorBlendModeCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeColorBlendMode);
             dispatchReference(writer);
         }

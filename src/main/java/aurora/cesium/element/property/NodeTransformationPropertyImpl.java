@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -21,12 +22,12 @@ public class NodeTransformationPropertyImpl extends PropertyAdapter<NodeTransfor
     private TranslationProperty translation;
 
     @Override
-    public void dispatch(NodeTransformationCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getRotation()).ifPresent(rotationProperty -> rotationProperty.dispatch(writer.openRotationProperty()));
-            Optional.ofNullable(getScale()).ifPresent(scaleProperty -> scaleProperty.dispatch(writer.openScaleProperty()));
-            Optional.ofNullable(getTranslation()).ifPresent(translationProperty -> translationProperty.dispatch(writer.openTranslationProperty()));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<NodeTransformationCesiumWriter> supplier) {
+        try (NodeTransformationCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getRotation()).ifPresent(rotationProperty -> rotationProperty.dispatch(writer::openRotationProperty));
+            Optional.ofNullable(getScale()).ifPresent(scaleProperty -> scaleProperty.dispatch(writer::openScaleProperty));
+            Optional.ofNullable(getTranslation()).ifPresent(translationProperty -> translationProperty.dispatch(writer::openTranslationProperty));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

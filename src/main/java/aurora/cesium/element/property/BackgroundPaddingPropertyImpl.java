@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -16,10 +17,10 @@ public class BackgroundPaddingPropertyImpl extends PropertyAdapter<BackgroundPad
     private RectangularProperty rectangular;
 
     @Override
-    public void dispatch(BackgroundPaddingCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<BackgroundPaddingCesiumWriter> supplier) {
+        try (BackgroundPaddingCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchWithoutClose(writer));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

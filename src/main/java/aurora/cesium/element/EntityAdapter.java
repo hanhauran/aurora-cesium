@@ -5,6 +5,7 @@ import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.PacketCesiumWriter;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -55,31 +56,31 @@ public class EntityAdapter extends ElementAdapter implements Entity {
     private WallGraphics wall;
 
     @Override
-    public void dispatch(PacketCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<PacketCesiumWriter> supplier) {
+        try (PacketCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getId()).ifPresent(writer::writeId);
             Optional.ofNullable(getName()).ifPresent(writer::writeName);
             Optional.ofNullable(getParent()).flatMap(entity -> Optional.ofNullable(entity.getId())).ifPresent(writer::writeParent);
-            Optional.ofNullable(getDescription()).ifPresent(stringProperty -> stringProperty.dispatch(writer.openDescriptionProperty()));
-            Optional.ofNullable(getAvailability()).ifPresent(availabilityProperty -> availabilityProperty.dispatchAvailability(writer));
-            Optional.ofNullable(getOrientation()).ifPresent(orientationProperty -> orientationProperty.dispatch(writer.openOrientationProperty()));
-            Optional.ofNullable(getPosition()).ifPresent(positionProperty -> positionProperty.dispatch(writer.openPositionProperty()));
-            Optional.ofNullable(getViewFrom()).ifPresent(viewFromProperty -> viewFromProperty.dispatch(writer.openViewFromProperty()));
-            Optional.ofNullable(getBillboard()).ifPresent(billboardGraphics -> billboardGraphics.dispatch(writer.openBillboardProperty()));
-            Optional.ofNullable(getBox()).ifPresent(boxGraphics -> boxGraphics.dispatch(writer.openBoxProperty()));
-            Optional.ofNullable(getCorridor()).ifPresent(corridorGraphics -> corridorGraphics.dispatch(writer.openCorridorProperty()));
-            Optional.ofNullable(getCylinder()).ifPresent(cylinderGraphics -> cylinderGraphics.dispatch(writer.openCylinderProperty()));
-            Optional.ofNullable(getEllipse()).ifPresent(ellipseGraphics -> ellipseGraphics.dispatch(writer.openEllipseProperty()));
-            Optional.ofNullable(getEllipsoid()).ifPresent(ellipsoidGraphics -> ellipsoidGraphics.dispatch(writer.openEllipsoidProperty()));
-            Optional.ofNullable(getLabel()).ifPresent(labelGraphics -> labelGraphics.dispatch(writer.openLabelProperty()));
-            Optional.ofNullable(getModel()).ifPresent(modelGraphics -> modelGraphics.dispatch(writer.openModelProperty()));
-            Optional.ofNullable(getPath()).ifPresent(pathGraphics -> pathGraphics.dispatch(writer.openPathProperty()));
-            Optional.ofNullable(getPoint()).ifPresent(pointGraphics -> pointGraphics.dispatch(writer.openPointProperty()));
-            Optional.ofNullable(getPolygon()).ifPresent(polygonGraphics -> polygonGraphics.dispatch(writer.openPolygonProperty()));
-            Optional.ofNullable(getPolyline()).ifPresent(polylineGraphics -> polylineGraphics.dispatch(writer.openPolylineProperty()));
-            Optional.ofNullable(getRectangle()).ifPresent(rectangleGraphics -> rectangleGraphics.dispatch(writer.openRectangleProperty()));
-            Optional.ofNullable(getTileset()).ifPresent(tilesetGraphics -> tilesetGraphics.dispatch(writer.openTilesetProperty()));
-            Optional.ofNullable(getWall()).ifPresent(wallGraphics -> wallGraphics.dispatch(writer.openWallProperty()));
+            Optional.ofNullable(getDescription()).ifPresent(stringProperty -> stringProperty.dispatch(writer::openDescriptionProperty));
+            Optional.ofNullable(getAvailability()).ifPresent(availabilityProperty -> availabilityProperty.dispatchWithoutClose(writer));
+            Optional.ofNullable(getOrientation()).ifPresent(orientationProperty -> orientationProperty.dispatch(writer::openOrientationProperty));
+            Optional.ofNullable(getPosition()).ifPresent(positionProperty -> positionProperty.dispatch(writer::openPositionProperty));
+            Optional.ofNullable(getViewFrom()).ifPresent(viewFromProperty -> viewFromProperty.dispatch(writer::openViewFromProperty));
+            Optional.ofNullable(getBillboard()).ifPresent(billboardGraphics -> billboardGraphics.dispatch(writer::openBillboardProperty));
+            Optional.ofNullable(getBox()).ifPresent(boxGraphics -> boxGraphics.dispatch(writer::openBoxProperty));
+            Optional.ofNullable(getCorridor()).ifPresent(corridorGraphics -> corridorGraphics.dispatch(writer::openCorridorProperty));
+            Optional.ofNullable(getCylinder()).ifPresent(cylinderGraphics -> cylinderGraphics.dispatch(writer::openCylinderProperty));
+            Optional.ofNullable(getEllipse()).ifPresent(ellipseGraphics -> ellipseGraphics.dispatch(writer::openEllipseProperty));
+            Optional.ofNullable(getEllipsoid()).ifPresent(ellipsoidGraphics -> ellipsoidGraphics.dispatch(writer::openEllipsoidProperty));
+            Optional.ofNullable(getLabel()).ifPresent(labelGraphics -> labelGraphics.dispatch(writer::openLabelProperty));
+            Optional.ofNullable(getModel()).ifPresent(modelGraphics -> modelGraphics.dispatch(writer::openModelProperty));
+            Optional.ofNullable(getPath()).ifPresent(pathGraphics -> pathGraphics.dispatch(writer::openPathProperty));
+            Optional.ofNullable(getPoint()).ifPresent(pointGraphics -> pointGraphics.dispatch(writer::openPointProperty));
+            Optional.ofNullable(getPolygon()).ifPresent(polygonGraphics -> polygonGraphics.dispatch(writer::openPolygonProperty));
+            Optional.ofNullable(getPolyline()).ifPresent(polylineGraphics -> polylineGraphics.dispatch(writer::openPolylineProperty));
+            Optional.ofNullable(getRectangle()).ifPresent(rectangleGraphics -> rectangleGraphics.dispatch(writer::openRectangleProperty));
+            Optional.ofNullable(getTileset()).ifPresent(tilesetGraphics -> tilesetGraphics.dispatch(writer::openTilesetProperty));
+            Optional.ofNullable(getWall()).ifPresent(wallGraphics -> wallGraphics.dispatch(writer::openWallProperty));
         }
     }
 

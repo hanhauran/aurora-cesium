@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,10 +15,10 @@ import java.util.List;
 public class LabelStylePropertyImpl extends SinglePropertyAdapter<CesiumLabelStyle, LabelStyleProperty> implements LabelStyleProperty {
 
     @Override
-    public void dispatch(LabelStyleCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<LabelStyleCesiumWriter> supplier) {
+        try (LabelStyleCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeLabelStyle);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

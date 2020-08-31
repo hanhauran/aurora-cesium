@@ -1,17 +1,18 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.BooleanProperty;
-import aurora.cesium.element.property.IntervalProperty;
+import aurora.cesium.element.property.Intervalable;
 import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.advanced.CesiumPropertyWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-interface Graphics<G extends Graphics<G, T>, T extends CesiumPropertyWriter<T>> extends IntervalProperty<G> {
+interface Graphics<G extends Graphics<G, T>, T extends CesiumPropertyWriter<T>> extends Intervalable<G> {
 
     BooleanProperty getShow();
 
@@ -21,5 +22,5 @@ interface Graphics<G extends Graphics<G, T>, T extends CesiumPropertyWriter<T>> 
     @Override
     List<G> getIntervals();
 
-    void dispatch(T writer);
+    void dispatch(Supplier<T> supplier);
 }

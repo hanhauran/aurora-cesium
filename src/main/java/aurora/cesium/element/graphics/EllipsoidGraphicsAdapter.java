@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -48,26 +49,26 @@ public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidGraphics,
     private IntegerProperty subDivisions;
 
     @Override
-    public void dispatch(EllipsoidCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getFill()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openFillProperty()));
-            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
-            Optional.ofNullable(getInnerRadii()).ifPresent(ellipsoidRadiiProperty -> ellipsoidRadiiProperty.dispatch(writer.openInnerRadiiProperty()));
-            Optional.ofNullable(getMaterial()).ifPresent(materialProperty -> materialProperty.dispatch(writer.openMaterialProperty()));
-            Optional.ofNullable(getMaximumClock()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumClockProperty()));
-            Optional.ofNullable(getMaximumCone()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumConeProperty()));
-            Optional.ofNullable(getMinimumClock()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMinimumClockProperty()));
-            Optional.ofNullable(getMinimumCone()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMinimumConeProperty()));
-            Optional.ofNullable(getOutline()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openOutlineProperty()));
-            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
-            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
-            Optional.ofNullable(getRadii()).ifPresent(ellipsoidRadiiProperty -> ellipsoidRadiiProperty.dispatch(writer.openRadiiProperty()));
-            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getSlicePartitions()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openSlicePartitionsProperty()));
-            Optional.ofNullable(getStackPartitions()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openStackPartitionsProperty()));
-            Optional.ofNullable(getSubDivisions()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openSubdivisionsProperty()));
+    public void dispatch(Supplier<EllipsoidCesiumWriter> supplier) {
+        try (EllipsoidCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getFill()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openFillProperty));
+            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer::openHeightReferenceProperty));
+            Optional.ofNullable(getInnerRadii()).ifPresent(ellipsoidRadiiProperty -> ellipsoidRadiiProperty.dispatch(writer::openInnerRadiiProperty));
+            Optional.ofNullable(getMaterial()).ifPresent(materialProperty -> materialProperty.dispatch(writer::openMaterialProperty));
+            Optional.ofNullable(getMaximumClock()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openMaximumClockProperty));
+            Optional.ofNullable(getMaximumCone()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openMaximumConeProperty));
+            Optional.ofNullable(getMinimumClock()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openMinimumClockProperty));
+            Optional.ofNullable(getMinimumCone()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openMinimumConeProperty));
+            Optional.ofNullable(getOutline()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openOutlineProperty));
+            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOutlineColorProperty));
+            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openOutlineWidthProperty));
+            Optional.ofNullable(getRadii()).ifPresent(ellipsoidRadiiProperty -> ellipsoidRadiiProperty.dispatch(writer::openRadiiProperty));
+            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer::openShadowsProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getSlicePartitions()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openSlicePartitionsProperty));
+            Optional.ofNullable(getStackPartitions()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openStackPartitionsProperty));
+            Optional.ofNullable(getSubDivisions()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openSubdivisionsProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

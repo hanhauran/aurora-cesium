@@ -3,6 +3,7 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -11,11 +12,11 @@ import java.util.List;
 public class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitQuaternion, OrientationProperty> implements OrientationProperty {
 
     @Override
-    public void dispatch(OrientationCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<OrientationCesiumWriter> supplier) {
+        try (OrientationCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeUnitQuaternion, writer::writeUnitQuaternion, writer::writeUnitQuaternion);
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

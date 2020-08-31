@@ -3,6 +3,8 @@ package aurora.cesium.element;
 import aurora.cesium.element.property.ClockProperty;
 import aurora.cesium.language.writer.PacketCesiumWriter;
 
+import java.util.function.Supplier;
+
 /**
  * @author hanhaoran
  * @date 2020/8/21
@@ -27,5 +29,5 @@ public interface StartElement extends Element {
 
     ClockProperty getClock();
 
-    void dispatch(PacketCesiumWriter writer);
+    void dispatch(Supplier<PacketCesiumWriter> supplier);
 }

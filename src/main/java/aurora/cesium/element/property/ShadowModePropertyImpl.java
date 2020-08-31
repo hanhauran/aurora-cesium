@@ -4,6 +4,8 @@ import aurora.cesium.language.writer.CesiumShadowMode;
 import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.ShadowModeCesiumWriter;
 
+import java.util.function.Supplier;
+
 /**
  * @author hanhaoran
  * @date 2020/8/22
@@ -11,8 +13,8 @@ import aurora.cesium.language.writer.ShadowModeCesiumWriter;
 public class ShadowModePropertyImpl extends SinglePropertyAdapter<CesiumShadowMode, ShadowModeProperty> implements ShadowModeProperty {
 
     @Override
-    public void dispatch(ShadowModeCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<ShadowModeCesiumWriter> supplier) {
+        try (ShadowModeCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeShadowMode);
             dispatchReference(writer);
         }

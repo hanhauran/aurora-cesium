@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -46,25 +47,25 @@ public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCe
     private DoubleProperty silhouetteSize;
 
     @Override
-    public void dispatch(ModelCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getArticulations()).ifPresent(articulationsProperty -> articulationsProperty.dispatch(writer.openArticulationsProperty()));
-            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-            Optional.ofNullable(getColorBlendAmount()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openColorBlendAmountProperty()));
-            Optional.ofNullable(getColorBlendMode()).ifPresent(colorBlendModeProperty -> colorBlendModeProperty.dispatch(writer.openColorBlendModeProperty()));
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getGltf()).ifPresent(uriProperty -> uriProperty.dispatch(writer.openGltfProperty()));
-            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
-            Optional.ofNullable(getIncrementallyLoadTextures()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openIncrementallyLoadTexturesProperty()));
-            Optional.ofNullable(getMaximumScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumScaleProperty()));
-            Optional.ofNullable(getMinimumPixelSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMinimumPixelSizeProperty()));
-            Optional.ofNullable(getNodeTransformations()).ifPresent(nodeTransformationsProperty -> nodeTransformationsProperty.dispatch(writer.openNodeTransformationsProperty()));
-            Optional.ofNullable(getRunAnimations()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openRunAnimationsProperty()));
-            Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
-            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getSilhouetteColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openSilhouetteColorProperty()));
-            Optional.ofNullable(getSilhouetteSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openSilhouetteSizeProperty()));
+    public void dispatch(Supplier<ModelCesiumWriter> supplier) {
+        try (ModelCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getArticulations()).ifPresent(articulationsProperty -> articulationsProperty.dispatch(writer::openArticulationsProperty));
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+            Optional.ofNullable(getColorBlendAmount()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openColorBlendAmountProperty));
+            Optional.ofNullable(getColorBlendMode()).ifPresent(colorBlendModeProperty -> colorBlendModeProperty.dispatch(writer::openColorBlendModeProperty));
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getGltf()).ifPresent(uriProperty -> uriProperty.dispatch(writer::openGltfProperty));
+            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer::openHeightReferenceProperty));
+            Optional.ofNullable(getIncrementallyLoadTextures()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openIncrementallyLoadTexturesProperty));
+            Optional.ofNullable(getMaximumScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openMaximumScaleProperty));
+            Optional.ofNullable(getMinimumPixelSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openMinimumPixelSizeProperty));
+            Optional.ofNullable(getNodeTransformations()).ifPresent(nodeTransformationsProperty -> nodeTransformationsProperty.dispatch(writer::openNodeTransformationsProperty));
+            Optional.ofNullable(getRunAnimations()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openRunAnimationsProperty));
+            Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openScaleProperty));
+            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer::openShadowsProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getSilhouetteColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openSilhouetteColorProperty));
+            Optional.ofNullable(getSilhouetteSize()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openSilhouetteSizeProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

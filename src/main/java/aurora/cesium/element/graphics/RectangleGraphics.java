@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.RectangleCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -46,10 +47,10 @@ public interface RectangleGraphics extends Graphics<RectangleGraphics, Rectangle
 
     ShadowModeProperty getShadows();
 
-    DoubleProperty getStRotation();
-
     @Override
     BooleanProperty getShow();
+
+    DoubleProperty getStRotation();
 
     IntegerProperty getZIndex();
 
@@ -60,5 +61,5 @@ public interface RectangleGraphics extends Graphics<RectangleGraphics, Rectangle
     List<RectangleGraphics> getIntervals();
 
     @Override
-    void dispatch(RectangleCesiumWriter writer);
+    void dispatch(Supplier<RectangleCesiumWriter> supplier);
 }

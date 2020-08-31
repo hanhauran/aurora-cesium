@@ -4,6 +4,7 @@ import aurora.cesium.language.writer.*;
 import aurora.cesium.language.writer.advanced.ICesiumCartesian3ValuePropertyWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -12,7 +13,7 @@ import java.util.List;
 public class CartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartesian, CartesianProperty> implements CartesianProperty {
 
     @Override
-    public void dispatchCartesian(ICesiumCartesian3ValuePropertyWriter writer) {
+    public void dispatchWithoutClose(ICesiumCartesian3ValuePropertyWriter writer) {
         dispatchConsumer(writer::writeCartesian, writer::writeCartesian, writer::writeCartesian);
     }
 

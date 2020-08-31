@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.RepeatCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface RepeatProperty extends InterpolatableProperty, IntervalProperty<RepeatProperty>, ReferenceProperty {
+public interface RepeatProperty extends Property<RepeatCesiumWriter>, Interpolatable, Intervalable<RepeatProperty>, Referenceable {
 
     static RepeatProperty from(Rectangular rectangular) {
         return from(RectangularProperty.from(rectangular));
@@ -43,5 +44,6 @@ public interface RepeatProperty extends InterpolatableProperty, IntervalProperty
     @Override
     Reference getReference();
 
-    void dispatch(RepeatCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<RepeatCesiumWriter> supplier);
 }

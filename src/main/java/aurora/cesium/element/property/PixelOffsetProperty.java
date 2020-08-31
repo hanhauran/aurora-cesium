@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface PixelOffsetProperty extends InterpolatableProperty, IntervalProperty<PixelOffsetProperty>, ReferenceProperty {
+public interface PixelOffsetProperty extends Property<PixelOffsetCesiumWriter>, Interpolatable, Intervalable<PixelOffsetProperty>, Referenceable {
 
     static PixelOffsetProperty from(Rectangular rectangular) {
         return newBuilder().withValue(rectangular).build();
@@ -37,5 +38,6 @@ public interface PixelOffsetProperty extends InterpolatableProperty, IntervalPro
     @Override
     Reference getReference();
 
-    void dispatch(PixelOffsetCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<PixelOffsetCesiumWriter> supplier);
 }

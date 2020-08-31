@@ -2,7 +2,7 @@ package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.Cartographic;
 import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.PositionCesiumWriter;
+import aurora.cesium.language.writer.advanced.ICesiumCartographicDegreesValuePropertyWriter;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class CartographicDegreesPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartographic, CartographicDegreesProperty> implements CartographicDegreesProperty {
 
     @Override
-    public void dispatchCartographicDegrees(PositionCesiumWriter writer) {
+    public void dispatchWithoutClose(ICesiumCartographicDegreesValuePropertyWriter writer) {
         dispatchConsumer(writer::writeCartographicDegrees, writer::writeCartographicDegrees, writer::writeCartographicDegrees);
     }
 

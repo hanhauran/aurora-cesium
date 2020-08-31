@@ -7,6 +7,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.awt.*;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -15,11 +16,11 @@ import java.util.List;
 public class RgbaColorPropertyImpl extends SingleTimeBasedPropertyAdapter<Color, ColorProperty> implements ColorProperty {
 
     @Override
-    public void dispatch(ColorCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<ColorCesiumWriter> supplier) {
+        try (ColorCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeRgba, writer::writeRgba, writer::writeRgba);
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

@@ -8,7 +8,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface InterpolatableProperty extends Property {
+public interface Interpolatable {
 
     Interpolations getInterpolations();
 

@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -31,18 +32,18 @@ public class PolylineMaterialPropertyImpl extends PropertyAdapter<PolylineMateri
     private StripeMaterialProperty stripeMaterial;
 
     @Override
-    public void dispatch(PolylineMaterialCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getCheckerboardMaterial()).ifPresent(checkerboardMaterialProperty -> checkerboardMaterialProperty.dispatch(writer.openCheckerboardProperty()));
-            Optional.ofNullable(getGridMaterial()).ifPresent(gridMaterialProperty -> gridMaterialProperty.dispatch(writer.openGridProperty()));
-            Optional.ofNullable(getImageMaterial()).ifPresent(imageMaterialProperty -> imageMaterialProperty.dispatch(writer.openImageProperty()));
-            Optional.ofNullable(getPolylineArrowMaterial()).ifPresent(polylineArrowMaterialProperty -> polylineArrowMaterialProperty.dispatch(writer.openPolylineArrowProperty()));
-            Optional.ofNullable(getPolylineDashMaterial()).ifPresent(polylineDashMaterialProperty -> polylineDashMaterialProperty.dispatch(writer.openPolylineDashProperty()));
-            Optional.ofNullable(getPolylineGlowMaterial()).ifPresent(polylineGlowMaterialProperty -> polylineGlowMaterialProperty.dispatch(writer.openPolylineGlowProperty()));
-            Optional.ofNullable(getPolylineOutlineMaterial()).ifPresent(polylineOutlineMaterialProperty -> polylineOutlineMaterialProperty.dispatch(writer.openPolylineOutlineProperty()));
-            Optional.ofNullable(getSolidColorMaterial()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer.openSolidColorProperty()));
-            Optional.ofNullable(getStripeMaterial()).ifPresent(stripeMaterialProperty -> stripeMaterialProperty.dispatch(writer.openStripeProperty()));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<PolylineMaterialCesiumWriter> supplier) {
+        try (PolylineMaterialCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getCheckerboardMaterial()).ifPresent(checkerboardMaterialProperty -> checkerboardMaterialProperty.dispatch(writer::openCheckerboardProperty));
+            Optional.ofNullable(getGridMaterial()).ifPresent(gridMaterialProperty -> gridMaterialProperty.dispatch(writer::openGridProperty));
+            Optional.ofNullable(getImageMaterial()).ifPresent(imageMaterialProperty -> imageMaterialProperty.dispatch(writer::openImageProperty));
+            Optional.ofNullable(getPolylineArrowMaterial()).ifPresent(polylineArrowMaterialProperty -> polylineArrowMaterialProperty.dispatch(writer::openPolylineArrowProperty));
+            Optional.ofNullable(getPolylineDashMaterial()).ifPresent(polylineDashMaterialProperty -> polylineDashMaterialProperty.dispatch(writer::openPolylineDashProperty));
+            Optional.ofNullable(getPolylineGlowMaterial()).ifPresent(polylineGlowMaterialProperty -> polylineGlowMaterialProperty.dispatch(writer::openPolylineGlowProperty));
+            Optional.ofNullable(getPolylineOutlineMaterial()).ifPresent(polylineOutlineMaterialProperty -> polylineOutlineMaterialProperty.dispatch(writer::openPolylineOutlineProperty));
+            Optional.ofNullable(getSolidColorMaterial()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer::openSolidColorProperty));
+            Optional.ofNullable(getStripeMaterial()).ifPresent(stripeMaterialProperty -> stripeMaterialProperty.dispatch(writer::openStripeProperty));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

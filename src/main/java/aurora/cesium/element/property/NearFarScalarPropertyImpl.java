@@ -3,6 +3,7 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -11,11 +12,11 @@ import java.util.List;
 public class NearFarScalarPropertyImpl extends SingleTimeBasedPropertyAdapter<NearFarScalar, NearFarScalarProperty> implements NearFarScalarProperty {
 
     @Override
-    public void dispatch(NearFarScalarCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<NearFarScalarCesiumWriter> supplier) {
+        try (NearFarScalarCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeNearFarScalar, writer::writeNearFarScalar, writer::writeNearFarScalar);
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

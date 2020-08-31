@@ -7,7 +7,7 @@ import aurora.cesium.language.writer.advanced.ICesiumCartesian3ValuePropertyWrit
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface CartesianProperty extends Property {
+public interface CartesianProperty extends Property<ICesiumCartesian3ValuePropertyWriter> {
 
     static CartesianProperty from(Cartesian cartesian) {
         return newBuilder().withValue(cartesian).build();
@@ -17,5 +17,6 @@ public interface CartesianProperty extends Property {
         return CartesianPropertyImpl.Builder.newBuilder();
     }
 
-    void dispatchCartesian(ICesiumCartesian3ValuePropertyWriter writer);
+    @Override
+    void dispatchWithoutClose(ICesiumCartesian3ValuePropertyWriter writer);
 }

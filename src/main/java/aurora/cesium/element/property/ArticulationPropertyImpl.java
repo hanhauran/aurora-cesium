@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -16,11 +17,11 @@ public class ArticulationPropertyImpl extends SingleTimeBasedPropertyAdapter<Dou
     private String name;
 
     @Override
-    public void dispatch(ArticulationCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<ArticulationCesiumWriter> supplier) {
+        try (ArticulationCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeNumber, writer::writeNumber, writer::writeNumber);
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

@@ -8,6 +8,7 @@ import aurora.cesium.language.writer.PathCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -62,5 +63,5 @@ public interface PathGraphics extends Graphics<PathGraphics, PathCesiumWriter> {
     List<PathGraphics> getIntervals();
 
     @Override
-    void dispatch(PathCesiumWriter writer);
+    void dispatch(Supplier<PathCesiumWriter> supplier);
 }

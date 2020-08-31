@@ -3,12 +3,13 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface ClockProperty extends IntervalProperty<ClockProperty> {
+public interface ClockProperty extends Property<ClockCesiumWriter>, Intervalable<ClockProperty> {
 
     static ClockPropertyImpl.Builder newBuilder() {
         return ClockPropertyImpl.Builder.newBuilder();
@@ -28,5 +29,6 @@ public interface ClockProperty extends IntervalProperty<ClockProperty> {
     @Override
     List<ClockProperty> getIntervals();
 
-    void dispatch(ClockCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ClockCesiumWriter> supplier);
 }

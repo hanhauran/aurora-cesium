@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface NearFarScalarProperty extends InterpolatableProperty, IntervalProperty<NearFarScalarProperty>, ReferenceProperty {
+public interface NearFarScalarProperty extends Property<NearFarScalarCesiumWriter>, Interpolatable, Intervalable<NearFarScalarProperty>, Referenceable {
 
     static NearFarScalarProperty from(NearFarScalar nearFarScalar) {
         return newBuilder().withValue(nearFarScalar).build();
@@ -37,5 +38,6 @@ public interface NearFarScalarProperty extends InterpolatableProperty, IntervalP
     @Override
     Reference getReference();
 
-    void dispatch(NearFarScalarCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<NearFarScalarCesiumWriter> supplier);
 }

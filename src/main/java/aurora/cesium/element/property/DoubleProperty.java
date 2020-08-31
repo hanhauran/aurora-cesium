@@ -3,12 +3,13 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface DoubleProperty extends InterpolatableProperty, IntervalProperty<DoubleProperty>, ReferenceProperty {
+public interface DoubleProperty extends Property<DoubleCesiumWriter>, Interpolatable, Intervalable<DoubleProperty>, Referenceable {
 
     static DoubleProperty from(Double value) {
         return newBuilder().withValue(value).build();
@@ -34,5 +35,6 @@ public interface DoubleProperty extends InterpolatableProperty, IntervalProperty
     @Override
     Reference getReference();
 
-    void dispatch(DoubleCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<DoubleCesiumWriter> writer);
 }

@@ -3,6 +3,7 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -11,11 +12,11 @@ import java.util.List;
 public class PixelOffsetPropertyImpl extends SingleTimeBasedPropertyAdapter<Rectangular, PixelOffsetProperty> implements PixelOffsetProperty {
 
     @Override
-    public void dispatch(PixelOffsetCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<PixelOffsetCesiumWriter> supplier) {
+        try (PixelOffsetCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeCartesian2, writer::writeCartesian2, writer::writeCartesian2);
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

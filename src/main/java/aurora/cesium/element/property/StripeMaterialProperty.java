@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.StripeMaterialCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface StripeMaterialProperty extends IntervalProperty<StripeMaterialProperty> {
+public interface StripeMaterialProperty extends Property<StripeMaterialCesiumWriter>, Intervalable<StripeMaterialProperty> {
 
     static StripeMaterialPropertyImpl.Builder newBuilder() {
         return StripeMaterialPropertyImpl.Builder.newBuilder();
@@ -31,5 +32,6 @@ public interface StripeMaterialProperty extends IntervalProperty<StripeMaterialP
     @Override
     List<StripeMaterialProperty> getIntervals();
 
-    void dispatch(StripeMaterialCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<StripeMaterialCesiumWriter> supplier);
 }

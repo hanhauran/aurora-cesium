@@ -7,6 +7,7 @@ import aurora.cesium.language.writer.TilesetCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -32,5 +33,5 @@ public interface TilesetGraphics extends Graphics<TilesetGraphics, TilesetCesium
     List<TilesetGraphics> getIntervals();
 
     @Override
-    void dispatch(TilesetCesiumWriter writer);
+    void dispatch(Supplier<TilesetCesiumWriter> supplier);
 }

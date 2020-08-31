@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -52,28 +53,28 @@ public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardGraphics,
     private DoubleProperty width;
 
     @Override
-    public void dispatch(BillboardCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getAlignedAxis()).ifPresent(alignedAxisProperty -> alignedAxisProperty.dispatch(writer.openAlignedAxisProperty()));
-            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-            Optional.ofNullable(getDisabledDepthTestDistance()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openDisableDepthTestDistanceProperty()));
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getEyeOffset()).ifPresent(eyeOffsetProperty -> eyeOffsetProperty.dispatch(writer.openEyeOffsetProperty()));
-            Optional.ofNullable(getHeight()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openHeightProperty()));
-            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
-            Optional.ofNullable(getHorizontalOrigin()).ifPresent(horizontalOriginProperty -> horizontalOriginProperty.dispatch(writer.openHorizontalOriginProperty()));
-            Optional.ofNullable(getImage()).ifPresent(resourceProperty -> resourceProperty.dispatch(writer.openImageProperty()));
-            Optional.ofNullable(getImageSubRegion()).ifPresent(boundingRectangleProperty -> boundingRectangleProperty.dispatch(writer.openImageSubRegionProperty()));
-            Optional.ofNullable(getPixelOffset()).ifPresent(pixelOffsetProperty -> pixelOffsetProperty.dispatch(writer.openPixelOffsetProperty()));
-            Optional.ofNullable(getPixelOffsetScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openPixelOffsetScaleByDistanceProperty()));
-            Optional.ofNullable(getRotation()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openRotationProperty()));
-            Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
-            Optional.ofNullable(getScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openScaleByDistanceProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getSizeInMeters()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openSizeInMetersProperty()));
-            Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openTranslucencyByDistanceProperty()));
-            Optional.ofNullable(getVerticalOrigin()).ifPresent(verticalOriginProperty -> verticalOriginProperty.dispatch(writer.openVerticalOriginProperty()));
-            Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openWidthProperty()));
+    public void dispatch(Supplier<BillboardCesiumWriter> supplier) {
+        try (BillboardCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getAlignedAxis()).ifPresent(alignedAxisProperty -> alignedAxisProperty.dispatch(writer::openAlignedAxisProperty));
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+            Optional.ofNullable(getDisabledDepthTestDistance()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openDisableDepthTestDistanceProperty));
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getEyeOffset()).ifPresent(eyeOffsetProperty -> eyeOffsetProperty.dispatch(writer::openEyeOffsetProperty));
+            Optional.ofNullable(getHeight()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openHeightProperty));
+            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer::openHeightReferenceProperty));
+            Optional.ofNullable(getHorizontalOrigin()).ifPresent(horizontalOriginProperty -> horizontalOriginProperty.dispatch(writer::openHorizontalOriginProperty));
+            Optional.ofNullable(getImage()).ifPresent(resourceProperty -> resourceProperty.dispatch(writer::openImageProperty));
+            Optional.ofNullable(getImageSubRegion()).ifPresent(boundingRectangleProperty -> boundingRectangleProperty.dispatch(writer::openImageSubRegionProperty));
+            Optional.ofNullable(getPixelOffset()).ifPresent(pixelOffsetProperty -> pixelOffsetProperty.dispatch(writer::openPixelOffsetProperty));
+            Optional.ofNullable(getPixelOffsetScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer::openPixelOffsetScaleByDistanceProperty));
+            Optional.ofNullable(getRotation()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openRotationProperty));
+            Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openScaleProperty));
+            Optional.ofNullable(getScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer::openScaleByDistanceProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getSizeInMeters()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openSizeInMetersProperty));
+            Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer::openTranslucencyByDistanceProperty));
+            Optional.ofNullable(getVerticalOrigin()).ifPresent(verticalOriginProperty -> verticalOriginProperty.dispatch(writer::openVerticalOriginProperty));
+            Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openWidthProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

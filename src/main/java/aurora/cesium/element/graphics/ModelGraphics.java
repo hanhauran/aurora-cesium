@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.ModelCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -118,5 +119,5 @@ public interface ModelGraphics extends Graphics<ModelGraphics, ModelCesiumWriter
     List<ModelGraphics> getIntervals();
 
     @Override
-    void dispatch(ModelCesiumWriter writer);
+    void dispatch(Supplier<ModelCesiumWriter> supplier);
 }

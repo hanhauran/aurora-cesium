@@ -9,6 +9,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -29,15 +30,15 @@ public class PathGraphicsAdapter extends GraphicsAdapter<PathGraphics, PathCesiu
     private DoubleProperty width;
 
     @Override
-    public void dispatch(PathCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getLeadTime()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openLeadTimeProperty()));
-            Optional.ofNullable(getMaterial()).ifPresent(polylineMaterialProperty -> polylineMaterialProperty.dispatch(writer.openMaterialProperty()));
-            Optional.ofNullable(getResolution()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openResolutionProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getTrailTime()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openTrailTimeProperty()));
-            Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openWidthProperty()));
+    public void dispatch(Supplier<PathCesiumWriter> supplier) {
+        try (PathCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getLeadTime()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openLeadTimeProperty));
+            Optional.ofNullable(getMaterial()).ifPresent(polylineMaterialProperty -> polylineMaterialProperty.dispatch(writer::openMaterialProperty));
+            Optional.ofNullable(getResolution()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openResolutionProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getTrailTime()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openTrailTimeProperty));
+            Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openWidthProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

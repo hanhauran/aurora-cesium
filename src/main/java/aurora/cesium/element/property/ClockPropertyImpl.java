@@ -4,6 +4,7 @@ import aurora.cesium.language.writer.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -20,13 +21,13 @@ public class ClockPropertyImpl extends PropertyAdapter<ClockProperty> implements
     private ClockStep step;
 
     @Override
-    public void dispatch(ClockCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<ClockCesiumWriter> supplier) {
+        try (ClockCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getCurrentTime()).ifPresent(writer::writeCurrentTime);
             Optional.ofNullable(getMultiplier()).ifPresent(writer::writeMultiplier);
             Optional.ofNullable(getRange()).ifPresent(writer::writeRange);
             Optional.ofNullable(getStep()).ifPresent(writer::writeStep);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

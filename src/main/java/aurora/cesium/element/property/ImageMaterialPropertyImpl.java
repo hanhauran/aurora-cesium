@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -21,13 +22,13 @@ public class ImageMaterialPropertyImpl extends PropertyAdapter<ImageMaterialProp
     private BooleanProperty transparent;
 
     @Override
-    public void dispatch(ImageMaterialCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openColorProperty()));
-            Optional.ofNullable(getImage()).ifPresent(uriProperty -> uriProperty.dispatch(writer.openImageProperty()));
-            Optional.ofNullable(getRepeat()).ifPresent(repeatProperty -> repeatProperty.dispatch(writer.openRepeatProperty()));
-            Optional.ofNullable(getTransparent()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openTransparentProperty()));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<ImageMaterialCesiumWriter> supplier) {
+        try (ImageMaterialCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+            Optional.ofNullable(getImage()).ifPresent(uriProperty -> uriProperty.dispatch(writer::openImageProperty));
+            Optional.ofNullable(getRepeat()).ifPresent(repeatProperty -> repeatProperty.dispatch(writer::openRepeatProperty));
+            Optional.ofNullable(getTransparent()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openTransparentProperty));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -23,6 +24,8 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, P
 
     private DistanceDisplayConditionProperty distanceDisplayCondition;
 
+    private BooleanProperty followSurface;
+
     private DoubleProperty granularity;
 
     private PolylineMaterialProperty material;
@@ -36,20 +39,21 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, P
     private IntegerProperty zIndex;
 
     @Override
-    public void dispatch(PolylineCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getArcType()).ifPresent(arcTypeProperty -> arcTypeProperty.dispatch(writer.openArcTypeProperty()));
-            Optional.ofNullable(getClampToGround()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openClampToGroundProperty()));
-            Optional.ofNullable(getClassificationType()).ifPresent(classificationTypeProperty -> classificationTypeProperty.dispatch(writer.openClassificationTypeProperty()));
-            Optional.ofNullable(getDepthFailMaterial()).ifPresent(polylineMaterialProperty -> polylineMaterialProperty.dispatch(writer.openDepthFailMaterialProperty()));
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getGranularity()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openGranularityProperty()));
-            Optional.ofNullable(getMaterial()).ifPresent(polylineMaterialProperty -> polylineMaterialProperty.dispatch(writer.openMaterialProperty()));
-            Optional.ofNullable(getPositions()).ifPresent(positionListProperty -> positionListProperty.dispatch(writer.openPositionsProperty()));
-            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer.openShadowsProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openWidthProperty()));
-            Optional.ofNullable(getZIndex()).ifPresent(integerProperty -> integerProperty.dispatch(writer.openZIndexProperty()));
+    public void dispatch(Supplier<PolylineCesiumWriter> supplier) {
+        try (PolylineCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getArcType()).ifPresent(arcTypeProperty -> arcTypeProperty.dispatch(writer::openArcTypeProperty));
+            Optional.ofNullable(getClampToGround()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openClampToGroundProperty));
+            Optional.ofNullable(getClassificationType()).ifPresent(classificationTypeProperty -> classificationTypeProperty.dispatch(writer::openClassificationTypeProperty));
+            Optional.ofNullable(getDepthFailMaterial()).ifPresent(polylineMaterialProperty -> polylineMaterialProperty.dispatch(writer::openDepthFailMaterialProperty));
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getFollowSurface()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openFollowSurfaceProperty));
+            Optional.ofNullable(getGranularity()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openGranularityProperty));
+            Optional.ofNullable(getMaterial()).ifPresent(polylineMaterialProperty -> polylineMaterialProperty.dispatch(writer::openMaterialProperty));
+            Optional.ofNullable(getPositions()).ifPresent(positionListProperty -> positionListProperty.dispatch(writer::openPositionsProperty));
+            Optional.ofNullable(getShadows()).ifPresent(shadowModeProperty -> shadowModeProperty.dispatch(writer::openShadowsProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openWidthProperty));
+            Optional.ofNullable(getZIndex()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openZIndexProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
@@ -97,6 +101,15 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, P
 
     public void setDistanceDisplayCondition(DistanceDisplayConditionProperty distanceDisplayCondition) {
         this.distanceDisplayCondition = distanceDisplayCondition;
+    }
+
+    @Override
+    public BooleanProperty getFollowSurface() {
+        return followSurface;
+    }
+
+    public void setFollowSurface(BooleanProperty followSurface) {
+        this.followSurface = followSurface;
     }
 
     @Override
@@ -159,6 +172,7 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, P
         private ClassificationTypeProperty classificationType;
         private PolylineMaterialProperty depthFailMaterial;
         private DistanceDisplayConditionProperty distanceDisplayCondition;
+        private BooleanProperty followSurface;
         private DoubleProperty granularity;
         private PolylineMaterialProperty material;
         private PositionListProperty positions;
@@ -198,6 +212,11 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, P
 
         public Builder withDistanceDisplayCondition(DistanceDisplayConditionProperty distanceDisplayCondition) {
             this.distanceDisplayCondition = distanceDisplayCondition;
+            return this;
+        }
+
+        public Builder withFollowSurface(BooleanProperty followSurface) {
+            this.followSurface = followSurface;
             return this;
         }
 
@@ -253,6 +272,7 @@ public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, P
             polylineGraphicsAdapter.setClassificationType(classificationType);
             polylineGraphicsAdapter.setDepthFailMaterial(depthFailMaterial);
             polylineGraphicsAdapter.setDistanceDisplayCondition(distanceDisplayCondition);
+            polylineGraphicsAdapter.setFollowSurface(followSurface);
             polylineGraphicsAdapter.setGranularity(granularity);
             polylineGraphicsAdapter.setMaterial(material);
             polylineGraphicsAdapter.setPositions(positions);

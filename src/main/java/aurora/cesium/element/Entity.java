@@ -4,6 +4,8 @@ import aurora.cesium.element.graphics.*;
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.PacketCesiumWriter;
 
+import java.util.function.Supplier;
+
 /**
  * @author hanhaoran
  * @date 2020/8/21
@@ -62,5 +64,5 @@ public interface Entity extends Element {
 
     WallGraphics getWall();
 
-    void dispatch(PacketCesiumWriter writer);
+    void dispatch(Supplier<PacketCesiumWriter> writer);
 }

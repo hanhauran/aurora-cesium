@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.ViewFromCesiumWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface ViewFromProperty extends InterpolatableProperty, IntervalProperty<ViewFromProperty>, ReferenceProperty {
+public interface ViewFromProperty extends Property<ViewFromCesiumWriter>, Interpolatable, Intervalable<ViewFromProperty>, Referenceable {
 
     static ViewFromProperty from(Cartesian cartesian) {
         return from(CartesianProperty.from(cartesian));
@@ -43,5 +44,6 @@ public interface ViewFromProperty extends InterpolatableProperty, IntervalProper
     @Override
     Reference getReference();
 
-    void dispatch(ViewFromCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ViewFromCesiumWriter> supplier);
 }

@@ -7,6 +7,7 @@ import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.WallCesiumWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -28,5 +29,5 @@ public interface WallGraphics extends Graphics<WallGraphics, WallCesiumWriter> {
     List<WallGraphics> getIntervals();
 
     @Override
-    void dispatch(WallCesiumWriter writer);
+    void dispatch(Supplier<WallCesiumWriter> supplier);
 }

@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,10 +15,10 @@ import java.util.List;
 public class HeightReferencePropertyImpl extends SinglePropertyAdapter<CesiumHeightReference, HeightReferenceProperty> implements HeightReferenceProperty {
 
     @Override
-    public void dispatch(HeightReferenceCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<HeightReferenceCesiumWriter> supplier) {
+        try (HeightReferenceCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeHeightReference);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -16,11 +17,11 @@ public class ScalePropertyImpl extends PropertyAdapter<ScaleProperty> implements
     private CartesianProperty cartesian;
 
     @Override
-    public void dispatch(ScaleCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchCartesian(writer));
+    public void dispatch(Supplier<ScaleCesiumWriter> supplier) {
+        try (ScaleCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

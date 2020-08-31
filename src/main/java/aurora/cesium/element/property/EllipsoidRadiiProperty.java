@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface EllipsoidRadiiProperty extends InterpolatableProperty, IntervalProperty<EllipsoidRadiiProperty>, ReferenceProperty {
+public interface EllipsoidRadiiProperty extends Property<EllipsoidRadiiCesiumWriter>, Interpolatable, Intervalable<EllipsoidRadiiProperty>, Referenceable {
 
     static EllipsoidRadiiProperty from(Cartesian cartesian) {
         return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
@@ -39,5 +40,6 @@ public interface EllipsoidRadiiProperty extends InterpolatableProperty, Interval
     @Override
     Reference getReference();
 
-    void dispatch(EllipsoidRadiiCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<EllipsoidRadiiCesiumWriter> supplier);
 }

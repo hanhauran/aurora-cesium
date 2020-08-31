@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -25,7 +26,7 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
 
     private ColorProperty fillColor;
 
-    private StringProperty font;
+    private FontProperty font;
 
     private HeightReferenceProperty heightReference;
 
@@ -54,29 +55,29 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
     private VerticalOriginProperty verticalOrigin;
 
     @Override
-    public void dispatch(LabelCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getBackgroundColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openBackgroundColorProperty()));
-            Optional.ofNullable(getBackgroundPadding()).ifPresent(backgroundPaddingProperty -> backgroundPaddingProperty.dispatch(writer.openBackgroundPaddingProperty()));
-            Optional.ofNullable(getDisableDepthTestDistance()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openDisableDepthTestDistanceProperty()));
-            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer.openDistanceDisplayConditionProperty()));
-            Optional.ofNullable(getEyeOffset()).ifPresent(eyeOffsetProperty -> eyeOffsetProperty.dispatch(writer.openEyeOffsetProperty()));
-            Optional.ofNullable(getFillColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openFillColorProperty()));
-            Optional.ofNullable(getFont()).ifPresent(stringProperty -> stringProperty.dispatch(writer.openFontProperty()));
-            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer.openHeightReferenceProperty()));
-            Optional.ofNullable(getHorizontalOrigin()).ifPresent(horizontalOriginProperty -> horizontalOriginProperty.dispatch(writer.openHorizontalOriginProperty()));
-            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOutlineColorProperty()));
-            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOutlineWidthProperty()));
-            Optional.ofNullable(getPixelOffset()).ifPresent(pixelOffsetProperty -> pixelOffsetProperty.dispatch(writer.openPixelOffsetProperty()));
-            Optional.ofNullable(getPixelOffsetScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openPixelOffsetScaleByDistanceProperty()));
-            Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openScaleProperty()));
-            Optional.ofNullable(getScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openScaleByDistanceProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getShowBackground()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowBackgroundProperty()));
-            Optional.ofNullable(getStyle()).ifPresent(labelStyleProperty -> labelStyleProperty.dispatch(writer.openStyleProperty()));
-            Optional.ofNullable(getText()).ifPresent(stringProperty -> stringProperty.dispatch(writer.openTextProperty()));
-            Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer.openTranslucencyByDistanceProperty()));
-            Optional.ofNullable(getVerticalOrigin()).ifPresent(verticalOriginProperty -> verticalOriginProperty.dispatch(writer.openVerticalOriginProperty()));
+    public void dispatch(Supplier<LabelCesiumWriter> supplier) {
+        try (LabelCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getBackgroundColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openBackgroundColorProperty));
+            Optional.ofNullable(getBackgroundPadding()).ifPresent(backgroundPaddingProperty -> backgroundPaddingProperty.dispatch(writer::openBackgroundPaddingProperty));
+            Optional.ofNullable(getDisableDepthTestDistance()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openDisableDepthTestDistanceProperty));
+            Optional.ofNullable(getDistanceDisplayCondition()).ifPresent(distanceDisplayConditionProperty -> distanceDisplayConditionProperty.dispatch(writer::openDistanceDisplayConditionProperty));
+            Optional.ofNullable(getEyeOffset()).ifPresent(eyeOffsetProperty -> eyeOffsetProperty.dispatch(writer::openEyeOffsetProperty));
+            Optional.ofNullable(getFillColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openFillColorProperty));
+            Optional.ofNullable(getFont()).ifPresent(fontProperty -> fontProperty.dispatch(writer::openFontProperty));
+            Optional.ofNullable(getHeightReference()).ifPresent(heightReferenceProperty -> heightReferenceProperty.dispatch(writer::openHeightReferenceProperty));
+            Optional.ofNullable(getHorizontalOrigin()).ifPresent(horizontalOriginProperty -> horizontalOriginProperty.dispatch(writer::openHorizontalOriginProperty));
+            Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOutlineColorProperty));
+            Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openOutlineWidthProperty));
+            Optional.ofNullable(getPixelOffset()).ifPresent(pixelOffsetProperty -> pixelOffsetProperty.dispatch(writer::openPixelOffsetProperty));
+            Optional.ofNullable(getPixelOffsetScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer::openPixelOffsetScaleByDistanceProperty));
+            Optional.ofNullable(getScale()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openScaleProperty));
+            Optional.ofNullable(getScaleByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer::openScaleByDistanceProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getShowBackground()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowBackgroundProperty));
+            Optional.ofNullable(getStyle()).ifPresent(labelStyleProperty -> labelStyleProperty.dispatch(writer::openStyleProperty));
+            Optional.ofNullable(getText()).ifPresent(stringProperty -> stringProperty.dispatch(writer::openTextProperty));
+            Optional.ofNullable(getTranslucencyByDistance()).ifPresent(nearFarScalarProperty -> nearFarScalarProperty.dispatch(writer::openTranslucencyByDistanceProperty));
+            Optional.ofNullable(getVerticalOrigin()).ifPresent(verticalOriginProperty -> verticalOriginProperty.dispatch(writer::openVerticalOriginProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
@@ -136,11 +137,11 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
     }
 
     @Override
-    public StringProperty getFont() {
+    public FontProperty getFont() {
         return font;
     }
 
-    public void setFont(StringProperty font) {
+    public void setFont(FontProperty font) {
         this.font = font;
     }
 
@@ -269,7 +270,7 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
         private DistanceDisplayConditionProperty distanceDisplayCondition;
         private EyeOffsetProperty eyeOffset;
         private ColorProperty fillColor;
-        private StringProperty font;
+        private FontProperty font;
         private HeightReferenceProperty heightReference;
         private HorizontalOriginProperty horizontalOrigin;
         private PixelOffsetProperty pixelOffset;
@@ -325,7 +326,7 @@ public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCe
             return this;
         }
 
-        public Builder withFont(StringProperty font) {
+        public Builder withFont(FontProperty font) {
             this.font = font;
             return this;
         }

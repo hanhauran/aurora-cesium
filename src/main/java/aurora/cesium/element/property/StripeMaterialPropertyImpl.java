@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -23,14 +24,14 @@ public class StripeMaterialPropertyImpl extends PropertyAdapter<StripeMaterialPr
     private DoubleProperty repeat;
 
     @Override
-    public void dispatch(StripeMaterialCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getOrientation()).ifPresent(stripeOrientationProperty -> stripeOrientationProperty.dispatch(writer.openOrientationProperty()));
-            Optional.ofNullable(getEvenColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openEvenColorProperty()));
-            Optional.ofNullable(getOddColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer.openOddColorProperty()));
-            Optional.ofNullable(getOffset()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openOffsetProperty()));
-            Optional.ofNullable(getRepeat()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openRepeatProperty()));
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+    public void dispatch(Supplier<StripeMaterialCesiumWriter> supplier) {
+        try (StripeMaterialCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getOrientation()).ifPresent(stripeOrientationProperty -> stripeOrientationProperty.dispatch(writer::openOrientationProperty));
+            Optional.ofNullable(getEvenColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openEvenColorProperty));
+            Optional.ofNullable(getOddColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOddColorProperty));
+            Optional.ofNullable(getOffset()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openOffsetProperty));
+            Optional.ofNullable(getRepeat()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openRepeatProperty));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
 

@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.ScaleCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface ScaleProperty extends InterpolatableProperty, IntervalProperty<ScaleProperty>, ReferenceProperty {
+public interface ScaleProperty extends Property<ScaleCesiumWriter>, Interpolatable, Intervalable<ScaleProperty>, Referenceable {
 
     static ScaleProperty from(Cartesian cartesian) {
         return from(CartesianProperty.from(cartesian));
@@ -39,5 +40,6 @@ public interface ScaleProperty extends InterpolatableProperty, IntervalProperty<
     @Override
     Reference getReference();
 
-    void dispatch(ScaleCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ScaleCesiumWriter> supplier);
 }

@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.SolidColorMaterialCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface SolidColorMaterialProperty extends IntervalProperty<SolidColorMaterialProperty> {
+public interface SolidColorMaterialProperty extends Property<SolidColorMaterialCesiumWriter>, Intervalable<SolidColorMaterialProperty> {
 
     static SolidColorMaterialProperty from(ColorProperty colorProperty) {
         return newBuilder().withColor(colorProperty).build();
@@ -27,5 +28,6 @@ public interface SolidColorMaterialProperty extends IntervalProperty<SolidColorM
     @Override
     List<SolidColorMaterialProperty> getIntervals();
 
-    void dispatch(SolidColorMaterialCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<SolidColorMaterialCesiumWriter> supplier);
 }

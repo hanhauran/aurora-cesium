@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -16,11 +17,11 @@ public class LineThicknessPropertyImpl extends PropertyAdapter<LineThicknessProp
     private RectangularProperty rectangular;
 
     @Override
-    public void dispatch(LineThicknessCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<LineThicknessCesiumWriter> supplier) {
+        try (LineThicknessCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchWithoutClose(writer));
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

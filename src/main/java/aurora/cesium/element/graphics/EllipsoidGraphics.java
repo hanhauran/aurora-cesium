@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.EllipsoidCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -115,5 +116,5 @@ public interface EllipsoidGraphics extends Graphics<EllipsoidGraphics, Ellipsoid
     List<EllipsoidGraphics> getIntervals();
 
     @Override
-    void dispatch(EllipsoidCesiumWriter writer);
+    void dispatch(Supplier<EllipsoidCesiumWriter> supplier);
 }

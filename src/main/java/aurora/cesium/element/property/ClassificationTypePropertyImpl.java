@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,10 +15,10 @@ import java.util.List;
 public class ClassificationTypePropertyImpl extends SinglePropertyAdapter<CesiumClassificationType, ClassificationTypeProperty> implements ClassificationTypeProperty {
 
     @Override
-    public void dispatch(ClassificationTypeCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<ClassificationTypeCesiumWriter> supplier) {
+        try (ClassificationTypeCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeClassificationType);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.UriCesiumWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface UriProperty extends IntervalProperty<UriProperty>, ReferenceProperty {
+public interface UriProperty extends Property<UriCesiumWriter>, Intervalable<UriProperty>, Referenceable {
 
     static UriProperty from(CesiumResource resource) {
         return newBuilder().withValue(resource).build();
@@ -34,5 +35,6 @@ public interface UriProperty extends IntervalProperty<UriProperty>, ReferencePro
     @Override
     Reference getReference();
 
-    void dispatch(UriCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<UriCesiumWriter> supplier);
 }

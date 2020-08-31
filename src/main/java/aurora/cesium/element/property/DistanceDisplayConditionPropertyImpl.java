@@ -3,6 +3,7 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.*;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -11,11 +12,11 @@ import java.util.List;
 public class DistanceDisplayConditionPropertyImpl extends SingleTimeBasedPropertyAdapter<Bounds, DistanceDisplayConditionProperty> implements DistanceDisplayConditionProperty {
 
     @Override
-    public void dispatch(DistanceDisplayConditionCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<DistanceDisplayConditionCesiumWriter> supplier) {
+        try (DistanceDisplayConditionCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeDistanceDisplayCondition, writer::writeDistanceDisplayCondition, writer::writeDistanceDisplayCondition);
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }
@@ -55,7 +56,6 @@ public class DistanceDisplayConditionPropertyImpl extends SingleTimeBasedPropert
     public void setReference(Reference reference) {
         this.reference = reference;
     }
-
 
     public static final class Builder {
         protected List<JulianDate> dates;

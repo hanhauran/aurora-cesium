@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -13,36 +14,36 @@ import java.util.Optional;
  */
 public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleCoordinatesProperty> implements RectangleCoordinatesProperty {
 
-    private CartographicExtentProperty wsen;
+    private CartographicRectangleRadiansProperty wsen;
 
-    private CartographicExtentProperty wsenDegrees;
+    private CartographicRectangleDegreesProperty wsenDegrees;
 
     @Override
-    public void dispatch(RectangleCoordinatesCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getWsen()).ifPresent(cartographicExtentProperty -> cartographicExtentProperty.dispatchWsen(writer));
-            Optional.ofNullable(getWsenDegrees()).ifPresent(cartographicExtentProperty -> cartographicExtentProperty.dispatchWsenDegrees(writer));
+    public void dispatch(Supplier<RectangleCoordinatesCesiumWriter> supplier) {
+        try (RectangleCoordinatesCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getWsen()).ifPresent(cartographicRectangleRadiansProperty -> cartographicRectangleRadiansProperty.dispatchWithoutClose(writer));
+            Optional.ofNullable(getWsenDegrees()).ifPresent(cartographicRectangleDegreesProperty -> cartographicRectangleDegreesProperty.dispatchWithoutClose(writer));
             dispatchInterpolations(writer);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }
 
     @Override
-    public CartographicExtentProperty getWsen() {
+    public CartographicRectangleRadiansProperty getWsen() {
         return wsen;
     }
 
-    public void setWsen(CartographicExtentProperty wsen) {
+    public void setWsen(CartographicRectangleRadiansProperty wsen) {
         this.wsen = wsen;
     }
 
     @Override
-    public CartographicExtentProperty getWsenDegrees() {
+    public CartographicRectangleDegreesProperty getWsenDegrees() {
         return wsenDegrees;
     }
 
-    public void setWsenDegrees(CartographicExtentProperty wsenDegrees) {
+    public void setWsenDegrees(CartographicRectangleDegreesProperty wsenDegrees) {
         this.wsenDegrees = wsenDegrees;
     }
 
@@ -83,8 +84,8 @@ public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleC
     }
 
     public static final class Builder {
-        private CartographicExtentProperty wsen;
-        private CartographicExtentProperty wsenDegrees;
+        private CartographicRectangleRadiansProperty wsen;
+        private CartographicRectangleDegreesProperty wsenDegrees;
 
         protected Interpolations interpolations;
         protected TimeInterval interval;
@@ -98,12 +99,12 @@ public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleC
             return new Builder();
         }
 
-        public Builder withWsen(CartographicExtentProperty wsen) {
+        public Builder withWsen(CartographicRectangleRadiansProperty wsen) {
             this.wsen = wsen;
             return this;
         }
 
-        public Builder withWsenDegrees(CartographicExtentProperty wsenDegrees) {
+        public Builder withWsenDegrees(CartographicRectangleDegreesProperty wsenDegrees) {
             this.wsenDegrees = wsenDegrees;
             return this;
         }

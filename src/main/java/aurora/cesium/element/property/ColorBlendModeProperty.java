@@ -4,11 +4,13 @@ import aurora.cesium.language.writer.CesiumColorBlendMode;
 import aurora.cesium.language.writer.ColorBlendModeCesiumWriter;
 import aurora.cesium.language.writer.Reference;
 
+import java.util.function.Supplier;
+
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface ColorBlendModeProperty extends Property, ReferenceProperty {
+public interface ColorBlendModeProperty extends Property<ColorBlendModeCesiumWriter>, Referenceable {
 
     static ColorBlendModeProperty from(CesiumColorBlendMode colorBlendMode) {
         return newBuilder().withValue(colorBlendMode).build();
@@ -22,5 +24,6 @@ public interface ColorBlendModeProperty extends Property, ReferenceProperty {
         return ColorBlendModePropertyImpl.Builder.newBuilder();
     }
 
-    void dispatch(ColorBlendModeCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ColorBlendModeCesiumWriter> supplier);
 }

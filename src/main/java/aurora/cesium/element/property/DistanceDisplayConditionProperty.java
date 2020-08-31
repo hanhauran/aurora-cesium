@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface DistanceDisplayConditionProperty extends InterpolatableProperty, IntervalProperty<DistanceDisplayConditionProperty>, ReferenceProperty {
+public interface DistanceDisplayConditionProperty extends Property<DistanceDisplayConditionCesiumWriter>, Interpolatable, Intervalable<DistanceDisplayConditionProperty>, Referenceable {
 
     static DistanceDisplayConditionProperty from(Bounds value) {
         return newBuilder().withValue(value).build();
@@ -37,5 +38,6 @@ public interface DistanceDisplayConditionProperty extends InterpolatableProperty
     @Override
     Reference getReference();
 
-    void dispatch(DistanceDisplayConditionCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<DistanceDisplayConditionCesiumWriter> supplier);
 }

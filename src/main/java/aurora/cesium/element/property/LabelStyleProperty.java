@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface LabelStyleProperty extends IntervalProperty<LabelStyleProperty>, ReferenceProperty {
+public interface LabelStyleProperty extends Property<LabelStyleCesiumWriter>, Intervalable<LabelStyleProperty>, Referenceable {
 
     static LabelStyleProperty from(CesiumLabelStyle value) {
         return newBuilder().withValue(value).build();
@@ -34,5 +35,6 @@ public interface LabelStyleProperty extends IntervalProperty<LabelStyleProperty>
     @Override
     Reference getReference();
 
-    void dispatch(LabelStyleCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<LabelStyleCesiumWriter> supplier);
 }

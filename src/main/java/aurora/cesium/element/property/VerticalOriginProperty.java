@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.VerticalOriginCesiumWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface VerticalOriginProperty extends IntervalProperty<VerticalOriginProperty>, ReferenceProperty {
+public interface VerticalOriginProperty extends Property<VerticalOriginCesiumWriter>, Intervalable<VerticalOriginProperty>, Referenceable {
 
     static VerticalOriginProperty from(CesiumVerticalOrigin verticalOrigin) {
         return newBuilder().withValue(verticalOrigin).build();
@@ -34,5 +35,6 @@ public interface VerticalOriginProperty extends IntervalProperty<VerticalOriginP
     @Override
     Reference getReference();
 
-    void dispatch(VerticalOriginCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<VerticalOriginCesiumWriter> supplier);
 }

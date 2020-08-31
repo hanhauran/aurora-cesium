@@ -3,8 +3,10 @@ package aurora.cesium.element.property;
 import aurora.cesium.language.writer.Cartographic;
 import aurora.cesium.language.writer.JulianDate;
 import aurora.cesium.language.writer.PositionCesiumWriter;
+import aurora.cesium.language.writer.advanced.ICesiumCartographicRadiansValuePropertyWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -13,7 +15,7 @@ import java.util.List;
 public class CartographicRadiansPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartographic, CartographicRadiansProperty> implements CartographicRadiansProperty {
 
     @Override
-    public void dispatchCartographicRadians(PositionCesiumWriter writer) {
+    public void dispatchWithoutClose(ICesiumCartographicRadiansValuePropertyWriter writer) {
         dispatchConsumer(writer::writeCartographicRadians, writer::writeCartographicRadians, writer::writeCartographicRadians);
     }
 

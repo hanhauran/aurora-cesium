@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.NodeTransformationCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface NodeTransformationProperty extends IntervalProperty<NodeTransformationProperty> {
+public interface NodeTransformationProperty extends Property<NodeTransformationCesiumWriter>, Intervalable<NodeTransformationProperty> {
 
     static NodeTransformationPropertyImpl.Builder newBuilder(String name) {
         return NodeTransformationPropertyImpl.Builder.newBuilder(name);
@@ -29,5 +30,6 @@ public interface NodeTransformationProperty extends IntervalProperty<NodeTransfo
     @Override
     List<NodeTransformationProperty> getIntervals();
 
-    void dispatch(NodeTransformationCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<NodeTransformationCesiumWriter> supplier);
 }

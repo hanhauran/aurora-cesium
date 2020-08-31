@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.NearFarScalar;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -160,5 +161,5 @@ public interface BillboardGraphics extends Graphics<BillboardGraphics, Billboard
     List<BillboardGraphics> getIntervals();
 
     @Override
-    void dispatch(BillboardCesiumWriter writer);
+    void dispatch(Supplier<BillboardCesiumWriter> supplier);
 }

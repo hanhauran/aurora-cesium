@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -13,10 +14,10 @@ import java.util.List;
 public class BooleanPropertyImpl extends SinglePropertyAdapter<Boolean, BooleanProperty> implements BooleanProperty {
 
     @Override
-    public void dispatch(BooleanCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<BooleanCesiumWriter> supplier) {
+        try (BooleanCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeBoolean);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

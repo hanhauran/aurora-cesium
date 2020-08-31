@@ -4,12 +4,13 @@ import aurora.cesium.language.writer.PolylineOutlineMaterialCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface PolylineOutlineMaterialProperty extends IntervalProperty<PolylineOutlineMaterialProperty> {
+public interface PolylineOutlineMaterialProperty extends Property<PolylineOutlineMaterialCesiumWriter>, Intervalable<PolylineOutlineMaterialProperty> {
 
     static PolylineOutlineMaterialPropertyImpl.Builder newBuilder() {
         return PolylineOutlineMaterialPropertyImpl.Builder.newBuilder();
@@ -27,5 +28,6 @@ public interface PolylineOutlineMaterialProperty extends IntervalProperty<Polyli
     @Override
     List<PolylineOutlineMaterialProperty> getIntervals();
 
-    void dispatch(PolylineOutlineMaterialCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<PolylineOutlineMaterialCesiumWriter> supplier);
 }

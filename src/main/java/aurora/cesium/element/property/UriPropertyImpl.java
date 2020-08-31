@@ -6,6 +6,7 @@ import aurora.cesium.language.writer.TimeInterval;
 import aurora.cesium.language.writer.UriCesiumWriter;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -14,10 +15,10 @@ import java.util.List;
 public class UriPropertyImpl extends SinglePropertyAdapter<CesiumResource, UriProperty> implements UriProperty {
 
     @Override
-    public void dispatch(UriCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<UriCesiumWriter> supplier) {
+        try (UriCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeUri);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
     }

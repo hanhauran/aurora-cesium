@@ -1,13 +1,13 @@
 package aurora.cesium.element.property;
 
 import aurora.cesium.language.writer.Cartographic;
-import aurora.cesium.language.writer.PositionCesiumWriter;
+import aurora.cesium.language.writer.advanced.ICesiumCartographicRadiansValuePropertyWriter;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface CartographicRadiansProperty extends Property {
+public interface CartographicRadiansProperty extends Property<ICesiumCartographicRadiansValuePropertyWriter> {
 
     static CartographicRadiansProperty from(Cartographic cartographic) {
         return newBuilder().withValue(cartographic).build();
@@ -17,5 +17,6 @@ public interface CartographicRadiansProperty extends Property {
         return CartographicRadiansPropertyImpl.Builder.newBuilder();
     }
 
-    void dispatchCartographicRadians(PositionCesiumWriter writer);
+    @Override
+    void dispatchWithoutClose(ICesiumCartographicRadiansValuePropertyWriter writer);
 }

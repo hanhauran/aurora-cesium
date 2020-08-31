@@ -7,18 +7,19 @@ import aurora.cesium.language.writer.advanced.CesiumPropertyWriter;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface IntervalProperty<P extends IntervalProperty<P>> extends Property {
+public interface Intervalable<P extends Intervalable<P>> {
 
     TimeInterval getInterval();
 
     List<P> getIntervals();
 
-    default <W extends CesiumPropertyWriter<W>> void dispatchInterval(W writer, BiConsumer<? super W, ? super P> biConsumer) {
+    default <W extends CesiumPropertyWriter<W>> void dispatchInterval(W writer, BiConsumer<Supplier<W>, ? super P> biConsumer) {
         Optional.ofNullable(getInterval()).ifPresent(writer::writeInterval);
         Optional.ofNullable(getIntervals()).ifPresent(properties -> {
             if (properties.isEmpty()) {
@@ -26,7 +27,7 @@ public interface IntervalProperty<P extends IntervalProperty<P>> extends Propert
             }
 
             try (CesiumIntervalListWriter<W> intervalListWriter = writer.openMultipleIntervals()) {
-                properties.forEach(property -> biConsumer.accept(intervalListWriter.openInterval(), property));
+                properties.forEach(property -> biConsumer.accept(intervalListWriter::openInterval, property));
             }
         });
     }

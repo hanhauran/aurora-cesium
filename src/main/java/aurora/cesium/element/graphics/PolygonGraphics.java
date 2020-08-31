@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.PolygonCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -21,17 +22,17 @@ public interface PolygonGraphics extends Graphics<PolygonGraphics, PolygonCesium
      */
     ArcTypeProperty getArcType();
 
-    /**
-     * Gets or sets a boolean specifying whether or not the top of an extruded polygon is included.
-     */
-    BooleanProperty getCloseTop();
+    ClassificationTypeProperty getClassificationType();
 
     /**
      * Gets or sets a boolean specifying whether or not the bottom of an extruded polygon is included.
      */
     BooleanProperty getCloseBottom();
 
-    ClassificationTypeProperty getClassificationType();
+    /**
+     * Gets or sets a boolean specifying whether or not the top of an extruded polygon is included.
+     */
+    BooleanProperty getCloseTop();
 
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
@@ -49,6 +50,8 @@ public interface PolygonGraphics extends Graphics<PolygonGraphics, PolygonCesium
     DoubleProperty getHeight();
 
     HeightReferenceProperty getHeightReference();
+
+    PositionListOfListsProperty getHoles();
 
     MaterialProperty getMaterial();
 
@@ -83,5 +86,5 @@ public interface PolygonGraphics extends Graphics<PolygonGraphics, PolygonCesium
     List<PolygonGraphics> getIntervals();
 
     @Override
-    void dispatch(PolygonCesiumWriter writer);
+    void dispatch(Supplier<PolygonCesiumWriter> supplier);
 }

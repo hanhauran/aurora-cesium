@@ -4,6 +4,7 @@ import aurora.cesium.language.writer.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -18,12 +19,12 @@ public class PositionListPropertyImpl extends PropertyAdapter<PositionListProper
     private Iterable<Cartographic> cartographicRadians;
 
     @Override
-    public void dispatch(PositionListCesiumWriter writer) {
-        try (writer) {
+    public void dispatch(Supplier<PositionListCesiumWriter> supplier) {
+        try (PositionListCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getCartesians()).ifPresent(writer::writeCartesian);
             Optional.ofNullable(getCartographicDegrees()).ifPresent(writer::writeCartographicDegrees);
             Optional.ofNullable(getCartographicRadians()).ifPresent(writer::writeCartographicRadians);
-            dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
+            dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReferences(writer);
         }
     }
@@ -75,11 +76,11 @@ public class PositionListPropertyImpl extends PropertyAdapter<PositionListProper
 
     @Override
     public Iterable<Reference> getReferences() {
-        return references;
+        return referenceList;
     }
 
     public void setReferences(Iterable<Reference> references) {
-        this.references = references;
+        this.referenceList = references;
     }
 
     public static final class Builder {

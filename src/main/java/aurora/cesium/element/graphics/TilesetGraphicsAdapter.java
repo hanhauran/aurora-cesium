@@ -8,6 +8,7 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -20,11 +21,11 @@ public class TilesetGraphicsAdapter extends GraphicsAdapter<TilesetGraphics, Til
     private UriProperty uri;
 
     @Override
-    public void dispatch(TilesetCesiumWriter writer) {
-        try (writer) {
-            Optional.ofNullable(getMaximumScreenSpaceError()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer.openMaximumScreenSpaceErrorProperty()));
-            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer.openShowProperty()));
-            Optional.ofNullable(getUri()).ifPresent(uriProperty -> uriProperty.dispatch(writer.openUriProperty()));
+    public void dispatch(Supplier<TilesetCesiumWriter> supplier) {
+        try (TilesetCesiumWriter writer = supplier.get()) {
+            Optional.ofNullable(getMaximumScreenSpaceError()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openMaximumScreenSpaceErrorProperty));
+            Optional.ofNullable(getShow()).ifPresent(booleanProperty -> booleanProperty.dispatch(writer::openShowProperty));
+            Optional.ofNullable(getUri()).ifPresent(uriProperty -> uriProperty.dispatch(writer::openUriProperty));
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

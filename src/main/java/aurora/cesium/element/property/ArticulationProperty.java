@@ -5,12 +5,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface ArticulationProperty extends InterpolatableProperty, IntervalProperty<ArticulationProperty>, ReferenceProperty {
+public interface ArticulationProperty extends Property<ArticulationCesiumWriter>, Interpolatable, Intervalable<ArticulationProperty>, Referenceable {
 
     static ArticulationProperty from(String name, Double dbl) {
         return newBuilder(name).withValue(dbl).build();
@@ -38,5 +39,6 @@ public interface ArticulationProperty extends InterpolatableProperty, IntervalPr
     @Override
     Reference getReference();
 
-    void dispatch(ArticulationCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ArticulationCesiumWriter> supplier);
 }

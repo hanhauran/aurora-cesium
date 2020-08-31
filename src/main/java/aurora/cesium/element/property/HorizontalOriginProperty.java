@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface HorizontalOriginProperty extends IntervalProperty<HorizontalOriginProperty>, ReferenceProperty {
+public interface HorizontalOriginProperty extends Property<HorizontalOriginCesiumWriter>, Intervalable<HorizontalOriginProperty>, Referenceable {
 
     static HorizontalOriginProperty from(CesiumHorizontalOrigin value) {
         return newBuilder().withValue(value).build();
@@ -34,5 +35,6 @@ public interface HorizontalOriginProperty extends IntervalProperty<HorizontalOri
     @Override
     Reference getReference();
 
-    void dispatch(HorizontalOriginCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<HorizontalOriginCesiumWriter> supplier);
 }

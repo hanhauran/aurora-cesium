@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.PolylineCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -34,6 +35,12 @@ public interface PolylineGraphics extends Graphics<PolylineGraphics, PolylineCes
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
     /**
+     * The {@code followSurface} property defines whether or not the positions are connected as great arcs (the default) or as straight lines.
+     * This property has been superseded by {@code arcType}, which should be used instead. If not specified, the default value is {@code true}.
+     */
+    BooleanProperty getFollowSurface();
+
+    /**
      * Gets or sets the numeric Property specifying the angular distance between each latitude and longitude if arcType is not ArcType.NONE and clampToGround
      * is false.
      */
@@ -59,5 +66,5 @@ public interface PolylineGraphics extends Graphics<PolylineGraphics, PolylineCes
     List<PolylineGraphics> getIntervals();
 
     @Override
-    void dispatch(PolylineCesiumWriter writer);
+    void dispatch(Supplier<PolylineCesiumWriter> supplier);
 }

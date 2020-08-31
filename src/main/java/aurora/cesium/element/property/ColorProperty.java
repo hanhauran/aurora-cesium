@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.TimeInterval;
 
 import java.awt.*;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface ColorProperty extends InterpolatableProperty, IntervalProperty<ColorProperty>, ReferenceProperty {
+public interface ColorProperty extends Property<ColorCesiumWriter>, Interpolatable, Intervalable<ColorProperty>, Referenceable {
 
     static ColorProperty fromRgba(Color color) {
         return newRgbaBuilder().withValue(color).build();
@@ -45,5 +46,6 @@ public interface ColorProperty extends InterpolatableProperty, IntervalProperty<
     @Override
     Reference getReference();
 
-    void dispatch(ColorCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<ColorCesiumWriter> supplier);
 }

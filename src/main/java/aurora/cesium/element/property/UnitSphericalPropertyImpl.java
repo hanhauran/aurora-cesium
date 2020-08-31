@@ -1,8 +1,8 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.AlignedAxisCesiumWriter;
 import aurora.cesium.language.writer.JulianDate;
 import aurora.cesium.language.writer.UnitSpherical;
+import aurora.cesium.language.writer.advanced.ICesiumUnitSphericalValuePropertyWriter;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class UnitSphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitSpherical, UnitSphericalProperty> implements UnitSphericalProperty {
 
     @Override
-    public void dispatchUnitSpherical(AlignedAxisCesiumWriter writer) {
+    public void dispatchWithoutClose(ICesiumUnitSphericalValuePropertyWriter writer) {
         dispatchConsumer(writer::writeUnitSpherical, writer::writeUnitSpherical, writer::writeUnitSpherical);
     }
 

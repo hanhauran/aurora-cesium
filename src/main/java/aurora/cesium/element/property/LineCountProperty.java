@@ -6,12 +6,13 @@ import aurora.cesium.language.writer.Reference;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface LineCountProperty extends InterpolatableProperty, IntervalProperty<LineCountProperty>, ReferenceProperty {
+public interface LineCountProperty extends Property<LineCountCesiumWriter>, Interpolatable, Intervalable<LineCountProperty>, Referenceable {
 
     static LineCountProperty from(Rectangular rectangular) {
         return from(RectangularProperty.from(rectangular));
@@ -43,5 +44,6 @@ public interface LineCountProperty extends InterpolatableProperty, IntervalPrope
     @Override
     Reference getReference();
 
-    void dispatch(LineCountCesiumWriter writer);
+    @Override
+    void dispatch(Supplier<LineCountCesiumWriter> supplier);
 }

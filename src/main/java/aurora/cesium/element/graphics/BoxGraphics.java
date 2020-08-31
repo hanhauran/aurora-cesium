@@ -5,6 +5,7 @@ import aurora.cesium.language.writer.BoxCesiumWriter;
 import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
@@ -75,5 +76,5 @@ public interface BoxGraphics extends Graphics<BoxGraphics, BoxCesiumWriter> {
     List<BoxGraphics> getIntervals();
 
     @Override
-    void dispatch(BoxCesiumWriter writer);
+    void dispatch(Supplier<BoxCesiumWriter> supplier);
 }
