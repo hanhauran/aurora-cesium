@@ -13,8 +13,8 @@ import java.util.function.Supplier;
  */
 public interface PointGraphics extends Graphics<PointGraphics, PointCesiumWriter> {
 
-    static PathGraphicsAdapter.Builder newBuilder() {
-        return PathGraphicsAdapter.Builder.newBuilder();
+    static PointGraphicsAdapter.Builder newBuilder() {
+        return PointGraphicsAdapter.Builder.newBuilder();
     }
 
     ColorProperty getColor();
