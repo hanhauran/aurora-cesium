@@ -73,7 +73,7 @@ class ShadowModePropertyImpl extends SinglePropertyAdapter<CesiumShadowMode, Sha
         private Builder() {
         }
 
-        public static Builder aShadowModePropertyImpl() {
+        public static Builder newBuilder() {
             return new Builder();
         }
 
