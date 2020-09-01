@@ -5,7 +5,10 @@ import aurora.cesium.CzmlGenerator;
 import aurora.cesium.element.Entity;
 import aurora.cesium.element.StartElement;
 import aurora.cesium.element.property.*;
+import aurora.cesium.language.writer.Cartesian;
+import aurora.cesium.language.writer.Cartographic;
 import aurora.cesium.language.writer.CesiumSensorVolumePortionToDisplay;
+import aurora.cesium.language.writer.UnitQuaternion;
 import org.junit.Test;
 
 import java.awt.*;
@@ -25,12 +28,14 @@ public class TestCreateSensor {
             Entity.newBuilder()
                 .withId("ConicSensor")
                 .withName("ConicSensor")
+                .withPosition(PositionProperty.fromCartesian(new Cartesian(7378140, 0, 0)))
+                .withOrientation(OrientationProperty.from(new UnitQuaternion(0, 0, 0, 1)))
                 .withConicSensor(
                     ConicSensorGraphics.newBuilder()
                         .withInnerHalfAngle(DoubleProperty.from(0D))
                         .withOuterHalfAngle(DoubleProperty.from(0.7853981633974483))
                         .withMinimumClockAngle(DoubleProperty.from(0D))
-                        .withMaximumClockAngle(DoubleProperty.from(6.283185307179586))
+                        .withMaximumClockAngle(DoubleProperty.from(2 * Math.PI))
                         .withRadius(DoubleProperty.from(50000000D))
                         .withShow(BooleanProperty.from(true))
                         .withShowIntersection(BooleanProperty.from(true))
@@ -41,6 +46,12 @@ public class TestCreateSensor {
                         .withEllipsoidHorizonSurfaceMaterial(MaterialProperty.from(SolidColorMaterialProperty.from(ColorProperty.fromRgba(new Color(255, 255, 255, 153)))))
                         .withLateralSurfaceMaterial(MaterialProperty.from(SolidColorMaterialProperty.from(ColorProperty.fromRgba(new Color(255, 255, 255, 153)))))
                         .withDomeSurfaceMaterial(MaterialProperty.from(SolidColorMaterialProperty.from(ColorProperty.fromRgba(new Color(255, 255, 255, 0)))))
+                        .build()
+                )
+                .withPoint(
+                    PointGraphics.newBuilder()
+                        .withPixelSize(DoubleProperty.from(20D))
+                        .withColor(ColorProperty.fromRgba(Color.YELLOW))
                         .build()
                 )
                 .build()
