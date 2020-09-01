@@ -1,6 +1,5 @@
 package aurora.cesium;
 
-import aurora.cesium.element.property.ClassificationTypeProperty;
 import org.junit.Test;
 
 /**

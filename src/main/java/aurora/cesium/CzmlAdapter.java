@@ -1,48 +1,55 @@
 package aurora.cesium;
 
+import aurora.cesium.element.Document;
 import aurora.cesium.element.Entity;
-import aurora.cesium.element.StartElement;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class CzmlAdapter implements Czml {
-
-    private StartElement startElement;
+class CzmlAdapter implements Czml {
 
     private final List<Entity> entities;
+    private final Map<String, Entity> entityMap;
+    private Document document;
 
     public CzmlAdapter() {
         this.entities = new ArrayList<>();
+        this.entityMap = new HashMap<>();
     }
 
     public CzmlAdapter(int initialCapacity) {
         this.entities = new ArrayList<>(initialCapacity);
+        this.entityMap = new HashMap<>();
+    }
+
+    @Override
+    public Document getDocument() {
+        return document;
+    }
+
+    @Override
+    public Czml setDocument(Document document) {
+        this.document = document;
+        return this;
+    }
+
+    @Override
+    public Collection<Entity> getEntities() {
+        return entities;
+    }
+
+    @Override
+    public Entity getEntity(String id) {
+        return entityMap.get(id);
     }
 
     @Override
     public Czml push(Entity entity) {
         entities.add(entity);
+        Optional.ofNullable(entity.getId()).ifPresent(id -> entityMap.put(id, entity));
         return this;
-    }
-
-    @Override
-    public StartElement getStartElement() {
-        return startElement;
-    }
-
-    @Override
-    public Czml setStartElement(StartElement startElement) {
-        this.startElement = startElement;
-        return this;
-    }
-
-    @Override
-    public List<Entity> getEntities() {
-        return entities;
     }
 }

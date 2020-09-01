@@ -3,7 +3,7 @@ package aurora.cesium.element.graphics;
 import aurora.cesium.Czml;
 import aurora.cesium.CzmlGenerator;
 import aurora.cesium.element.Entity;
-import aurora.cesium.element.StartElement;
+import aurora.cesium.element.Document;
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.*;
 import aurora.cesium.utils.Times;
@@ -23,7 +23,7 @@ public class CzmlBillboardTest {
     @Test
     public void testSimplify() {
         Czml czml = Czml.create();
-        czml.setStartElement(StartElement.defaultStartElement());
+        czml.setDocument(Document.defaultDocument());
         czml.push(
             Entity.newBuilder()
                 .withId("Cesium/Billboard").withName("Billboard").withDescription(StringProperty.from("<p><a href='www.baidu.com' target='_blank'>Baidu</a> Billboard </p>"))
@@ -91,7 +91,7 @@ public class CzmlBillboardTest {
     @Test
     public void test() {
         Czml czml = Czml.create();
-        czml.setStartElement(StartElement.defaultStartElement());
+        czml.setDocument(Document.defaultDocument());
         czml.push(
             Entity.newBuilder()
                 .withId("Cesium/Billboard")

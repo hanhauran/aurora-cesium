@@ -1,7 +1,7 @@
 package aurora.cesium;
 
 import aurora.cesium.element.Entity;
-import aurora.cesium.element.StartElement;
+import aurora.cesium.element.Document;
 import aurora.cesium.language.writer.CesiumOutputStream;
 import aurora.cesium.language.writer.CesiumStreamWriter;
 
@@ -37,7 +37,7 @@ public final class CzmlGenerator {
         CesiumStreamWriter csw = new CesiumStreamWriter();
 
         cos.writeStartSequence();
-        writeStartElement(cos, csw, czml.getStartElement());
+        writeStartElement(cos, csw, czml.getDocument());
         Optional.ofNullable(czml.getEntities()).ifPresent(entities -> entities.forEach(entity -> writeEntity(cos, csw, entity)));
         cos.writeEndSequence();
 
@@ -48,7 +48,7 @@ public final class CzmlGenerator {
         Optional.ofNullable(entity).ifPresent(et -> et.dispatch(() -> csw.openPacket(cos)));
     }
 
-    private void writeStartElement(CesiumOutputStream cos, CesiumStreamWriter csw, StartElement startElement) {
-        Optional.ofNullable(startElement).ifPresent(se -> se.dispatch(() -> csw.openPacket(cos)));
+    private void writeStartElement(CesiumOutputStream cos, CesiumStreamWriter csw, Document document) {
+        Optional.ofNullable(document).ifPresent(se -> se.dispatch(() -> csw.openPacket(cos)));
     }
 }

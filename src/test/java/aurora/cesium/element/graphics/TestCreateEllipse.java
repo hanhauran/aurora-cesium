@@ -3,7 +3,7 @@ package aurora.cesium.element.graphics;
 import aurora.cesium.Czml;
 import aurora.cesium.CzmlGenerator;
 import aurora.cesium.element.Entity;
-import aurora.cesium.element.StartElement;
+import aurora.cesium.element.Document;
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.Cartographic;
 import aurora.cesium.language.writer.CesiumHeightReference;
@@ -21,7 +21,7 @@ public class TestCreateEllipse {
     @Test
     public void testCreateEllipse() {
         Czml czml = Czml.create();
-        czml.setStartElement(StartElement.defaultStartElement());
+        czml.setDocument(Document.defaultDocument());
         czml.push(
             Entity.newBuilder()
                 .withId("Cesium/Ellipse")

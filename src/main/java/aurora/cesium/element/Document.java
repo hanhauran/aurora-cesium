@@ -9,14 +9,18 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface StartElement extends Element {
+public interface Document extends Element {
 
-    static StartElement defaultStartElement() {
-        return newBuilder().withId("document").withName("CZML").withVersion("1.0").build();
+    static Document defaultDocument() {
+        return defaultDocument("CZML");
     }
 
-    static StartElementAdapter.Builder newBuilder() {
-        return StartElementAdapter.Builder.newBuilder();
+    static Document defaultDocument(String name) {
+        return newBuilder().withId("document").withName(name).withVersion("1.0").build();
+    }
+
+    static DocumentAdapter.Builder newBuilder() {
+        return DocumentAdapter.Builder.newBuilder();
     }
 
     @Override

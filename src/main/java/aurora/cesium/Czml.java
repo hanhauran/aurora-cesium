@@ -1,9 +1,9 @@
 package aurora.cesium;
 
+import aurora.cesium.element.Document;
 import aurora.cesium.element.Entity;
-import aurora.cesium.element.StartElement;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @author hanhaoran
@@ -19,11 +19,13 @@ public interface Czml {
         return new CzmlAdapter(initialCapacity);
     }
 
+    Document getDocument();
+
+    Czml setDocument(Document document);
+
+    Collection<Entity> getEntities();
+
+    Entity getEntity(String id);
+
     Czml push(Entity entity);
-
-    StartElement getStartElement();
-
-    Czml setStartElement(StartElement startElement);
-
-    List<Entity> getEntities();
 }

@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class StartElementAdapter extends ElementAdapter implements StartElement {
+public class DocumentAdapter extends ElementAdapter implements Document {
 
     private String version;
 
@@ -78,13 +78,13 @@ public class StartElementAdapter extends ElementAdapter implements StartElement 
             return this;
         }
 
-        public StartElementAdapter build() {
-            StartElementAdapter startElementAdapter = new StartElementAdapter();
-            startElementAdapter.setVersion(version);
-            startElementAdapter.setClock(clock);
-            startElementAdapter.setId(id);
-            startElementAdapter.setName(name);
-            return startElementAdapter;
+        public DocumentAdapter build() {
+            DocumentAdapter documentAdapter = new DocumentAdapter();
+            documentAdapter.setVersion(version);
+            documentAdapter.setClock(clock);
+            documentAdapter.setId(id);
+            documentAdapter.setName(name);
+            return documentAdapter;
         }
     }
 }

@@ -3,7 +3,7 @@ package aurora.cesium.element.graphics;
 import aurora.cesium.Czml;
 import aurora.cesium.CzmlGenerator;
 import aurora.cesium.element.Entity;
-import aurora.cesium.element.StartElement;
+import aurora.cesium.element.Document;
 import aurora.cesium.element.property.*;
 import aurora.cesium.language.writer.*;
 import aurora.cesium.utils.Times;
@@ -23,8 +23,8 @@ public class TestCreatePolygon {
     @Test
     public void testIntervalsAndJulianDates() {
         Czml czml = Czml.create();
-        czml.setStartElement(
-            StartElement.newBuilder()
+        czml.setDocument(
+            Document.newBuilder()
                 .withId("document")
                 .withName("TestCreatePolygon.testIntervalsAndJulianDates")
                 .withVersion("1.0")
