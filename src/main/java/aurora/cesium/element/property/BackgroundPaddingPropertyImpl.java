@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class BackgroundPaddingPropertyImpl extends PropertyAdapter<BackgroundPaddingProperty> implements BackgroundPaddingProperty {
+class BackgroundPaddingPropertyImpl extends PropertyAdapter<BackgroundPaddingProperty> implements BackgroundPaddingProperty {
 
     private RectangularProperty rectangular;
 
@@ -20,6 +20,8 @@ public class BackgroundPaddingPropertyImpl extends PropertyAdapter<BackgroundPad
     public void dispatch(Supplier<BackgroundPaddingCesiumWriter> supplier) {
         try (BackgroundPaddingCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
@@ -32,6 +34,15 @@ public class BackgroundPaddingPropertyImpl extends PropertyAdapter<BackgroundPad
 
     public void setRectangular(RectangularProperty rectangular) {
         this.rectangular = rectangular;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -62,10 +73,12 @@ public class BackgroundPaddingPropertyImpl extends PropertyAdapter<BackgroundPad
     }
 
     public static final class Builder {
-        protected TimeInterval interval;
-        protected List<BackgroundPaddingProperty> intervals;
-        protected Reference reference;
         private RectangularProperty rectangular;
+
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<BackgroundPaddingProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -76,6 +89,11 @@ public class BackgroundPaddingPropertyImpl extends PropertyAdapter<BackgroundPad
 
         public Builder withRectangular(RectangularProperty rectangular) {
             this.rectangular = rectangular;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -97,6 +115,7 @@ public class BackgroundPaddingPropertyImpl extends PropertyAdapter<BackgroundPad
         public BackgroundPaddingPropertyImpl build() {
             BackgroundPaddingPropertyImpl backgroundPaddingPropertyImpl = new BackgroundPaddingPropertyImpl();
             backgroundPaddingPropertyImpl.setRectangular(rectangular);
+            backgroundPaddingPropertyImpl.setDelete(delete);
             backgroundPaddingPropertyImpl.setInterval(interval);
             backgroundPaddingPropertyImpl.setIntervals(intervals);
             backgroundPaddingPropertyImpl.setReference(reference);

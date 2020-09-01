@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public interface SensorVolumePortionToDisplayProperty extends Property<SensorVolumePortionToDisplayCesiumWriter>, Intervalable<SensorVolumePortionToDisplayProperty>, Referenceable {
+public interface SensorVolumePortionToDisplayProperty extends Property<SensorVolumePortionToDisplayCesiumWriter>, Deletable, Intervalable<SensorVolumePortionToDisplayProperty>, Referenceable {
 
     static SensorVolumePortionToDisplayProperty from(CesiumSensorVolumePortionToDisplay cesiumSensorVolumePortionToDisplay) {
         return newBuilder().withValue(cesiumSensorVolumePortionToDisplay).build();
@@ -21,6 +21,9 @@ public interface SensorVolumePortionToDisplayProperty extends Property<SensorVol
     static SensorVolumePortionToDisplayPropertyImpl.Builder newBuilder() {
         return SensorVolumePortionToDisplayPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

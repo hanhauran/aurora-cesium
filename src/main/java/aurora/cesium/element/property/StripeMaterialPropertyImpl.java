@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class StripeMaterialPropertyImpl extends PropertyAdapter<StripeMaterialProperty> implements StripeMaterialProperty {
+class StripeMaterialPropertyImpl extends PropertyAdapter<StripeMaterialProperty> implements StripeMaterialProperty {
 
     private StripeOrientationProperty orientation;
 
@@ -31,6 +31,7 @@ public class StripeMaterialPropertyImpl extends PropertyAdapter<StripeMaterialPr
             Optional.ofNullable(getOddColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOddColorProperty));
             Optional.ofNullable(getOffset()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openOffsetProperty));
             Optional.ofNullable(getRepeat()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openRepeatProperty));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }

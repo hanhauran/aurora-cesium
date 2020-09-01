@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface ViewFromProperty extends Property<ViewFromCesiumWriter>, Interpolatable, Intervalable<ViewFromProperty>, Referenceable {
+public interface ViewFromProperty extends Property<ViewFromCesiumWriter>, Deletable, Interpolatable, Intervalable<ViewFromProperty>, Referenceable {
 
     static ViewFromProperty from(Cartesian cartesian) {
         return from(CartesianProperty.from(cartesian));
@@ -31,6 +31,9 @@ public interface ViewFromProperty extends Property<ViewFromCesiumWriter>, Interp
     }
 
     CartesianProperty getCartesian();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

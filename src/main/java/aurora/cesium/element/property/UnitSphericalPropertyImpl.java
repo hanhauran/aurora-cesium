@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class UnitSphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitSpherical, UnitSphericalProperty> implements UnitSphericalProperty {
+class UnitSphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitSpherical, UnitSphericalProperty> implements UnitSphericalProperty {
 
     @Override
     public void dispatchWithoutClose(ICesiumUnitSphericalValuePropertyWriter writer) {
@@ -32,6 +32,11 @@ public class UnitSphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<Un
             return new Builder();
         }
 
+        public Builder withValue(UnitSpherical instance) {
+            this.value = instance;
+            return this;
+        }
+
         public Builder withValues(List<JulianDate> dates, List<UnitSpherical> instances) {
             this.dates = dates;
             this.values = instances;
@@ -43,11 +48,6 @@ public class UnitSphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<Un
             this.values = instances;
             this.startIndex = startIndex;
             this.length = length;
-            return this;
-        }
-
-        public Builder withValue(UnitSpherical instance) {
-            this.value = instance;
             return this;
         }
 

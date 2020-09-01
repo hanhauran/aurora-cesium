@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface DistanceDisplayConditionProperty extends Property<DistanceDisplayConditionCesiumWriter>, Interpolatable, Intervalable<DistanceDisplayConditionProperty>, Referenceable {
+public interface DistanceDisplayConditionProperty extends Property<DistanceDisplayConditionCesiumWriter>, Deletable, Interpolatable, Intervalable<DistanceDisplayConditionProperty>, Referenceable {
 
     static DistanceDisplayConditionProperty from(Bounds value) {
         return newBuilder().withValue(value).build();
@@ -25,6 +25,9 @@ public interface DistanceDisplayConditionProperty extends Property<DistanceDispl
     static DistanceDisplayConditionPropertyImpl.Builder newBuilder() {
         return DistanceDisplayConditionPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

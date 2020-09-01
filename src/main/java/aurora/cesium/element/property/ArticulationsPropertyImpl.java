@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class ArticulationsPropertyImpl extends PropertyAdapter<ArticulationsProperty> implements ArticulationsProperty {
+class ArticulationsPropertyImpl extends PropertyAdapter<ArticulationsProperty> implements ArticulationsProperty {
 
     private List<ArticulationProperty> articulations;
 
@@ -19,6 +19,7 @@ public class ArticulationsPropertyImpl extends PropertyAdapter<ArticulationsProp
     public void dispatch(Supplier<ArticulationsCesiumWriter> supplier) {
         try (ArticulationsCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getArticulations()).ifPresent(properties -> properties.forEach(property -> property.dispatch(() -> writer.openArticulationProperty(property.getName()))));
+
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }

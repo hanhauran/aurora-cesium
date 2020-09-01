@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class RotationPropertyImpl extends PropertyAdapter<RotationProperty> implements RotationProperty {
+class RotationPropertyImpl extends PropertyAdapter<RotationProperty> implements RotationProperty {
 
     private UnitQuaternionProperty unitQuaternion;
 
@@ -20,6 +20,8 @@ public class RotationPropertyImpl extends PropertyAdapter<RotationProperty> impl
     public void dispatch(Supplier<RotationCesiumWriter> supplier) {
         try (RotationCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getUnitQuaternion()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class RotationPropertyImpl extends PropertyAdapter<RotationProperty> impl
 
     public void setUnitQuaternion(UnitQuaternionProperty unitQuaternion) {
         this.unitQuaternion = unitQuaternion;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -74,10 +85,11 @@ public class RotationPropertyImpl extends PropertyAdapter<RotationProperty> impl
     public static final class Builder {
         private UnitQuaternionProperty unitQuaternion;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<RotationProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<RotationProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -88,6 +100,11 @@ public class RotationPropertyImpl extends PropertyAdapter<RotationProperty> impl
 
         public Builder withUnitQuaternion(UnitQuaternionProperty unitQuaternion) {
             this.unitQuaternion = unitQuaternion;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -114,6 +131,7 @@ public class RotationPropertyImpl extends PropertyAdapter<RotationProperty> impl
         public RotationPropertyImpl build() {
             RotationPropertyImpl rotationPropertyImpl = new RotationPropertyImpl();
             rotationPropertyImpl.setUnitQuaternion(unitQuaternion);
+            rotationPropertyImpl.setDelete(delete);
             rotationPropertyImpl.setInterpolations(interpolations);
             rotationPropertyImpl.setInterval(interval);
             rotationPropertyImpl.setIntervals(intervals);

@@ -10,6 +10,8 @@ import java.util.List;
  */
 abstract class PropertyAdapter<P extends Property<?>> {
 
+    protected Boolean delete;
+
     protected Interpolations interpolations;
 
     protected TimeInterval interval;

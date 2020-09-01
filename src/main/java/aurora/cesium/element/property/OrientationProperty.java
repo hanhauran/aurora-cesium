@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface OrientationProperty extends Property<OrientationCesiumWriter>, Interpolatable, Intervalable<OrientationProperty>, Referenceable {
+public interface OrientationProperty extends Property<OrientationCesiumWriter>, Deletable, Interpolatable, Intervalable<OrientationProperty>, Referenceable {
 
     static OrientationProperty from(UnitQuaternion unitQuaternion) {
         return newBuilder().withValue(unitQuaternion).build();
@@ -25,6 +25,9 @@ public interface OrientationProperty extends Property<OrientationCesiumWriter>, 
     static OrientationPropertyImpl.Builder newBuilder() {
         return OrientationPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

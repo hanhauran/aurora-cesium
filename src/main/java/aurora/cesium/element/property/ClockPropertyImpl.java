@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class ClockPropertyImpl extends PropertyAdapter<ClockProperty> implements ClockProperty {
+class ClockPropertyImpl extends PropertyAdapter<ClockProperty> implements ClockProperty {
 
     private JulianDate currentTime;
 

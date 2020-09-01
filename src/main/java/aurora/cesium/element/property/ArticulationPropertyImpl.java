@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class ArticulationPropertyImpl extends SingleTimeBasedPropertyAdapter<Double, ArticulationProperty> implements ArticulationProperty {
+class ArticulationPropertyImpl extends SingleTimeBasedPropertyAdapter<Double, ArticulationProperty> implements ArticulationProperty {
 
     private String name;
 
@@ -20,6 +20,8 @@ public class ArticulationPropertyImpl extends SingleTimeBasedPropertyAdapter<Dou
     public void dispatch(Supplier<ArticulationCesiumWriter> supplier) {
         try (ArticulationCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeNumber, writer::writeNumber, writer::writeNumber);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class ArticulationPropertyImpl extends SingleTimeBasedPropertyAdapter<Dou
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -74,17 +85,18 @@ public class ArticulationPropertyImpl extends SingleTimeBasedPropertyAdapter<Dou
     public static final class Builder {
         private String name;
 
-        protected List<JulianDate> dates;
-        protected List<Double> values;
-        protected Integer startIndex;
-        protected Integer length;
+        private List<JulianDate> dates;
+        private List<Double> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected Double value;
+        private Double value;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<ArticulationProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<ArticulationProperty> intervals;
+        private Reference reference;
 
         private Builder(String name) {
             this.name = name;
@@ -110,6 +122,11 @@ public class ArticulationPropertyImpl extends SingleTimeBasedPropertyAdapter<Dou
 
         public Builder withValue(Double instance) {
             this.value = instance;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -141,6 +158,7 @@ public class ArticulationPropertyImpl extends SingleTimeBasedPropertyAdapter<Dou
             articulationPropertyImpl.setStartIndex(startIndex);
             articulationPropertyImpl.setLength(length);
             articulationPropertyImpl.setValue(value);
+            articulationPropertyImpl.setDelete(delete);
             articulationPropertyImpl.setInterpolations(interpolations);
             articulationPropertyImpl.setInterval(interval);
             articulationPropertyImpl.setIntervals(intervals);

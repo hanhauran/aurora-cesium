@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class PolylineOutlineMaterialPropertyImpl extends PropertyAdapter<PolylineOutlineMaterialProperty> implements PolylineOutlineMaterialProperty {
+class PolylineOutlineMaterialPropertyImpl extends PropertyAdapter<PolylineOutlineMaterialProperty> implements PolylineOutlineMaterialProperty {
 
     private ColorProperty color;
 
@@ -25,6 +25,7 @@ public class PolylineOutlineMaterialPropertyImpl extends PropertyAdapter<Polylin
             Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
             Optional.ofNullable(getOutlineColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOutlineColorProperty));
             Optional.ofNullable(getOutlineWidth()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openOutlineWidthProperty));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }

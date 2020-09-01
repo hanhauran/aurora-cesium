@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class BoxDimensionsPropertyImpl extends PropertyAdapter<BoxDimensionsProperty> implements BoxDimensionsProperty {
+class BoxDimensionsPropertyImpl extends PropertyAdapter<BoxDimensionsProperty> implements BoxDimensionsProperty {
 
     private CartesianProperty cartesian;
 
@@ -20,6 +20,8 @@ public class BoxDimensionsPropertyImpl extends PropertyAdapter<BoxDimensionsProp
     public void dispatch(Supplier<BoxDimensionsCesiumWriter> supplier) {
         try (BoxDimensionsCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
@@ -32,6 +34,15 @@ public class BoxDimensionsPropertyImpl extends PropertyAdapter<BoxDimensionsProp
 
     public void setCartesian(CartesianProperty cartesian) {
         this.cartesian = cartesian;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -64,9 +75,10 @@ public class BoxDimensionsPropertyImpl extends PropertyAdapter<BoxDimensionsProp
     public static final class Builder {
         private CartesianProperty cartesian;
 
-        protected TimeInterval interval;
-        protected List<BoxDimensionsProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<BoxDimensionsProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -77,6 +89,11 @@ public class BoxDimensionsPropertyImpl extends PropertyAdapter<BoxDimensionsProp
 
         public Builder withCartesian(CartesianProperty cartesian) {
             this.cartesian = cartesian;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -98,6 +115,7 @@ public class BoxDimensionsPropertyImpl extends PropertyAdapter<BoxDimensionsProp
         public BoxDimensionsPropertyImpl build() {
             BoxDimensionsPropertyImpl boxDimensionsPropertyImpl = new BoxDimensionsPropertyImpl();
             boxDimensionsPropertyImpl.setCartesian(cartesian);
+            boxDimensionsPropertyImpl.setDelete(delete);
             boxDimensionsPropertyImpl.setInterval(interval);
             boxDimensionsPropertyImpl.setIntervals(intervals);
             boxDimensionsPropertyImpl.setReference(reference);

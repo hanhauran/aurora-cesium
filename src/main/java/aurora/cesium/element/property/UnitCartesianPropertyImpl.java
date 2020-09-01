@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class UnitCartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitCartesian, UnitCartesianProperty> implements UnitCartesianProperty {
+class UnitCartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitCartesian, UnitCartesianProperty> implements UnitCartesianProperty {
 
     @Override
     public void dispatchWithoutClose(ICesiumUnitCartesian3ValuePropertyWriter writer) {
@@ -32,6 +32,11 @@ public class UnitCartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<Un
             return new Builder();
         }
 
+        public Builder withValue(UnitCartesian instance) {
+            this.value = instance;
+            return this;
+        }
+
         public Builder withValues(List<JulianDate> dates, List<UnitCartesian> instances) {
             this.dates = dates;
             this.values = instances;
@@ -43,11 +48,6 @@ public class UnitCartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<Un
             this.values = instances;
             this.startIndex = startIndex;
             this.length = length;
-            return this;
-        }
-
-        public Builder withValue(UnitCartesian instance) {
-            this.value = instance;
             return this;
         }
 

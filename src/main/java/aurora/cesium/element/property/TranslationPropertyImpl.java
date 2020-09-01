@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class TranslationPropertyImpl extends PropertyAdapter<TranslationProperty> implements TranslationProperty {
+class TranslationPropertyImpl extends PropertyAdapter<TranslationProperty> implements TranslationProperty {
 
     private CartesianProperty cartesian;
 
@@ -20,6 +20,8 @@ public class TranslationPropertyImpl extends PropertyAdapter<TranslationProperty
     public void dispatch(Supplier<TranslationCesiumWriter> supplier) {
         try (TranslationCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class TranslationPropertyImpl extends PropertyAdapter<TranslationProperty
 
     public void setCartesian(CartesianProperty cartesian) {
         this.cartesian = cartesian;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -74,10 +85,11 @@ public class TranslationPropertyImpl extends PropertyAdapter<TranslationProperty
     public static final class Builder {
         private CartesianProperty cartesian;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<TranslationProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<TranslationProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -88,6 +100,11 @@ public class TranslationPropertyImpl extends PropertyAdapter<TranslationProperty
 
         public Builder withCartesian(CartesianProperty cartesian) {
             this.cartesian = cartesian;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -114,6 +131,7 @@ public class TranslationPropertyImpl extends PropertyAdapter<TranslationProperty
         public TranslationPropertyImpl build() {
             TranslationPropertyImpl translationPropertyImpl = new TranslationPropertyImpl();
             translationPropertyImpl.setCartesian(cartesian);
+            translationPropertyImpl.setDelete(delete);
             translationPropertyImpl.setInterpolations(interpolations);
             translationPropertyImpl.setInterval(interval);
             translationPropertyImpl.setIntervals(intervals);

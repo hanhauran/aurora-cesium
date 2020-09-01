@@ -1,16 +1,16 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.*;
+import aurora.cesium.language.writer.Cartesian;
+import aurora.cesium.language.writer.JulianDate;
 import aurora.cesium.language.writer.advanced.ICesiumCartesian3ValuePropertyWriter;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class CartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartesian, CartesianProperty> implements CartesianProperty {
+class CartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartesian, CartesianProperty> implements CartesianProperty {
 
     @Override
     public void dispatchWithoutClose(ICesiumCartesian3ValuePropertyWriter writer) {
@@ -18,17 +18,23 @@ public class CartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartes
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<Cartesian> values;
-        protected Integer startIndex;
-        protected Integer length;
-        protected Cartesian value;
+        private List<JulianDate> dates;
+        private List<Cartesian> values;
+        private Integer startIndex;
+        private Integer length;
+
+        private Cartesian value;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(Cartesian value) {
+            this.value = value;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<Cartesian> values) {
@@ -42,11 +48,6 @@ public class CartesianPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartes
             this.values = values;
             this.startIndex = startIndex;
             this.length = length;
-            return this;
-        }
-
-        public Builder withValue(Cartesian value) {
-            this.value = value;
             return this;
         }
 

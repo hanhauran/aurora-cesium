@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface DoubleProperty extends Property<DoubleCesiumWriter>, Interpolatable, Intervalable<DoubleProperty>, Referenceable {
+public interface DoubleProperty extends Property<DoubleCesiumWriter>, Deletable, Interpolatable, Intervalable<DoubleProperty>, Referenceable {
 
     static DoubleProperty from(Double value) {
         return newBuilder().withValue(value).build();
@@ -22,6 +22,9 @@ public interface DoubleProperty extends Property<DoubleCesiumWriter>, Interpolat
     static DoublePropertyImpl.Builder newBuilder() {
         return DoublePropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

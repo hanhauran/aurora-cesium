@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface AlignedAxisProperty extends Property<AlignedAxisCesiumWriter>, Interpolatable, Intervalable<AlignedAxisProperty>, Referenceable {
+public interface AlignedAxisProperty extends Property<AlignedAxisCesiumWriter>, Deletable, Interpolatable, Intervalable<AlignedAxisProperty>, Referenceable {
 
     static AlignedAxisProperty from(UnitCartesian unitCartesian) {
         return from(UnitCartesianProperty.from(unitCartesian));
@@ -38,6 +38,9 @@ public interface AlignedAxisProperty extends Property<AlignedAxisCesiumWriter>, 
     UnitCartesianProperty getUnitCartesian();
 
     UnitSphericalProperty getUnitSpherical();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

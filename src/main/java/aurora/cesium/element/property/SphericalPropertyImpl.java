@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class SphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<Spherical, SphericalProperty> implements SphericalProperty {
+class SphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<Spherical, SphericalProperty> implements SphericalProperty {
 
     @Override
     public void dispatchWithoutClose(ICesiumSphericalValuePropertyWriter writer) {
@@ -32,6 +32,11 @@ public class SphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<Spheri
             return new Builder();
         }
 
+        public Builder withValue(Spherical instance) {
+            this.value = instance;
+            return this;
+        }
+
         public Builder withValues(List<JulianDate> dates, List<Spherical> instances) {
             this.dates = dates;
             this.values = instances;
@@ -46,10 +51,7 @@ public class SphericalPropertyImpl extends SingleTimeBasedPropertyAdapter<Spheri
             return this;
         }
 
-        public Builder withValue(Spherical instance) {
-            this.value = instance;
-            return this;
-        }
+
 
         public SphericalPropertyImpl build() {
             SphericalPropertyImpl sphericalPropertyImpl = new SphericalPropertyImpl();

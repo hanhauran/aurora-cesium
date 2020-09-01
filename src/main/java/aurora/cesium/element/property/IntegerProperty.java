@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface IntegerProperty extends Property<IntegerCesiumWriter>, Interpolatable, Intervalable<IntegerProperty>, Referenceable {
+public interface IntegerProperty extends Property<IntegerCesiumWriter>, Deletable, Interpolatable, Intervalable<IntegerProperty>, Referenceable {
 
     static IntegerProperty from(Integer value) {
         return newBuilder().withValue(value).build();
@@ -24,6 +24,9 @@ public interface IntegerProperty extends Property<IntegerCesiumWriter>, Interpol
     static IntegerPropertyImpl.Builder newBuilder() {
         return IntegerPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

@@ -11,15 +11,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class StringPropertyImpl extends SinglePropertyAdapter<String, StringProperty> implements StringProperty {
+class StringPropertyImpl extends SinglePropertyAdapter<String, StringProperty> implements StringProperty {
 
     @Override
     public void dispatch(Supplier<StringCesiumWriter> supplier) {
         try (StringCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeString);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -50,11 +61,12 @@ public class StringPropertyImpl extends SinglePropertyAdapter<String, StringProp
     }
 
     public static final class Builder {
-        protected String value;
+        private String value;
 
-        protected TimeInterval interval;
-        protected List<StringProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<StringProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -65,6 +77,11 @@ public class StringPropertyImpl extends SinglePropertyAdapter<String, StringProp
 
         public Builder withValue(String instance) {
             this.value = instance;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -86,6 +103,7 @@ public class StringPropertyImpl extends SinglePropertyAdapter<String, StringProp
         public StringPropertyImpl build() {
             StringPropertyImpl stringPropertyImpl = new StringPropertyImpl();
             stringPropertyImpl.setValue(value);
+            stringPropertyImpl.setDelete(delete);
             stringPropertyImpl.setInterval(interval);
             stringPropertyImpl.setIntervals(intervals);
             stringPropertyImpl.setReference(reference);

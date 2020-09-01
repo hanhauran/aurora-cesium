@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public interface FontProperty extends Property<FontCesiumWriter>, Intervalable<FontProperty>, Referenceable {
+public interface FontProperty extends Property<FontCesiumWriter>, Deletable, Intervalable<FontProperty>, Referenceable {
 
     static FontProperty from(String string) {
         return newBuilder().withValue(string).build();
@@ -24,6 +24,9 @@ public interface FontProperty extends Property<FontCesiumWriter>, Intervalable<F
     static FontPropertyImpl.Builder newBuilder() {
         return FontPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

@@ -12,12 +12,14 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class ClassificationTypePropertyImpl extends SinglePropertyAdapter<CesiumClassificationType, ClassificationTypeProperty> implements ClassificationTypeProperty {
+class ClassificationTypePropertyImpl extends SinglePropertyAdapter<CesiumClassificationType, ClassificationTypeProperty> implements ClassificationTypeProperty {
 
     @Override
     public void dispatch(Supplier<ClassificationTypeCesiumWriter> supplier) {
         try (ClassificationTypeCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeClassificationType);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
@@ -30,6 +32,15 @@ public class ClassificationTypePropertyImpl extends SinglePropertyAdapter<Cesium
 
     public void setClassificationType(CesiumClassificationType type) {
         this.value = type;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -60,11 +71,12 @@ public class ClassificationTypePropertyImpl extends SinglePropertyAdapter<Cesium
     }
 
     public static final class Builder {
-        protected CesiumClassificationType value;
-        protected TimeInterval interval;
+        private CesiumClassificationType value;
 
-        protected List<ClassificationTypeProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<ClassificationTypeProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -75,6 +87,11 @@ public class ClassificationTypePropertyImpl extends SinglePropertyAdapter<Cesium
 
         public Builder withValue(CesiumClassificationType value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -96,6 +113,7 @@ public class ClassificationTypePropertyImpl extends SinglePropertyAdapter<Cesium
         public ClassificationTypePropertyImpl build() {
             ClassificationTypePropertyImpl classificationTypePropertyImpl = new ClassificationTypePropertyImpl();
             classificationTypePropertyImpl.setValue(value);
+            classificationTypePropertyImpl.setDelete(delete);
             classificationTypePropertyImpl.setInterval(interval);
             classificationTypePropertyImpl.setIntervals(intervals);
             classificationTypePropertyImpl.setReference(reference);

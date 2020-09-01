@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class PositionListPropertyImpl extends PropertyAdapter<PositionListProperty> implements PositionListProperty {
+class PositionListPropertyImpl extends PropertyAdapter<PositionListProperty> implements PositionListProperty {
 
     private Iterable<Cartesian> cartesians;
 
@@ -24,6 +24,8 @@ public class PositionListPropertyImpl extends PropertyAdapter<PositionListProper
             Optional.ofNullable(getCartesians()).ifPresent(writer::writeCartesian);
             Optional.ofNullable(getCartographicDegrees()).ifPresent(writer::writeCartographicDegrees);
             Optional.ofNullable(getCartographicRadians()).ifPresent(writer::writeCartographicRadians);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReferences(writer);
         }
@@ -54,6 +56,15 @@ public class PositionListPropertyImpl extends PropertyAdapter<PositionListProper
 
     public void setCartographicRadians(Iterable<Cartographic> cartographicRadians) {
         this.cartographicRadians = cartographicRadians;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -88,9 +99,10 @@ public class PositionListPropertyImpl extends PropertyAdapter<PositionListProper
         private Iterable<Cartographic> cartographicDegrees;
         private Iterable<Cartographic> cartographicRadians;
 
-        protected TimeInterval interval;
-        protected List<PositionListProperty> intervals;
-        protected Iterable<Reference> references;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<PositionListProperty> intervals;
+        private Iterable<Reference> references;
 
         private Builder() {
         }
@@ -114,6 +126,11 @@ public class PositionListPropertyImpl extends PropertyAdapter<PositionListProper
             return this;
         }
 
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
+            return this;
+        }
+
         public Builder withInterval(TimeInterval interval) {
             this.interval = interval;
             return this;
@@ -134,6 +151,7 @@ public class PositionListPropertyImpl extends PropertyAdapter<PositionListProper
             positionListPropertyImpl.setCartesians(cartesians);
             positionListPropertyImpl.setCartographicDegrees(cartographicDegrees);
             positionListPropertyImpl.setCartographicRadians(cartographicRadians);
+            positionListPropertyImpl.setDelete(delete);
             positionListPropertyImpl.setInterval(interval);
             positionListPropertyImpl.setIntervals(intervals);
             positionListPropertyImpl.setReferences(references);

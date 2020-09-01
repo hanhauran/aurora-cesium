@@ -12,15 +12,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class HorizontalOriginPropertyImpl extends SinglePropertyAdapter<CesiumHorizontalOrigin, HorizontalOriginProperty> implements HorizontalOriginProperty {
+class HorizontalOriginPropertyImpl extends SinglePropertyAdapter<CesiumHorizontalOrigin, HorizontalOriginProperty> implements HorizontalOriginProperty {
 
     @Override
     public void dispatch(Supplier<HorizontalOriginCesiumWriter> supplier) {
         try (HorizontalOriginCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeHorizontalOrigin);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -51,11 +62,12 @@ public class HorizontalOriginPropertyImpl extends SinglePropertyAdapter<CesiumHo
     }
 
     public static final class Builder {
-        protected CesiumHorizontalOrigin value;
+        private CesiumHorizontalOrigin value;
 
-        protected TimeInterval interval;
-        protected List<HorizontalOriginProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<HorizontalOriginProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -66,6 +78,11 @@ public class HorizontalOriginPropertyImpl extends SinglePropertyAdapter<CesiumHo
 
         public Builder withValue(CesiumHorizontalOrigin value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -87,6 +104,7 @@ public class HorizontalOriginPropertyImpl extends SinglePropertyAdapter<CesiumHo
         public HorizontalOriginPropertyImpl build() {
             HorizontalOriginPropertyImpl horizontalOriginPropertyImpl = new HorizontalOriginPropertyImpl();
             horizontalOriginPropertyImpl.setValue(value);
+            horizontalOriginPropertyImpl.setDelete(delete);
             horizontalOriginPropertyImpl.setInterval(interval);
             horizontalOriginPropertyImpl.setIntervals(intervals);
             horizontalOriginPropertyImpl.setReference(reference);

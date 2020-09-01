@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface LineThicknessProperty extends Property<LineThicknessCesiumWriter>, Interpolatable, Intervalable<LineThicknessProperty>, Referenceable {
+public interface LineThicknessProperty extends Property<LineThicknessCesiumWriter>, Deletable, Interpolatable, Intervalable<LineThicknessProperty>, Referenceable {
 
     static LineThicknessProperty from(Rectangular rectangular) {
         return from(RectangularProperty.from(rectangular));
@@ -29,6 +29,9 @@ public interface LineThicknessProperty extends Property<LineThicknessCesiumWrite
     static LineThicknessPropertyImpl.Builder newBuilder() {
         return LineThicknessPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

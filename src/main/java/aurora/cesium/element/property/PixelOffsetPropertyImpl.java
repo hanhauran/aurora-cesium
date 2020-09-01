@@ -9,16 +9,27 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class PixelOffsetPropertyImpl extends SingleTimeBasedPropertyAdapter<Rectangular, PixelOffsetProperty> implements PixelOffsetProperty {
+class PixelOffsetPropertyImpl extends SingleTimeBasedPropertyAdapter<Rectangular, PixelOffsetProperty> implements PixelOffsetProperty {
 
     @Override
     public void dispatch(Supplier<PixelOffsetCesiumWriter> supplier) {
         try (PixelOffsetCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeCartesian2, writer::writeCartesian2, writer::writeCartesian2);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -58,23 +69,29 @@ public class PixelOffsetPropertyImpl extends SingleTimeBasedPropertyAdapter<Rect
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<Rectangular> values;
-        protected Integer startIndex;
-        protected Integer length;
+        private List<JulianDate> dates;
+        private List<Rectangular> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected Rectangular value;
+        private Rectangular value;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<PixelOffsetProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<PixelOffsetProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(Rectangular value) {
+            this.value = value;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<Rectangular> values) {
@@ -91,8 +108,8 @@ public class PixelOffsetPropertyImpl extends SingleTimeBasedPropertyAdapter<Rect
             return this;
         }
 
-        public Builder withValue(Rectangular value) {
-            this.value = value;
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -123,6 +140,7 @@ public class PixelOffsetPropertyImpl extends SingleTimeBasedPropertyAdapter<Rect
             pixelOffsetPropertyImpl.setStartIndex(startIndex);
             pixelOffsetPropertyImpl.setLength(length);
             pixelOffsetPropertyImpl.setValue(value);
+            pixelOffsetPropertyImpl.setDelete(delete);
             pixelOffsetPropertyImpl.setInterpolations(interpolations);
             pixelOffsetPropertyImpl.setInterval(interval);
             pixelOffsetPropertyImpl.setIntervals(intervals);

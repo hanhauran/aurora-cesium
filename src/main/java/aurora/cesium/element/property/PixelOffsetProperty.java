@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface PixelOffsetProperty extends Property<PixelOffsetCesiumWriter>, Interpolatable, Intervalable<PixelOffsetProperty>, Referenceable {
+public interface PixelOffsetProperty extends Property<PixelOffsetCesiumWriter>, Deletable, Interpolatable, Intervalable<PixelOffsetProperty>, Referenceable {
 
     static PixelOffsetProperty from(Rectangular rectangular) {
         return newBuilder().withValue(rectangular).build();
@@ -25,6 +25,9 @@ public interface PixelOffsetProperty extends Property<PixelOffsetCesiumWriter>, 
     static PixelOffsetPropertyImpl.Builder newBuilder() {
         return PixelOffsetPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

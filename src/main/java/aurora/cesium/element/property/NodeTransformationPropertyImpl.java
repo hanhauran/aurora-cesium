@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class NodeTransformationPropertyImpl extends PropertyAdapter<NodeTransformationProperty> implements NodeTransformationProperty {
+class NodeTransformationPropertyImpl extends PropertyAdapter<NodeTransformationProperty> implements NodeTransformationProperty {
 
     private String name;
 
@@ -27,6 +27,7 @@ public class NodeTransformationPropertyImpl extends PropertyAdapter<NodeTransfor
             Optional.ofNullable(getRotation()).ifPresent(rotationProperty -> rotationProperty.dispatch(writer::openRotationProperty));
             Optional.ofNullable(getScale()).ifPresent(scaleProperty -> scaleProperty.dispatch(writer::openScaleProperty));
             Optional.ofNullable(getTranslation()).ifPresent(translationProperty -> translationProperty.dispatch(writer::openTranslationProperty));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }
@@ -86,13 +87,13 @@ public class NodeTransformationPropertyImpl extends PropertyAdapter<NodeTransfor
     }
 
     public static final class Builder {
-        private String name;
+        private final String name;
         private RotationProperty rotation;
         private ScaleProperty scale;
         private TranslationProperty translation;
 
-        protected TimeInterval interval;
-        protected List<NodeTransformationProperty> intervals;
+        private TimeInterval interval;
+        private List<NodeTransformationProperty> intervals;
 
         private Builder(String name) {
             this.name = name;

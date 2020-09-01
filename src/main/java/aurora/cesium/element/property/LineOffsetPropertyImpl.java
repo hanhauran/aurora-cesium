@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class LineOffsetPropertyImpl extends PropertyAdapter<LineOffsetProperty> implements LineOffsetProperty {
+class LineOffsetPropertyImpl extends PropertyAdapter<LineOffsetProperty> implements LineOffsetProperty {
 
     private RectangularProperty rectangular;
 
@@ -20,6 +20,8 @@ public class LineOffsetPropertyImpl extends PropertyAdapter<LineOffsetProperty> 
     public void dispatch(Supplier<LineOffsetCesiumWriter> supplier) {
         try (LineOffsetCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class LineOffsetPropertyImpl extends PropertyAdapter<LineOffsetProperty> 
 
     public void setRectangular(RectangularProperty rectangular) {
         this.rectangular = rectangular;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -74,10 +85,11 @@ public class LineOffsetPropertyImpl extends PropertyAdapter<LineOffsetProperty> 
     public static final class Builder {
         private RectangularProperty rectangular;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<LineOffsetProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<LineOffsetProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -88,6 +100,11 @@ public class LineOffsetPropertyImpl extends PropertyAdapter<LineOffsetProperty> 
 
         public Builder withRectangular(RectangularProperty rectangular) {
             this.rectangular = rectangular;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -114,6 +131,7 @@ public class LineOffsetPropertyImpl extends PropertyAdapter<LineOffsetProperty> 
         public LineOffsetPropertyImpl build() {
             LineOffsetPropertyImpl lineOffsetPropertyImpl = new LineOffsetPropertyImpl();
             lineOffsetPropertyImpl.setRectangular(rectangular);
+            lineOffsetPropertyImpl.setDelete(delete);
             lineOffsetPropertyImpl.setInterpolations(interpolations);
             lineOffsetPropertyImpl.setInterval(interval);
             lineOffsetPropertyImpl.setIntervals(intervals);

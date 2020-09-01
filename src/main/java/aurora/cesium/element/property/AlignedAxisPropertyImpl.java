@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class AlignedAxisPropertyImpl extends PropertyAdapter<AlignedAxisProperty> implements AlignedAxisProperty {
+class AlignedAxisPropertyImpl extends PropertyAdapter<AlignedAxisProperty> implements AlignedAxisProperty {
 
     private UnitCartesianProperty unitCartesian;
 
@@ -21,6 +21,8 @@ public class AlignedAxisPropertyImpl extends PropertyAdapter<AlignedAxisProperty
         try (AlignedAxisCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getUnitCartesian()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchWithoutClose(writer));
             Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -43,6 +45,15 @@ public class AlignedAxisPropertyImpl extends PropertyAdapter<AlignedAxisProperty
 
     public void setUnitSpherical(UnitSphericalProperty unitSpherical) {
         this.unitSpherical = unitSpherical;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -82,12 +93,14 @@ public class AlignedAxisPropertyImpl extends PropertyAdapter<AlignedAxisProperty
     }
 
     public static final class Builder {
+        private UnitCartesianProperty unitCartesian;
+        private UnitSphericalProperty unitSpherical;
+
+        protected Boolean delete;
         protected Interpolations interpolations;
         protected TimeInterval interval;
         protected List<AlignedAxisProperty> intervals;
         protected Reference reference;
-        private UnitCartesianProperty unitCartesian;
-        private UnitSphericalProperty unitSpherical;
 
         private Builder() {
         }
@@ -103,6 +116,11 @@ public class AlignedAxisPropertyImpl extends PropertyAdapter<AlignedAxisProperty
 
         public Builder withUnitSpherical(UnitSphericalProperty unitSpherical) {
             this.unitSpherical = unitSpherical;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -130,6 +148,7 @@ public class AlignedAxisPropertyImpl extends PropertyAdapter<AlignedAxisProperty
             AlignedAxisPropertyImpl alignedAxisPropertyImpl = new AlignedAxisPropertyImpl();
             alignedAxisPropertyImpl.setUnitCartesian(unitCartesian);
             alignedAxisPropertyImpl.setUnitSpherical(unitSpherical);
+            alignedAxisPropertyImpl.setDelete(delete);
             alignedAxisPropertyImpl.setInterpolations(interpolations);
             alignedAxisPropertyImpl.setInterval(interval);
             alignedAxisPropertyImpl.setIntervals(intervals);

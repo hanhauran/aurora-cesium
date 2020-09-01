@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface ScaleProperty extends Property<ScaleCesiumWriter>, Interpolatable, Intervalable<ScaleProperty>, Referenceable {
+public interface ScaleProperty extends Property<ScaleCesiumWriter>, Deletable, Interpolatable, Intervalable<ScaleProperty>, Referenceable {
 
     static ScaleProperty from(Cartesian cartesian) {
         return from(CartesianProperty.from(cartesian));
@@ -27,6 +27,9 @@ public interface ScaleProperty extends Property<ScaleCesiumWriter>, Interpolatab
     }
 
     CartesianProperty getCartesian();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

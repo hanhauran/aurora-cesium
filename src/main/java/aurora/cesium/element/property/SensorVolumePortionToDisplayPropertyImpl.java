@@ -12,15 +12,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class SensorVolumePortionToDisplayPropertyImpl extends SinglePropertyAdapter<CesiumSensorVolumePortionToDisplay, SensorVolumePortionToDisplayProperty> implements SensorVolumePortionToDisplayProperty {
+class SensorVolumePortionToDisplayPropertyImpl extends SinglePropertyAdapter<CesiumSensorVolumePortionToDisplay, SensorVolumePortionToDisplayProperty> implements SensorVolumePortionToDisplayProperty {
 
     @Override
     public void dispatch(Supplier<SensorVolumePortionToDisplayCesiumWriter> supplier) {
         try (SensorVolumePortionToDisplayCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writePortionToDisplay);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -52,10 +63,12 @@ public class SensorVolumePortionToDisplayPropertyImpl extends SinglePropertyAdap
 
 
     public static final class Builder {
-        protected CesiumSensorVolumePortionToDisplay value;
-        protected TimeInterval interval;
-        protected List<SensorVolumePortionToDisplayProperty> intervals;
-        protected Reference reference;
+        private CesiumSensorVolumePortionToDisplay value;
+
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<SensorVolumePortionToDisplayProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -66,6 +79,11 @@ public class SensorVolumePortionToDisplayPropertyImpl extends SinglePropertyAdap
 
         public Builder withValue(CesiumSensorVolumePortionToDisplay value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -87,6 +105,7 @@ public class SensorVolumePortionToDisplayPropertyImpl extends SinglePropertyAdap
         public SensorVolumePortionToDisplayPropertyImpl build() {
             SensorVolumePortionToDisplayPropertyImpl sensorVolumePortionToDisplayPropertyImpl = new SensorVolumePortionToDisplayPropertyImpl();
             sensorVolumePortionToDisplayPropertyImpl.setValue(value);
+            sensorVolumePortionToDisplayPropertyImpl.setDelete(delete);
             sensorVolumePortionToDisplayPropertyImpl.setInterval(interval);
             sensorVolumePortionToDisplayPropertyImpl.setIntervals(intervals);
             sensorVolumePortionToDisplayPropertyImpl.setReference(reference);

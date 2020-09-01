@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface ArticulationProperty extends Property<ArticulationCesiumWriter>, Interpolatable, Intervalable<ArticulationProperty>, Referenceable {
+public interface ArticulationProperty extends Property<ArticulationCesiumWriter>, Deletable, Interpolatable, Intervalable<ArticulationProperty>, Referenceable {
 
     static ArticulationProperty from(String name, Double dbl) {
         return newBuilder(name).withValue(dbl).build();
@@ -26,6 +26,9 @@ public interface ArticulationProperty extends Property<ArticulationCesiumWriter>
     }
 
     String getName();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

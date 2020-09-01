@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class NodeTransformationsPropertyImpl extends PropertyAdapter<NodeTransformationsProperty> implements NodeTransformationsProperty {
+class NodeTransformationsPropertyImpl extends PropertyAdapter<NodeTransformationsProperty> implements NodeTransformationsProperty {
 
     private List<NodeTransformationProperty> nodeTransformations;
 
@@ -19,6 +19,7 @@ public class NodeTransformationsPropertyImpl extends PropertyAdapter<NodeTransfo
     public void dispatch(Supplier<NodeTransformationsCesiumWriter> supplier) {
         try (NodeTransformationsCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getNodeTransformations()).ifPresent(properties -> properties.forEach(property -> property.dispatch(() -> writer.openNodeTransformationProperty(property.getName()))));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }

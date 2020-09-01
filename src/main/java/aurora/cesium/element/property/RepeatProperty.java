@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface RepeatProperty extends Property<RepeatCesiumWriter>, Interpolatable, Intervalable<RepeatProperty>, Referenceable {
+public interface RepeatProperty extends Property<RepeatCesiumWriter>, Deletable, Interpolatable, Intervalable<RepeatProperty>, Referenceable {
 
     static RepeatProperty from(Rectangular rectangular) {
         return from(RectangularProperty.from(rectangular));
@@ -31,6 +31,9 @@ public interface RepeatProperty extends Property<RepeatCesiumWriter>, Interpolat
     }
 
     RectangularProperty getRectangular();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

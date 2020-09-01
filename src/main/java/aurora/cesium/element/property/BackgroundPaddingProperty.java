@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface BackgroundPaddingProperty extends Property<BackgroundPaddingCesiumWriter>, Intervalable<BackgroundPaddingProperty>, Referenceable {
+public interface BackgroundPaddingProperty extends Property<BackgroundPaddingCesiumWriter>, Deletable, Intervalable<BackgroundPaddingProperty>, Referenceable {
 
     static BackgroundPaddingProperty from(Rectangular rectangular) {
         return from(RectangularProperty.from(rectangular));
@@ -31,6 +31,9 @@ public interface BackgroundPaddingProperty extends Property<BackgroundPaddingCes
     }
 
     RectangularProperty getRectangular();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

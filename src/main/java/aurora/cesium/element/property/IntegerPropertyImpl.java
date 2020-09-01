@@ -12,16 +12,27 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class IntegerPropertyImpl extends SingleTimeBasedPropertyAdapter<Integer, IntegerProperty> implements IntegerProperty {
+class IntegerPropertyImpl extends SingleTimeBasedPropertyAdapter<Integer, IntegerProperty> implements IntegerProperty {
 
     @Override
     public void dispatch(Supplier<IntegerCesiumWriter> supplier) {
         try (IntegerCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeNumber);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -61,23 +72,29 @@ public class IntegerPropertyImpl extends SingleTimeBasedPropertyAdapter<Integer,
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<Integer> values;
-        protected Integer startIndex;
-        protected Integer length;
+        private List<JulianDate> dates;
+        private List<Integer> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected Integer value;
+        private Integer value;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<IntegerProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<IntegerProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(Integer instance) {
+            this.value = instance;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<Integer> instances) {
@@ -94,8 +111,8 @@ public class IntegerPropertyImpl extends SingleTimeBasedPropertyAdapter<Integer,
             return this;
         }
 
-        public Builder withValue(Integer instance) {
-            this.value = instance;
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -126,6 +143,7 @@ public class IntegerPropertyImpl extends SingleTimeBasedPropertyAdapter<Integer,
             integerPropertyImpl.setStartIndex(startIndex);
             integerPropertyImpl.setLength(length);
             integerPropertyImpl.setValue(value);
+            integerPropertyImpl.setDelete(delete);
             integerPropertyImpl.setInterpolations(interpolations);
             integerPropertyImpl.setInterval(interval);
             integerPropertyImpl.setIntervals(intervals);

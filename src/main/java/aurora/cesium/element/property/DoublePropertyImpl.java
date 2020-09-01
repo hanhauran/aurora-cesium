@@ -12,16 +12,27 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DoublePropertyImpl extends SingleTimeBasedPropertyAdapter<Double, DoubleProperty> implements DoubleProperty {
+class DoublePropertyImpl extends SingleTimeBasedPropertyAdapter<Double, DoubleProperty> implements DoubleProperty {
 
     @Override
     public void dispatch(Supplier<DoubleCesiumWriter> supplier) {
         try (DoubleCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeNumber, writer::writeNumber, writer::writeNumber);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -61,23 +72,29 @@ public class DoublePropertyImpl extends SingleTimeBasedPropertyAdapter<Double, D
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<Double> values;
-        protected Integer startIndex;
-        protected Integer length;
+        private List<JulianDate> dates;
+        private List<Double> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected Double value;
+        private Double value;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<DoubleProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<DoubleProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(Double instance) {
+            this.value = instance;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<Double> instances) {
@@ -94,8 +111,8 @@ public class DoublePropertyImpl extends SingleTimeBasedPropertyAdapter<Double, D
             return this;
         }
 
-        public Builder withValue(Double instance) {
-            this.value = instance;
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -126,6 +143,7 @@ public class DoublePropertyImpl extends SingleTimeBasedPropertyAdapter<Double, D
             doublePropertyImpl.setStartIndex(startIndex);
             doublePropertyImpl.setLength(length);
             doublePropertyImpl.setValue(value);
+            doublePropertyImpl.setDelete(delete);
             doublePropertyImpl.setInterpolations(interpolations);
             doublePropertyImpl.setInterval(interval);
             doublePropertyImpl.setIntervals(intervals);

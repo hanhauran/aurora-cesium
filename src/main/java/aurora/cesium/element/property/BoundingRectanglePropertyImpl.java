@@ -9,16 +9,27 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class BoundingRectanglePropertyImpl extends SingleTimeBasedPropertyAdapter<BoundingRectangle, BoundingRectangleProperty> implements BoundingRectangleProperty {
+class BoundingRectanglePropertyImpl extends SingleTimeBasedPropertyAdapter<BoundingRectangle, BoundingRectangleProperty> implements BoundingRectangleProperty {
 
     @Override
     public void dispatch(Supplier<BoundingRectangleCesiumWriter> supplier) {
         try (BoundingRectangleCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeBoundingRectangle, writer::writeBoundingRectangle, writer::writeBoundingRectangle);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -58,23 +69,29 @@ public class BoundingRectanglePropertyImpl extends SingleTimeBasedPropertyAdapte
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<BoundingRectangle> values;
-        protected Integer startIndex;
-        protected Integer length;
+        private List<JulianDate> dates;
+        private List<BoundingRectangle> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected BoundingRectangle value;
+        private BoundingRectangle value;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<BoundingRectangleProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<BoundingRectangleProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(BoundingRectangle value) {
+            this.value = value;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<BoundingRectangle> values) {
@@ -91,8 +108,8 @@ public class BoundingRectanglePropertyImpl extends SingleTimeBasedPropertyAdapte
             return this;
         }
 
-        public Builder withValue(BoundingRectangle value) {
-            this.value = value;
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -123,6 +140,7 @@ public class BoundingRectanglePropertyImpl extends SingleTimeBasedPropertyAdapte
             boundingRectanglePropertyImpl.setStartIndex(startIndex);
             boundingRectanglePropertyImpl.setLength(length);
             boundingRectanglePropertyImpl.setValue(value);
+            boundingRectanglePropertyImpl.setDelete(delete);
             boundingRectanglePropertyImpl.setInterpolations(interpolations);
             boundingRectanglePropertyImpl.setInterval(interval);
             boundingRectanglePropertyImpl.setIntervals(intervals);

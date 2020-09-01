@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface ColorProperty extends Property<ColorCesiumWriter>, Interpolatable, Intervalable<ColorProperty>, Referenceable {
+public interface ColorProperty extends Property<ColorCesiumWriter>, Deletable, Interpolatable, Intervalable<ColorProperty>, Referenceable {
 
     static ColorProperty fromRgba(Color color) {
         return newRgbaBuilder().withValue(color).build();
@@ -33,6 +33,9 @@ public interface ColorProperty extends Property<ColorCesiumWriter>, Interpolatab
     static RgbafColorPropertyImpl.Builder newRgbafBuilder() {
         return RgbafColorPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

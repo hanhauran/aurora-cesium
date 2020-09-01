@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface StripeOrientationProperty extends Property<StripeOrientationCesiumWriter>, Intervalable<StripeOrientationProperty>, Referenceable {
+public interface StripeOrientationProperty extends Property<StripeOrientationCesiumWriter>, Deletable, Intervalable<StripeOrientationProperty>, Referenceable {
 
     static StripeOrientationProperty from(CesiumStripeOrientation stripeOrientation) {
         return newBuilder().withValue(stripeOrientation).build();
@@ -25,6 +25,9 @@ public interface StripeOrientationProperty extends Property<StripeOrientationCes
     static StripeOrientationPropertyImpl.Builder newBuilder() {
         return StripeOrientationPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

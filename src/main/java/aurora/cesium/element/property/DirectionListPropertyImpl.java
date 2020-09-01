@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class DirectionListPropertyImpl extends PropertyAdapter<DirectionListProperty> implements DirectionListProperty {
+class DirectionListPropertyImpl extends PropertyAdapter<DirectionListProperty> implements DirectionListProperty {
 
     private Iterable<Cartesian> cartesians;
 
@@ -27,8 +27,19 @@ public class DirectionListPropertyImpl extends PropertyAdapter<DirectionListProp
             Optional.ofNullable(getSphericals()).ifPresent(writer::writeSpherical);
             Optional.ofNullable(getUnitCartesians()).ifPresent(writer::writeUnitCartesian);
             Optional.ofNullable(getUnitSphericals()).ifPresent(writer::writeUnitSpherical);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -85,13 +96,13 @@ public class DirectionListPropertyImpl extends PropertyAdapter<DirectionListProp
         this.intervals = intervals;
     }
 
-
     public static final class Builder {
         private Iterable<Cartesian> cartesians;
         private Iterable<Spherical> sphericals;
         private Iterable<UnitCartesian> unitCartesians;
         private Iterable<UnitSpherical> unitSphericals;
 
+        private Boolean delete;
         protected TimeInterval interval;
         protected List<DirectionListProperty> intervals;
 
@@ -122,6 +133,11 @@ public class DirectionListPropertyImpl extends PropertyAdapter<DirectionListProp
             return this;
         }
 
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
+            return this;
+        }
+
         public Builder withInterval(TimeInterval interval) {
             this.interval = interval;
             return this;
@@ -138,6 +154,7 @@ public class DirectionListPropertyImpl extends PropertyAdapter<DirectionListProp
             directionListPropertyImpl.setSphericals(sphericals);
             directionListPropertyImpl.setUnitCartesians(unitCartesians);
             directionListPropertyImpl.setUnitSphericals(unitSphericals);
+            directionListPropertyImpl.setDelete(delete);
             directionListPropertyImpl.setInterval(interval);
             directionListPropertyImpl.setIntervals(intervals);
             return directionListPropertyImpl;

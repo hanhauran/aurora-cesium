@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class CheckerboardMaterialPropertyImpl extends PropertyAdapter<CheckerboardMaterialProperty> implements CheckerboardMaterialProperty {
+class CheckerboardMaterialPropertyImpl extends PropertyAdapter<CheckerboardMaterialProperty> implements CheckerboardMaterialProperty {
 
     private ColorProperty evenColor;
 
@@ -25,6 +25,7 @@ public class CheckerboardMaterialPropertyImpl extends PropertyAdapter<Checkerboa
             Optional.ofNullable(getEvenColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openEvenColorProperty));
             Optional.ofNullable(getOddColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openOddColorProperty));
             Optional.ofNullable(getRepeat()).ifPresent(repeatProperty -> repeatProperty.dispatch(writer::openRepeatProperty));
+
             dispatchInterval(writer, (intervalWriter, property) -> property.dispatch(intervalWriter));
         }
     }
@@ -56,14 +57,6 @@ public class CheckerboardMaterialPropertyImpl extends PropertyAdapter<Checkerboa
         this.repeat = repeat;
     }
 
-    public Interpolations getInterpolations() {
-        return interpolations;
-    }
-
-    public void setInterpolations(Interpolations interpolations) {
-        this.interpolations = interpolations;
-    }
-
     @Override
     public TimeInterval getInterval() {
         return interval;
@@ -88,9 +81,8 @@ public class CheckerboardMaterialPropertyImpl extends PropertyAdapter<Checkerboa
         private ColorProperty oddColor;
         private RepeatProperty repeat;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<CheckerboardMaterialProperty> intervals;
+        private TimeInterval interval;
+        private List<CheckerboardMaterialProperty> intervals;
 
         private Builder() {
         }
@@ -114,11 +106,6 @@ public class CheckerboardMaterialPropertyImpl extends PropertyAdapter<Checkerboa
             return this;
         }
 
-        public Builder withInterpolations(Interpolations interpolations) {
-            this.interpolations = interpolations;
-            return this;
-        }
-
         public Builder withInterval(TimeInterval interval) {
             this.interval = interval;
             return this;
@@ -134,7 +121,6 @@ public class CheckerboardMaterialPropertyImpl extends PropertyAdapter<Checkerboa
             checkerboardMaterialPropertyImpl.setEvenColor(evenColor);
             checkerboardMaterialPropertyImpl.setOddColor(oddColor);
             checkerboardMaterialPropertyImpl.setRepeat(repeat);
-            checkerboardMaterialPropertyImpl.setInterpolations(interpolations);
             checkerboardMaterialPropertyImpl.setInterval(interval);
             checkerboardMaterialPropertyImpl.setIntervals(intervals);
             return checkerboardMaterialPropertyImpl;

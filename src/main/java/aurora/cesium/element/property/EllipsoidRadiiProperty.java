@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface EllipsoidRadiiProperty extends Property<EllipsoidRadiiCesiumWriter>, Interpolatable, Intervalable<EllipsoidRadiiProperty>, Referenceable {
+public interface EllipsoidRadiiProperty extends Property<EllipsoidRadiiCesiumWriter>, Deletable, Interpolatable, Intervalable<EllipsoidRadiiProperty>, Referenceable {
 
     static EllipsoidRadiiProperty from(Cartesian cartesian) {
         return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
@@ -27,6 +27,9 @@ public interface EllipsoidRadiiProperty extends Property<EllipsoidRadiiCesiumWri
     }
 
     CartesianProperty getCartesian();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

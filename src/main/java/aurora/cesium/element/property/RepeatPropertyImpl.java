@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class RepeatPropertyImpl extends PropertyAdapter<RepeatProperty> implements RepeatProperty {
+class RepeatPropertyImpl extends PropertyAdapter<RepeatProperty> implements RepeatProperty {
 
     private RectangularProperty rectangular;
 
@@ -20,6 +20,8 @@ public class RepeatPropertyImpl extends PropertyAdapter<RepeatProperty> implemen
     public void dispatch(Supplier<RepeatCesiumWriter> supplier) {
         try (RepeatCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class RepeatPropertyImpl extends PropertyAdapter<RepeatProperty> implemen
 
     public void setRectangular(RectangularProperty rectangular) {
         this.rectangular = rectangular;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -74,10 +85,11 @@ public class RepeatPropertyImpl extends PropertyAdapter<RepeatProperty> implemen
     public static final class Builder {
         private RectangularProperty rectangular;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<RepeatProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<RepeatProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -93,6 +105,11 @@ public class RepeatPropertyImpl extends PropertyAdapter<RepeatProperty> implemen
 
         public Builder withInterpolations(Interpolations interpolations) {
             this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -114,6 +131,7 @@ public class RepeatPropertyImpl extends PropertyAdapter<RepeatProperty> implemen
         public RepeatPropertyImpl build() {
             RepeatPropertyImpl repeatPropertyImpl = new RepeatPropertyImpl();
             repeatPropertyImpl.setRectangular(rectangular);
+            repeatPropertyImpl.setDelete(delete);
             repeatPropertyImpl.setInterpolations(interpolations);
             repeatPropertyImpl.setInterval(interval);
             repeatPropertyImpl.setIntervals(intervals);

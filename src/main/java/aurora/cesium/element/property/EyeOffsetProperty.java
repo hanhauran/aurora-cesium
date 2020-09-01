@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface EyeOffsetProperty extends Property<EyeOffsetCesiumWriter>, Interpolatable, Intervalable<EyeOffsetProperty>, Referenceable {
+public interface EyeOffsetProperty extends Property<EyeOffsetCesiumWriter>, Deletable, Interpolatable, Intervalable<EyeOffsetProperty>, Referenceable {
 
     static EyeOffsetProperty from(Cartesian cartesian) {
         return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
@@ -27,6 +27,9 @@ public interface EyeOffsetProperty extends Property<EyeOffsetCesiumWriter>, Inte
     }
 
     CartesianProperty getCartesian();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

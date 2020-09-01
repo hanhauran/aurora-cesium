@@ -12,15 +12,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class LabelStylePropertyImpl extends SinglePropertyAdapter<CesiumLabelStyle, LabelStyleProperty> implements LabelStyleProperty {
+class LabelStylePropertyImpl extends SinglePropertyAdapter<CesiumLabelStyle, LabelStyleProperty> implements LabelStyleProperty {
 
     @Override
     public void dispatch(Supplier<LabelStyleCesiumWriter> supplier) {
         try (LabelStyleCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeLabelStyle);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -51,11 +62,12 @@ public class LabelStylePropertyImpl extends SinglePropertyAdapter<CesiumLabelSty
     }
 
     public static final class Builder {
-        protected CesiumLabelStyle value;
+        private CesiumLabelStyle value;
 
-        protected TimeInterval interval;
-        protected List<LabelStyleProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<LabelStyleProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -66,6 +78,11 @@ public class LabelStylePropertyImpl extends SinglePropertyAdapter<CesiumLabelSty
 
         public Builder withValue(CesiumLabelStyle value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -87,6 +104,7 @@ public class LabelStylePropertyImpl extends SinglePropertyAdapter<CesiumLabelSty
         public LabelStylePropertyImpl build() {
             LabelStylePropertyImpl labelStylePropertyImpl = new LabelStylePropertyImpl();
             labelStylePropertyImpl.setValue(value);
+            labelStylePropertyImpl.setDelete(delete);
             labelStylePropertyImpl.setInterval(interval);
             labelStylePropertyImpl.setIntervals(intervals);
             labelStylePropertyImpl.setReference(reference);

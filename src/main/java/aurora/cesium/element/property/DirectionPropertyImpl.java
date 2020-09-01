@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class DirectionPropertyImpl extends PropertyAdapter<DirectionProperty> implements DirectionProperty {
+class DirectionPropertyImpl extends PropertyAdapter<DirectionProperty> implements DirectionProperty {
 
     private CartesianProperty cartesian;
 
@@ -29,10 +29,21 @@ public class DirectionPropertyImpl extends PropertyAdapter<DirectionProperty> im
             Optional.ofNullable(getSpherical()).ifPresent(sphericalProperty -> sphericalProperty.dispatchWithoutClose(writer));
             Optional.ofNullable(getUnitCartesian()).ifPresent(unitCartesianProperty -> unitCartesianProperty.dispatchWithoutClose(writer));
             Optional.ofNullable(getUnitSpherical()).ifPresent(unitSphericalProperty -> unitSphericalProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -113,10 +124,11 @@ public class DirectionPropertyImpl extends PropertyAdapter<DirectionProperty> im
         private UnitCartesianProperty unitCartesian;
         private UnitSphericalProperty unitSpherical;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<DirectionProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<DirectionProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -150,6 +162,11 @@ public class DirectionPropertyImpl extends PropertyAdapter<DirectionProperty> im
             return this;
         }
 
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
+            return this;
+        }
+
         public Builder withInterval(TimeInterval interval) {
             this.interval = interval;
             return this;
@@ -171,6 +188,7 @@ public class DirectionPropertyImpl extends PropertyAdapter<DirectionProperty> im
             directionPropertyImpl.setSpherical(spherical);
             directionPropertyImpl.setUnitCartesian(unitCartesian);
             directionPropertyImpl.setUnitSpherical(unitSpherical);
+            directionPropertyImpl.setDelete(delete);
             directionPropertyImpl.setInterpolations(interpolations);
             directionPropertyImpl.setInterval(interval);
             directionPropertyImpl.setIntervals(intervals);

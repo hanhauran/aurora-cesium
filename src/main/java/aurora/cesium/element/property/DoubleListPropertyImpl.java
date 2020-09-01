@@ -11,15 +11,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class DoubleListPropertyImpl extends SinglePropertyAdapter<Iterable<Double>, DoubleListProperty> implements DoubleListProperty {
+class DoubleListPropertyImpl extends SinglePropertyAdapter<Iterable<Double>, DoubleListProperty> implements DoubleListProperty {
 
     @Override
     public void dispatch(Supplier<DoubleListCesiumWriter> supplier) {
         try (DoubleListCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeArray);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReferences(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -49,10 +60,12 @@ public class DoubleListPropertyImpl extends SinglePropertyAdapter<Iterable<Doubl
     }
 
     public static final class Builder {
-        protected Iterable<Double> value;
-        protected TimeInterval interval;
-        protected List<DoubleListProperty> intervals;
-        protected Iterable<Reference> referenceList;
+        private Iterable<Double> value;
+
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<DoubleListProperty> intervals;
+        private Iterable<Reference> referenceList;
 
         private Builder() {
         }
@@ -63,6 +76,11 @@ public class DoubleListPropertyImpl extends SinglePropertyAdapter<Iterable<Doubl
 
         public Builder withValue(Iterable<Double> value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -84,6 +102,7 @@ public class DoubleListPropertyImpl extends SinglePropertyAdapter<Iterable<Doubl
         public DoubleListPropertyImpl build() {
             DoubleListPropertyImpl doubleListPropertyImpl = new DoubleListPropertyImpl();
             doubleListPropertyImpl.setValue(value);
+            doubleListPropertyImpl.setDelete(delete);
             doubleListPropertyImpl.setInterval(interval);
             doubleListPropertyImpl.setIntervals(intervals);
             doubleListPropertyImpl.referenceList = this.referenceList;

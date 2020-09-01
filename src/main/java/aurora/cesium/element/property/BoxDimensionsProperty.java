@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface BoxDimensionsProperty extends Property<BoxDimensionsCesiumWriter>, Intervalable<BoxDimensionsProperty>, Referenceable {
+public interface BoxDimensionsProperty extends Property<BoxDimensionsCesiumWriter>, Deletable, Intervalable<BoxDimensionsProperty>, Referenceable {
 
     static BoxDimensionsProperty from(Cartesian cartesian) {
         return from(CartesianProperty.from(cartesian));
@@ -30,6 +30,9 @@ public interface BoxDimensionsProperty extends Property<BoxDimensionsCesiumWrite
     }
 
     CartesianProperty getCartesian();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

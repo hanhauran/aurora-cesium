@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface TranslationProperty extends Property<TranslationCesiumWriter>, Interpolatable, Intervalable<TranslationProperty>, Referenceable {
+public interface TranslationProperty extends Property<TranslationCesiumWriter>, Deletable, Interpolatable, Intervalable<TranslationProperty>, Referenceable {
 
     static TranslationProperty from(Cartesian cartesian) {
         return from(CartesianProperty.from(cartesian));
@@ -31,6 +31,9 @@ public interface TranslationProperty extends Property<TranslationCesiumWriter>, 
     }
 
     CartesianProperty getCartesian();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

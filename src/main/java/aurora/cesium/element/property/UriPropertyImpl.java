@@ -12,15 +12,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class UriPropertyImpl extends SinglePropertyAdapter<CesiumResource, UriProperty> implements UriProperty {
+class UriPropertyImpl extends SinglePropertyAdapter<CesiumResource, UriProperty> implements UriProperty {
 
     @Override
     public void dispatch(Supplier<UriCesiumWriter> supplier) {
         try (UriCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeUri);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -51,11 +62,12 @@ public class UriPropertyImpl extends SinglePropertyAdapter<CesiumResource, UriPr
     }
 
     public static final class Builder {
-        protected CesiumResource value;
+        private CesiumResource value;
 
-        protected TimeInterval interval;
-        protected List<UriProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<UriProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -66,6 +78,11 @@ public class UriPropertyImpl extends SinglePropertyAdapter<CesiumResource, UriPr
 
         public Builder withValue(CesiumResource value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -87,6 +104,7 @@ public class UriPropertyImpl extends SinglePropertyAdapter<CesiumResource, UriPr
         public UriPropertyImpl build() {
             UriPropertyImpl uriPropertyImpl = new UriPropertyImpl();
             uriPropertyImpl.setValue(value);
+            uriPropertyImpl.setDelete(delete);
             uriPropertyImpl.setInterval(interval);
             uriPropertyImpl.setIntervals(intervals);
             uriPropertyImpl.setReference(reference);

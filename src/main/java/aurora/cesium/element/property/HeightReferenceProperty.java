@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface HeightReferenceProperty extends Property<HeightReferenceCesiumWriter>, Intervalable<HeightReferenceProperty>, Referenceable {
+public interface HeightReferenceProperty extends Property<HeightReferenceCesiumWriter>, Deletable, Intervalable<HeightReferenceProperty>, Referenceable {
 
     static HeightReferenceProperty from(CesiumHeightReference value) {
         return newBuilder().withValue(value).build();
@@ -25,6 +25,9 @@ public interface HeightReferenceProperty extends Property<HeightReferenceCesiumW
     static HeightReferencePropertyImpl.Builder newBuilder() {
         return HeightReferencePropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

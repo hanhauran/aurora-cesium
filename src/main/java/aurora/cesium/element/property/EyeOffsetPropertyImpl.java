@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class EyeOffsetPropertyImpl extends PropertyAdapter<EyeOffsetProperty> implements EyeOffsetProperty {
+class EyeOffsetPropertyImpl extends PropertyAdapter<EyeOffsetProperty> implements EyeOffsetProperty {
 
     private CartesianProperty cartesian;
 
@@ -20,6 +20,8 @@ public class EyeOffsetPropertyImpl extends PropertyAdapter<EyeOffsetProperty> im
     public void dispatch(Supplier<EyeOffsetCesiumWriter> supplier) {
         try (EyeOffsetCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class EyeOffsetPropertyImpl extends PropertyAdapter<EyeOffsetProperty> im
 
     public void setCartesian(CartesianProperty cartesian) {
         this.cartesian = cartesian;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -74,10 +85,11 @@ public class EyeOffsetPropertyImpl extends PropertyAdapter<EyeOffsetProperty> im
     public static final class Builder {
         private CartesianProperty cartesian;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<EyeOffsetProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<EyeOffsetProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -88,6 +100,11 @@ public class EyeOffsetPropertyImpl extends PropertyAdapter<EyeOffsetProperty> im
 
         public Builder withCartesian(CartesianProperty cartesian) {
             this.cartesian = cartesian;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -114,6 +131,7 @@ public class EyeOffsetPropertyImpl extends PropertyAdapter<EyeOffsetProperty> im
         public EyeOffsetPropertyImpl build() {
             EyeOffsetPropertyImpl eyeOffsetPropertyImpl = new EyeOffsetPropertyImpl();
             eyeOffsetPropertyImpl.setCartesian(cartesian);
+            eyeOffsetPropertyImpl.setDelete(delete);
             eyeOffsetPropertyImpl.setInterpolations(interpolations);
             eyeOffsetPropertyImpl.setInterval(interval);
             eyeOffsetPropertyImpl.setIntervals(intervals);

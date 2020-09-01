@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class ImageMaterialPropertyImpl extends PropertyAdapter<ImageMaterialProperty> implements ImageMaterialProperty {
+class ImageMaterialPropertyImpl extends PropertyAdapter<ImageMaterialProperty> implements ImageMaterialProperty {
 
     private ColorProperty color;
 

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface LabelStyleProperty extends Property<LabelStyleCesiumWriter>, Intervalable<LabelStyleProperty>, Referenceable {
+public interface LabelStyleProperty extends Property<LabelStyleCesiumWriter>, Deletable, Intervalable<LabelStyleProperty>, Referenceable {
 
     static LabelStyleProperty from(CesiumLabelStyle value) {
         return newBuilder().withValue(value).build();
@@ -25,6 +25,9 @@ public interface LabelStyleProperty extends Property<LabelStyleCesiumWriter>, In
     static LabelStylePropertyImpl.Builder newBuilder() {
         return LabelStylePropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

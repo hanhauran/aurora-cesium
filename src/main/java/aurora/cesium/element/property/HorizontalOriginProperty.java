@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface HorizontalOriginProperty extends Property<HorizontalOriginCesiumWriter>, Intervalable<HorizontalOriginProperty>, Referenceable {
+public interface HorizontalOriginProperty extends Property<HorizontalOriginCesiumWriter>, Deletable, Intervalable<HorizontalOriginProperty>, Referenceable {
 
     static HorizontalOriginProperty from(CesiumHorizontalOrigin value) {
         return newBuilder().withValue(value).build();
@@ -25,6 +25,9 @@ public interface HorizontalOriginProperty extends Property<HorizontalOriginCesiu
     static HorizontalOriginPropertyImpl.Builder newBuilder() {
         return HorizontalOriginPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

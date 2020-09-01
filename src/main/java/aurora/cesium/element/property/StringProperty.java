@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface StringProperty extends Property<StringCesiumWriter>, Intervalable<StringProperty>, Referenceable {
+public interface StringProperty extends Property<StringCesiumWriter>, Deletable, Intervalable<StringProperty>, Referenceable {
 
     static StringProperty from(String string) {
         return newBuilder().withValue(string).build();
@@ -24,6 +24,9 @@ public interface StringProperty extends Property<StringCesiumWriter>, Intervalab
     static StringPropertyImpl.Builder newBuilder() {
         return StringPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

@@ -11,15 +11,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class BooleanPropertyImpl extends SinglePropertyAdapter<Boolean, BooleanProperty> implements BooleanProperty {
+class BooleanPropertyImpl extends SinglePropertyAdapter<Boolean, BooleanProperty> implements BooleanProperty {
 
     @Override
     public void dispatch(Supplier<BooleanCesiumWriter> supplier) {
         try (BooleanCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeBoolean);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -50,10 +61,12 @@ public class BooleanPropertyImpl extends SinglePropertyAdapter<Boolean, BooleanP
     }
 
     public static final class Builder {
-        protected Boolean value;
-        protected TimeInterval interval;
-        protected List<BooleanProperty> intervals;
-        protected Reference reference;
+        private Boolean value;
+
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<BooleanProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -64,6 +77,11 @@ public class BooleanPropertyImpl extends SinglePropertyAdapter<Boolean, BooleanP
 
         public Builder withValue(Boolean instance) {
             this.value = instance;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -85,6 +103,7 @@ public class BooleanPropertyImpl extends SinglePropertyAdapter<Boolean, BooleanP
         public BooleanPropertyImpl build() {
             BooleanPropertyImpl booleanPropertyImpl = new BooleanPropertyImpl();
             booleanPropertyImpl.setValue(value);
+            booleanPropertyImpl.setDelete(delete);
             booleanPropertyImpl.setInterval(interval);
             booleanPropertyImpl.setIntervals(intervals);
             booleanPropertyImpl.setReference(reference);

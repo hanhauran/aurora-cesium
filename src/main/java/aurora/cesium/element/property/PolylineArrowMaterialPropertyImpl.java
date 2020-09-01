@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class PolylineArrowMaterialPropertyImpl extends PropertyAdapter<PolylineArrowMaterialProperty> implements PolylineArrowMaterialProperty {
+class PolylineArrowMaterialPropertyImpl extends PropertyAdapter<PolylineArrowMaterialProperty> implements PolylineArrowMaterialProperty {
 
     private ColorProperty color;
 
@@ -19,6 +19,7 @@ public class PolylineArrowMaterialPropertyImpl extends PropertyAdapter<PolylineA
     public void dispatch(Supplier<PolylineArrowMaterialCesiumWriter> supplier) {
         try (PolylineArrowMaterialCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }

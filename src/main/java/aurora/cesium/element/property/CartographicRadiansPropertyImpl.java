@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class CartographicRadiansPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartographic, CartographicRadiansProperty> implements CartographicRadiansProperty {
+class CartographicRadiansPropertyImpl extends SingleTimeBasedPropertyAdapter<Cartographic, CartographicRadiansProperty> implements CartographicRadiansProperty {
 
     @Override
     public void dispatchWithoutClose(ICesiumCartographicRadiansValuePropertyWriter writer) {
@@ -20,17 +20,23 @@ public class CartographicRadiansPropertyImpl extends SingleTimeBasedPropertyAdap
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<Cartographic> values;
-        protected Integer startIndex;
-        protected Integer length;
-        protected Cartographic value;
+        private List<JulianDate> dates;
+        private List<Cartographic> values;
+        private Integer startIndex;
+        private Integer length;
+
+        private Cartographic value;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(Cartographic value) {
+            this.value = value;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<Cartographic> values) {
@@ -44,11 +50,6 @@ public class CartographicRadiansPropertyImpl extends SingleTimeBasedPropertyAdap
             this.values = values;
             this.startIndex = startIndex;
             this.length = length;
-            return this;
-        }
-
-        public Builder withValue(Cartographic value) {
-            this.value = value;
             return this;
         }
 

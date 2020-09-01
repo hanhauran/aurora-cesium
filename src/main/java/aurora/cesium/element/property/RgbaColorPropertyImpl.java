@@ -13,16 +13,27 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class RgbaColorPropertyImpl extends SingleTimeBasedPropertyAdapter<Color, ColorProperty> implements ColorProperty {
+class RgbaColorPropertyImpl extends SingleTimeBasedPropertyAdapter<Color, ColorProperty> implements ColorProperty {
 
     @Override
     public void dispatch(Supplier<ColorCesiumWriter> supplier) {
         try (ColorCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeRgba, writer::writeRgba, writer::writeRgba);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -62,22 +73,29 @@ public class RgbaColorPropertyImpl extends SingleTimeBasedPropertyAdapter<Color,
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<Color> values;
-        protected Integer startIndex;
-        protected Integer length;
-        protected Color value;
+        private List<JulianDate> dates;
+        private List<Color> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<ColorProperty> intervals;
-        protected Reference reference;
+        private Color value;
+
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<ColorProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(Color value) {
+            this.value = value;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<Color> values) {
@@ -94,8 +112,8 @@ public class RgbaColorPropertyImpl extends SingleTimeBasedPropertyAdapter<Color,
             return this;
         }
 
-        public Builder withValue(Color value) {
-            this.value = value;
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -126,6 +144,7 @@ public class RgbaColorPropertyImpl extends SingleTimeBasedPropertyAdapter<Color,
             rgbaColorPropertyImpl.setStartIndex(startIndex);
             rgbaColorPropertyImpl.setLength(length);
             rgbaColorPropertyImpl.setValue(value);
+            rgbaColorPropertyImpl.setDelete(delete);
             rgbaColorPropertyImpl.setInterpolations(interpolations);
             rgbaColorPropertyImpl.setInterval(interval);
             rgbaColorPropertyImpl.setIntervals(intervals);

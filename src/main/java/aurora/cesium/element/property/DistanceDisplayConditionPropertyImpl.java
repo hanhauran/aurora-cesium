@@ -9,16 +9,27 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class DistanceDisplayConditionPropertyImpl extends SingleTimeBasedPropertyAdapter<Bounds, DistanceDisplayConditionProperty> implements DistanceDisplayConditionProperty {
+class DistanceDisplayConditionPropertyImpl extends SingleTimeBasedPropertyAdapter<Bounds, DistanceDisplayConditionProperty> implements DistanceDisplayConditionProperty {
 
     @Override
     public void dispatch(Supplier<DistanceDisplayConditionCesiumWriter> supplier) {
         try (DistanceDisplayConditionCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeDistanceDisplayCondition, writer::writeDistanceDisplayCondition, writer::writeDistanceDisplayCondition);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -58,23 +69,29 @@ public class DistanceDisplayConditionPropertyImpl extends SingleTimeBasedPropert
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<Bounds> values;
-        protected Integer startIndex;
-        protected Integer length;
+        private List<JulianDate> dates;
+        private List<Bounds> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected Bounds value;
+        private Bounds value;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<DistanceDisplayConditionProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<DistanceDisplayConditionProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(Bounds instance) {
+            this.value = instance;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<Bounds> instances) {
@@ -91,8 +108,8 @@ public class DistanceDisplayConditionPropertyImpl extends SingleTimeBasedPropert
             return this;
         }
 
-        public Builder withValue(Bounds instance) {
-            this.value = instance;
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -123,6 +140,7 @@ public class DistanceDisplayConditionPropertyImpl extends SingleTimeBasedPropert
             distanceDisplayConditionPropertyImpl.setStartIndex(startIndex);
             distanceDisplayConditionPropertyImpl.setLength(length);
             distanceDisplayConditionPropertyImpl.setValue(value);
+            distanceDisplayConditionPropertyImpl.setDelete(delete);
             distanceDisplayConditionPropertyImpl.setInterpolations(interpolations);
             distanceDisplayConditionPropertyImpl.setInterval(interval);
             distanceDisplayConditionPropertyImpl.setIntervals(intervals);

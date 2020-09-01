@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public interface ArcTypeProperty extends Property<ArcTypeCesiumWriter>, Intervalable<ArcTypeProperty>, Referenceable {
+public interface ArcTypeProperty extends Property<ArcTypeCesiumWriter>, Deletable, Intervalable<ArcTypeProperty>, Referenceable {
 
     static ArcTypeProperty from(CesiumArcType arcType) {
         return newBuilder().withValue(arcType).build();
@@ -25,6 +25,9 @@ public interface ArcTypeProperty extends Property<ArcTypeCesiumWriter>, Interval
     static ArcTypePropertyImpl.Builder newBuilder() {
         return ArcTypePropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

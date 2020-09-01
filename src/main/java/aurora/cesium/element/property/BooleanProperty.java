@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface BooleanProperty extends Property<BooleanCesiumWriter>, Intervalable<BooleanProperty>, Referenceable {
+public interface BooleanProperty extends Property<BooleanCesiumWriter>, Deletable, Intervalable<BooleanProperty>, Referenceable {
 
     static BooleanProperty from(Boolean value) {
         return newBuilder().withValue(value).build();
@@ -24,6 +24,9 @@ public interface BooleanProperty extends Property<BooleanCesiumWriter>, Interval
     static BooleanPropertyImpl.Builder newBuilder() {
         return BooleanPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

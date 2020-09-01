@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public interface RotationProperty extends Property<RotationCesiumWriter>, Interpolatable, Intervalable<RotationProperty>, Referenceable {
+public interface RotationProperty extends Property<RotationCesiumWriter>, Deletable, Interpolatable, Intervalable<RotationProperty>, Referenceable {
 
     static RotationProperty from(UnitQuaternion unitQuaternion) {
         return from(UnitQuaternionProperty.from(unitQuaternion));
@@ -31,6 +31,9 @@ public interface RotationProperty extends Property<RotationCesiumWriter>, Interp
     }
 
     UnitQuaternionProperty getUnitQuaternion();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

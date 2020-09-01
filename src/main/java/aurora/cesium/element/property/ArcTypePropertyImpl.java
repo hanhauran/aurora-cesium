@@ -12,15 +12,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class ArcTypePropertyImpl extends SinglePropertyAdapter<CesiumArcType, ArcTypeProperty> implements ArcTypeProperty {
+class ArcTypePropertyImpl extends SinglePropertyAdapter<CesiumArcType, ArcTypeProperty> implements ArcTypeProperty {
 
     @Override
     public void dispatch(Supplier<ArcTypeCesiumWriter> supplier) {
         try (ArcTypeCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeArcType);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -51,10 +62,14 @@ public class ArcTypePropertyImpl extends SinglePropertyAdapter<CesiumArcType, Ar
     }
 
     public static final class Builder {
-        protected CesiumArcType value;
-        protected TimeInterval interval;
-        protected List<ArcTypeProperty> intervals;
-        protected Reference reference;
+        private CesiumArcType value;
+
+        private Boolean delete;
+
+        private TimeInterval interval;
+        private List<ArcTypeProperty> intervals;
+
+        private Reference reference;
 
         private Builder() {
         }
@@ -65,6 +80,11 @@ public class ArcTypePropertyImpl extends SinglePropertyAdapter<CesiumArcType, Ar
 
         public Builder withValue(CesiumArcType instance) {
             this.value = instance;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -86,6 +106,7 @@ public class ArcTypePropertyImpl extends SinglePropertyAdapter<CesiumArcType, Ar
         public ArcTypePropertyImpl build() {
             ArcTypePropertyImpl arcTypePropertyImpl = new ArcTypePropertyImpl();
             arcTypePropertyImpl.setValue(value);
+            arcTypePropertyImpl.setDelete(delete);
             arcTypePropertyImpl.setInterval(interval);
             arcTypePropertyImpl.setIntervals(intervals);
             arcTypePropertyImpl.setReference(reference);

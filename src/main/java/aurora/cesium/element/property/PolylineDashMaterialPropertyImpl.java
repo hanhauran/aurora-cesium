@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class PolylineDashMaterialPropertyImpl extends PropertyAdapter<PolylineDashMaterialProperty> implements PolylineDashMaterialProperty {
+class PolylineDashMaterialPropertyImpl extends PropertyAdapter<PolylineDashMaterialProperty> implements PolylineDashMaterialProperty {
 
     private ColorProperty color;
 
@@ -28,6 +28,7 @@ public class PolylineDashMaterialPropertyImpl extends PropertyAdapter<PolylineDa
             Optional.ofNullable(getGapColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openGapColorProperty));
             Optional.ofNullable(getDashLength()).ifPresent(doubleProperty -> doubleProperty.dispatch(writer::openDashLengthProperty));
             Optional.ofNullable(getDashPattern()).ifPresent(integerProperty -> integerProperty.dispatch(writer::openDashPatternProperty));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }

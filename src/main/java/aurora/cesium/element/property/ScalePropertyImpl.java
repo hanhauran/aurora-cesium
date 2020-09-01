@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class ScalePropertyImpl extends PropertyAdapter<ScaleProperty> implements ScaleProperty {
+class ScalePropertyImpl extends PropertyAdapter<ScaleProperty> implements ScaleProperty {
 
     private CartesianProperty cartesian;
 
@@ -20,6 +20,8 @@ public class ScalePropertyImpl extends PropertyAdapter<ScaleProperty> implements
     public void dispatch(Supplier<ScaleCesiumWriter> supplier) {
         try (ScaleCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class ScalePropertyImpl extends PropertyAdapter<ScaleProperty> implements
 
     public void setCartesian(CartesianProperty cartesian) {
         this.cartesian = cartesian;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -74,10 +85,11 @@ public class ScalePropertyImpl extends PropertyAdapter<ScaleProperty> implements
     public static final class Builder {
         private CartesianProperty cartesian;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<ScaleProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<ScaleProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -93,6 +105,11 @@ public class ScalePropertyImpl extends PropertyAdapter<ScaleProperty> implements
 
         public Builder withInterpolations(Interpolations interpolations) {
             this.interpolations = interpolations;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -114,6 +131,7 @@ public class ScalePropertyImpl extends PropertyAdapter<ScaleProperty> implements
         public ScalePropertyImpl build() {
             ScalePropertyImpl scalePropertyImpl = new ScalePropertyImpl();
             scalePropertyImpl.setCartesian(cartesian);
+            scalePropertyImpl.setDelete(delete);
             scalePropertyImpl.setInterpolations(interpolations);
             scalePropertyImpl.setInterval(interval);
             scalePropertyImpl.setIntervals(intervals);

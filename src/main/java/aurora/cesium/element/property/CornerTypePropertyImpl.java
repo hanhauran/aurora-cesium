@@ -12,15 +12,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class CornerTypePropertyImpl extends SinglePropertyAdapter<CesiumCornerType, CornerTypeProperty> implements CornerTypeProperty {
+class CornerTypePropertyImpl extends SinglePropertyAdapter<CesiumCornerType, CornerTypeProperty> implements CornerTypeProperty {
 
     @Override
     public void dispatch(Supplier<CornerTypeCesiumWriter> supplier) {
         try (CornerTypeCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeCornerType);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -51,11 +62,12 @@ public class CornerTypePropertyImpl extends SinglePropertyAdapter<CesiumCornerTy
     }
 
     public static final class Builder {
-        protected CesiumCornerType value;
+        private CesiumCornerType value;
 
-        protected TimeInterval interval;
-        protected List<CornerTypeProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<CornerTypeProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -66,6 +78,11 @@ public class CornerTypePropertyImpl extends SinglePropertyAdapter<CesiumCornerTy
 
         public Builder withValue(CesiumCornerType value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -87,6 +104,7 @@ public class CornerTypePropertyImpl extends SinglePropertyAdapter<CesiumCornerTy
         public CornerTypePropertyImpl build() {
             CornerTypePropertyImpl cornerTypePropertyImpl = new CornerTypePropertyImpl();
             cornerTypePropertyImpl.setValue(value);
+            cornerTypePropertyImpl.setDelete(delete);
             cornerTypePropertyImpl.setInterval(interval);
             cornerTypePropertyImpl.setIntervals(intervals);
             cornerTypePropertyImpl.setReference(reference);

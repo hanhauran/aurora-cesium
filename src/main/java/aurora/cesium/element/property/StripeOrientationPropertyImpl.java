@@ -12,15 +12,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class StripeOrientationPropertyImpl extends SinglePropertyAdapter<CesiumStripeOrientation, StripeOrientationProperty> implements StripeOrientationProperty {
+class StripeOrientationPropertyImpl extends SinglePropertyAdapter<CesiumStripeOrientation, StripeOrientationProperty> implements StripeOrientationProperty {
 
     @Override
     public void dispatch(Supplier<StripeOrientationCesiumWriter> supplier) {
         try (StripeOrientationCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeStripeOrientation);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -51,11 +62,12 @@ public class StripeOrientationPropertyImpl extends SinglePropertyAdapter<CesiumS
     }
 
     public static final class Builder {
-        protected CesiumStripeOrientation value;
+        private CesiumStripeOrientation value;
 
-        protected TimeInterval interval;
-        protected List<StripeOrientationProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<StripeOrientationProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -66,6 +78,11 @@ public class StripeOrientationPropertyImpl extends SinglePropertyAdapter<CesiumS
 
         public Builder withValue(CesiumStripeOrientation value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -87,6 +104,7 @@ public class StripeOrientationPropertyImpl extends SinglePropertyAdapter<CesiumS
         public StripeOrientationPropertyImpl build() {
             StripeOrientationPropertyImpl stripeOrientationPropertyImpl = new StripeOrientationPropertyImpl();
             stripeOrientationPropertyImpl.setValue(value);
+            stripeOrientationPropertyImpl.setDelete(delete);
             stripeOrientationPropertyImpl.setInterval(interval);
             stripeOrientationPropertyImpl.setIntervals(intervals);
             stripeOrientationPropertyImpl.setReference(reference);

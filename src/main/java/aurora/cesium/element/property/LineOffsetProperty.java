@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface LineOffsetProperty extends Property<LineOffsetCesiumWriter>, Interpolatable, Intervalable<LineOffsetProperty>, Referenceable {
+public interface LineOffsetProperty extends Property<LineOffsetCesiumWriter>, Deletable, Interpolatable, Intervalable<LineOffsetProperty>, Referenceable {
 
     static LineOffsetProperty from(Rectangular rectangular) {
         return from(RectangularProperty.from(rectangular));
@@ -31,6 +31,9 @@ public interface LineOffsetProperty extends Property<LineOffsetCesiumWriter>, In
     }
 
     RectangularProperty getRectangular();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

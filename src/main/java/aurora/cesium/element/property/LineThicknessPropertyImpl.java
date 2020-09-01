@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class LineThicknessPropertyImpl extends PropertyAdapter<LineThicknessProperty> implements LineThicknessProperty {
+class LineThicknessPropertyImpl extends PropertyAdapter<LineThicknessProperty> implements LineThicknessProperty {
 
     private RectangularProperty rectangular;
 
@@ -20,6 +20,8 @@ public class LineThicknessPropertyImpl extends PropertyAdapter<LineThicknessProp
     public void dispatch(Supplier<LineThicknessCesiumWriter> supplier) {
         try (LineThicknessCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getRectangular()).ifPresent(rectangularProperty -> rectangularProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -32,6 +34,15 @@ public class LineThicknessPropertyImpl extends PropertyAdapter<LineThicknessProp
 
     public void setRectangular(RectangularProperty rectangular) {
         this.rectangular = rectangular;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -73,10 +84,11 @@ public class LineThicknessPropertyImpl extends PropertyAdapter<LineThicknessProp
     public static final class Builder {
         private RectangularProperty rectangular;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<LineThicknessProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<LineThicknessProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -87,6 +99,11 @@ public class LineThicknessPropertyImpl extends PropertyAdapter<LineThicknessProp
 
         public Builder withRectangular(RectangularProperty rectangular) {
             this.rectangular = rectangular;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -113,6 +130,7 @@ public class LineThicknessPropertyImpl extends PropertyAdapter<LineThicknessProp
         public LineThicknessPropertyImpl build() {
             LineThicknessPropertyImpl lineThicknessPropertyImpl = new LineThicknessPropertyImpl();
             lineThicknessPropertyImpl.setRectangular(rectangular);
+            lineThicknessPropertyImpl.setDelete(delete);
             lineThicknessPropertyImpl.setInterpolations(interpolations);
             lineThicknessPropertyImpl.setInterval(interval);
             lineThicknessPropertyImpl.setIntervals(intervals);

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface LineCountProperty extends Property<LineCountCesiumWriter>, Interpolatable, Intervalable<LineCountProperty>, Referenceable {
+public interface LineCountProperty extends Property<LineCountCesiumWriter>, Deletable, Interpolatable, Intervalable<LineCountProperty>, Referenceable {
 
     static LineCountProperty from(Rectangular rectangular) {
         return from(RectangularProperty.from(rectangular));
@@ -31,6 +31,9 @@ public interface LineCountProperty extends Property<LineCountCesiumWriter>, Inte
     }
 
     RectangularProperty getRectangular();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

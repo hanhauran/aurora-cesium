@@ -10,7 +10,7 @@ import java.util.List;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class CartographicRectangleDegreesPropertyImpl extends SingleTimeBasedPropertyAdapter<CartographicExtent, CartographicRectangleDegreesProperty> implements CartographicRectangleDegreesProperty {
+class CartographicRectangleDegreesPropertyImpl extends SingleTimeBasedPropertyAdapter<CartographicExtent, CartographicRectangleDegreesProperty> implements CartographicRectangleDegreesProperty {
 
     @Override
     public void dispatchWithoutClose(ICesiumCartographicRectangleDegreesValuePropertyWriter writer) {
@@ -18,17 +18,23 @@ public class CartographicRectangleDegreesPropertyImpl extends SingleTimeBasedPro
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<CartographicExtent> values;
-        protected Integer startIndex;
-        protected Integer length;
-        protected CartographicExtent value;
+        private List<JulianDate> dates;
+        private List<CartographicExtent> values;
+        private Integer startIndex;
+        private Integer length;
+
+        private CartographicExtent value;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(CartographicExtent value) {
+            this.value = value;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<CartographicExtent> values) {
@@ -42,11 +48,6 @@ public class CartographicRectangleDegreesPropertyImpl extends SingleTimeBasedPro
             this.values = values;
             this.startIndex = startIndex;
             this.length = length;
-            return this;
-        }
-
-        public Builder withValue(CartographicExtent value) {
-            this.value = value;
             return this;
         }
 

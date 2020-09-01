@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleCoordinatesProperty> implements RectangleCoordinatesProperty {
+class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleCoordinatesProperty> implements RectangleCoordinatesProperty {
 
     private CartographicRectangleRadiansProperty wsen;
 
@@ -23,6 +23,8 @@ public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleC
         try (RectangleCoordinatesCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getWsen()).ifPresent(cartographicRectangleRadiansProperty -> cartographicRectangleRadiansProperty.dispatchWithoutClose(writer));
             Optional.ofNullable(getWsenDegrees()).ifPresent(cartographicRectangleDegreesProperty -> cartographicRectangleDegreesProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -45,6 +47,15 @@ public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleC
 
     public void setWsenDegrees(CartographicRectangleDegreesProperty wsenDegrees) {
         this.wsenDegrees = wsenDegrees;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -87,10 +98,11 @@ public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleC
         private CartographicRectangleRadiansProperty wsen;
         private CartographicRectangleDegreesProperty wsenDegrees;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<RectangleCoordinatesProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<RectangleCoordinatesProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -106,6 +118,11 @@ public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleC
 
         public Builder withWsenDegrees(CartographicRectangleDegreesProperty wsenDegrees) {
             this.wsenDegrees = wsenDegrees;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -133,6 +150,7 @@ public class RectangleCoordinatesPropertyImpl extends PropertyAdapter<RectangleC
             RectangleCoordinatesPropertyImpl rectangleCoordinatesPropertyImpl = new RectangleCoordinatesPropertyImpl();
             rectangleCoordinatesPropertyImpl.setWsen(wsen);
             rectangleCoordinatesPropertyImpl.setWsenDegrees(wsenDegrees);
+            rectangleCoordinatesPropertyImpl.setDelete(delete);
             rectangleCoordinatesPropertyImpl.setInterpolations(interpolations);
             rectangleCoordinatesPropertyImpl.setInterval(interval);
             rectangleCoordinatesPropertyImpl.setIntervals(intervals);

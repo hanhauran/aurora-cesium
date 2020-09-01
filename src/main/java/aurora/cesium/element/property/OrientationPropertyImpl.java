@@ -9,16 +9,27 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitQuaternion, OrientationProperty> implements OrientationProperty {
+class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitQuaternion, OrientationProperty> implements OrientationProperty {
 
     @Override
     public void dispatch(Supplier<OrientationCesiumWriter> supplier) {
         try (OrientationCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeUnitQuaternion, writer::writeUnitQuaternion, writer::writeUnitQuaternion);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -58,23 +69,29 @@ public class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<Unit
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<UnitQuaternion> values;
-        protected Integer startIndex;
-        protected Integer length;
+        private List<JulianDate> dates;
+        private List<UnitQuaternion> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected UnitQuaternion value;
+        private UnitQuaternion value;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<OrientationProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<OrientationProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(UnitQuaternion value) {
+            this.value = value;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<UnitQuaternion> values) {
@@ -91,8 +108,8 @@ public class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<Unit
             return this;
         }
 
-        public Builder withValue(UnitQuaternion value) {
-            this.value = value;
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -123,6 +140,7 @@ public class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<Unit
             orientationPropertyImpl.setStartIndex(startIndex);
             orientationPropertyImpl.setLength(length);
             orientationPropertyImpl.setValue(value);
+            orientationPropertyImpl.setDelete(delete);
             orientationPropertyImpl.setInterpolations(interpolations);
             orientationPropertyImpl.setInterval(interval);
             orientationPropertyImpl.setIntervals(intervals);

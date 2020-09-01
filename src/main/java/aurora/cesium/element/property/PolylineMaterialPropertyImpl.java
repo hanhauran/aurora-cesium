@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class PolylineMaterialPropertyImpl extends PropertyAdapter<PolylineMaterialProperty> implements PolylineMaterialProperty {
+class PolylineMaterialPropertyImpl extends PropertyAdapter<PolylineMaterialProperty> implements PolylineMaterialProperty {
 
     private CheckerboardMaterialProperty checkerboardMaterial;
 
@@ -43,6 +43,7 @@ public class PolylineMaterialPropertyImpl extends PropertyAdapter<PolylineMateri
             Optional.ofNullable(getPolylineOutlineMaterial()).ifPresent(polylineOutlineMaterialProperty -> polylineOutlineMaterialProperty.dispatch(writer::openPolylineOutlineProperty));
             Optional.ofNullable(getSolidColorMaterial()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer::openSolidColorProperty));
             Optional.ofNullable(getStripeMaterial()).ifPresent(stripeMaterialProperty -> stripeMaterialProperty.dispatch(writer::openStripeProperty));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }

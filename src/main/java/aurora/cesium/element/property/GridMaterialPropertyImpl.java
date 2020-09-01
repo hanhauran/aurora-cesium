@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class GridMaterialPropertyImpl extends PropertyAdapter<GridMaterialProperty> implements GridMaterialProperty {
+class GridMaterialPropertyImpl extends PropertyAdapter<GridMaterialProperty> implements GridMaterialProperty {
 
     private DoubleProperty cellAlpha;
 

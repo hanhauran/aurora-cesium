@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public interface DirectionProperty extends Property<DirectionCesiumWriter>, Interpolatable, Intervalable<DirectionProperty>, Referenceable {
+public interface DirectionProperty extends Property<DirectionCesiumWriter>, Deletable, Interpolatable, Intervalable<DirectionProperty>, Referenceable {
 
     static DirectionProperty from(Cartesian cartesian) {
         return from(CartesianProperty.from(cartesian));
@@ -54,6 +54,9 @@ public interface DirectionProperty extends Property<DirectionCesiumWriter>, Inte
     UnitCartesianProperty getUnitCartesian();
 
     UnitSphericalProperty getUnitSpherical();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

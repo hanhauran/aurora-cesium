@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public interface ClassificationTypeProperty extends Property<ClassificationTypeCesiumWriter>, Intervalable<ClassificationTypeProperty>, Referenceable {
+public interface ClassificationTypeProperty extends Property<ClassificationTypeCesiumWriter>, Deletable, Intervalable<ClassificationTypeProperty>, Referenceable {
 
     static ClassificationTypeProperty from(CesiumClassificationType type) {
         return newBuilder().withValue(type).build();
@@ -27,6 +27,9 @@ public interface ClassificationTypeProperty extends Property<ClassificationTypeC
     }
 
     CesiumClassificationType getClassificationType();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

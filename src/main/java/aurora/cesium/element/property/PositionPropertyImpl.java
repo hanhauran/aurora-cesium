@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class PositionPropertyImpl extends PropertyAdapter<PositionProperty> implements PositionProperty {
+class PositionPropertyImpl extends PropertyAdapter<PositionProperty> implements PositionProperty {
 
     private CartesianProperty cartesian;
 
@@ -26,6 +26,8 @@ public class PositionPropertyImpl extends PropertyAdapter<PositionProperty> impl
             Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
             Optional.ofNullable(getCartographicDegrees()).ifPresent(cartographicDegreesProperty -> cartographicDegreesProperty.dispatchWithoutClose(writer));
             Optional.ofNullable(getCartographicRadians()).ifPresent(cartographicRadiansProperty -> cartographicRadiansProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -57,6 +59,15 @@ public class PositionPropertyImpl extends PropertyAdapter<PositionProperty> impl
 
     public void setCartographicRadians(CartographicRadiansProperty cartographicRadians) {
         this.cartographicRadians = cartographicRadians;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -100,10 +111,11 @@ public class PositionPropertyImpl extends PropertyAdapter<PositionProperty> impl
         private CartographicDegreesProperty cartographicDegrees;
         private CartographicRadiansProperty cartographicRadians;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<PositionProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<PositionProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -124,6 +136,11 @@ public class PositionPropertyImpl extends PropertyAdapter<PositionProperty> impl
 
         public Builder withCartographicRadians(CartographicRadiansProperty cartographicRadians) {
             this.cartographicRadians = cartographicRadians;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -152,6 +169,7 @@ public class PositionPropertyImpl extends PropertyAdapter<PositionProperty> impl
             positionPropertyImpl.setCartesian(cartesian);
             positionPropertyImpl.setCartographicDegrees(cartographicDegrees);
             positionPropertyImpl.setCartographicRadians(cartographicRadians);
+            positionPropertyImpl.setDelete(delete);
             positionPropertyImpl.setInterpolations(interpolations);
             positionPropertyImpl.setInterval(interval);
             positionPropertyImpl.setIntervals(intervals);

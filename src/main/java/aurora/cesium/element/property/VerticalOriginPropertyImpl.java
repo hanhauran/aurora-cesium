@@ -18,9 +18,20 @@ public class VerticalOriginPropertyImpl extends SinglePropertyAdapter<CesiumVert
     public void dispatch(Supplier<VerticalOriginCesiumWriter> supplier) {
         try (VerticalOriginCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeVerticalOrigin);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -51,11 +62,12 @@ public class VerticalOriginPropertyImpl extends SinglePropertyAdapter<CesiumVert
     }
 
     public static final class Builder {
-        protected CesiumVerticalOrigin value;
+        private CesiumVerticalOrigin value;
 
-        protected TimeInterval interval;
-        protected List<VerticalOriginProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<VerticalOriginProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -66,6 +78,11 @@ public class VerticalOriginPropertyImpl extends SinglePropertyAdapter<CesiumVert
 
         public Builder withValue(CesiumVerticalOrigin instance) {
             this.value = instance;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -87,6 +104,7 @@ public class VerticalOriginPropertyImpl extends SinglePropertyAdapter<CesiumVert
         public VerticalOriginPropertyImpl build() {
             VerticalOriginPropertyImpl verticalOriginPropertyImpl = new VerticalOriginPropertyImpl();
             verticalOriginPropertyImpl.setValue(value);
+            verticalOriginPropertyImpl.setDelete(delete);
             verticalOriginPropertyImpl.setInterval(interval);
             verticalOriginPropertyImpl.setIntervals(intervals);
             verticalOriginPropertyImpl.setReference(reference);

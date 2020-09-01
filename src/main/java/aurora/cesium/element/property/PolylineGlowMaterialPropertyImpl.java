@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class PolylineGlowMaterialPropertyImpl extends PropertyAdapter<PolylineGlowMaterialProperty> implements PolylineGlowMaterialProperty {
+class PolylineGlowMaterialPropertyImpl extends PropertyAdapter<PolylineGlowMaterialProperty> implements PolylineGlowMaterialProperty {
 
     private ColorProperty color;
 

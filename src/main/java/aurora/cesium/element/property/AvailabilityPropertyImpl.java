@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class AvailabilityPropertyImpl implements AvailabilityProperty {
+class AvailabilityPropertyImpl implements AvailabilityProperty {
 
     private TimeInterval interval;
 

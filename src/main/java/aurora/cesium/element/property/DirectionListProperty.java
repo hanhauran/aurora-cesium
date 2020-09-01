@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public interface DirectionListProperty extends Property<DirectionListCesiumWriter>, Intervalable<DirectionListProperty> {
+public interface DirectionListProperty extends Property<DirectionListCesiumWriter>, Deletable, Intervalable<DirectionListProperty> {
 
     static DirectionListProperty fromCartesians(Iterable<Cartesian> cartesians) {
         return newBuilder().withCartesians(cartesians).build();
@@ -38,6 +38,9 @@ public interface DirectionListProperty extends Property<DirectionListCesiumWrite
     Iterable<UnitCartesian> getUnitCartesians();
 
     Iterable<UnitSpherical> getUnitSphericals();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

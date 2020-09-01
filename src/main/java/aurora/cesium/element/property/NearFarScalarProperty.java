@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface NearFarScalarProperty extends Property<NearFarScalarCesiumWriter>, Interpolatable, Intervalable<NearFarScalarProperty>, Referenceable {
+public interface NearFarScalarProperty extends Property<NearFarScalarCesiumWriter>, Deletable, Interpolatable, Intervalable<NearFarScalarProperty>, Referenceable {
 
     static NearFarScalarProperty from(NearFarScalar nearFarScalar) {
         return newBuilder().withValue(nearFarScalar).build();
@@ -25,6 +25,9 @@ public interface NearFarScalarProperty extends Property<NearFarScalarCesiumWrite
     static NearFarScalarPropertyImpl.Builder newBuilder() {
         return NearFarScalarPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

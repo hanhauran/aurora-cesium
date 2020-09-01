@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface PositionProperty extends Property<PositionCesiumWriter>, Interpolatable, Intervalable<PositionProperty>, Referenceable {
+public interface PositionProperty extends Property<PositionCesiumWriter>, Deletable, Interpolatable, Intervalable<PositionProperty>, Referenceable {
 
     static PositionProperty fromCartesian(Cartesian cartesian) {
         return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
@@ -36,6 +36,9 @@ public interface PositionProperty extends Property<PositionCesiumWriter>, Interp
     CartographicDegreesProperty getCartographicDegrees();
 
     CartographicRadiansProperty getCartographicRadians();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

@@ -20,6 +20,8 @@ public class EllipsoidRadiiPropertyImpl extends PropertyAdapter<EllipsoidRadiiPr
     public void dispatch(Supplier<EllipsoidRadiiCesiumWriter> supplier) {
         try (EllipsoidRadiiCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class EllipsoidRadiiPropertyImpl extends PropertyAdapter<EllipsoidRadiiPr
 
     public void setCartesian(CartesianProperty cartesian) {
         this.cartesian = cartesian;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -74,10 +85,11 @@ public class EllipsoidRadiiPropertyImpl extends PropertyAdapter<EllipsoidRadiiPr
     public static final class Builder {
         private CartesianProperty cartesian;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<EllipsoidRadiiProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<EllipsoidRadiiProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -88,6 +100,11 @@ public class EllipsoidRadiiPropertyImpl extends PropertyAdapter<EllipsoidRadiiPr
 
         public Builder withCartesian(CartesianProperty cartesian) {
             this.cartesian = cartesian;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 

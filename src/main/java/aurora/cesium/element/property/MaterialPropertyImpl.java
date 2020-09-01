@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/28
  */
-public class MaterialPropertyImpl extends PropertyAdapter<MaterialProperty> implements MaterialProperty {
+class MaterialPropertyImpl extends PropertyAdapter<MaterialProperty> implements MaterialProperty {
 
     private CheckerboardMaterialProperty checkerboardMaterial;
 
@@ -31,6 +31,7 @@ public class MaterialPropertyImpl extends PropertyAdapter<MaterialProperty> impl
             Optional.ofNullable(getImageMaterial()).ifPresent(imageMaterialProperty -> imageMaterialProperty.dispatch(writer::openImageProperty));
             Optional.ofNullable(getSolidColorMaterial()).ifPresent(solidColorMaterialProperty -> solidColorMaterialProperty.dispatch(writer::openSolidColorProperty));
             Optional.ofNullable(getStripeMaterial()).ifPresent(stripeMaterialProperty -> stripeMaterialProperty.dispatch(writer::openStripeProperty));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }

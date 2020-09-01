@@ -12,15 +12,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class HeightReferencePropertyImpl extends SinglePropertyAdapter<CesiumHeightReference, HeightReferenceProperty> implements HeightReferenceProperty {
+class HeightReferencePropertyImpl extends SinglePropertyAdapter<CesiumHeightReference, HeightReferenceProperty> implements HeightReferenceProperty {
 
     @Override
     public void dispatch(Supplier<HeightReferenceCesiumWriter> supplier) {
         try (HeightReferenceCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeHeightReference);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -51,11 +62,12 @@ public class HeightReferencePropertyImpl extends SinglePropertyAdapter<CesiumHei
     }
 
     public static final class Builder {
-        protected CesiumHeightReference value;
+        private CesiumHeightReference value;
 
-        protected TimeInterval interval;
-        protected List<HeightReferenceProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<HeightReferenceProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -66,6 +78,11 @@ public class HeightReferencePropertyImpl extends SinglePropertyAdapter<CesiumHei
 
         public Builder withValue(CesiumHeightReference value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -87,6 +104,7 @@ public class HeightReferencePropertyImpl extends SinglePropertyAdapter<CesiumHei
         public HeightReferencePropertyImpl build() {
             HeightReferencePropertyImpl heightReferencePropertyImpl = new HeightReferencePropertyImpl();
             heightReferencePropertyImpl.setValue(value);
+            heightReferencePropertyImpl.setDelete(delete);
             heightReferencePropertyImpl.setInterval(interval);
             heightReferencePropertyImpl.setIntervals(intervals);
             heightReferencePropertyImpl.setReference(reference);

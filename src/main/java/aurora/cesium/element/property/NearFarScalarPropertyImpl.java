@@ -9,16 +9,27 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class NearFarScalarPropertyImpl extends SingleTimeBasedPropertyAdapter<NearFarScalar, NearFarScalarProperty> implements NearFarScalarProperty {
+class NearFarScalarPropertyImpl extends SingleTimeBasedPropertyAdapter<NearFarScalar, NearFarScalarProperty> implements NearFarScalarProperty {
 
     @Override
     public void dispatch(Supplier<NearFarScalarCesiumWriter> supplier) {
         try (NearFarScalarCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeNearFarScalar, writer::writeNearFarScalar, writer::writeNearFarScalar);
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -58,23 +69,29 @@ public class NearFarScalarPropertyImpl extends SingleTimeBasedPropertyAdapter<Ne
     }
 
     public static final class Builder {
-        protected List<JulianDate> dates;
-        protected List<NearFarScalar> values;
-        protected Integer startIndex;
-        protected Integer length;
+        private List<JulianDate> dates;
+        private List<NearFarScalar> values;
+        private Integer startIndex;
+        private Integer length;
 
-        protected NearFarScalar value;
+        private NearFarScalar value;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<NearFarScalarProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<NearFarScalarProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
 
         public static Builder newBuilder() {
             return new Builder();
+        }
+
+        public Builder withValue(NearFarScalar value) {
+            this.value = value;
+            return this;
         }
 
         public Builder withValues(List<JulianDate> dates, List<NearFarScalar> values) {
@@ -91,8 +108,8 @@ public class NearFarScalarPropertyImpl extends SingleTimeBasedPropertyAdapter<Ne
             return this;
         }
 
-        public Builder withValue(NearFarScalar value) {
-            this.value = value;
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -123,6 +140,7 @@ public class NearFarScalarPropertyImpl extends SingleTimeBasedPropertyAdapter<Ne
             nearFarScalarPropertyImpl.setStartIndex(startIndex);
             nearFarScalarPropertyImpl.setLength(length);
             nearFarScalarPropertyImpl.setValue(value);
+            nearFarScalarPropertyImpl.setDelete(delete);
             nearFarScalarPropertyImpl.setInterpolations(interpolations);
             nearFarScalarPropertyImpl.setInterval(interval);
             nearFarScalarPropertyImpl.setIntervals(intervals);

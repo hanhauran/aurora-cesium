@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class SolidColorMaterialPropertyImpl extends PropertyAdapter<SolidColorMaterialProperty> implements SolidColorMaterialProperty {
+class SolidColorMaterialPropertyImpl extends PropertyAdapter<SolidColorMaterialProperty> implements SolidColorMaterialProperty {
 
     private ColorProperty color;
 
@@ -19,6 +19,7 @@ public class SolidColorMaterialPropertyImpl extends PropertyAdapter<SolidColorMa
     public void dispatch(Supplier<SolidColorMaterialCesiumWriter> supplier) {
         try (SolidColorMaterialCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getColor()).ifPresent(colorProperty -> colorProperty.dispatch(writer::openColorProperty));
+
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
         }
     }

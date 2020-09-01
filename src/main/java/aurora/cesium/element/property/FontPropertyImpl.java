@@ -11,15 +11,26 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class FontPropertyImpl extends SinglePropertyAdapter<String, FontProperty> implements FontProperty {
+class FontPropertyImpl extends SinglePropertyAdapter<String, FontProperty> implements FontProperty {
 
     @Override
     public void dispatch(Supplier<FontCesiumWriter> supplier) {
         try (FontCesiumWriter writer = supplier.get()) {
             dispatchConsumer(writer::writeFont);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -50,11 +61,12 @@ public class FontPropertyImpl extends SinglePropertyAdapter<String, FontProperty
     }
 
     public static final class Builder {
-        protected String value;
+        private String value;
 
-        protected TimeInterval interval;
-        protected List<FontProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<FontProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -65,6 +77,11 @@ public class FontPropertyImpl extends SinglePropertyAdapter<String, FontProperty
 
         public Builder withValue(String value) {
             this.value = value;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -86,6 +103,7 @@ public class FontPropertyImpl extends SinglePropertyAdapter<String, FontProperty
         public FontPropertyImpl build() {
             FontPropertyImpl fontPropertyImpl = new FontPropertyImpl();
             fontPropertyImpl.setValue(value);
+            fontPropertyImpl.setDelete(delete);
             fontPropertyImpl.setInterval(interval);
             fontPropertyImpl.setIntervals(intervals);
             fontPropertyImpl.setReference(reference);

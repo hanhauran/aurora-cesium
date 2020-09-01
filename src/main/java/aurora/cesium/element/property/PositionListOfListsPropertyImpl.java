@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class PositionListOfListsPropertyImpl extends PropertyAdapter<PositionListOfListsProperty> implements PositionListOfListsProperty {
+class PositionListOfListsPropertyImpl extends PropertyAdapter<PositionListOfListsProperty> implements PositionListOfListsProperty {
 
     private Iterable<? extends Iterable<Cartesian>> cartesians;
 
@@ -24,6 +24,8 @@ public class PositionListOfListsPropertyImpl extends PropertyAdapter<PositionLis
             Optional.ofNullable(getCartesians()).ifPresent(writer::writeCartesian);
             Optional.ofNullable(getCartographicDegrees()).ifPresent(writer::writeCartographicDegrees);
             Optional.ofNullable(getCartographicRadians()).ifPresent(writer::writeCartographicRadians);
+
+            dispatchDelete(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReferenceListOfLists(writer);
         }
@@ -54,6 +56,15 @@ public class PositionListOfListsPropertyImpl extends PropertyAdapter<PositionLis
 
     public void setCartographicRadians(Iterable<? extends Iterable<Cartographic>> cartographicRadians) {
         this.cartographicRadians = cartographicRadians;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -88,9 +99,10 @@ public class PositionListOfListsPropertyImpl extends PropertyAdapter<PositionLis
         private Iterable<? extends Iterable<Cartographic>> cartographicDegrees;
         private Iterable<? extends Iterable<Cartographic>> cartographicRadians;
 
-        protected Iterable<? extends Iterable<? extends Reference>> referenceListOfLists;
-        protected TimeInterval interval;
-        protected List<PositionListOfListsProperty> intervals;
+        private Boolean delete;
+        private TimeInterval interval;
+        private List<PositionListOfListsProperty> intervals;
+        private Iterable<? extends Iterable<? extends Reference>> referenceListOfLists;
 
         private Builder() {
         }
@@ -114,6 +126,11 @@ public class PositionListOfListsPropertyImpl extends PropertyAdapter<PositionLis
             return this;
         }
 
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
+            return this;
+        }
+
         public Builder withInterval(TimeInterval interval) {
             this.interval = interval;
             return this;
@@ -134,9 +151,10 @@ public class PositionListOfListsPropertyImpl extends PropertyAdapter<PositionLis
             positionListOfListsPropertyImpl.setCartesians(cartesians);
             positionListOfListsPropertyImpl.setCartographicDegrees(cartographicDegrees);
             positionListOfListsPropertyImpl.setCartographicRadians(cartographicRadians);
+            positionListOfListsPropertyImpl.setDelete(delete);
             positionListOfListsPropertyImpl.setInterval(interval);
             positionListOfListsPropertyImpl.setIntervals(intervals);
-            positionListOfListsPropertyImpl.referenceListOfLists = this.referenceListOfLists;
+            positionListOfListsPropertyImpl.setReferences(referenceListOfLists);
             return positionListOfListsPropertyImpl;
         }
     }

@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public interface RectangleCoordinatesProperty extends Property<RectangleCoordinatesCesiumWriter>, Interpolatable, Intervalable<RectangleCoordinatesProperty>, Referenceable {
+public interface RectangleCoordinatesProperty extends Property<RectangleCoordinatesCesiumWriter>, Deletable, Interpolatable, Intervalable<RectangleCoordinatesProperty>, Referenceable {
 
     static RectangleCoordinatesProperty from(CartographicRectangleRadiansProperty extentProperty) {
         return newBuilder().withWsen(extentProperty).build();
@@ -32,6 +32,9 @@ public interface RectangleCoordinatesProperty extends Property<RectangleCoordina
     CartographicRectangleRadiansProperty getWsen();
 
     CartographicRectangleDegreesProperty getWsenDegrees();
+
+    @Override
+    Boolean getDelete();
 
     @Override
     Interpolations getInterpolations();

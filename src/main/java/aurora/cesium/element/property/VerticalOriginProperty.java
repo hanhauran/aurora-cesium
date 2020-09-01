@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public interface VerticalOriginProperty extends Property<VerticalOriginCesiumWriter>, Intervalable<VerticalOriginProperty>, Referenceable {
+public interface VerticalOriginProperty extends Property<VerticalOriginCesiumWriter>, Deletable, Intervalable<VerticalOriginProperty>, Referenceable {
 
     static VerticalOriginProperty from(CesiumVerticalOrigin verticalOrigin) {
         return newBuilder().withValue(verticalOrigin).build();
@@ -25,6 +25,9 @@ public interface VerticalOriginProperty extends Property<VerticalOriginCesiumWri
     static VerticalOriginPropertyImpl.Builder newBuilder() {
         return VerticalOriginPropertyImpl.Builder.newBuilder();
     }
+
+    @Override
+    Boolean getDelete();
 
     @Override
     TimeInterval getInterval();

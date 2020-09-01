@@ -20,6 +20,8 @@ public class ViewFromPropertyImpl extends PropertyAdapter<ViewFromProperty> impl
     public void dispatch(Supplier<ViewFromCesiumWriter> supplier) {
         try (ViewFromCesiumWriter writer = supplier.get()) {
             Optional.ofNullable(getCartesian()).ifPresent(cartesianProperty -> cartesianProperty.dispatchWithoutClose(writer));
+
+            dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
@@ -33,6 +35,15 @@ public class ViewFromPropertyImpl extends PropertyAdapter<ViewFromProperty> impl
 
     public void setCartesian(CartesianProperty cartesian) {
         this.cartesian = cartesian;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -72,12 +83,13 @@ public class ViewFromPropertyImpl extends PropertyAdapter<ViewFromProperty> impl
     }
 
     public static final class Builder {
-        protected CartesianProperty cartesian;
+        private CartesianProperty cartesian;
 
-        protected Interpolations interpolations;
-        protected TimeInterval interval;
-        protected List<ViewFromProperty> intervals;
-        protected Reference reference;
+        private Boolean delete;
+        private Interpolations interpolations;
+        private TimeInterval interval;
+        private List<ViewFromProperty> intervals;
+        private Reference reference;
 
         private Builder() {
         }
@@ -88,6 +100,11 @@ public class ViewFromPropertyImpl extends PropertyAdapter<ViewFromProperty> impl
 
         public Builder withCartesian(CartesianProperty cartesian) {
             this.cartesian = cartesian;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
