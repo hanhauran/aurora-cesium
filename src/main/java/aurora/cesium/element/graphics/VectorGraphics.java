@@ -16,6 +16,10 @@ import java.util.function.Supplier;
  */
 public interface VectorGraphics extends Graphics<VectorGraphics, VectorCesiumWriter> {
 
+    static VectorGraphicsAdapter.Builder newBuilder() {
+        return VectorGraphicsAdapter.Builder.newBuilder();
+    }
+
     ColorProperty getColor();
 
     DirectionProperty getDirection();

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/22
  */
-public class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCesiumWriter> implements ModelGraphics {
+class ModelGraphicsAdapter extends GraphicsAdapter<ModelGraphics, ModelCesiumWriter> implements ModelGraphics {
 
     private ArticulationsProperty articulations;
 

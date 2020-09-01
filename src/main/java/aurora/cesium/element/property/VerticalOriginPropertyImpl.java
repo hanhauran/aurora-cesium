@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class VerticalOriginPropertyImpl extends SinglePropertyAdapter<CesiumVerticalOrigin, VerticalOriginProperty> implements VerticalOriginProperty {
+class VerticalOriginPropertyImpl extends SinglePropertyAdapter<CesiumVerticalOrigin, VerticalOriginProperty> implements VerticalOriginProperty {
 
     @Override
     public void dispatch(Supplier<VerticalOriginCesiumWriter> supplier) {

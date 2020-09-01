@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, PolylineCesiumWriter> implements PolylineGraphics {
+class PolylineGraphicsAdapter extends GraphicsAdapter<PolylineGraphics, PolylineCesiumWriter> implements PolylineGraphics {
 
     private ArcTypeProperty arcType;
 

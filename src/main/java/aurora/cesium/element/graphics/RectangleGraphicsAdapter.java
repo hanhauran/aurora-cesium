@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class RectangleGraphicsAdapter extends GraphicsAdapter<RectangleGraphics, RectangleCesiumWriter> implements RectangleGraphics {
+class RectangleGraphicsAdapter extends GraphicsAdapter<RectangleGraphics, RectangleCesiumWriter> implements RectangleGraphics {
 
     private ClassificationTypeProperty classificationType;
 

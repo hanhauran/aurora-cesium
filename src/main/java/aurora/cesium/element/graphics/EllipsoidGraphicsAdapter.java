@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidGraphics, EllipsoidCesiumWriter> implements EllipsoidGraphics {
+class EllipsoidGraphicsAdapter extends GraphicsAdapter<EllipsoidGraphics, EllipsoidCesiumWriter> implements EllipsoidGraphics {
 
     private DistanceDisplayConditionProperty distanceDisplayCondition;
 

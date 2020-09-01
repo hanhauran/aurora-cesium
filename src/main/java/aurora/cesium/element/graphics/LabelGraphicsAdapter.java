@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCesiumWriter> implements LabelGraphics {
+class LabelGraphicsAdapter extends GraphicsAdapter<LabelGraphics, LabelCesiumWriter> implements LabelGraphics {
 
     private ColorProperty backgroundColor;
 

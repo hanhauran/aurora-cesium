@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class PointGraphicsAdapter extends GraphicsAdapter<PointGraphics, PointCesiumWriter> implements PointGraphics {
+class PointGraphicsAdapter extends GraphicsAdapter<PointGraphics, PointCesiumWriter> implements PointGraphics {
 
     private ColorProperty color;
 

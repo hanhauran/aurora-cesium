@@ -25,6 +25,8 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     private ViewFromProperty viewFrom;
 
+    private Boolean delete;
+
     private BillboardGraphics billboard;
 
     private BoxGraphics box;
@@ -76,6 +78,8 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             Optional.ofNullable(getOrientation()).ifPresent(orientationProperty -> orientationProperty.dispatch(writer::openOrientationProperty));
             Optional.ofNullable(getPosition()).ifPresent(positionProperty -> positionProperty.dispatch(writer::openPositionProperty));
             Optional.ofNullable(getViewFrom()).ifPresent(viewFromProperty -> viewFromProperty.dispatch(writer::openViewFromProperty));
+            Optional.ofNullable(getDelete()).ifPresent(writer::writeDelete);
+
             Optional.ofNullable(getBillboard()).ifPresent(billboardGraphics -> billboardGraphics.dispatch(writer::openBillboardProperty));
             Optional.ofNullable(getBox()).ifPresent(boxGraphics -> boxGraphics.dispatch(writer::openBoxProperty));
             Optional.ofNullable(getConicSensor()).ifPresent(conicSensorGraphics -> conicSensorGraphics.dispatch(writer::openConicSensorProperty));
@@ -151,6 +155,15 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
     public void setViewFrom(ViewFromProperty viewFrom) {
         this.viewFrom = viewFrom;
+    }
+
+    @Override
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
     }
 
     @Override
@@ -334,14 +347,16 @@ public class EntityAdapter extends ElementAdapter implements Entity {
     }
 
     public static final class Builder {
-        protected String id;
-        protected String name;
-        private Entity parent;
-        private StringProperty description;
         private AvailabilityProperty availability;
+        private Boolean delete;
+        private StringProperty description;
+        private String id;
+        private String name;
         private OrientationProperty orientation;
+        private Entity parent;
         private PositionProperty position;
         private ViewFromProperty viewFrom;
+
         private BillboardGraphics billboard;
         private BoxGraphics box;
         private ConicSensorGraphics conicSensor;
@@ -397,6 +412,11 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
         public Builder withViewFrom(ViewFromProperty viewFrom) {
             this.viewFrom = viewFrom;
+            return this;
+        }
+
+        public Builder withDelete(Boolean delete) {
+            this.delete = delete;
             return this;
         }
 
@@ -512,10 +532,13 @@ public class EntityAdapter extends ElementAdapter implements Entity {
 
         public EntityAdapter build() {
             EntityAdapter entityAdapter = new EntityAdapter();
-            entityAdapter.setParent(parent);
-            entityAdapter.setDescription(description);
             entityAdapter.setAvailability(availability);
+            entityAdapter.setDelete(delete);
+            entityAdapter.setDescription(description);
+            entityAdapter.setId(id);
+            entityAdapter.setName(name);
             entityAdapter.setOrientation(orientation);
+            entityAdapter.setParent(parent);
             entityAdapter.setPosition(position);
             entityAdapter.setViewFrom(viewFrom);
             entityAdapter.setBillboard(billboard);
@@ -538,8 +561,6 @@ public class EntityAdapter extends ElementAdapter implements Entity {
             entityAdapter.setTileset(tileset);
             entityAdapter.setVector(vector);
             entityAdapter.setWall(wall);
-            entityAdapter.setId(id);
-            entityAdapter.setName(name);
             return entityAdapter;
         }
     }

@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/22
  */
-public class PathGraphicsAdapter extends GraphicsAdapter<PathGraphics, PathCesiumWriter> implements PathGraphics {
+class PathGraphicsAdapter extends GraphicsAdapter<PathGraphics, PathCesiumWriter> implements PathGraphics {
 
     private DistanceDisplayConditionProperty distanceDisplayCondition;
 

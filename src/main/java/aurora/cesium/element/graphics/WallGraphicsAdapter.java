@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class WallGraphicsAdapter extends GraphicsAdapter<WallGraphics, WallCesiumWriter> implements WallGraphics {
+class WallGraphicsAdapter extends GraphicsAdapter<WallGraphics, WallCesiumWriter> implements WallGraphics {
 
     private DistanceDisplayConditionProperty distanceDisplayCondition;
 

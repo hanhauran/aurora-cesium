@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/21
  */
-public interface Entity extends Element {
+public interface Entity extends Element, Deletable {
 
     static EntityAdapter.Builder newBuilder() {
         return EntityAdapter.Builder.newBuilder();
@@ -73,6 +73,9 @@ public interface Entity extends Element {
     VectorGraphics getVector();
 
     WallGraphics getWall();
+
+    @Override
+    Boolean getDelete();
 
     void dispatch(Supplier<PacketCesiumWriter> writer);
 }

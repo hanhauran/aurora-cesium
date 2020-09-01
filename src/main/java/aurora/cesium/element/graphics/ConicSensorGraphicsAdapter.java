@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class ConicSensorGraphicsAdapter extends GraphicsAdapter<ConicSensorGraphics, ConicSensorCesiumWriter> implements ConicSensorGraphics {
+class ConicSensorGraphicsAdapter extends GraphicsAdapter<ConicSensorGraphics, ConicSensorCesiumWriter> implements ConicSensorGraphics {
 
     private MaterialProperty domeSurfaceMaterial;
 

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class FanGraphicsAdapter extends GraphicsAdapter<FanGraphics, FanCesiumWriter> implements FanGraphics {
+class FanGraphicsAdapter extends GraphicsAdapter<FanGraphics, FanCesiumWriter> implements FanGraphics {
 
     private DirectionListProperty directions;
 

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class RectangularSensorGraphicsAdapter extends GraphicsAdapter<RectangularSensorGraphics, RectangularSensorCesiumWriter> implements RectangularSensorGraphics {
+class RectangularSensorGraphicsAdapter extends GraphicsAdapter<RectangularSensorGraphics, RectangularSensorCesiumWriter> implements RectangularSensorGraphics {
 
     private MaterialProperty domeSurfaceMaterial;
 

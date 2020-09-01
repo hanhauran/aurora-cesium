@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderGraphics, CylinderCesiumWriter> implements CylinderGraphics {
+class CylinderGraphicsAdapter extends GraphicsAdapter<CylinderGraphics, CylinderCesiumWriter> implements CylinderGraphics {
 
     private DoubleProperty bottomRadius;
 

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, PolygonCesiumWriter> implements PolygonGraphics {
+class PolygonGraphicsAdapter extends GraphicsAdapter<PolygonGraphics, PolygonCesiumWriter> implements PolygonGraphics {
 
     private ArcTypeProperty arcType;
 

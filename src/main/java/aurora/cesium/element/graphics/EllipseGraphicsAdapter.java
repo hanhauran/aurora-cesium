@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/23
  */
-public class EllipseGraphicsAdapter extends GraphicsAdapter<EllipseGraphics, EllipseCesiumWriter> implements EllipseGraphics {
+class EllipseGraphicsAdapter extends GraphicsAdapter<EllipseGraphics, EllipseCesiumWriter> implements EllipseGraphics {
 
     private ClassificationTypeProperty classificationType;
 

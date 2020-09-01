@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/20
  */
-public class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardGraphics, BillboardCesiumWriter> implements BillboardGraphics {
+class BillboardGraphicsAdapter extends GraphicsAdapter<BillboardGraphics, BillboardCesiumWriter> implements BillboardGraphics {
 
     private AlignedAxisProperty alignedAxis;
 

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class CustomPatternSensorGraphicsAdapter extends GraphicsAdapter<CustomPatternSensorGraphics, CustomPatternSensorCesiumWriter> {
+class CustomPatternSensorGraphicsAdapter extends GraphicsAdapter<CustomPatternSensorGraphics, CustomPatternSensorCesiumWriter> {
 
     private DirectionListProperty directions;
 

@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/27
  */
-public class TilesetGraphicsAdapter extends GraphicsAdapter<TilesetGraphics, TilesetCesiumWriter> implements TilesetGraphics {
+class TilesetGraphicsAdapter extends GraphicsAdapter<TilesetGraphics, TilesetCesiumWriter> implements TilesetGraphics {
 
     private DoubleProperty maximumScreenSpaceError;
 

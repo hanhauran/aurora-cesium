@@ -6,7 +6,7 @@
 
     <groupId>com.aurora</groupId>
     <artifactId>aurora-cesium</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
 
     <properties>
         <java.version>11</java.version>

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * @author hanhaoran
  * @date 2020/8/31
  */
-public class CorridorGraphicsAdapter extends GraphicsAdapter<CorridorGraphics, CorridorCesiumWriter> implements CorridorGraphics {
+class CorridorGraphicsAdapter extends GraphicsAdapter<CorridorGraphics, CorridorCesiumWriter> implements CorridorGraphics {
 
     private ClassificationTypeProperty classificationType;
 
