@@ -16,7 +16,7 @@ class CzmlAdapter implements Czml {
     private Document document;
 
     public CzmlAdapter() {
-        this.entities = new ArrayList<>();
+        this.entities = new LinkedList<>();
         this.entityMap = new HashMap<>();
     }
 
