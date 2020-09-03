@@ -5,7 +5,7 @@ This is a Java library to writer CZML, which based on [czml-writer](https://gith
 [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html). aurora-cesium is free for both commercial and non-commercial use.
 
 ## Get Started
-1. Everything in aurora-cesium either is property or graphics.
+1. Everything in aurora-cesium is property or graphics.
 2. Every property or graphics has an interface.
 3. Every interface has a method called newBuilder(), which to build property or graphics.
 4. Many interfaces have method like from()/fromXXX()/default()/defaultXXX(), these methods are shortcuts to newBuilder().
