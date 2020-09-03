@@ -15,12 +15,24 @@ public interface PositionProperty extends Property<PositionCesiumWriter>, Deleta
         return newBuilder().withCartesian(CartesianProperty.from(cartesian)).build();
     }
 
+    static PositionProperty from(CartesianProperty cartesianProperty) {
+        return newBuilder().withCartesian(cartesianProperty).build();
+    }
+
     static PositionProperty fromCartographicDegrees(Cartographic cartographic) {
         return newBuilder().withCartographicDegrees(CartographicDegreesProperty.from(cartographic)).build();
     }
 
+    static PositionProperty from(CartographicDegreesProperty cartographicDegreesProperty) {
+        return newBuilder().withCartographicDegrees(cartographicDegreesProperty).build();
+    }
+
     static PositionProperty fromCartographicRadians(Cartographic cartographic) {
         return newBuilder().withCartographicRadians(CartographicRadiansProperty.from(cartographic)).build();
+    }
+
+    static PositionProperty from(CartographicRadiansProperty cartographicRadiansProperty) {
+        return newBuilder().withCartographicRadians(cartographicRadiansProperty).build();
     }
 
     static PositionProperty from(Reference reference) {
