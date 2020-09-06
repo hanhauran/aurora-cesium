@@ -15,7 +15,15 @@ import java.util.function.Supplier;
 public interface OrientationProperty extends Property<OrientationCesiumWriter>, Deletable, Interpolatable, Intervalable<OrientationProperty>, Referenceable {
 
     static OrientationProperty from(UnitQuaternion unitQuaternion) {
-        return newBuilder().withValue(unitQuaternion).build();
+        return from(UnitQuaternionProperty.from(unitQuaternion));
+    }
+
+    static OrientationProperty from(UnitQuaternionProperty unitQuaternionProperty) {
+        return newBuilder().withUnitQuaternion(unitQuaternionProperty).build();
+    }
+
+    static OrientationProperty fromVelocity(Reference reference) {
+        return newBuilder().withVelocityReference(reference).build();
     }
 
     static OrientationProperty from(Reference reference) {
@@ -25,6 +33,10 @@ public interface OrientationProperty extends Property<OrientationCesiumWriter>, 
     static OrientationPropertyImpl.Builder newBuilder() {
         return OrientationPropertyImpl.Builder.newBuilder();
     }
+
+    UnitQuaternionProperty getUnitQuaternion();
+
+    Reference getVelocityReference();
 
     @Override
     Boolean getDelete();

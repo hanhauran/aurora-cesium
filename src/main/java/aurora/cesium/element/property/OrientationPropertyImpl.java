@@ -1,26 +1,52 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.*;
+import aurora.cesium.language.writer.OrientationCesiumWriter;
+import aurora.cesium.language.writer.Reference;
+import aurora.cesium.language.writer.TimeInterval;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
  * @author hanhaoran
  * @date 2020/8/20
  */
-class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitQuaternion, OrientationProperty> implements OrientationProperty {
+class OrientationPropertyImpl extends PropertyAdapter<OrientationProperty> implements OrientationProperty {
+
+    private UnitQuaternionProperty unitQuaternion;
+
+    private Reference velocityReference;
 
     @Override
     public void dispatch(Supplier<OrientationCesiumWriter> supplier) {
         try (OrientationCesiumWriter writer = supplier.get()) {
-            dispatchConsumer(writer::writeUnitQuaternion, writer::writeUnitQuaternion, writer::writeUnitQuaternion);
+            Optional.ofNullable(getUnitQuaternion()).ifPresent(unitQuaternionProperty -> unitQuaternionProperty.dispatchWithoutClose(writer));
+            Optional.ofNullable(getVelocityReference()).ifPresent(writer::writeVelocityReference);
 
             dispatchDelete(writer);
             dispatchInterpolations(writer);
             dispatchInterval(writer, (intervalWriterSupplier, property) -> property.dispatch(intervalWriterSupplier));
             dispatchReference(writer);
         }
+    }
+
+    @Override
+    public UnitQuaternionProperty getUnitQuaternion() {
+        return unitQuaternion;
+    }
+
+    public void setUnitQuaternion(UnitQuaternionProperty unitQuaternion) {
+        this.unitQuaternion = unitQuaternion;
+    }
+
+    @Override
+    public Reference getVelocityReference() {
+        return velocityReference;
+    }
+
+    public void setVelocityReference(Reference velocityReference) {
+        this.velocityReference = velocityReference;
     }
 
     @Override
@@ -68,13 +94,10 @@ class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitQuatern
         this.reference = reference;
     }
 
-    public static final class Builder {
-        private List<JulianDate> dates;
-        private List<UnitQuaternion> values;
-        private Integer startIndex;
-        private Integer length;
 
-        private UnitQuaternion value;
+    public static final class Builder {
+        private UnitQuaternionProperty unitQuaternion;
+        private Reference velocityReference;
 
         private Boolean delete;
         private Interpolations interpolations;
@@ -89,22 +112,13 @@ class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitQuatern
             return new Builder();
         }
 
-        public Builder withValue(UnitQuaternion value) {
-            this.value = value;
+        public Builder withUnitQuaternion(UnitQuaternionProperty unitQuaternion) {
+            this.unitQuaternion = unitQuaternion;
             return this;
         }
 
-        public Builder withValues(List<JulianDate> dates, List<UnitQuaternion> values) {
-            this.dates = dates;
-            this.values = values;
-            return this;
-        }
-
-        public Builder withValues(List<JulianDate> dates, List<UnitQuaternion> values, Integer startIndex, Integer length) {
-            this.dates = dates;
-            this.values = values;
-            this.startIndex = startIndex;
-            this.length = length;
+        public Builder withVelocityReference(Reference velocityReference) {
+            this.velocityReference = velocityReference;
             return this;
         }
 
@@ -135,11 +149,8 @@ class OrientationPropertyImpl extends SingleTimeBasedPropertyAdapter<UnitQuatern
 
         public OrientationPropertyImpl build() {
             OrientationPropertyImpl orientationPropertyImpl = new OrientationPropertyImpl();
-            orientationPropertyImpl.setDates(dates);
-            orientationPropertyImpl.setValues(values);
-            orientationPropertyImpl.setStartIndex(startIndex);
-            orientationPropertyImpl.setLength(length);
-            orientationPropertyImpl.setValue(value);
+            orientationPropertyImpl.setUnitQuaternion(unitQuaternion);
+            orientationPropertyImpl.setVelocityReference(velocityReference);
             orientationPropertyImpl.setDelete(delete);
             orientationPropertyImpl.setInterpolations(interpolations);
             orientationPropertyImpl.setInterval(interval);
