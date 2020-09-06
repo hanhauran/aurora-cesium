@@ -1,7 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.ImageMaterialCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.ImageMaterialCesiumWriter;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;

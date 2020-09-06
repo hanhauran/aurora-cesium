@@ -2,7 +2,7 @@ package aurora.cesium.element;
 
 import aurora.cesium.element.graphics.*;
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.PacketCesiumWriter;
+import cesiumlanguagewriter.PacketCesiumWriter;
 
 import java.util.function.Supplier;
 

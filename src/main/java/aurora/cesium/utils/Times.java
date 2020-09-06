@@ -1,6 +1,6 @@
 package aurora.cesium.utils;
 
-import aurora.cesium.language.writer.JulianDate;
+import cesiumlanguagewriter.JulianDate;
 
 import java.sql.Timestamp;
 import java.time.*;

@@ -1,9 +1,9 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.BoundingRectangle;
-import aurora.cesium.language.writer.BoundingRectangleCesiumWriter;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.BoundingRectangle;
+import cesiumlanguagewriter.BoundingRectangleCesiumWriter;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;

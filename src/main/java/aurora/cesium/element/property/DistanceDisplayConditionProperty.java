@@ -1,9 +1,9 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Bounds;
-import aurora.cesium.language.writer.DistanceDisplayConditionCesiumWriter;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.Bounds;
+import cesiumlanguagewriter.DistanceDisplayConditionCesiumWriter;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;

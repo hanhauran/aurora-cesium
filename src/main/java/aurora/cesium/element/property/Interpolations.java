@@ -1,8 +1,8 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CesiumExtrapolationType;
-import aurora.cesium.language.writer.CesiumInterpolationAlgorithm;
-import aurora.cesium.language.writer.Duration;
+import cesiumlanguagewriter.CesiumExtrapolationType;
+import cesiumlanguagewriter.CesiumInterpolationAlgorithm;
+import cesiumlanguagewriter.Duration;
 
 /**
  * @author hanhaoran

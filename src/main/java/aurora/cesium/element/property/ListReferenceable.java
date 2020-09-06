@@ -1,7 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.advanced.ICesiumReferenceListValuePropertyWriter;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.advanced.ICesiumReferenceListValuePropertyWriter;
 
 import java.util.Optional;
 

@@ -4,8 +4,8 @@ import aurora.cesium.element.property.BooleanProperty;
 import aurora.cesium.element.property.DistanceDisplayConditionProperty;
 import aurora.cesium.element.property.DoubleProperty;
 import aurora.cesium.element.property.PolylineMaterialProperty;
-import aurora.cesium.language.writer.PathCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.PathCesiumWriter;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;

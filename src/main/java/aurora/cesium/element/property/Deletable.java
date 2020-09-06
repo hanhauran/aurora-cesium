@@ -1,6 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.advanced.ICesiumDeletablePropertyWriter;
+import cesiumlanguagewriter.advanced.ICesiumDeletablePropertyWriter;
 
 import java.util.Optional;
 

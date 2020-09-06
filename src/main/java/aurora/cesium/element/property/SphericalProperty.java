@@ -1,7 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Spherical;
-import aurora.cesium.language.writer.advanced.ICesiumSphericalValuePropertyWriter;
+import cesiumlanguagewriter.Spherical;
+import cesiumlanguagewriter.advanced.ICesiumSphericalValuePropertyWriter;
 
 /**
  * @author hanhaoran

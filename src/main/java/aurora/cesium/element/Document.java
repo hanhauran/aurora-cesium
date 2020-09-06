@@ -1,7 +1,7 @@
 package aurora.cesium.element;
 
 import aurora.cesium.element.property.ClockProperty;
-import aurora.cesium.language.writer.PacketCesiumWriter;
+import cesiumlanguagewriter.PacketCesiumWriter;
 
 import java.util.function.Supplier;
 

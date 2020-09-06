@@ -1,6 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.*;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CesiumStripeOrientation;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.StripeOrientationCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.CesiumStripeOrientation;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.StripeOrientationCesiumWriter;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;

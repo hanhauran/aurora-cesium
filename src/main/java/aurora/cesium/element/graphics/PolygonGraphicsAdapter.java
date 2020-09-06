@@ -1,8 +1,8 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.PolygonCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.PolygonCesiumWriter;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;

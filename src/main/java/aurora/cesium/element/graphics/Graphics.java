@@ -2,8 +2,8 @@ package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.BooleanProperty;
 import aurora.cesium.element.property.Intervalable;
-import aurora.cesium.language.writer.TimeInterval;
-import aurora.cesium.language.writer.advanced.CesiumPropertyWriter;
+import cesiumlanguagewriter.TimeInterval;
+import cesiumlanguagewriter.advanced.CesiumPropertyWriter;
 
 import java.util.List;
 import java.util.function.Supplier;

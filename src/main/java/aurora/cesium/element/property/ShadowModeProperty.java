@@ -1,9 +1,9 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CesiumShadowMode;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.ShadowModeCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.CesiumShadowMode;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.ShadowModeCesiumWriter;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;

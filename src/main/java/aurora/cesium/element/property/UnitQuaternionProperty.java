@@ -1,7 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.UnitQuaternion;
-import aurora.cesium.language.writer.advanced.ICesiumUnitQuaternionValuePropertyWriter;
+import cesiumlanguagewriter.UnitQuaternion;
+import cesiumlanguagewriter.advanced.ICesiumUnitQuaternionValuePropertyWriter;
 
 /**
  * @author hanhaoran

@@ -1,9 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CartographicExtent;
-import aurora.cesium.language.writer.advanced.ICesiumCartographicRectangleDegreesValuePropertyWriter;
-
-import java.util.function.Supplier;
+import cesiumlanguagewriter.CartographicExtent;
+import cesiumlanguagewriter.advanced.ICesiumCartographicRectangleDegreesValuePropertyWriter;
 
 /**
  * @author hanhaoran

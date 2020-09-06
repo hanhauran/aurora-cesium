@@ -1,8 +1,8 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CartographicExtent;
-import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.advanced.ICesiumCartographicRectangleDegreesValuePropertyWriter;
+import cesiumlanguagewriter.CartographicExtent;
+import cesiumlanguagewriter.JulianDate;
+import cesiumlanguagewriter.advanced.ICesiumCartographicRectangleDegreesValuePropertyWriter;
 
 import java.util.List;
 

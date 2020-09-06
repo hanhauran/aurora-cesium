@@ -1,9 +1,9 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Cartesian;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.TimeInterval;
-import aurora.cesium.language.writer.ViewFromCesiumWriter;
+import cesiumlanguagewriter.Cartesian;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.TimeInterval;
+import cesiumlanguagewriter.ViewFromCesiumWriter;
 
 import java.util.List;
 import java.util.function.Supplier;

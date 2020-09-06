@@ -1,9 +1,9 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CesiumClassificationType;
-import aurora.cesium.language.writer.ClassificationTypeCesiumWriter;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.CesiumClassificationType;
+import cesiumlanguagewriter.ClassificationTypeCesiumWriter;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;

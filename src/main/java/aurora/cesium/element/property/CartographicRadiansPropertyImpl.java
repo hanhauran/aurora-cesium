@@ -1,12 +1,10 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.Cartographic;
-import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.PositionCesiumWriter;
-import aurora.cesium.language.writer.advanced.ICesiumCartographicRadiansValuePropertyWriter;
+import cesiumlanguagewriter.Cartographic;
+import cesiumlanguagewriter.JulianDate;
+import cesiumlanguagewriter.advanced.ICesiumCartographicRadiansValuePropertyWriter;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * @author hanhaoran

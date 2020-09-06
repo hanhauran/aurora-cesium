@@ -5,8 +5,8 @@ import aurora.cesium.CzmlGenerator;
 import aurora.cesium.element.Entity;
 import aurora.cesium.element.Document;
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.Cartographic;
-import aurora.cesium.language.writer.CesiumHeightReference;
+import cesiumlanguagewriter.Cartographic;
+import cesiumlanguagewriter.CesiumHeightReference;
 import org.junit.Test;
 
 import java.awt.*;

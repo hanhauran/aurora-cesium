@@ -1,9 +1,9 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.BackgroundPaddingCesiumWriter;
-import aurora.cesium.language.writer.Rectangular;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.BackgroundPaddingCesiumWriter;
+import cesiumlanguagewriter.Rectangular;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;

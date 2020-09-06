@@ -1,9 +1,9 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.DoubleCesiumWriter;
-import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.Reference;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.DoubleCesiumWriter;
+import cesiumlanguagewriter.JulianDate;
+import cesiumlanguagewriter.Reference;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;

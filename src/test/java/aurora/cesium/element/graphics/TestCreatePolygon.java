@@ -5,8 +5,10 @@ import aurora.cesium.CzmlGenerator;
 import aurora.cesium.element.Entity;
 import aurora.cesium.element.Document;
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.*;
 import aurora.cesium.utils.Times;
+import cesiumlanguagewriter.Cartographic;
+import cesiumlanguagewriter.CesiumHeightReference;
+import cesiumlanguagewriter.TimeInterval;
 import org.junit.Test;
 
 import java.awt.*;

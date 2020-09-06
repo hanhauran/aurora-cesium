@@ -1,7 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.UnitCartesian;
-import aurora.cesium.language.writer.advanced.ICesiumUnitCartesian3ValuePropertyWriter;
+import cesiumlanguagewriter.UnitCartesian;
+import cesiumlanguagewriter.advanced.ICesiumUnitCartesian3ValuePropertyWriter;
 
 /**
  * @author hanhaoran

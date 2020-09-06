@@ -1,9 +1,7 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.BillboardCesiumWriter;
-import aurora.cesium.language.writer.NearFarScalar;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -19,7 +17,7 @@ public interface BillboardGraphics extends Graphics<BillboardGraphics, Billboard
     }
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Cartesian} Property specifying the unit vector axis of rotation
+     * Gets or sets the {@link Cartesian} Property specifying the unit vector axis of rotation
      * in the fixed frame. When set to Cartesian3.ZERO the rotation is from the top of the screen.
      */
     AlignedAxisProperty getAlignedAxis();
@@ -40,12 +38,12 @@ public interface BillboardGraphics extends Graphics<BillboardGraphics, Billboard
     DoubleProperty getDisabledDepthTestDistance();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this billboard will be displayed.
+     * Gets or sets the {@link Bounds} Property specifying at what distance from the camera that this billboard will be displayed.
      */
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Cartesian} Property specifying the billboard's offset in eye coordinates.
+     * Gets or sets the {@link Cartesian} Property specifying the billboard's offset in eye coordinates.
      * Eye coordinates is a left-handed coordinate system, where <code>x</code> points towards the viewer's
      * right, <code>y</code> points up, and <code>z</code> points into the screen.
      * <p>
@@ -64,12 +62,12 @@ public interface BillboardGraphics extends Graphics<BillboardGraphics, Billboard
     DoubleProperty getHeight();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHeightReference}.
+     * Gets or sets the Property specifying the {@link CesiumHeightReference}.
      */
     HeightReferenceProperty getHeightReference();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHorizontalOrigin}.
+     * Gets or sets the Property specifying the {@link CesiumHorizontalOrigin}.
      */
     HorizontalOriginProperty getHorizontalOrigin();
 
@@ -79,14 +77,14 @@ public interface BillboardGraphics extends Graphics<BillboardGraphics, Billboard
     UriProperty getImage();
 
     /**
-     * Gets or sets the Property specifying a {@link aurora.cesium.language.writer.BoundingRectangle} that defines a
+     * Gets or sets the Property specifying a {@link BoundingRectangle} that defines a
      * sub-region of the <code>image</code> to use for the billboard, rather than the entire image,
      * measured in pixels from the bottom-left.
      */
     BoundingRectangleProperty getImageSubRegion();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Rectangular} Property specifying the billboard's pixel offset in screen space
+     * Gets or sets the {@link Rectangular} Property specifying the billboard's pixel offset in screen space
      * from the origin of this billboard.  This is commonly used to align multiple billboards and labels at
      * the same position, e.g., an image and text.  The screen space origin is the top, left corner of the
      * canvas; <code>x</code> increases from left to right, and <code>y</code> increases from top to bottom.
@@ -115,7 +113,7 @@ public interface BillboardGraphics extends Graphics<BillboardGraphics, Billboard
     DoubleProperty getScale();
 
     /**
-     * Gets or sets {@link aurora.cesium.language.writer.NearFarScalar} Property specifying the scale of the billboard based on the distance from the camera.
+     * Gets or sets {@link NearFarScalar} Property specifying the scale of the billboard based on the distance from the camera.
      * A billboard's scale will interpolate between the {@link NearFarScalar#getNearValue()} and
      * {@link NearFarScalar#getFarValue()} while the camera distance falls within the lower and upper bounds
      * of the specified {@link NearFarScalar#getNearDistance()} and {@link NearFarScalar#getFarDistance()}.
@@ -144,7 +142,7 @@ public interface BillboardGraphics extends Graphics<BillboardGraphics, Billboard
     NearFarScalarProperty getTranslucencyByDistance();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumVerticalOrigin}.
+     * Gets or sets the Property specifying the {@link CesiumVerticalOrigin}.
      */
     VerticalOriginProperty getVerticalOrigin();
 

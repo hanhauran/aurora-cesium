@@ -4,8 +4,8 @@ import aurora.cesium.element.property.BooleanProperty;
 import aurora.cesium.element.property.ColorProperty;
 import aurora.cesium.element.property.DirectionProperty;
 import aurora.cesium.element.property.DoubleProperty;
-import aurora.cesium.language.writer.TimeInterval;
-import aurora.cesium.language.writer.VectorCesiumWriter;
+import cesiumlanguagewriter.TimeInterval;
+import cesiumlanguagewriter.VectorCesiumWriter;
 
 import java.util.List;
 import java.util.Optional;

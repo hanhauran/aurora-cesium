@@ -2,8 +2,8 @@ package aurora.cesium;
 
 import aurora.cesium.element.Entity;
 import aurora.cesium.element.Document;
-import aurora.cesium.language.writer.CesiumOutputStream;
-import aurora.cesium.language.writer.CesiumStreamWriter;
+import cesiumlanguagewriter.CesiumOutputStream;
+import cesiumlanguagewriter.CesiumStreamWriter;
 
 import java.io.Writer;
 import java.util.Optional;

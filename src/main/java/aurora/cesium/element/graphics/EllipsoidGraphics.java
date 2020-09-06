@@ -1,8 +1,7 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.EllipsoidCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -18,7 +17,7 @@ public interface EllipsoidGraphics extends Graphics<EllipsoidGraphics, Ellipsoid
     }
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this ellipsoid will be displayed.
+     * Gets or sets the {@link Bounds} Property specifying at what distance from the camera that this ellipsoid will be displayed.
      */
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
@@ -28,12 +27,12 @@ public interface EllipsoidGraphics extends Graphics<EllipsoidGraphics, Ellipsoid
     BooleanProperty getFill();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHeightReference}.
+     * Gets or sets the Property specifying the {@link CesiumHeightReference}.
      */
     HeightReferenceProperty getHeightReference();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Cartesian} specifying the inner radii of the ellipsoid.
+     * Gets or sets the {@link Cartesian} specifying the inner radii of the ellipsoid.
      */
     EllipsoidRadiiProperty getInnerRadii();
 
@@ -78,7 +77,7 @@ public interface EllipsoidGraphics extends Graphics<EllipsoidGraphics, Ellipsoid
     DoubleProperty getOutlineWidth();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Cartesian} specifying the radii of the ellipsoid.
+     * Gets or sets the {@link Cartesian} specifying the radii of the ellipsoid.
      */
     EllipsoidRadiiProperty getRadii();
 

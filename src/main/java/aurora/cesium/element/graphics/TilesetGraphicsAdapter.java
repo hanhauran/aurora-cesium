@@ -3,8 +3,8 @@ package aurora.cesium.element.graphics;
 import aurora.cesium.element.property.BooleanProperty;
 import aurora.cesium.element.property.DoubleProperty;
 import aurora.cesium.element.property.UriProperty;
-import aurora.cesium.language.writer.TilesetCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.TilesetCesiumWriter;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.Optional;

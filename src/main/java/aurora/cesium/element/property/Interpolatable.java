@@ -1,6 +1,6 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.advanced.ICesiumInterpolatablePropertyWriter;
+import cesiumlanguagewriter.advanced.ICesiumInterpolatablePropertyWriter;
 
 import java.util.Optional;
 

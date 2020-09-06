@@ -1,8 +1,8 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.JulianDate;
-import aurora.cesium.language.writer.Rectangular;
-import aurora.cesium.language.writer.advanced.ICesiumCartesian2ValuePropertyWriter;
+import cesiumlanguagewriter.JulianDate;
+import cesiumlanguagewriter.Rectangular;
+import cesiumlanguagewriter.advanced.ICesiumCartesian2ValuePropertyWriter;
 
 import java.util.List;
 

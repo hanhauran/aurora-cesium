@@ -1,8 +1,10 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.CylinderCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.CesiumHeightReference;
+import cesiumlanguagewriter.CylinderCesiumWriter;
+import cesiumlanguagewriter.Bounds;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -23,7 +25,7 @@ public interface CylinderGraphics extends Graphics<CylinderGraphics, CylinderCes
     DoubleProperty getBottomRadius();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this cylinder will be displayed.
+     * Gets or sets the {@link Bounds} Property specifying at what distance from the camera that this cylinder will be displayed.
      */
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
@@ -33,7 +35,7 @@ public interface CylinderGraphics extends Graphics<CylinderGraphics, CylinderCes
     BooleanProperty getFill();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHeightReference}.
+     * Gets or sets the Property specifying the {@link CesiumHeightReference}.
      */
     HeightReferenceProperty getHeightReference();
 

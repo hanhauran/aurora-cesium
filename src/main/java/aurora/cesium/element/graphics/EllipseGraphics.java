@@ -1,8 +1,7 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.EllipseCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -18,13 +17,13 @@ public interface EllipseGraphics extends Graphics<EllipseGraphics, EllipseCesium
     }
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.CesiumClassificationType} Property specifying whether this ellipse will classify terrain, 3D
+     * Gets or sets the {@link CesiumClassificationType} Property specifying whether this ellipse will classify terrain, 3D
      * Tiles, or both when on the ground.
      */
     ClassificationTypeProperty getClassificationType();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this ellipse will be displayed.
+     * Gets or sets the {@link Bounds} Property specifying at what distance from the camera that this ellipse will be displayed.
      */
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
@@ -35,7 +34,7 @@ public interface EllipseGraphics extends Graphics<EllipseGraphics, EllipseCesium
     DoubleProperty getExtrudedHeight();
 
     /**
-     * Gets or sets the Property specifying the extruded {@link aurora.cesium.language.writer.CesiumHeightReference}.
+     * Gets or sets the Property specifying the extruded {@link CesiumHeightReference}.
      */
     HeightReferenceProperty getExtrudedHeightReference();
 
@@ -55,7 +54,7 @@ public interface EllipseGraphics extends Graphics<EllipseGraphics, EllipseCesium
     DoubleProperty getHeight();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHeightReference}.
+     * Gets or sets the Property specifying the {@link CesiumHeightReference}.
      */
     HeightReferenceProperty getHeightReference();
 

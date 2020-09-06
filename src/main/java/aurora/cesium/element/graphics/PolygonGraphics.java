@@ -1,8 +1,9 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.PolygonCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.PolygonCesiumWriter;
+import cesiumlanguagewriter.CesiumArcType;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -18,7 +19,7 @@ public interface PolygonGraphics extends Graphics<PolygonGraphics, PolygonCesium
     }
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.CesiumArcType} Property specifying the type of lines the polygon edges use.
+     * Gets or sets the {@link CesiumArcType} Property specifying the type of lines the polygon edges use.
      */
     ArcTypeProperty getArcType();
 

@@ -4,8 +4,9 @@ import aurora.cesium.element.property.BooleanProperty;
 import aurora.cesium.element.property.DistanceDisplayConditionProperty;
 import aurora.cesium.element.property.DoubleProperty;
 import aurora.cesium.element.property.PolylineMaterialProperty;
-import aurora.cesium.language.writer.PathCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.Bounds;
+import cesiumlanguagewriter.PathCesiumWriter;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -21,7 +22,7 @@ public interface PathGraphics extends Graphics<PathGraphics, PathCesiumWriter> {
     }
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this path will be displayed.
+     * Gets or sets the {@link Bounds} Property specifying at what distance from the camera that this path will be displayed.
      */
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 

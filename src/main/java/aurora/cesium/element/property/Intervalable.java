@@ -1,8 +1,8 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CesiumIntervalListWriter;
-import aurora.cesium.language.writer.TimeInterval;
-import aurora.cesium.language.writer.advanced.CesiumPropertyWriter;
+import cesiumlanguagewriter.CesiumIntervalListWriter;
+import cesiumlanguagewriter.TimeInterval;
+import cesiumlanguagewriter.advanced.CesiumPropertyWriter;
 
 import java.util.List;
 import java.util.Optional;

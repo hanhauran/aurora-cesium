@@ -1,7 +1,7 @@
 package aurora.cesium.element.property;
 
-import aurora.cesium.language.writer.CartographicExtent;
-import aurora.cesium.language.writer.advanced.ICesiumCartographicRectangleRadiansValuePropertyWriter;
+import cesiumlanguagewriter.CartographicExtent;
+import cesiumlanguagewriter.advanced.ICesiumCartographicRectangleRadiansValuePropertyWriter;
 
 /**
  * @author hanhaoran

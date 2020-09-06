@@ -1,8 +1,10 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.ModelCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.CesiumHeightReference;
+import cesiumlanguagewriter.ModelCesiumWriter;
+import cesiumlanguagewriter.Bounds;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -41,7 +43,7 @@ public interface ModelGraphics extends Graphics<ModelGraphics, ModelCesiumWriter
     ColorBlendModeProperty getColorBlendMode();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this model will be displayed.
+     * Gets or sets the {@link Bounds} Property specifying at what distance from the camera that this model will be displayed.
      */
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
@@ -51,7 +53,7 @@ public interface ModelGraphics extends Graphics<ModelGraphics, ModelCesiumWriter
     UriProperty getGltf();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHeightReference}.
+     * Gets or sets the Property specifying the {@link CesiumHeightReference}.
      */
     HeightReferenceProperty getHeightReference();
 

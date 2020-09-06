@@ -1,8 +1,11 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.BoxCesiumWriter;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.BoxCesiumWriter;
+import cesiumlanguagewriter.Bounds;
+import cesiumlanguagewriter.Cartesian;
+import cesiumlanguagewriter.CesiumHeightReference;
+import cesiumlanguagewriter.TimeInterval;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -18,12 +21,12 @@ public interface BoxGraphics extends Graphics<BoxGraphics, BoxCesiumWriter> {
     }
 
     /**
-     * Gets or sets {@link aurora.cesium.language.writer.Cartesian} Property property specifying the length, width, and height of the box.
+     * Gets or sets {@link Cartesian} Property property specifying the length, width, and height of the box.
      */
     BoxDimensionsProperty getDimensions();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this box will be displayed.
+     * Gets or sets the {@link Bounds} Property specifying at what distance from the camera that this box will be displayed.
      */
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
@@ -33,7 +36,7 @@ public interface BoxGraphics extends Graphics<BoxGraphics, BoxCesiumWriter> {
     BooleanProperty getFill();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHeightReference}.
+     * Gets or sets the Property specifying the {@link CesiumHeightReference}.
      */
     HeightReferenceProperty getHeightReference();
 

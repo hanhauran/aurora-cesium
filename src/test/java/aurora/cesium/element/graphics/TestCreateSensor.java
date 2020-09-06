@@ -5,9 +5,9 @@ import aurora.cesium.CzmlGenerator;
 import aurora.cesium.element.Entity;
 import aurora.cesium.element.Document;
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.Cartesian;
-import aurora.cesium.language.writer.CesiumSensorVolumePortionToDisplay;
-import aurora.cesium.language.writer.UnitQuaternion;
+import cesiumlanguagewriter.Cartesian;
+import cesiumlanguagewriter.CesiumSensorVolumePortionToDisplay;
+import cesiumlanguagewriter.UnitQuaternion;
 import org.junit.Test;
 
 import java.awt.*;

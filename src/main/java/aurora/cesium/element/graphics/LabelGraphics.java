@@ -1,9 +1,7 @@
 package aurora.cesium.element.graphics;
 
 import aurora.cesium.element.property.*;
-import aurora.cesium.language.writer.LabelCesiumWriter;
-import aurora.cesium.language.writer.NearFarScalar;
-import aurora.cesium.language.writer.TimeInterval;
+import cesiumlanguagewriter.*;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -24,7 +22,7 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     ColorProperty getBackgroundColor();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Rectangular} Property specifying the label's horizontal and vertical
+     * Gets or sets the {@link Rectangular} Property specifying the label's horizontal and vertical
      * background padding in pixels.
      */
     BackgroundPaddingProperty getBackgroundPadding();
@@ -36,12 +34,12 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     DoubleProperty getDisableDepthTestDistance();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Bounds} Property specifying at what distance from the camera that this label will be displayed.
+     * Gets or sets the {@link Bounds} Property specifying at what distance from the camera that this label will be displayed.
      */
     DistanceDisplayConditionProperty getDistanceDisplayCondition();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Cartesian} Property specifying the label's offset in eye coordinates.
+     * Gets or sets the {@link Cartesian} Property specifying the label's offset in eye coordinates.
      * Eye coordinates is a left-handed coordinate system, where <code>x</code> points towards the viewer's
      * right, <code>y</code> points up, and <code>z</code> points into the screen.
      * <p>
@@ -64,12 +62,12 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     FontProperty getFont();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHeightReference}.
+     * Gets or sets the Property specifying the {@link CesiumHeightReference}.
      */
     HeightReferenceProperty getHeightReference();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumHorizontalOrigin}.
+     * Gets or sets the Property specifying the {@link CesiumHorizontalOrigin}.
      */
     HorizontalOriginProperty getHorizontalOrigin();
 
@@ -84,7 +82,7 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     DoubleProperty getOutlineWidth();
 
     /**
-     * Gets or sets the {@link aurora.cesium.language.writer.Rectangular} Property specifying the label's pixel offset in screen space
+     * Gets or sets the {@link Rectangular} Property specifying the label's pixel offset in screen space
      * from the origin of this label.  This is commonly used to align multiple labels and labels at
      * the same position, e.g., an image and text.  The screen space origin is the top, left corner of the
      * canvas; <code>x</code> increases from left to right, and <code>y</code> increases from top to bottom.
@@ -128,7 +126,7 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     BooleanProperty getShowBackground();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumLabelStyle}.
+     * Gets or sets the Property specifying the {@link CesiumLabelStyle}.
      */
     LabelStyleProperty getStyle();
 
@@ -148,7 +146,7 @@ public interface LabelGraphics extends Graphics<LabelGraphics, LabelCesiumWriter
     NearFarScalarProperty getTranslucencyByDistance();
 
     /**
-     * Gets or sets the Property specifying the {@link aurora.cesium.language.writer.CesiumVerticalOrigin}.
+     * Gets or sets the Property specifying the {@link CesiumVerticalOrigin}.
      */
     VerticalOriginProperty getVerticalOrigin();
 
