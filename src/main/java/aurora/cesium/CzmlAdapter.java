@@ -31,9 +31,9 @@ class CzmlAdapter implements Czml {
     }
 
     @Override
-    public Czml setDocument(Document document) {
+    public Document setDocument(Document document) {
         this.document = document;
-        return this;
+        return document;
     }
 
     @Override
@@ -47,9 +47,9 @@ class CzmlAdapter implements Czml {
     }
 
     @Override
-    public Czml push(Entity entity) {
+    public Entity push(Entity entity) {
         entities.add(entity);
         Optional.ofNullable(entity.getId()).ifPresent(id -> entityMap.put(id, entity));
-        return this;
+        return entity;
     }
 }

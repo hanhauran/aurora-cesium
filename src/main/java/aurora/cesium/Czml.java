@@ -21,11 +21,11 @@ public interface Czml {
 
     Document getDocument();
 
-    Czml setDocument(Document document);
+    Document setDocument(Document document);
 
     Collection<Entity> getEntities();
 
     Entity getEntity(String id);
 
-    Czml push(Entity entity);
+    Entity push(Entity entity);
 }
