@@ -64,5 +64,6 @@ public interface PositionProperty extends Property<PositionCesiumWriter>, Deleta
     @Override
     Reference getReference();
 
+    @Override
     void dispatch(Supplier<PositionCesiumWriter> supplier);
 }
